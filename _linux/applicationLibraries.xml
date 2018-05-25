@@ -1,0 +1,69 @@
+<application>
+  <component name="libraryTable">
+    <library name="jersey" type="repository">
+      <properties maven-id="org.web3j:core:3.0.2" />
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/web3j/core/3.0.2/core-3.0.2.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/web3j/crypto/3.0.2/crypto-3.0.2.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/web3j/utils/3.0.2/utils-3.0.2.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/bouncycastle/bcprov-jdk15on/1.54/bcprov-jdk15on-1.54.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/squareup/okhttp3/okhttp/3.8.1/okhttp-3.8.1.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/squareup/okio/okio/1.13.0/okio-1.13.0.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/web3j/rlp/3.0.2/rlp-3.0.2.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/io/reactivex/rxjava/1.2.4/rxjava-1.2.4.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/squareup/okhttp3/logging-interceptor/3.8.1/logging-interceptor-3.8.1.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/web3j/abi/3.0.2/abi-3.0.2.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/github/jnr/jnr-unixsocket/0.15/jnr-unixsocket-0.15.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/github/jnr/jnr-ffi/2.1.2/jnr-ffi-2.1.2.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/github/jnr/jffi/1.2.14/jffi-1.2.14.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/ow2/asm/asm/5.0.3/asm-5.0.3.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/ow2/asm/asm-commons/5.0.3/asm-commons-5.0.3.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/ow2/asm/asm-analysis/5.0.3/asm-analysis-5.0.3.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/ow2/asm/asm-tree/5.0.3/asm-tree-5.0.3.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/ow2/asm/asm-util/5.0.3/asm-util-5.0.3.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/github/jnr/jnr-x86asm/1.0.2/jnr-x86asm-1.0.2.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/github/jnr/jnr-constants/0.9.6/jnr-constants-0.9.6.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/github/jnr/jnr-enxio/0.14/jnr-enxio-0.14.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/github/jnr/jnr-posix/3.0.33/jnr-posix-3.0.33.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-databind/2.8.5/jackson-databind-2.8.5.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-annotations/2.8.0/jackson-annotations-2.8.0.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-core/2.8.5/jackson-core-2.8.5.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/web3j/tuples/3.0.2/tuples-3.0.2.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
+    <library name="org.web3j:core:2.3.1" type="repository">
+      <properties maven-id="org.web3j:core:2.3.1" />
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/web3j/core/2.3.1/core-2.3.1.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-databind/2.8.5/jackson-databind-2.8.5.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-annotations/2.8.0/jackson-annotations-2.8.0.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-core/2.8.5/jackson-core-2.8.5.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/io/reactivex/rxjava/1.2.4/rxjava-1.2.4.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/squareup/javapoet/1.7.0/javapoet-1.7.0.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/httpcomponents/httpclient/4.5.2/httpclient-4.5.2.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/apache/httpcomponents/httpcore/4.4.4/httpcore-4.4.4.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/commons-logging/commons-logging/1.2/commons-logging-1.2.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/commons-codec/commons-codec/1.9/commons-codec-1.9.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/bouncycastle/bcprov-jdk15on/1.54/bcprov-jdk15on-1.54.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/github/jnr/jnr-unixsocket/0.15/jnr-unixsocket-0.15.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/github/jnr/jnr-ffi/2.1.2/jnr-ffi-2.1.2.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/github/jnr/jffi/1.2.14/jffi-1.2.14.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/ow2/asm/asm/5.0.3/asm-5.0.3.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/ow2/asm/asm-commons/5.0.3/asm-commons-5.0.3.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/ow2/asm/asm-analysis/5.0.3/asm-analysis-5.0.3.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/ow2/asm/asm-tree/5.0.3/asm-tree-5.0.3.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/ow2/asm/asm-util/5.0.3/asm-util-5.0.3.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/github/jnr/jnr-x86asm/1.0.2/jnr-x86asm-1.0.2.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/github/jnr/jnr-constants/0.9.6/jnr-constants-0.9.6.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/github/jnr/jnr-enxio/0.14/jnr-enxio-0.14.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/github/jnr/jnr-posix/3.0.33/jnr-posix-3.0.33.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/lambdaworks/scrypt/1.4.0/scrypt-1.4.0.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
+  </component>
+</application>
