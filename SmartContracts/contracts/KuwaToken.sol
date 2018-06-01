@@ -20,7 +20,7 @@ contract KuwaToken {
     // expiration. Index 1 contains the challenge.
     // Challenges can be found with the publicKey
     mapping(string => uint256[2]) private challenges;
-
+    mapping(address => uint256) public withdrawals;
     // Unknown is set first as the default value. We do this in case a key is looked for and
     // it is not found in the mapping
     enum RegistrationStatus { Unknown, Funded, Waiting, Valid, Invalid }
@@ -92,8 +92,15 @@ contract KuwaToken {
     }
 
     // fallback function for contract to receive ether
-    function () payable public {
-        
+    function() payable public {
+        withdrawals[msg.sender] = msg.value;
+        require(withdrawals[msg.sender] == msg.value);
+    }
+
+    function withdraw(uint256 _amount) public {
+        require(_amount <= withdrawals[msg.sender], "Amount is exceeded");
+        //require(msg.sender.send(_amount), "Revert withdrawal");
+        msg.sender.transfer(_amount);
     }
 
     // Generates a 5-digit pseudorandom number
