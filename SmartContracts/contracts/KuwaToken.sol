@@ -19,7 +19,7 @@ contract KuwaToken {
     // recorded of the moment in which the challenge is generated in order to check for
     // expiration. Index 1 contains the challenge.
     // Challenges can be found with the publicKey
-    mapping(uint256 => uint256[2]) public challenges;
+    mapping(string => uint256[2]) private challenges;
 
     // Unknown is set first as the default value. We do this in case a key is looked for and
     // it is not found in the mapping
@@ -28,7 +28,7 @@ contract KuwaToken {
     // is returning an exception because of the data type. I have already tried byte32 and
     // it doesn't work. uint256 is converted to a BigInteger in the Java Wrapper which is
     // convenient, but it didn't work :(
-    mapping(uint256 => RegistrationStatus) public registrationStatus;
+    mapping(string => RegistrationStatus) private registrationStatus;
 
     mapping (address => uint256) public balanceOf; //ERC 20 balanceOf
     mapping(address => mapping(address => uint256)) public allowance;
@@ -114,7 +114,7 @@ contract KuwaToken {
     }
 
     // Generates a 5-digit pseudorandom number
-    function rand(uint256 _publicKey) private view returns (uint256){
+    function rand(string _publicKey) private view returns (uint256){
         // Generates random number
         uint256 lastBlockNumber = block.number - 1;
         uint256 hashVal = uint256(blockhash(lastBlockNumber));
@@ -131,7 +131,7 @@ contract KuwaToken {
     }
 	
     // Generates a challenge using the rand method and stores it in challenges
-    function generateChallenge(uint256 _publicKey) public {
+    function generateChallenge(string _publicKey) public {
         uint256 challenge = rand(_publicKey);
         challenges[_publicKey][0] = block.timestamp;
         challenges[_publicKey][1] = challenge;
@@ -140,7 +140,7 @@ contract KuwaToken {
     }
 
     // This was not part of the specification of the week but it makes sense to add it
-    function getChallenge(uint256 _publicKey) public view returns(uint256) {
+    function getChallenge(string _publicKey) public view returns(uint256) {
         uint256 timeElapsed = block.timestamp - challenges[_publicKey][0];
         // timestamp is in seconds, therefore, 36000s == 10min.
         // We may need to change this later.
@@ -154,17 +154,17 @@ contract KuwaToken {
 
     // Kind of unnecessary because registrationStatus mapping is public, so a getter method must
     // have been generated as well
-    function getRegistrationStatus(uint256 _publicKey) public view returns(RegistrationStatus) {
+    function getRegistrationStatus(string _publicKey) public view returns(RegistrationStatus) {
         return registrationStatus[_publicKey];
     }
 
-    function markAsValid(uint256 _publicKey) public returns(bool) {
+    function markAsValid(string _publicKey) public returns(bool) {
         registrationStatus[_publicKey] = RegistrationStatus.Valid;
         return true;
     }
 
     // I guess this one also makes sense. We should probably add this to the documentation
-    function markAsInvalid(uint256 _publicKey) public returns(bool) {
+    function markAsInvalid(string _publicKey) public returns(bool) {
         registrationStatus[_publicKey] = RegistrationStatus.Invalid;
         return true;
     }
