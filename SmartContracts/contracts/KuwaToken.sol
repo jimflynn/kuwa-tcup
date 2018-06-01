@@ -91,9 +91,9 @@ contract KuwaToken {
         return true;
     }
 
-    // Still don't know what you were doing here Manush hahaha
-    function storeRequest (uint256 _gas) payable public {
-        require (msg.value == _gas, "Revert balance to sender");
+    // fallback function for contract to receive ether
+    function () payable public {
+        
     }
 
     // Generates a 5-digit pseudorandom number
