@@ -50,6 +50,7 @@ app.initialize();
 
 // set up Web3
 var Web3 = require('web3');
+//var keythereum = require('keythereum');
 
 if (typeof web3 !== 'undefined')
     web3 = new Web3(web3.currentProvider);
@@ -61,24 +62,27 @@ var btn = document.getElementById("Submit");
 btn.addEventListener("click", sponsorService);
 
 function sponsorService() {
-
+    console.log('entering s1');
     var client_key = document.getElementById("client-key").value;
-    var sponsor_key = "MySharedSecretKey"; // get this from server later on in the project
+    var sponsor_key = "secret"; // get this from server later on in the project
 
     if (client_key === sponsor_key) { // note the triple ===, indicates equality for both value as well as type
 
-        // actual web3 uses different method, which requires a testnet to be set up using smart contracts
-        // skipping this for when we actually set up a real blockchain network
-        var public_key = generateNewKey();
-
-        // actual web3 uses different method, which requires a testnet to be set up using smart contracts
-        // skipping this for when we actually set up a real blockchain network
-        var private_key = generateNewKey();
-
-        // display client's keys to them
-        document.getElementById("public-key").innerHTML  = "Your account address is :<br>" + public_key;
-        var private_key_output = "Your private key is :<br>" + private_key + "<br> Please do NOT share the private key with anyone.";
-        document.getElementById("private-key").innerHTML = private_key_output;
+        var Wallet = require('ethereumjs-wallet');
+        var EthUtil = require('ethereumjs-util');
+        const privateKeyString = '0x61ce8b95ca5fd6f55cd97ac60817777bdf64f1670e903758ce53efc32c3dffeb';
+        const privateKeyBuffer = EthUtil.toBuffer(privateKeyString);
+        const wallet = Wallet.fromPrivateKey(privateKeyBuffer);
+        const publicKey = wallet.getPublicKeyString();
+        console.log(publicKey);
+        const address = wallet.getAddressString();
+        console.log(address);
+        const keystoreFilename = wallet.getV3Filename();
+        console.log(keystoreFilename);
+        const keystore = wallet.toV3("PASSWORD");
+        console.log(keystore);
+          
+        
     }
     else {
         alert("Your shared secret key did not match. Please try again.");
