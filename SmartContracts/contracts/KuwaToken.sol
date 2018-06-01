@@ -24,10 +24,6 @@ contract KuwaToken {
     // Unknown is set first as the default value. We do this in case a key is looked for and
     // it is not found in the mapping
     enum RegistrationStatus { Unknown, Funded, Waiting, Valid, Invalid }
-    // TODO: Need to check how to use public keys as a key in the mapping as the Java Wrapper
-    // is returning an exception because of the data type. I have already tried byte32 and
-    // it doesn't work. uint256 is converted to a BigInteger in the Java Wrapper which is
-    // convenient, but it didn't work :(
     mapping(string => RegistrationStatus) private registrationStatus;
 
     mapping (address => uint256) public balanceOf; //ERC 20 balanceOf
@@ -41,31 +37,24 @@ contract KuwaToken {
     );
 
 	// Approve event 
-
     event Approval(
         address indexed _owner,
         address indexed _spender,
         uint256 _value
     );
-	
 
 	//constructor
 	//set the total number of tokens
 	//read total number of tokens
-
     constructor (uint256 _initialSupply) public{
         // allocate the initial supply
         balanceOf[msg.sender] = _initialSupply;
         totalSupply = _initialSupply;
 
     }
-
-	
+    
 	// Transfer
     function transfer(address _to, uint256 _value) public returns(bool success){
-
-
-
         // Exception if account doesnt have enough balance
         require(balanceOf[msg.sender] >= _value, "Revert balance to Sender");
         
@@ -75,8 +64,7 @@ contract KuwaToken {
 
         //fire Transfer event according to ERC20
         emit Transfer(msg.sender, _to, _value);
-
-        //return a boolean	
+        
         return true;
     }
 
@@ -84,14 +72,11 @@ contract KuwaToken {
 	//approve
     function approve(address _spender, uint256 _value) public returns (bool success) {
         allowance[msg.sender][_spender] = _value;
-
         emit Approval(msg.sender, _spender, _value);
-
         return true;
     }
 	
 	//transferfrom
-
     function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {
         require(_value <= balanceOf[_from], "Revert balance to sender");
         require(_value <= allowance[_from][msg.sender], "Revert balance to sender because he doesnt have enough allowance");
@@ -108,9 +93,7 @@ contract KuwaToken {
 
     // Still don't know what you were doing here Manush hahaha
     function storeRequest (uint256 _gas) payable public {
-
         require (msg.value == _gas, "Revert balance to sender");
-        
     }
 
     // Generates a 5-digit pseudorandom number
@@ -149,11 +132,8 @@ contract KuwaToken {
         }
         // TODO: Maybe change the Registration Status here as well? Like RegistrationStatus.Expired
         return 0;
-        
     }
 
-    // Kind of unnecessary because registrationStatus mapping is public, so a getter method must
-    // have been generated as well
     function getRegistrationStatus(string _publicKey) public view returns(RegistrationStatus) {
         return registrationStatus[_publicKey];
     }
@@ -163,11 +143,9 @@ contract KuwaToken {
         return true;
     }
 
-    // I guess this one also makes sense. We should probably add this to the documentation
     function markAsInvalid(string _publicKey) public returns(bool) {
         registrationStatus[_publicKey] = RegistrationStatus.Invalid;
         return true;
     }
-
 }
 
