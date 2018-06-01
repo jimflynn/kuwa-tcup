@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="org.glassfish.jersey:jax-rs-ri:2.0-rc1" type="repository">
+    <properties maven-id="org.glassfish.jersey:jax-rs-ri:2.0-rc1" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/jax-rs-ri-2.0-rc1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
