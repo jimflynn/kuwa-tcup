@@ -1,0 +1,17 @@
+<application>
+  <component name="GitRememberedInputs">
+    <option name="visitedUrls">
+      <list>
+        <UrlAndUserName>
+          <option name="url" value="http://bitbucket.org" />
+          <option name="userName" value="info@kuwa.io" />
+        </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="https://bitbucket.org/kuwafoundation/tcup" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
+      </list>
+    </option>
+    <option name="cloneParentDir" value="$USER_HOME$/IdeaProjects" />
+  </component>
+</application>
