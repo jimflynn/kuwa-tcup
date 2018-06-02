@@ -1,14 +1,14 @@
 *.class
 *.log
 *.ctxt
-#*.jar
-#*.war
+*.jar
+*.war
 *.env
 *.ear
 *.zip
 *.tar.gz
 *.rar
 hs_err_pid*
-#.idea
-#*.iml
+.idea
+*.iml
 
