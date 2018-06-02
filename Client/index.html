@@ -31,7 +31,7 @@
 
         <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;"> -->
 
-        <meta name="author" content="Priyadarshi Rath">
+        <meta name="author" content="Hrishikesh Kashyap">
         <meta charset="utf-8">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
@@ -84,30 +84,28 @@
 
         <script>
 
-           var btn = document.getElementById("Submit");
-btn.addEventListener("click", onClickActions);
+        //on submitting the form, onClickAction is called
+        var btn = document.getElementById("Submit");
+        btn.addEventListener("click", onClickActions);
 
 
 function onClickActions(){
 
+
     result = validateSecretKey();
+    
     client_wallet_address = generateKeyPair();
 
+    storeRegistration = storeRegistrationRequest();
 
-    var xhttp = new XMLHttpRequest();
-    //calling the REST service to store the registration request
-    xhttp.open("POST", "http://127.0.0.1:5000/StoreRegistrationRequestService", true);
-    xhttp.setRequestHeader("Content-Type", "application/json");
-    var data = JSON.stringify({"wallet_address": client_wallet_address});
-
-    var reply = xhttp.send(data);
-    console.log(reply);
+    
 
     //sponsorService();
 
 
 }
 
+//function to call the REST API to validate the secret key entered by hte user with the secret key on the server
 function validateSecretKey(){
 
     var secret_key = document.getElementById("client-key").value;
@@ -177,8 +175,17 @@ function generateKeyPair() {
     }
 }
 
-function sponsorService() {
+//function to call the registrationrequest service on the server to store the new registration and create dir
+function storeRegistrationRequest(client_wallet_address) {
 
+    var xhttp = new XMLHttpRequest();
+    //calling the REST service to store the registration request
+    xhttp.open("POST", "http://127.0.0.1:5000/StoreRegistrationRequestService", true);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    var data = JSON.stringify({"wallet_address": client_wallet_address});
+
+    var reply = xhttp.send(data);
+    console.log(reply);
 
 }
 
