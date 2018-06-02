@@ -74,12 +74,122 @@
             <!-- </form> -->
         </div>
 
+
+
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/web3.min.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
+        <!-- <script type="text/javascript" src="js/index.js"></script> -->
+        
+        <script type="text/javascript" src="js/keythereum.min.js"></script>
+
+        <script>
+
+           var btn = document.getElementById("Submit");
+btn.addEventListener("click", onClickActions);
+
+
+function onClickActions(){
+
+    result = validateSecretKey();
+    client_wallet_address = generateKeyPair();
+
+
+    var xhttp = new XMLHttpRequest();
+    //calling the REST service to store the registration request
+    xhttp.open("POST", "http://127.0.0.1:5000/StoreRegistrationRequestService", true);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    var data = JSON.stringify({"wallet_address": client_wallet_address});
+
+    var reply = xhttp.send(data);
+    console.log(reply);
+
+    //sponsorService();
+
+
+}
+
+function validateSecretKey(){
+
+    var secret_key = document.getElementById("client-key").value;
+    var xhttp = new XMLHttpRequest();
+    //calling the REST service to store the registration request
+    xhttp.open("POST", "http://127.0.0.1:5000/ValidateSecretKeyService", true);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    var data = JSON.stringify({"secret_key": secret_key});
+
+    var reply = xhttp.send(data);
+    console.log(reply);
+
+
+
+}
+
+//function to validate the secret key and if valid, then generate a new wallet for the user
+function generateKeyPair() {
+    console.log('entering s1');
+    var client_key = document.getElementById("client-key").value;
+    var sponsor_key = "secret"; // get this from server later on in the project
+
+    if (client_key === sponsor_key) { // note the triple ===, indicates equality for both value as well as type
+        
+
+        var params = { keyBytes: 32, ivBytes: 16 };
+        var dk = keythereum.create(params);
+        
+        var password = "password" // user input option to give password needs to be implemented?
+        var kdf = "pbkdf2"; // or "scrypt" to use the scrypt kdf
+        
+        var options = {
+          kdf: "pbkdf2",
+          cipher: "aes-128-ctr",
+          kdfparams: {
+            c: 262144,
+            dklen: 32,
+            prf: "hmac-sha256"
+          }
+        };
+
+
+        var keyObject = keythereum.dump(password, dk.privateKey, dk.salt, dk.iv, options); //keyObject is generated using a combination of the password and private key. To get the private key of the newly created keyObject, one needs to have the password parameter passed into the function as well
+
+        var address = keyObject.address;
+        var privateKey = keythereum.recover(password, keyObject);
+
+        //the recovered private key will be in buffer and needs to be converted to Hex for readability
+        var readablePrivateKey = privateKey.toString('hex');
+        var addr2 = keythereum.privateKeyToAddress(privateKey)
+
+        console.log('Address: ' + address);
+        console.log('Private key(hex) ' + readablePrivateKey);
+        console.log('addr2: ' + addr2);
+
+
+        document.getElementById("wallet-address").innerHTML  = "Your wallet address is :<br>" + addr2;
+
+        var private_key_output = "Your private key is :<br>" + readablePrivateKey + "<br> Make a note of this key and please do NOT share the private key with anyone.";
+        document.getElementById("private-key").innerHTML = private_key_output;
+
+         return addr2; 
+        
+    }
+    else {
+        alert("Your shared secret key did not match. Please try again.");
+    }
+}
+
+function sponsorService() {
+
+
+}
+
+
+
+        </script>
+
+
 
         <div id="FormOutput">
-            <p id="public-key"></p>
+            <p id="wallet-address"></p>
             <p id="private-key"></p>
         </div>
 
@@ -88,9 +198,9 @@
         but it might not be pretty, since no styling is defined. Also note that blockchain.js will need a valid Infura key, for
         which a free account can be created. -->
 
-        <h2>Latest Block Information from Infura:</h2>
+       <!--  <h2>Latest Block Information from Infura:</h2>
         <p id="latest_block_info"></p>
-        <script src="js/blockchain.js"></script>
+        <script src="js/blockchain.js"></script> -->
 
     </body>
 </html>
