@@ -4,6 +4,7 @@ import json
 import os, errno
 app = Flask(__name__)
 import pathlib
+import config as cfg
 
 
 @app.route('/')
@@ -14,7 +15,7 @@ def hello_world():
 def storeRegistrationRequest():
         addr = request.json
         wallet_address = addr['wallet_address']
-        pathlib.Path('/Users/hrishikeshkashyap/Documents/kuwa/pyservice/registrations/'+wallet_address).mkdir(parents=True, exist_ok=True)
+        pathlib.Path(cfg.dir_path + wallet_address).mkdir(parents=True, exist_ok=True)
 
         return json.dumps('Registration successful')
 
@@ -25,7 +26,7 @@ def validateSecretKey():
     res = request.json
     secretKeyInputByUser = res['secret_key']
     print(secretKeyInputByUser)
-    if(secretKeyInputByUser == 'secret'):
+    if(secretKeyInputByUser == cfg.shared_secret):
         print('correct')
         return 'correct'
     else:
