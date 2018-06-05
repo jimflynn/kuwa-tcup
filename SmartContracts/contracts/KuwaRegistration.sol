@@ -145,12 +145,12 @@ contract KuwaRegistration {
         return registrationStatus;
     }
 
-    function markAsValid() public returns(bool) {
+    function markAsValid() public returns(bool success) {
         registrationStatus = RegistrationStatus.Valid;
         return true;
     }
 
-    function markAsInvalid() public returns(bool) {
+    function markAsInvalid() public returns(bool success) {
         registrationStatus = RegistrationStatus.Invalid;
         return true;
     }
