@@ -154,5 +154,11 @@ contract KuwaRegistration {
         registrationStatus = RegistrationStatus.Invalid;
         return true;
     }
+
+    /* Kills this contract and refunds the balance to the Sponsor */
+    function killContract() public returns () {
+        require(msg.sender == sponsorAddress);
+        selfdestruct(sponsorAddress);
+    }
 }
 
