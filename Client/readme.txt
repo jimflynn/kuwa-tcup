@@ -1,4 +1,4 @@
-Instructions for building an drunning the client:
+Instructions for building and running the client:
 
 1. Install nodeJS, npm
 
