@@ -156,7 +156,7 @@ contract KuwaRegistration {
     }
 
     /* Kills this contract and refunds the balance to the Sponsor */
-    function killContract() public returns () {
+    function killContract() public {
         require(msg.sender == sponsorAddress);
         selfdestruct(sponsorAddress);
     }
