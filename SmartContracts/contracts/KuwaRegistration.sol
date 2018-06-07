@@ -44,6 +44,11 @@ contract KuwaRegistration {
         uint256 _value
     );
 
+    event ChallengeValue (
+        uint256 _challenge,
+        RegistrationStatus _registrationStatus
+    );
+
 	//constructor
 	//set the total number of tokens
 	//read total number of tokens
@@ -116,7 +121,7 @@ contract KuwaRegistration {
         uint256 randNum = uint256(uint256(keccak256(abi.encodePacked(hashVal, _publicKey))) / FACTOR) + 1;
         // Sometimes the leading value is 0, so because we want the number always to
         // be 5 digits long, we just need to place it at the end of the challenge.
-        if (randNum < 10000) {
+        while (randNum < 10000) {
             randNum = randNum * 10;
         }
         return randNum;
@@ -130,14 +135,13 @@ contract KuwaRegistration {
     }
 
     // This was not part of the specification of the week but it makes sense to add it
-    function getChallenge() public returns(uint256) {
+    function getChallenge() public view returns(uint256) {
         uint256 timeElapsed = block.timestamp - challengeCreationTime;
         // timestamp is in seconds, therefore, 36000s == 10min.
         // We may need to change this later.
         if (timeElapsed < 36000) {
             return challenge;
         }
-        registrationStatus = RegistrationStatus.ChallengeExpired;
         return 0;
     }
 
