@@ -62,7 +62,7 @@ var run = async function() {
 
     // let contractInstance = await loadContract(compilation.abi, "0x30768510F1A57B12817CDC2a723C8AE21de071b5", 4300000, "22000000000", "0xF9F83AaA322aB613Db21229BE6ca9E2dF8a1A149");
 
-    await contractInstance.methods.generateChallenge().send();
+    //await contractInstance.methods.generateChallenge().send();
     let challenge = await contractInstance.methods.getChallenge().call();
     console.log(challenge);
 }

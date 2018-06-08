@@ -58,6 +58,7 @@ contract KuwaRegistration {
         totalSupply = _initialSupply;
         clientAddress = _clientAddress;
         sponsorAddress = msg.sender;
+        generateChallenge();
     }
     
 	// Transfer
@@ -128,7 +129,7 @@ contract KuwaRegistration {
     }
 	
     // Generates a challenge using the rand method and stores it in challenges
-    function generateChallenge() public {
+    function generateChallenge() private {
         challenge = rand(clientAddress);
         challengeCreationTime = block.timestamp;
         registrationStatus = RegistrationStatus.ChallengeGenerated;
