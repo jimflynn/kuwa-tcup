@@ -1,0 +1,16 @@
+{
+  "name": "registrar",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "chokidar": "^2.0.3",
+    "hash-files": "^1.1.1",
+    "web3": "^1.0.0-beta.34"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Priyadarshi",
+  "license": "ISC"
+}
