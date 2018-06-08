@@ -4,7 +4,7 @@ Registrar implementation in Node JS.
 
 /*
 TODO:
-1. For now, the contract address and contract ABI is hard-coded, later needs to be obtained from the storage manager.
+1. For now, the client address, contract address and contract ABI is hard-coded, later needs to be obtained from the storage manager.
 2. Web UI needs to be set up using ReactJS.
 */
 
