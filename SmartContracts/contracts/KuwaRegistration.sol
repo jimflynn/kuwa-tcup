@@ -15,7 +15,7 @@ contract KuwaRegistration {
 
     uint256 public totalSupply; //making public eliminates use of the function returning total supply for ERC20
 
-    string private clientPubKey;
+    address private clientAddress;
     address private sponsorAddress;
 
     uint256 private challenge;
@@ -52,11 +52,11 @@ contract KuwaRegistration {
 	//constructor
 	//set the total number of tokens
 	//read total number of tokens
-    constructor (uint256 _initialSupply, string _clientPubKey) public{
+    constructor (uint256 _initialSupply, address _clientAddress) public{
         // allocate the initial supply
         balanceOf[msg.sender] = _initialSupply;
         totalSupply = _initialSupply;
-        clientPubKey = _clientPubKey;
+        clientAddress = _clientAddress;
         sponsorAddress = msg.sender;
     }
     
@@ -111,7 +111,7 @@ contract KuwaRegistration {
     }
 
     // Generates a 5-digit pseudorandom number
-    function rand(string _publicKey) private view returns (uint256){
+    function rand(address _publicKey) private view returns (uint256){
         // Generates random number
         uint256 lastBlockNumber = block.number - 1;
         uint256 hashVal = uint256(blockhash(lastBlockNumber));
@@ -129,7 +129,7 @@ contract KuwaRegistration {
 	
     // Generates a challenge using the rand method and stores it in challenges
     function generateChallenge() public {
-        challenge = rand(clientPubKey);
+        challenge = rand(clientAddress);
         challengeCreationTime = block.timestamp;
         registrationStatus = RegistrationStatus.ChallengeGenerated;
     }

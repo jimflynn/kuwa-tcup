@@ -58,7 +58,7 @@ var run = async function() {
     await loadWallet('/home/clankster99/.ethereum/rinkeby/', 'f9f83aaa322ab613db21229be6ca9e2df8a1a149', 'tcupManush');
 
     let compilation = await compileSolFile("../contracts/KuwaRegistration.sol", "KuwaRegistration");
-    let contractInstance =  await deployContract(compilation.abi, compilation.bc, 4300000, '22000000000', "0xF9F83AaA322aB613Db21229BE6ca9E2dF8a1A149", [1000, "clientPubKey"]);
+    let contractInstance =  await deployContract(compilation.abi, compilation.bc, 4300000, '22000000000', "0xF9F83AaA322aB613Db21229BE6ca9E2dF8a1A149", [1000, "0xf9f83aaa322ab613db21229be6ca9e2df8a1a149"]);
 
     // let contractInstance = await loadContract(compilation.abi, "0x30768510F1A57B12817CDC2a723C8AE21de071b5", 4300000, "22000000000", "0xF9F83AaA322aB613Db21229BE6ca9E2dF8a1A149");
 
