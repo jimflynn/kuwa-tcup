@@ -23,6 +23,8 @@
       xhttp.onreadystatechange = function() {
          if (this.readyState == 4 && this.status == 200) {
             console.log(this.responseText);
+
+            //since the response is received as a string and it is actually an array , removing the special characters like [],
             str2 = this.responseText.replace(/[&\/\\#+()$~%.'":*?<>{}]/g,'');
             var res = str2.split(",");
             console.log(this.responseText);

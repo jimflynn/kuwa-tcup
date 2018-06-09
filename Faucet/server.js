@@ -7,6 +7,7 @@ const PORT = 3000;
 const Web3 = require('web3');
 let web3 = new Web3();
 
+//setting the provider to the local testrpc network
 web3.setProvider(new Web3.providers.HttpProvider('http://localhost:8545'));
 web3.eth.defaultAccount = web3.eth.accounts[0];
 
@@ -86,10 +87,13 @@ app.get('/blockchain', function(req,res){
 		"type": "function"
 	}
 ]
-
+	
+	//using the contract ABI to create the contract object and initialising an instnce of it
 	var KuwaFaucet = web3.eth.contract(contractABI);
 	var app = KuwaFaucet.at(0x9a7838db63fa2ff414bf51c515be884434a015c1);
 	console.log(app);
+
+	//calling the getValidKuwaID method to retrieve the list of public keys
    message = KuwaFaucet.at('0x9a7838db63fa2ff414bf51c515be884434a015c1').getValidKuwaID.call();
 
    res.send((message));
