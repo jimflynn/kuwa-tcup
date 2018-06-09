@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <link rel="stylesheet" type="text/html" href="index.css">
+
+   <title>Kuwa Faucet</title>
+</head>
+<body>
+   <h1>Kuwa Faucet</h1>
+   
+   <button onclick="getKuwaID()">Get Kuwa IDs</button>
+   <p id="addr1"></p>
+   <p id="addr2"></p>
+   <p id="addr3"></p>
+</body>
+<script>
+   function getKuwaID()
+   {
+	var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+         if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+            str2 = this.responseText.replace(/[&\/\\#+()$~%.'":*?<>{}]/g,'');
+            var res = str2.split(",");
+            console.log(this.responseText);
+         document.getElementById("addr1").innerHTML = res[0];
+         document.getElementById("addr2").innerHTML = res[1];
+         document.getElementById("addr3").innerHTML = res[2];
+
+         }
+      };
+      xhttp.open("GET", "/blockchain", true);
+      xhttp.send();
+   }
+</script>
+</html>
