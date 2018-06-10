@@ -9,4 +9,9 @@ http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 		<servlet-class>org.kuwa.WatcherService</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Watcher Service</servlet-name>
+		<url-pattern>/watch</url-pattern>
+	</servlet-mapping>
 </web-app>
