@@ -1,8 +1,9 @@
 package org.kuwa;
 
-import java.nio.file.*;
 import static java.nio.file.StandardWatchEventKinds.*;
 import static java.nio.file.LinkOption.*;
+
+import java.nio.file.*;
 import java.nio.file.attribute.*;
 import java.io.*;
 import java.util.*;
@@ -17,6 +18,26 @@ public class Watch implements Runnable {
     private final Map<WatchKey,Path> keys;
     private final boolean recursive;
     private boolean trace = false;
+
+    /**
+     * Creates a WatchService and registers the given directory
+     */
+    Watch(Path dir, boolean recursive) throws IOException {
+        this.watcher = FileSystems.getDefault().newWatchService();
+        this.keys = new HashMap<WatchKey,Path>();
+        this.recursive = recursive;
+
+        if (recursive) {
+            System.out.format("Scanning %s ...\n", dir);
+            registerAll(dir);
+            System.out.println("Done.");
+        } else {
+            register(dir);
+        }
+
+        // enable trace after initial registration
+        this.trace = true;
+    }
 
     @SuppressWarnings("unchecked")
     static <T> WatchEvent<T> cast(WatchEvent<?> event) {
@@ -56,26 +77,6 @@ public class Watch implements Runnable {
                 return FileVisitResult.CONTINUE;
             }
         });
-    }
-
-    /**
-     * Creates a WatchService and registers the given directory
-     */
-    Watch(Path dir, boolean recursive) throws IOException {
-        this.watcher = FileSystems.getDefault().newWatchService();
-        this.keys = new HashMap<WatchKey,Path>();
-        this.recursive = recursive;
-
-        if (recursive) {
-            System.out.format("Scanning %s ...\n", dir);
-            registerAll(dir);
-            System.out.println("Done.");
-        } else {
-            register(dir);
-        }
-
-        // enable trace after initial registration
-        this.trace = true;
     }
 
     /**
@@ -126,7 +127,7 @@ public class Watch implements Runnable {
                             registerAll(child);
                         }
                     } catch (IOException x) {
-                        // ignore to keep sample readbale
+                        // ignore to keep sample readable
                     }
                 }
             }
@@ -152,9 +153,8 @@ public class Watch implements Runnable {
     @Override
     public void run() {
         processEvents();
-        
         try {
-            Thread.sleep(100);
+            Thread.sleep(30000); // 30 seconds
         } catch(InterruptedException e) {
             e.printStackTrace();
         }

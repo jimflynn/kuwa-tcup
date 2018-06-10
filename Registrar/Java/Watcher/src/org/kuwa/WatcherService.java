@@ -20,10 +20,11 @@ public class WatcherService extends HttpServlet
         System.out.println("Working Directory = " + System.getProperty("user.dir"));
         System.out.println("=======================================================");
         // Set the path of the directory that contains the keys
-        Path dir = Paths.get("testWatch");
+        Path dir = Paths.get("/home/darshi/Kuwa/tcup/Registrar/Watcher/testWatch/");
+        System.out.println(dir.toString());
         // Start the watching thread for new folders being created
         try {
-            Thread watcher = new Thread(new Watch(dir, false));
+            Thread watcher = new Thread(new Watch(dir, true));
             watcher.start();
         } catch(IOException e) {
             e.printStackTrace();
