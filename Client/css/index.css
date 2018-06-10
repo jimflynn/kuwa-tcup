@@ -117,9 +117,9 @@ h1 {
     font-family: monospace;
 }
 
-#FormWrapper {
+.FormWrapper {
     width:70%;
-    margin: 0 auto; 
+    margin: 20px auto; 
     padding-top: 50px;
     padding-left: 20px;
     padding-bottom: 50px;
