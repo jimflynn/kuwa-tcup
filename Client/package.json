@@ -1,15 +1,16 @@
 {
-  "name": "client3",
+  "name": "node_tutorial",
   "version": "1.0.0",
-  "description": "kuwa client app",
-  "main": "index.html",
+  "description": "",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Hrishikesh",
-  "license": "MIT",
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "ethereumjs-util": "^5.2.0",
-    "ethereumjs-wallet": "^0.6.0"
+    "browserify": "^16.2.2",
+    "ethereumjs-wallet": "^0.6.0",
+    "express": "^4.16.3"
   }
 }
