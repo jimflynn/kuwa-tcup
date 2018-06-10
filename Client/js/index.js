@@ -49,39 +49,104 @@ app.initialize();
 // Priyadarshi Rath
 
 // set up Web3
-var Web3 = require('web3');
-//var keythereum = require('keythereum');
+// var Web3 = require('web3');
+// //var keythereum = require('keythereum');
 
-if (typeof web3 !== 'undefined')
-    web3 = new Web3(web3.currentProvider);
-else
-    web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/8Dx9RdhjqIl1y3EQzQpl/"));
+// if (typeof web3 !== 'undefined')
+//     web3 = new Web3(web3.currentProvider);
+// else
+//     web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/8Dx9RdhjqIl1y3EQzQpl/"));
 
 // listen to simple button click, later in this project we can use form submission event
 var btn = document.getElementById("Submit");
-btn.addEventListener("click", sponsorService);
+btn.addEventListener("click", onClickActions);
 
-function sponsorService() {
-    console.log('entering s1');
+function onClickActions(){
+
+
+    //result = validateSecretKey();
+    
+    client_wallet_address = generateKeyPair();
+
+    storeRegistration = storeRegistrationRequest();
+
+    
+
+    //sponsorService();
+
+
+}
+
+//function to call the REST API to validate the secret key entered by the user with the secret key on the server
+function validateSecretKey(){
+
+    var secret_key = document.getElementById("client-key").value;
+    var xhttp = new XMLHttpRequest();
+    //calling the REST service to store the registration request
+    xhttp.open("POST", "http://127.0.0.1:5000/ValidateSecretKeyService", true);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    var data = JSON.stringify({"secret_key": secret_key});
+
+    var reply = xhttp.send(data);
+    console.log(reply);
+
+
+
+}
+
+//function to validate the secret key and if valid, then generate a new wallet for the user
+function generateKeyPair() {
+    console.log('generating key pair');
     var client_key = document.getElementById("client-key").value;
     var sponsor_key = "secret"; // get this from server later on in the project
 
     if (client_key === sponsor_key) { // note the triple ===, indicates equality for both value as well as type
+        
+        //defining parameters and options to create the ethereum wallet
+        var params = { keyBytes: 32, ivBytes: 16 };
+        var dk = keythereum.create(params);
+        
+        var password = "password" // user input option to give password needs to be implemented?
+        var kdf = "pbkdf2"; // or "scrypt" to use the scrypt kdf
+        
+        var options = {
+          kdf: "pbkdf2",
+          cipher: "aes-128-ctr",
+          kdfparams: {
+            c: 262144,
+            dklen: 32,
+            prf: "hmac-sha256"
+          }
+        };
+
+
+        var keyObject = keythereum.dump(password, dk.privateKey, dk.salt, dk.iv, options); //keyObject is generated using a combination of the password and private key. To get the private key of the newly created keyObject, one needs to have the password parameter passed into the function as well
+
+        var address = keyObject.address;
+        var privateKey = keythereum.recover(password, keyObject);
+
+        //the recovered private key will be in buffer and needs to be converted to Hex for readability
+        var readablePrivateKey = privateKey.toString('hex');
+        var addr2 = keythereum.privateKeyToAddress(privateKey)
+
+        console.log('Address: ' + address);
+        console.log('Private key(hex) ' + readablePrivateKey);
+        console.log('addr2: ' + addr2);
+
 
         var Wallet = require('ethereumjs-wallet');
         var EthUtil = require('ethereumjs-util');
-        const privateKeyString = '0x61ce8b95ca5fd6f55cd97ac60817777bdf64f1670e903758ce53efc32c3dffeb';
-        const privateKeyBuffer = EthUtil.toBuffer(privateKeyString);
-        const wallet = Wallet.fromPrivateKey(privateKeyBuffer);
-        const publicKey = wallet.getPublicKeyString();
-        console.log(publicKey);
-        const address = wallet.getAddressString();
-        console.log(address);
-        const keystoreFilename = wallet.getV3Filename();
-        console.log(keystoreFilename);
-        const keystore = wallet.toV3("PASSWORD");
-        console.log(keystore);
-          
+
+        const wallet = Wallet.fromPrivateKey(privateKey);
+        var publicKey = wallet.getPublicKeyString();
+        console.log('Public key: ' + publicKey);
+
+        document.getElementById("public-key").innerHTML  = "Your public key is :<br>" + publicKey;
+
+        var private_key_output = "Your private key is :<br>" + readablePrivateKey + "<br> Make a note of this key and please do NOT share the private key with anyone.";
+        document.getElementById("private-key").innerHTML = private_key_output;
+
+        return address; 
         
     }
     else {
@@ -89,12 +154,28 @@ function sponsorService() {
     }
 }
 
-function generateNewKey() {
-  var text = "";
-  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+//function to call the registrationrequest service on the server to store the new registration and create dir
+function storeRegistrationRequest(client_wallet_address) {
 
-  for (var i = 0; i < 50; i++)
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
+    var xhttp = new XMLHttpRequest();
+    //calling the REST service to store the registration request
+    xhttp.open("POST", "http://dev.kuwa.org:8080/StoreRegistrationRequest_war/rest/files/upload", true);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    var data = JSON.stringify({"wallet_address": client_wallet_address});
 
-  return text;
+    var reply = xhttp.send(data);
+    console.log(reply);
+
 }
+
+
+var randomString = function(length) {
+            var text = "0x";
+            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            for(var i = 0; i < length; i++) {
+                text += possible.charAt(Math.floor(Math.random() * possible.length));
+            }
+            return text;
+        }
+
+
