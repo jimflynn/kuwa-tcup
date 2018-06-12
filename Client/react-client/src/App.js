@@ -9,10 +9,31 @@ import { Alert,
 class CreateKuwaId extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      showStepOne: true,
+      showLoading: false
+    }
+  }
+
+  createKeys() {
+    this.setState({
+      showStepOne: false,
+      showLoading: true
+    });
   }
 
   render() {
-    return <StepOne />;
+    if (this.state.showStepOne) {
+      return (
+        <StepOne 
+          createKeys={() => this.createKeys()}
+        />
+      );
+    } else if (this.state.showLoading) {
+      return (
+        <Loading />
+      );
+    }
   }
 }
 
@@ -39,7 +60,7 @@ class StepOne extends Component {
         <Row className="row-kuwa-reg">
           <Col>
             <h2>
-              <span class="header-kuwa-reg">Create your Kuwa Identity</span>
+              <span className="header-kuwa-reg">Create your Kuwa Identity</span>
               <Button color="primary" onClick={this.toggle} outline>
                 <Badge color="primary">?</Badge>
               </Button>
@@ -64,7 +85,7 @@ class StepOne extends Component {
               <Label for="password">Password</Label>
               <Input type="password" name="password" id="password" placeholder="Kuwa password" />
             </FormGroup>
-            <Button color="primary" onClick={this.onClick}>Create Keys</Button>
+            <Button color="primary" onClick={this.props.createKeys}>Create Keys</Button>
             </Form>
           </Col>
         </Row>
@@ -76,16 +97,17 @@ class StepOne extends Component {
 class Loading extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      show: true
-    };
   }
 
   render() {
     return (
-      <div>
-        {this.state.show ? <img src={loading} alt="loading" /> : null};
-      </div>
+      <Container>
+        <Row className="row-kuwa-reg">
+          <Col>
+            <img className="loading-kuwa-reg" src={loading} alt="loading" />
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }

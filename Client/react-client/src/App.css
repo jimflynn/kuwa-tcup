@@ -35,6 +35,11 @@
   margin: 10px;
 }
 
+.loading-kuwa-reg {
+  text-align: center;
+  margin: 100px;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
