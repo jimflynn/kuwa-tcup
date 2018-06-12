@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './sponsorship_requests.css';
 import axios from 'axios';
+import Popup from 'reactjs-popup';
 
 
 
@@ -13,10 +14,39 @@ class SponsorshipRequests extends Component {
     }
   }
 
+  //implemented a setinterval for continuous fetching
+
   componentDidMount(){
-    fetch('/sponsorship_requests/MySharedSecretKey')
-      .then(sponsorship_requests => this.setState({sponsorship_requests : sponsorship_requests.sponsorship_requests}, () => {
-      console.log('sponsorship requests fetched..', sponsorship_requests)}));
+    
+     this.interval = setInterval(() => {
+        axios.get('/sponsorship_requests/MySharedSecretKey')
+         .then(res => {
+          console.log(res.data);
+          this.setState({sponsorship_requests : res.data.sponsorship_requests});
+        })}, 1000);
+
+    //example get request to verify ajax is working
+
+    // axios.get('https://api.iextrading.com/1.0/ref-data/symbols')
+    //      .then(res => {
+    //       console.log(res.data);
+    //       this.setState({sponsorship_requests : res.data[0]});
+    //     })      
+
+    //update: it is working but ajax cant track changes in database without a page refresh.
+
+    // axios.get('/sponsorship_requests/MySharedSecretKey')
+    //      .then(res => {
+    //       console.log(res.data);
+    //       this.setState({sponsorship_requests : res.data.sponsorship_requests});
+    //     })      
+
+
+
+   }
+
+  componentWillUnmount() {
+  clearInterval(this.interval);
   }
 
   render() {
@@ -31,15 +61,42 @@ class SponsorshipRequests extends Component {
               <th> Contract Address </th>
             </tr>
 
-          {this.state.sponsorship_requests.map(sponsorship_requests => 
-            
-            <tr key={sponsorship_requests.sponsorship_request_id}> 
-                <td>{sponsorship_requests.date_time}</td>
-                <td>{sponsorship_requests.ip} </td>
-                <td></td>
-                <td id="contractAddress">{sponsorship_requests.registration_request_address}</td>   
-            </tr>
-            )}
+          {this.state.sponsorship_requests.map(sponsorship_requests =>  
+             
+            <tr key={sponsorship_requests.sponsorship_request_id}>  
+                <td>{sponsorship_requests.date_time}</td> 
+                <td>{sponsorship_requests.ip} </td> 
+                <td><Popup trigger={<button className="button"> Display </button>} modal>
+    {close => (
+      <div className="modal">
+        
+        
+        <div className="content">
+          {sponsorship_requests.registration_request_address}
+        </div>
+        <div className="actions">
+        </div>
+      </div>
+    )}
+  </Popup></td> 
+                <td id="contractAddress">
+                  <Popup trigger={<button className="button"> Display </button>} modal>
+    {close => (
+      <div className="modal">
+        
+        
+        <div className="content">
+          {" "}
+          {sponsorship_requests.registration_request_address}
+        </div>
+        <div className="actions">
+        </div>
+      </div>
+    )}
+  </Popup>
+                </td>    
+            </tr> 
+            )} 
 
         </table>
       </div>
@@ -48,3 +105,4 @@ class SponsorshipRequests extends Component {
 }
 
 export default SponsorshipRequests;
+  
