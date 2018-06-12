@@ -4,54 +4,54 @@ import './App.css';
 
 class App extends Component {
 
-  state = {database:[]};
+	constructor() {
+		super();
+		this.state = {
+			database:[]
+		};
+	}
 
-  componentDidMount() {
-    this.callApi()
-      .then(res => {
-        this.setState({database: res});
-        console.log('database =', this.state.database, '\n');
-      })
-      .catch(err => console.log(err));
-  }
+	componentDidMount() {
+		this.interval = setInterval(() => {
+			fetch('/registrations')
+			.then(response => response.json())
+			.then(response => this.setState({database: response}))
+			.then(console.log('DB =', this.state.database))
+		}, 5000);
+	}
 
-  callApi = async () => {
-    const database = await fetch('/registrations');
-    const body = await database.json();
+	componentWillUnmount() {
+		clearInterval(this.interval);
+	}
 
-    if (database.status !== 200) throw Error(body.message);
-
-    return body;
-  };
-
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <table id="tableIdToFill">
-          <thead>
-          <tr>
-              <th>Client Address</th>
-              <th>Contract Adress</th>
-              <th>Timestamp</th>
-              <th>Registration Status</th>
-          </tr>
-          {this.state.database.map(row =>
-            <tr>
-              <td>{row.client_address}</td>
-              <td>{row.client_contract_address}</td>
-              <td>{row.timestamp}</td>
-              <td>{row.status}</td>
-            </tr>
-          )}
-          </thead>
-        </table>
-      </div>
-    );
-  }
+	render() {
+		return (
+			<div className="App">
+				<header className="App-header">
+					<img src={logo} className="App-logo" alt="logo" />
+					<h1 className="App-title">Kuwa Registrar Database</h1>
+				</header>
+				<table id="tableIdToFill">
+					<thead>
+					<tr>
+						<th>Client Address</th>
+						<th>Contract Address</th>
+						<th>Timestamp</th>
+						<th>Registration Status</th>
+					</tr>
+					{this.state.database.map((row, index) => 
+					<tr key={index}>
+						<td> {row.client_address} </td>
+						<td> {row.client_contract_address} </td>
+						<td> {row.timestamp} </td>
+						<td> {row.status} </td>
+					</tr>
+					)}
+					</thead>
+				</table>
+			</div>
+		);
+	}
 }
 
 export default App;

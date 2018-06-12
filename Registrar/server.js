@@ -6,7 +6,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 var pool      =    mysql.createPool({
-    connectionLimit : 10,
+    connectionLimit : 100,
     host     : 'localhost',
     user     : 'root',
     password : 'sqlpassword',
@@ -16,26 +16,26 @@ var pool      =    mysql.createPool({
 
 app.get('/registrations', (req, res) => {
 
-	pool.getConnection((err,connection) => {
+    pool.getConnection((err,connection) => {
 
-		if (err) {
-			res.json({"code" : 100, "status" : "Error in connection database"});
-			return;
+        if (err) {
+            res.json({"code" : 100, "status" : "Error in connection database"});
+            return;
         }
 
-        console.log('connected as id ' + connection.threadId);
+        console.log('Server connected to Kuwa as id ' + connection.threadId);
 
         connection.query("select * from Regs", (err,rows) => {
             connection.release();
             if(!err) {
                 res.json(rows);
-                console.log(res);
+                console.log(rows);
             }
         });
 
-        connection.on('error', function(err) {      
-              res.json({"code" : 100, "status" : "Error in connection database"});
-              return;    
+        connection.on('error', function(err) {
+            res.json({"code" : 100, "status" : "Error in connection database"});
+            return;
         });
     });
 });

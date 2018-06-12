@@ -1,5 +1,5 @@
 /*
-Registrar implementation in Node JS.
+Watcher implementation in Node JS.
 */
 
 /*
@@ -11,11 +11,11 @@ TODO:
 var Web3 = require('web3');
 var web3 = new Web3('https://rinkeby.infura.io/8Dx9RdhjqIl1y3EQzQpl');
 
-// wrapper over 'fs' module in NodeJS, provides some improvement in watching files
-var chokidar = require('chokidar');
-
 // module to read file data
 var fs = require('fs');
+
+// wrapper over 'fs' module in NodeJS, provides some improvement in watching files
+var chokidar = require('chokidar');
 
 // module for hashing files
 var crypto = require('crypto');
@@ -27,16 +27,6 @@ var mysql = require('mysql');
 var dict = {};
 
 var abi = JSON.parse('[{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"markAsInvalid","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"killContract","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_amount","type":"uint256"}],"name":"withdraw","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"standard","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getChallenge","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"withdrawals","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"markAsValid","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"generateChallenge","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"address"}],"name":"allowance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getRegistrationStatus","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"_initialSupply","type":"uint256"},{"name":"_clientPubKey","type":"string"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"payable":true,"stateMutability":"payable","type":"fallback"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_owner","type":"address"},{"indexed":true,"name":"_spender","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"_challenge","type":"uint256"},{"indexed":false,"name":"_registrationStatus","type":"uint8"}],"name":"ChallengeValue","type":"event"}]');
-
-// // TODO: when abi can be stored in storage manager
-// var abi = '';
-// var stream = fs.ReadStream('abi.txt', 'utf8');
-// readStream.on('data', function(chunk) {
-// 	abi += chunk;
-// }).on('end', function() {
-// 	abi = JSON.parse(abi);
-//     console.log(abi);
-// });
 
 // TODO: obtain this from storage manager
 var client_address = "0xAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
@@ -78,7 +68,6 @@ function registerFile(event, path) {
 			if(!(hash in dict)) {
 				dict[hash] = path;
 				console.log(path + ' => ' + hash + ': Valid');
-				console.log('Current Hash Table: \n', dict);
 
 				// TODO: for now, only display the smart contract challenge phrase
 				// later while setting up the complete system, get `contractAddress` from storage manager
@@ -96,21 +85,21 @@ function registerFile(event, path) {
 					host: "localhost",
 					user: "root",
 					password: "sqlpassword",
-					database: "Kuwa"});
+					database: "Kuwa"
+				});
 				con.connect(function(err) {
 					if (err) {
 						throw err;
 					}
-					console.log("Connected to Kuwa Database!");
+					console.log("Watcher has connected to Kuwa Database!");
 					let date = new Date();
-					var sql = "INSERT INTO Regs (client_address, client_contract_address, timestamp, status)"
+					let sql = "INSERT INTO Regs (client_address, client_contract_address, timestamp, status)"
 								+ " VALUES (" 
 								+ "'" + client_address + "',"	// enclosing the values in single quotes is necessary because SQL
 																// expects data in that format
 								+ "'" + contractAddress + "'," 
 								+ "'" + date.toString() + "'," 
-								+ "'" + "1" + "'" + ")";
-					console.log(sql);
+								+ "'1')";
 					con.query(sql, function (err, result) {
 						if (err) {
 							throw err;
@@ -121,7 +110,35 @@ function registerFile(event, path) {
 			}
 			else {
 				console.log(path + ' => ' + hash + ': Invalid; Hash already exists');
-				console.log('Current Hash Table: \n', dict);
+
+				// add entry to DB
+				let con = mysql.createConnection({
+					host: "localhost",
+					user: "root",
+					password: "sqlpassword",
+					database: "Kuwa"
+				});
+				con.connect(function(err) {
+					if (err) {
+						throw err;
+					}
+					console.log("Watcher has connected to Kuwa Database!");
+					let date = new Date();
+					var sql = "INSERT INTO Regs (client_address, client_contract_address, timestamp, status)"
+								+ " VALUES (" 
+								+ "'" + client_address + "',"	// enclosing the values in single quotes is necessary because SQL
+																// expects data in that format
+								+ "'" + contractAddress + "'," 
+								+ "'" + date.toString() + "'," 
+								+ "'0')";
+					// console.log(sql);
+					con.query(sql, function (err, result) {
+						if (err) {
+							throw err;
+						}
+						console.log("1 record inserted");
+					});
+				});
 			}
 		})
 	}
