@@ -17,11 +17,11 @@ class CreateKuwaId extends Component {
     this.state = {
       showStepOne: true,
       showLoading: false,
-      showPrivateKey: false,
+      showRequestSponsorship: false,
       showStepTwo: false
     }
     this.password = '';
-    this.keyObjectAddress = '';
+    this.kuwaId = '';
     this.privateKey = '';
   }
 
@@ -52,7 +52,7 @@ class CreateKuwaId extends Component {
       });
       alert("An error occurred when generating keys.");
     } else {      
-      this.keyObjectAddress = keyObject.address;
+      this.kuwaId = keyObject.address;
       keythereum.recover(this.password, keyObject, this.showRegistrationRequest);
     }
   }
@@ -70,7 +70,7 @@ class CreateKuwaId extends Component {
       this.privateKey = privateKey.toString('hex');
       this.setState({
         showLoading: false,
-        showPrivateKey: true
+        showRequestSponsorship: true
       });
     }
   }
@@ -86,7 +86,7 @@ class CreateKuwaId extends Component {
 
   showStepTwo() {
     this.setState({
-      showPrivateKey: false,
+      showRequestSponsorship: false,
       showStepTwo: true
     });
   }
@@ -102,18 +102,17 @@ class CreateKuwaId extends Component {
       return (
         <Loading />
       );
-    } else if (this.state.showPrivateKey) {
+    } else if (this.state.showRequestSponsorship) {
       return (
-        <PrivateKey 
-          privateKey = {this.privateKey}
-          password = {this.password}
+        <RequestSponsorship 
+          kuwaId = {this.kuwaId}
           showStepTwo = {this.showStepTwo}
         />
       );
     } else if (this.state.showStepTwo) {
       return (
         <StepTwo 
-          ethereumAddress = {this.keyObjectAddress}
+          ethereumAddress = {this.kuwaId}
         />
       );
     }
@@ -123,29 +122,17 @@ class CreateKuwaId extends Component {
 class StepOne extends Component {
   constructor(props) {
     super(props);
-    this.toggle = this.toggle.bind(this);
+    this.toggle = toggle.bind(this);
     this.state = { 
       collapse: false,
       show: true,
       password: '',
       inputType: 'password' 
     };
-    this.handleChange = this.handleChange.bind(this);
+    this.handleChange = handleChange.bind(this);
     this.createKeys = this.createKeys.bind(this);
     this.passwordIsValid = this.passwordIsValid.bind(this);
-    this.togglePassword = this.togglePassword.bind(this);
-  }
-
-  toggle() {
-    this.setState({ 
-      collapse: !this.state.collapse
-    });
-  }
-
-  handleChange(event) {
-    this.setState({
-      password: event.target.value
-    });
+    this.togglePassword = togglePassword.bind(this);
   }
 
   createKeys() {
@@ -162,16 +149,6 @@ class StepOne extends Component {
       return true;
     }
     return false;
-  }
-
-  togglePassword(){
-    var inputType = 'password';
-    if (this.state.inputType == 'password') {
-      inputType = 'text';
-    }
-    this.setState({
-      inputType: inputType
-    });
   }
 
   render() {
@@ -196,6 +173,11 @@ class StepOne extends Component {
                 </CardBody>
               </Card>
             </Collapse>
+          </Col>
+        </Row>
+        <Row className="row-kuwa-reg">
+          <Col>
+            <strong>IMPORTANT:</strong> Keep your private key and password secret. <strong>Remember your password.</strong>
           </Col>
         </Row>
         <Row className="row-kuwa-reg">
@@ -239,15 +221,36 @@ class Loading extends Component {
   }
 }
 
-class PrivateKey extends Component {
+class RequestSponsorship extends Component {
   constructor(props) {
     super(props);
-    this.toggle = this.toggle.bind(this);
-    this.state = { collapse: false };
+    this.toggle = toggle.bind(this);
+    this.requestSponsorship = this.requestSponsorship.bind(this);
+    this.handleChange = handleChange.bind(this);
+    this.togglePassword = togglePassword.bind(this);
+    this.state = { 
+      collapse: false, 
+      password: '',
+      inputType: 'password'
+    };
   }
 
-  toggle() {
-    this.setState({ collapse: !this.state.collapse });
+  requestSponsorship() {
+    var formData = new FormData();
+
+    formData.append('address',this.props.kuwaId);
+    formData.append('SS',this.state.password);
+    
+    fetch('http://alpha.kuwa.org:3000/sponsorship_requests/', {
+     method: 'POST',
+     body: formData
+    })
+    .then(response => response.json())
+    .catch(error => console.error('Error:', error))
+    .then(response => console.log('Success:', response));
+    
+    return false;
+    
   }
 
   render() {
@@ -255,41 +258,26 @@ class PrivateKey extends Component {
       <Container>
         <Row className="row-kuwa-reg">
           <Col>
-            <h2>
-              Your private key: 
-            </h2>
-          </Col>
-        </Row>
-        <Row className="row-kuwa-reg">
-          <Col>
-           <span className="private-key">{this.props.privateKey}</span>
-          </Col>
-        </Row>
-        <Row className="row-kuwa-reg">
-          <Col>
-            <Button color="danger" onClick={this.toggle} style={{ marginBottom: '1rem' }}>Show Password</Button>
-          </Col>
-        </Row>
-        <Row className="row-kuwa-reg">
-          <Col>
-            <Collapse isOpen={this.state.collapse}>
-              <Card>
-                <CardBody>
-                  Your Password: <strong>{this.props.password}</strong>
-                </CardBody>
-              </Card>
-            </Collapse>
-          </Col>
-        </Row>
-        <Row className="row-kuwa-reg">
-          <Col>
-            <strong>IMPORTANT:</strong> Keep your private key and password secret. Remember your password.
+            <h3>
+              Your private key and Kuwa ID have been created. You are ready to request sponsorship. 
+            </h3>
           </Col>
         </Row>
         <Row className="row-kuwa-reg">
           <Col>
             <Form>
-              <Button color="primary" onClick={this.props.showStepTwo}>Request Sponsorship</Button>
+              <FormGroup>
+                <Label for="password">Provide Shared Secret to request sponsorship</Label>
+                <Input type={this.state.inputType} placeholder="Shared Secret" value={this.state.password} onChange={this.handleChange} />
+              </FormGroup>
+                <FormGroup check>
+                <Label check>
+                  <Input type="checkbox" onChange={this.togglePassword} />
+                  Show Shared Secret
+                </Label>
+              </FormGroup>
+              <br/>
+              <Button color="primary" onClick={this.requestSponsorship}>Request Sponsorship</Button>
             </Form>
           </Col>        
         </Row>
@@ -301,17 +289,11 @@ class PrivateKey extends Component {
 class StepTwo extends Component {
   constructor(props) {
     super(props);
-    this.toggle = this.toggle.bind(this);
+    this.toggle = toggle.bind(this);
     this.state = {
       collapse: false
     }
     this.alerting = this.alerting.bind(this);
-  }
-
-  toggle() {
-    this.setState({ 
-      collapse: !this.state.collapse
-    });
   }
 
   alerting() {
@@ -359,10 +341,6 @@ class StepTwo extends Component {
                 <Label for="videoFile">File</Label>
                 <Input type="file" id="videoFile" />
               </FormGroup>
-              <FormGroup>
-                <Label for="password">Shared Secret</Label>
-                <Input type="text" placeholder="Shared Secret" />
-              </FormGroup>
               <Button color="primary" onClick={this.alerting}>Upload Info</Button>
             </Form>
           </Col>
@@ -370,6 +348,26 @@ class StepTwo extends Component {
       </Container>
     );
   }
+}
+
+var togglePassword = function(){
+  var inputType = 'password';
+  if (this.state.inputType == 'password') {
+    inputType = 'text';
+  }
+  this.setState({
+    inputType: inputType
+  });
+}
+
+var handleChange = function(event) {
+  this.setState({
+    password: event.target.value
+  });
+}
+
+var toggle = function() {
+  this.setState({ collapse: !this.state.collapse });
 }
 
 export default CreateKuwaId;
