@@ -2,7 +2,18 @@ import React, { Component } from 'react';
 import './sponsorship_requests.css';
 import axios from 'axios';
 import Popup from 'reactjs-popup';
-
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem } from 'reactstrap';
 
 
 class SponsorshipRequests extends Component {
@@ -13,8 +24,6 @@ class SponsorshipRequests extends Component {
       sponsorship_requests: []
     }
   }
-
-  //implemented a setinterval for continuous fetching
 
   componentDidMount(){
     

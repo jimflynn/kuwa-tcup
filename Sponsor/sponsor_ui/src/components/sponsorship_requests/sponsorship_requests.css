@@ -2,13 +2,16 @@ h2 {
 	text-align: center;
 }
 
-
+.address {
+    width: 400px;
+}
 table {
 	margin: auto;
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 80%;
 }
+
 
 td, th {
 	text-align: center;

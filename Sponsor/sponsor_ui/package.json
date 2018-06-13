@@ -5,7 +5,10 @@
   "dependencies": {
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
-    "react-scripts": "1.1.4"
+    "react-popup": "^0.9.3",
+    "react-scripts": "1.1.4",
+    "reactjs-popup": "^1.1.1",
+    "reactstrap": "^6.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
