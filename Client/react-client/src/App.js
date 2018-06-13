@@ -106,12 +106,15 @@ class CreateKuwaId extends Component {
       return (
         <PrivateKey 
           privateKey = {this.privateKey}
+          password = {this.password}
           showStepTwo = {this.showStepTwo}
         />
       );
     } else if (this.state.showStepTwo) {
       return (
-        <StepTwo />
+        <StepTwo 
+          ethereumAddress = {this.keyObjectAddress}
+        />
       );
     }
   }
@@ -208,6 +211,7 @@ class StepOne extends Component {
                 Show Password
               </Label>
             </FormGroup>
+            <br/>
             <Button color="primary" onClick={this.createKeys}>Create Keys</Button>
             </Form>
           </Col>
@@ -238,7 +242,12 @@ class Loading extends Component {
 class PrivateKey extends Component {
   constructor(props) {
     super(props);
+    this.toggle = this.toggle.bind(this);
+    this.state = { collapse: false };
+  }
 
+  toggle() {
+    this.setState({ collapse: !this.state.collapse });
   }
 
   render() {
@@ -258,12 +267,30 @@ class PrivateKey extends Component {
         </Row>
         <Row className="row-kuwa-reg">
           <Col>
+            <Button color="danger" onClick={this.toggle} style={{ marginBottom: '1rem' }}>Show Password</Button>
+          </Col>
+        </Row>
+        <Row className="row-kuwa-reg">
+          <Col>
+            <Collapse isOpen={this.state.collapse}>
+              <Card>
+                <CardBody>
+                  Your Password: <strong>{this.props.password}</strong>
+                </CardBody>
+              </Card>
+            </Collapse>
+          </Col>
+        </Row>
+        <Row className="row-kuwa-reg">
+          <Col>
             <strong>IMPORTANT:</strong> Keep your private key and password secret. Remember your password.
           </Col>
         </Row>
         <Row className="row-kuwa-reg">
           <Col>
-            <Button color="primary" onClick={this.props.showStepTwo}>Continue</Button>
+            <Form>
+              <Button color="primary" onClick={this.props.showStepTwo}>Request Sponsorship</Button>
+            </Form>
           </Col>        
         </Row>
       </Container>
@@ -274,13 +301,73 @@ class PrivateKey extends Component {
 class StepTwo extends Component {
   constructor(props) {
     super(props);
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      collapse: false
+    }
+    this.alerting = this.alerting.bind(this);
+  }
+
+  toggle() {
+    this.setState({ 
+      collapse: !this.state.collapse
+    });
+  }
+
+  alerting() {
+    alert("Not yet implemented")
   }
 
   render() {
     return(
-      <div>
-        This is step 2
-      </div>
+      <Container>
+        <Row className="row-kuwa-reg">
+          <Col>
+            <h2>
+              <span className="header-kuwa-reg">Submit Your Kuwa ID Request</span>
+              <Button color="primary" onClick={this.toggle} outline>
+                <Badge color="primary">?</Badge>
+              </Button>
+            </h2>
+          </Col>
+        </Row>
+        <Row className="row-kuwa-reg">
+          <Col>
+            <Collapse isOpen={this.state.collapse}>
+              <Card className="elem-kuwa-reg">
+                <CardBody>
+                  Some explanation.
+                </CardBody>
+              </Card>
+            </Collapse>
+          </Col>
+        </Row>
+        <Row className="row-kuwa-reg">
+          <Col>
+            <strong>Ethereum Address: </strong>{this.props.ethereumAddress}
+          </Col>
+        </Row>
+        <Row className="row-kuwa-reg">
+          <Col>
+            <strong>Challenge Phrase: </strong>Soon...
+          </Col>
+        </Row>
+        <Row className="row-kuwa-reg">
+          <Col>
+            <Form>
+              <FormGroup>
+                <Label for="videoFile">File</Label>
+                <Input type="file" id="videoFile" />
+              </FormGroup>
+              <FormGroup>
+                <Label for="password">Shared Secret</Label>
+                <Input type="text" placeholder="Shared Secret" />
+              </FormGroup>
+              <Button color="primary" onClick={this.alerting}>Upload Info</Button>
+            </Form>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }
