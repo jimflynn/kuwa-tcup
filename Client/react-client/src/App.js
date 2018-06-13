@@ -13,6 +13,7 @@ class CreateKuwaId extends Component {
     this.generateKeystore = this.generateKeystore.bind(this);
     this.processKeystore = this.processKeystore.bind(this);
     this.showRegistrationRequest = this.showRegistrationRequest.bind(this);
+    this.showStepTwo = this.showStepTwo.bind(this);
     this.state = {
       showStepOne: true,
       showLoading: false,
@@ -47,10 +48,7 @@ class CreateKuwaId extends Component {
   processKeystore(keyObject) {
     if ( !keyObject ) {
       this.setState({
-        showStepOne: false,
-        showLoading: false,
-        showPrivateKey: false,
-        showStepTwo: false
+        showLoading: false
       });
       alert("An error occurred when generating keys.");
     } else {      
@@ -62,10 +60,7 @@ class CreateKuwaId extends Component {
   showRegistrationRequest(privateKey) {
     if ( !privateKey ) {
       this.setState({
-        showStepOne: false,
-        showLoading: false,
-        showPrivateKey: false,
-        showStepTwo: false
+        showLoading: false
       });
       alert("An error occurred when recovering private key.");
     } else {
@@ -74,10 +69,8 @@ class CreateKuwaId extends Component {
       //The recovered private key will be in buffer and must be converted to Hex for readability.
       this.privateKey = privateKey.toString('hex');
       this.setState({
-        showStepOne: false,
         showLoading: false,
-        showPrivateKey: true,
-        showStepTwo: false
+        showPrivateKey: true
       });
     }
   }
@@ -85,12 +78,17 @@ class CreateKuwaId extends Component {
   createKeys(password) {
     this.setState({
       showStepOne: false,
-      showLoading: true,
-      showPrivateKey: false,
-      showStepTwo: false
+      showLoading: true
     });
     this.password = password;
     this.generateKeystore();
+  }
+
+  showStepTwo() {
+    this.setState({
+      showPrivateKey: false,
+      showStepTwo: true
+    });
   }
 
   render() {
@@ -108,7 +106,12 @@ class CreateKuwaId extends Component {
       return (
         <PrivateKey 
           privateKey = {this.privateKey}
+          showStepTwo = {this.showStepTwo}
         />
+      );
+    } else if (this.state.showStepTwo) {
+      return (
+        <StepTwo />
       );
     }
   }
@@ -132,19 +135,13 @@ class StepOne extends Component {
 
   toggle() {
     this.setState({ 
-      collapse: !this.state.collapse,
-      show: this.state.show,
-      password: this.state.password,
-      inputType: this.state.inputType
+      collapse: !this.state.collapse
     });
   }
 
   handleChange(event) {
     this.setState({
-      collapse: this.state.collapse,
-      show: this.state.show,
-      password: event.target.value,
-      inputType: this.state.inputType
+      password: event.target.value
     });
   }
 
@@ -170,9 +167,6 @@ class StepOne extends Component {
       inputType = 'text';
     }
     this.setState({
-      collapse: this.state.collapse,
-      show: this.state.show,
-      password: this.state.password,
       inputType: inputType
     });
   }
@@ -278,7 +272,17 @@ class PrivateKey extends Component {
 }
 
 class StepTwo extends Component {
+  constructor(props) {
+    super(props);
+  }
 
+  render() {
+    return(
+      <div>
+        This is step 2
+      </div>
+    );
+  }
 }
 
 export default CreateKuwaId;

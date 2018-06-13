@@ -45,7 +45,9 @@ function processKeystore(keyObject)
 	keythereum.recover($('#password').val(), keyObject, showRegistrationRequest);
 }
 
-function showRegistrationRequest(privateKey) {
+function showRegistrationRequest(privateKey)
+{
+	$("#loading").hide();
 	if ( !privateKey ) {
 		alert("An error occurred when recovering private key.");
 		return;
