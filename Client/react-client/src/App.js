@@ -259,7 +259,7 @@ class PrivateKey extends Component {
         </Row>
         <Row className="row-kuwa-reg">
           <Col>
-          {this.props.privateKey}
+           <span className="private-key">{this.props.privateKey}</span>
           </Col>
         </Row>
         <Row className="row-kuwa-reg">
