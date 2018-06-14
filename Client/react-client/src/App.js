@@ -23,9 +23,6 @@ class CreateKuwaId extends Component {
       showRequestSponsorship: false,
       showStepTwo: false
     }
-    this.password = '';
-    this.kuwaId = '';
-    this.privateKey = '';
   }
 
   generateKeystore() {
@@ -55,7 +52,7 @@ class CreateKuwaId extends Component {
       });
       alert("An error occurred when generating keys.");
     } else {      
-      this.kuwaId = keyObject.address;
+      this.kuwaId = '0x' + keyObject.address;
       keythereum.recover(this.password, keyObject, this.showRegistrationRequest);
     }
   }
@@ -70,7 +67,7 @@ class CreateKuwaId extends Component {
       //TODO: Call Sponsor to get (1) a challenge phrase; (2) a KuwaRegistion contract's address; and (2) the contract's ABI.
       //TODO: Record a video of the registrant speaking the challenge phrase.	
       //The recovered private key will be in buffer and must be converted to Hex for readability.
-      this.privateKey = privateKey.toString('hex');
+      this.privateKey = '0x' + privateKey.toString('hex');
       this.setState({
         showLoading: false,
         showRequestSponsorship: true
@@ -87,8 +84,8 @@ class CreateKuwaId extends Component {
     this.generateKeystore();
   }
 
-  showStepTwo(response) {
-    this.response = response;
+  showStepTwo(challenge) {
+    this.challenge = challenge;
     this.setState({
       showRequestSponsorship: false,
       showStepTwo: true
@@ -111,14 +108,14 @@ class CreateKuwaId extends Component {
         <RequestSponsorship 
           kuwaId = {this.kuwaId}
           privateKey = {this.privateKey}
-          showStepTwo = {response => this.showStepTwo(response)}
+          showStepTwo = {challenge => this.showStepTwo(challenge)}
         />
       );
     } else if (this.state.showStepTwo) {
       return (
         <StepTwo 
           ethereumAddress = {this.kuwaId}
-          response = {this.response}
+          challenge = {this.challenge}
         />
       );
     }
@@ -260,19 +257,15 @@ class RequestSponsorship extends Component {
     
   }
 
-  dummyRequest() {
+  async dummyRequest() {
     let response = {
       address:"0x6FD87c913e22E75b53fA1DB501081134a18aEF96",
       abi:abi
     }
     loadWallet(this.props.privateKey);
-    loadContract(JSON.parse(response.abi), response.address, 4300000, '22000000000', '0x' + this.props.kuwaId).then((contract) => {
-      var contractInstance = contract;
-      contractInstance.methods.getChallenge().call().then((challenge) => {
-        console.log(challenge);
-        this.props.showStepTwo(contractInstance);
-      })
-    })
+    let contract = await loadContract(JSON.parse(response.abi), response.address, 4300000, '22000000000', this.props.kuwaId);
+    let challenge  = await contract.methods.getChallenge().call();
+    this.props.showStepTwo(challenge);
   }
 
   render() {
@@ -353,7 +346,7 @@ class StepTwo extends Component {
         </Row>
         <Row className="row-kuwa-reg">
           <Col>
-            <strong>Challenge Phrase: </strong>Soon...
+            <strong>Challenge Phrase: </strong>{this.props.challenge == 0 ? "Challenge expired" : this.props.challenge}
           </Col>
         </Row>
         <Row className="row-kuwa-reg">
@@ -394,7 +387,7 @@ var toggle = function() {
 
 var loadWallet = function(privateKey) {
   web3.eth.accounts.wallet.clear();
-  web3.eth.accounts.wallet.add("0x" + privateKey);
+  web3.eth.accounts.wallet.add(privateKey);
 }
 
 var loadContract = async function(abi, contractAddress, gas, gasPrice, from) {
