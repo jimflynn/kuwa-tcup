@@ -1,6 +1,7 @@
 {
   "name": "registrar",
   "version": "1.0.0",
+  "author": "Priyadarshi Rath",
   "scripts": {
     "start": "concurrently --kill-others-on-fail \"nodemon watcher.js\" \"nodemon server.js\" \"cd client && npm start\""
   },
