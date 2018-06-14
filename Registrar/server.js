@@ -10,11 +10,12 @@ var pool      =    mysql.createPool({
     host     : 'localhost',
     user     : 'root',
     password : 'sqlpassword',
-    database : 'Kuwa',
-    debug    :  false
+    database : 'alpha_kuwa_registrar_moe',
+    timezone : 'local',
+    dateStrings : true
 });
 
-app.get('/registrations', (req, res) => {
+app.get('/get_registrations', (req, res) => {
 
     pool.getConnection((err,connection) => {
 
@@ -23,14 +24,12 @@ app.get('/registrations', (req, res) => {
             return;
         }
 
-        console.log('Server connected to Kuwa as id ' + connection.threadId);
+        console.log('UI backend has connected to Kuwa database!');
 
-        connection.query("select * from Regs", (err,rows) => {
+        connection.query("select * from registration", (err,rows) => {
             connection.release();
-            if(!err) {
-                res.json(rows);
-                console.log(rows);
-            }
+            rows = JSON.parse(JSON.stringify(rows));
+            res.json(rows);
         });
 
         connection.on('error', function(err) {

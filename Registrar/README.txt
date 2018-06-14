@@ -1,19 +1,32 @@
+Kuwa Registrar
+Author: Priyadarshi Rath
+
 Dependencies:
 
-web3         : npm install web3 --save
-mysql        : npm install mysql
-nodemon      : npm install nodemon -g (may need sudo)
-express      : npm install express
-chokidar     : npm install chokidar --save
-concurrently : npm install concurrently -g (may need sudo)
+mysql    : npm install mysql
+web3     : npm install web3 --save
+chokidar : npm install chokidar --save
+express  : npm install express
 
-Project was setup using create-react-app : npm install -g create-react-app
+To install all dependencies, type `npm install` where package.json is located.
 
-To start, type `npm start`. This command starts the watcher and the UI as concurrent processes, in separate cores.
+NOTE: Since the UI is in the client folder with its own dependencies, you will need to install dependencies with respect to the `client` folder as well.
 
-Database : Kuwa
-Table in Database : Regs
-Schema for Regs: Regs( client_address varchar(50), client_contract_address varchar(50), timestamp varchar(50), status varchar(1))
+UI was setup using create-react-app : npm install -g create-react-app
+
+Database : alpha_kuwa_registrar_moe
+Table in Database : registration
+Schema for registration: 
+
++------------------+-------------+------+-----+-------------------+----------------+
+| Field            | Type        | Null | Key | Default           | Extra          |
++------------------+-------------+------+-----+-------------------+----------------+
+| registration_id  | int(32)     | NO   | PRI | NULL              | auto_increment |
+| client_address   | varchar(50) | YES  |     | NULL              |                |
+| contract_address | varchar(50) | YES  |     | NULL              |                |
+| timestamp        | timestamp   | NO   |     | CURRENT_TIMESTAMP |                |
+| status           | tinyint(4)  | YES  |     | NULL              |                |
++------------------+-------------+------+-----+-------------------+----------------+
 
 TODO:
 1. Since I did not have access to the storage manager, I hard-coded the client address and the contract address. This will need to be changed in the future when we test a round trip.
