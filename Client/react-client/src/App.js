@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import keythereum from 'keythereum';
 import Web3 from 'web3';
-import loading from './loading.gif';
+import Loading from './Load';
 import './App.css';
 import { Button, Container, Row, Col, Form, FormGroup, Label, Input, Badge, Collapse, Card, CardBody } from 'reactstrap';
 
@@ -205,19 +205,19 @@ class StepOne extends Component {
   }
 }
 
-class Loading extends Component {
-  render() {
-    return (
-      <Container>
-        <Row className="row-kuwa-reg">
-          <Col>
-            <img className="loading-kuwa-reg" src={loading} alt="loading" />
-          </Col>
-        </Row>
-      </Container>
-    );
-  }
-}
+// class Loading extends Component {
+//   render() {
+//     return (
+//       <Container>
+//         <Row className="row-kuwa-reg">
+//           <Col>
+//             <img className="loading-kuwa-reg" src={loading} alt="loading" />
+//           </Col>
+//         </Row>
+//       </Container>
+//     );
+//   }
+// }
 
 class RequestSponsorship extends Component {
   constructor(props) {
