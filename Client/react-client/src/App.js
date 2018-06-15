@@ -244,8 +244,12 @@ class RequestSponsorship extends Component {
      method: 'POST',
      body: formData
     })
-    console.log(await response.json());
-    return false;
+    let responseJson = await response.json();
+    console.log(responseJson);
+    loadWallet(this.props.privateKey);
+    let contract = await loadContract(responseJson.abi, responseJson.contractAddress, 4300000, '22000000000', this.props.kuwaId);
+    let challenge  = await contract.methods.getChallenge().call();
+    this.props.showStepTwo(challenge);
   }
 
   async dummyRequest() {
@@ -283,7 +287,7 @@ class RequestSponsorship extends Component {
                 </Label>
               </FormGroup>
               <br/>
-              <Button color="primary" onClick={this.dummyRequest}>Request Sponsorship</Button>
+              <Button color="primary" onClick={this.requestSponsorship}>Request Sponsorship</Button>
             </Form>
           </Col>        
         </Row>
