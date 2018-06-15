@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import loading from './loading.gif';
-import { Button, Container, Row, Col, Form, FormGroup, Label, Input, Badge, Collapse, Card, CardBody } from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 
 export default class Loading extends Component {
   render() {
