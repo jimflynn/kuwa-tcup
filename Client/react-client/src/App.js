@@ -3,8 +3,7 @@ import keythereum from 'keythereum';
 import Web3 from 'web3';
 import loading from './loading.gif';
 import './App.css';
-import { Alert, 
-  Button, Container, Row, Col, Form, FormGroup, Label, Input, FormText, Badge, Collapse, Card, CardBody } from 'reactstrap';
+import { Button, Container, Row, Col, Form, FormGroup, Label, Input, Badge, Collapse, Card, CardBody } from 'reactstrap';
 
 var web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider("https://rinkeby.infura.io/8Dx9RdhjqIl1y3EQzQpl"));
@@ -33,7 +32,7 @@ class CreateKuwaId extends Component {
     var kdf = "pbkdf2"; // or "scrypt" to use the scrypt kdf
     
     var options = {
-      kdf: "pbkdf2",
+      kdf: kdf,
       cipher: "aes-128-ctr",
       kdfparams: {
         c: 262144,
@@ -148,7 +147,7 @@ class StepOne extends Component {
 
   // Some more conditions may be added in the future
   passwordIsValid() {
-    if (this.state.password != '') {
+    if (this.state.password !== '') {
       return true;
     }
     return false;
@@ -207,10 +206,6 @@ class StepOne extends Component {
 }
 
 class Loading extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <Container>
@@ -239,22 +234,18 @@ class RequestSponsorship extends Component {
     this.dummyRequest = this.dummyRequest.bind(this);
   }
 
-  requestSponsorship() {
+  async requestSponsorship() {
     var formData = new FormData();
 
     formData.append('address',this.props.kuwaId);
     formData.append('SS',this.state.password);
     
-    fetch('http://alpha.kuwa.org:3000/sponsorship_requests/', {
+    let response = await fetch('http://alpha.kuwa.org:3000/sponsorship_requests/', {
      method: 'POST',
      body: formData
     })
-    .then(response => response.json())
-    .catch(error => console.error('Error:', error))
-    .then(response => this.props.showStepTwo(response));
-    
+    console.log(await response.json());
     return false;
-    
   }
 
   async dummyRequest() {
@@ -309,10 +300,29 @@ class StepTwo extends Component {
       collapse: false
     }
     this.alerting = this.alerting.bind(this);
+    this.requestSponsorship = this.requestSponsorship.bind(this);
   }
 
   alerting() {
     alert("Not yet implemented")
+  }
+
+  async requestSponsorship() {
+    var formData = new FormData();
+
+    var fileField = document.querySelector("input[type='file']");
+
+    formData.append('ClientAddress',this.props.ethereumAddress);
+    formData.append('ChallengeVideo',fileField.files[0]);
+    formData.append('ContractABI',"this.props.kuwaId");
+    formData.append('ContractAddress',"this.state.password");
+    
+    let response = await fetch('http://alpha.kuwa.org:3002/KuwaRegistration/', {
+     method: 'POST',
+     body: formData
+    })
+    console.log(response);
+    return false;
   }
 
   render() {
@@ -346,7 +356,7 @@ class StepTwo extends Component {
         </Row>
         <Row className="row-kuwa-reg">
           <Col>
-            <strong>Challenge Phrase: </strong>{this.props.challenge == 0 ? "Challenge expired" : this.props.challenge}
+            <strong>Challenge Phrase: </strong>{this.props.challenge === 0 ? "Challenge expired" : this.props.challenge}
           </Col>
         </Row>
         <Row className="row-kuwa-reg">
@@ -356,7 +366,7 @@ class StepTwo extends Component {
                 <Label for="videoFile">File</Label>
                 <Input type="file" id="videoFile" />
               </FormGroup>
-              <Button color="primary" onClick={this.alerting}>Upload Info</Button>
+              <Button color="primary" onClick={this.requestSponsorship}>Upload Info</Button>
             </Form>
           </Col>
         </Row>
@@ -367,7 +377,7 @@ class StepTwo extends Component {
 
 var togglePassword = function(){
   var inputType = 'password';
-  if (this.state.inputType == 'password') {
+  if (this.state.inputType === 'password') {
     inputType = 'text';
   }
   this.setState({
