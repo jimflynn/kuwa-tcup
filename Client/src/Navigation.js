@@ -4,6 +4,12 @@ import {
   NavbarBrand } from 'reactstrap';
   import logo from './site-logo.png';
 
+/**
+ * Shows the navigation bar of The Kuwa Foundation
+ * @export
+ * @class Navigation
+ * @extends React.Component
+ */
 export default class Navigation extends React.Component {
   render() {
     return (

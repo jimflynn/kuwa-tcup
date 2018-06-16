@@ -1,7 +1,19 @@
 import React, { Component } from 'react';
 import { Button, Container, Row, Col, Form, FormGroup, Label, Input, Badge, Collapse, Card, CardBody } from 'reactstrap';
 
+/**
+ * Component that shows the upload screen of the video with the challenge recorded, the kuwa ID,
+ * the contract ABI, and the contract address
+ * @export
+ * @class UploadToStorage
+ * @extends Component
+ */
 export default class UploadToStorage extends Component {
+    /**
+     * Creates an instance of UploadToStorage.
+     * @param  {any} props 
+     * @memberof UploadToStorage
+     */
     constructor(props) {
       super(props);
       this.toggle = toggle.bind(this);
@@ -9,14 +21,19 @@ export default class UploadToStorage extends Component {
         collapse: false
       }
       this.alerting = this.alerting.bind(this);
-      this.requestSponsorship = this.requestSponsorship.bind(this);
+      this.uploadToStorage = this.uploadToStorage.bind(this);
     }
   
     alerting() {
       alert("Not yet implemented")
     }
   
-    async requestSponsorship() {
+    /**
+     * Sends challenge recorded, the kuwa ID, the contract ABI, and the contract address
+     * @return 
+     * @memberof UploadToStorage
+     */
+    async uploadToStorage() {
       var formData = new FormData();
   
       var fileField = document.querySelector("input[type='file']");
@@ -75,7 +92,7 @@ export default class UploadToStorage extends Component {
                   <Label for="videoFile">File</Label>
                   <Input type="file" id="videoFile" />
                 </FormGroup>
-                <Button color="primary" onClick={this.requestSponsorship}>Upload Info</Button>
+                <Button color="primary" onClick={this.uploadToStorage}>Upload Info</Button>
               </Form>
             </Col>
           </Row>

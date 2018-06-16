@@ -5,7 +5,18 @@ import { Button, Container, Row, Col, Form, FormGroup, Label, Input } from 'reac
 var web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider("https://rinkeby.infura.io/8Dx9RdhjqIl1y3EQzQpl"));
 
+/**
+ * Shows component in charge of requesing sponsorship to the sponsor
+ * @export
+ * @class RequestSponsorship
+ * @extends Component
+ */
 export default class RequestSponsorship extends Component {
+    /**
+     * Creates an instance of RequestSponsorship.
+     * @param  {any} props 
+     * @memberof RequestSponsorship
+     */
     constructor(props) {
       super(props);
       this.toggle = toggle.bind(this);
@@ -20,6 +31,11 @@ export default class RequestSponsorship extends Component {
       this.dummyRequest = this.dummyRequest.bind(this);
     }
   
+    /**
+     * Sends POST request to the sponsor to get the smart contract address and challenge by
+     * loading the Smart Contract after receiving a successful response
+     * @return {void}@memberof RequestSponsorship
+     */
     async requestSponsorship() {
       var formData = new FormData();
   
@@ -82,6 +98,10 @@ export default class RequestSponsorship extends Component {
     }
   }
 
+  /**
+   * Shows and hide password
+   * @return {void}
+   */
   var togglePassword = function(){
     var inputType = 'password';
     if (this.state.inputType === 'password') {
@@ -92,21 +112,44 @@ export default class RequestSponsorship extends Component {
     });
   }
   
+  /**
+   * Saves the value of the password in the password state variable
+   * @param  {Object} event 
+   * @return {void}
+   */
   var handleChange = function(event) {
     this.setState({
       password: event.target.value
     });
   }
   
+  /**
+   * Collapses and shows the help text of the current component
+   * @return {void}
+   */
   var toggle = function() {
     this.setState({ collapse: !this.state.collapse });
   }
 
+  /**
+   * Creates a wallet with the provided private key
+   * @param  {string} privateKey 
+   * @return {void}
+   */
   var loadWallet = function(privateKey) {
     web3.eth.accounts.wallet.clear();
     web3.eth.accounts.wallet.add(privateKey);
   }
   
+  /**
+   * Loads a smart contract
+   * @param  {JSON} abi 
+   * @param  {string} contractAddress 
+   * @param  {number} gas 
+   * @param  {string} gasPrice 
+   * @param  {string} from 
+   * @return 
+   */
   var loadContract = async function(abi, contractAddress, gas, gasPrice, from) {
     let contract = new web3.eth.Contract(abi);
     contract.options.address = contractAddress;

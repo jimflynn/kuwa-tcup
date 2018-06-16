@@ -6,7 +6,17 @@ import RequestSponsorship from './RequestSponsorship';
 import UploadToStorage from './UploadToStorage';
 import './App.css';
 
+/**
+ * Loads different components depending on the state of the program
+ * @class CreateKuwaId
+ * @extends Component
+ */
 class CreateKuwaId extends Component {
+  /**
+   * Creates an instance of CreateKuwaId.
+   * @param  {any} props 
+   * @memberof CreateKuwaId
+   */
   constructor(props) {
     super(props);
     this.createKeys = this.createKeys.bind(this);
@@ -22,6 +32,10 @@ class CreateKuwaId extends Component {
     }
   }
 
+  /**
+   * Creates a new public and private keypair
+   * @return {void}@memberof CreateKuwaId
+   */
   generateKeystore() {
     //defining parameters and options to create an ethereum wallet
     var params = { keyBytes: 32, ivBytes: 16 };
@@ -42,6 +56,11 @@ class CreateKuwaId extends Component {
     keythereum.dump(this.password, dk.privateKey, dk.salt, dk.iv, options, this.processKeystore); 
   }
 
+  /**
+   * Decrypts keyobject with the password to get private key
+   * @param  {KeyObject} keyObject 
+   * @return {void}@memberof CreateKuwaId
+   */
   processKeystore(keyObject) {
     if ( !keyObject ) {
       this.setState({
@@ -54,6 +73,12 @@ class CreateKuwaId extends Component {
     }
   }
 
+  /**
+   * Converts private key to hex and stores it in an instance variable and changes state to
+   * show Request Sponsorship component
+   * @param  {any} privateKey 
+   * @return {void}@memberof CreateKuwaId
+   */
   showRegistrationRequest(privateKey) {
     if ( !privateKey ) {
       this.setState({
@@ -72,6 +97,12 @@ class CreateKuwaId extends Component {
     }
   }
 
+  /**
+   * Calls the generateKeystore method by passing the encrypting password and shows the Loading
+   * component
+   * @param  {string} password 
+   * @return {void}@memberof CreateKuwaId
+   */
   createKeys(password) {
     this.setState({
       showSetPassword: false,
@@ -81,6 +112,12 @@ class CreateKuwaId extends Component {
     this.generateKeystore();
   }
 
+  /**
+   * Sets the challenge generated in the Smart Contract to an instance variable and shows the
+   * Upload to Storage component
+   * @param  {number} challenge 
+   * @return {void}@memberof CreateKuwaId
+   */
   showUploadToStorage(challenge) {
     this.challenge = challenge;
     this.setState({

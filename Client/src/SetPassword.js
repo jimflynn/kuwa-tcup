@@ -1,7 +1,18 @@
 import React, { Component } from 'react';
 import { Button, Container, Row, Col, Form, FormGroup, Label, Input, Badge, Collapse, Card, CardBody } from 'reactstrap';
 
+/**
+ * Shows component to create password for the keypair generated
+ * @export
+ * @class SetPassword
+ * @extends Component
+ */
 export default class SetPassword extends Component {
+  /**
+   * Creates an instance of SetPassword.
+   * @param  {any} props 
+   * @memberof SetPassword
+   */
   constructor(props) {
     super(props);
     this.toggle = toggle.bind(this);
@@ -17,6 +28,11 @@ export default class SetPassword extends Component {
     this.togglePassword = togglePassword.bind(this);
   }
 
+  /**
+   * Creates keys using the passed method from the parent create keys by checking a valid
+   * password
+   * @return {void}@memberof SetPassword
+   */
   createKeys() {
     if (this.passwordIsValid()) {
       this.props.createKeys(this.state.password);
@@ -24,8 +40,12 @@ export default class SetPassword extends Component {
       alert('Please specify a password to protect your private key.');
     }
   }
-
-  // Some more conditions may be added in the future
+  
+  /**
+   * Checks that the password created has the required conditions
+   * @return 
+   * @memberof SetPassword
+   */
   passwordIsValid() {
     if (this.state.password !== '') {
       return true;
