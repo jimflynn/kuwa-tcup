@@ -13,11 +13,11 @@ class App extends Component {
 
     componentDidMount() {
         this.interval = setInterval(() => {
-            fetch('/get_registrations')
-            .then(response => response.json())
-            .then(table => this.setState({registrations: table}))
-            .then(console.log('DB =', this.state.registrations))
-        }, 5000);
+            fetch('/registration')
+	            .then(response => response.json())
+	            .then(table => this.setState({registrations: table}))
+	            .then(console.log('DB =', this.state.registrations))
+        }, 3000);
     }
 
     componentWillUnmount() {

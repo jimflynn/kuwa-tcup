@@ -1,19 +1,28 @@
 {
   "name": "registrar",
   "version": "1.0.0",
-  "author": "Priyadarshi Rath",
-  "scripts": {
-    "start": "concurrently --kill-others-on-fail \"nodemon watcher.js\" \"nodemon server.js\" \"cd client && npm start\""
-  },
+  "description": "Kuwa Registrar",
+  "proxy": "http://localhost:8081",
   "dependencies": {
-    "express": "^4.16.2",
     "mysql": "^2.15.0",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
     "react-json-table": "^0.1.1",
+    "react-scripts": "^1.1.4",
+    "express": "^4.16.2",
     "chokidar": "^2.0.3",
     "hash-files": "^1.1.1",
     "web3": "^1.0.0-beta.34"
   },
   "devDependencies": {
     "concurrently": "^3.5.0"
-  }
+  },
+  "scripts": {
+    "test": "react-scripts test --env=jsdom",
+    "start": "concurrently --kill-others-on-fail \"nodemon watcher.js\" \"nodemon server.js\" \"PORT=8080 react-scripts start\"",
+    "build": "react-scripts build",
+    "eject": "react-scripts eject"
+  },
+  "author": "Priyadarshi Rath",
+  "license": "ISC"
 }
