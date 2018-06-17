@@ -12,3 +12,9 @@ hs_err_pid*
 .idea
 *.iml
 
+
+Client/node_modules/
+
+Client/react-client/client/node_modules/
+
+Client/react-client/client/platforms/
