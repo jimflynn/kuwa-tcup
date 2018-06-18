@@ -10,9 +10,12 @@ var util = require('util');
 
 
 var web3 = new Web3();
-//var conn;
 
-/* @author Carlos Mondragon */
+
+/**
+ * Import this function!
+ * @author Carlos Mondragon
+ */
 var loadWallet = async function(walletPath, accountAddress, password) {
     web3.eth.accounts.wallet.clear();
     let keyObject = keythereum.importFromFile(accountAddress.substring(2), walletPath);
@@ -21,7 +24,10 @@ var loadWallet = async function(walletPath, accountAddress, password) {
     web3.eth.accounts.wallet.add(privateKey);
 }
 
-/* @author Carlos Mondragon */
+/**
+ * Import this function!
+ * @author Carlos Mondragon
+ */
 var loadContract = async function(abi, contractAddress, gas, gasPrice, from) {
     let contract = new web3.eth.Contract(abi);
     contract.options.address = contractAddress;
@@ -31,6 +37,12 @@ var loadContract = async function(abi, contractAddress, gas, gasPrice, from) {
     return contract;
 }
 
+/**
+ *  Returns the current datetime in MySQL format ('YYYY-MM-DD HH:MM:SS')
+ *  for the DATETIME and TIMESTAMP types
+ *
+ *  @returns {string} the current datetime
+ */
 var getCurrentDateTime = function() {
     var date;
     date = new Date();
@@ -43,6 +55,14 @@ var getCurrentDateTime = function() {
     return date
 }
 
+/**
+ * Returns information about the Kuwa client from 'info.json' and the path to
+ * the video file.
+ *
+ * @param clientDir the absolute path of the Kuwa client directory
+ * @param {string[]} files the names of the files residing in `clientDir`
+ * @returns {Object} the Kuwa client information
+ */
 var getClientInfo = async function(clientDir, files) {
     var data, videoFilePath;
 
@@ -66,6 +86,12 @@ var getClientInfo = async function(clientDir, files) {
     return data;
 }
 
+/**
+ * Returns the names of the files and directories in a directory.
+ *
+ * @param {string} rootDir the absolute path of the directory to scan
+ * @returns {string[]} an array of file and directory names
+ */
 var getDirListing = async function(rootDir) {
     let readDir = util.promisify(fs.readdir);
     var dirs;
@@ -79,6 +105,15 @@ var getDirListing = async function(rootDir) {
     return dirs;
 }
 
+/**
+ * Returns all necessary information regarding the client to store in DB.
+ * Calls the client's smart contract to get its status (Valid or Invalid).
+ *
+ * @param {string} rootDir  the absolute path to the client directory's parent directory
+ * @param {string} clientDir the name of the client directory (it's Ethereum address)
+ * @param {string} myAddress the Ethereum address of the entity that will be loading the clients' contracts
+ * @returns {Object} information about the client
+ */
 var processClientDir = async function(rootDir, clientDir, myAddress) {
     var clientAddr = '0x' + clientDir;
     clientDir = rootDir + "/" + clientDir;
@@ -107,6 +142,13 @@ var processClientDir = async function(rootDir, clientDir, myAddress) {
     return data;
 }
 
+/**
+ * Returns the names of the files and directories in a directory.
+ *
+ * @param {Object} conn the MySQL database connection object
+ * @param {string} tableName the name of the table in the DB to insert the row
+ * @param {Object} data information about the client
+ */
 var insertIntoDBSingle = async function(conn, tableName, data) {
     var date = getCurrentDateTime();
     var command = sprintf("INSERT INTO %s (registration_id, kuwa_address, contract_address, \
@@ -126,6 +168,9 @@ var insertIntoDBSingle = async function(conn, tableName, data) {
     https://stackoverflow.com/questions/8899802/how-do-i-do-a-bulk-insert-in-mysql-using-node-js
 }*/
 
+/**
+ * Driver function to test the entire process.
+ */
 var run = async function() {
     var rootDir = process.env.PWD + "/" + "test";
     var myAddress = "0xde89471e94ffaaf346090abe1ccd4b448818dcbf";
