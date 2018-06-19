@@ -4,11 +4,14 @@ echo Welcome!
 
 if [ ! -d cordovaClient ]; then
     cordova create cordovaClient org.kuwa.client KuwaClient
+    wait
     cd cordovaClient
     cordova platform add android
-    cordova build
+    wait
+    cd ..
 fi
 
+wait
 rm -rf cordovaClient/www
 rm -rf apk
 
