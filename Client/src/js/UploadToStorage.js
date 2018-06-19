@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Container, Row, Col, Form, FormGroup, Label, Input, Badge, Collapse, Card, CardBody } from 'reactstrap';
+import '../css/App.css';
 
 /**
  * Component that shows the upload screen of the video with the challenge recorded, the kuwa ID,
@@ -76,7 +77,7 @@ export default class UploadToStorage extends Component {
             </Col>
           </Row>
           <Row className="row-kuwa-reg">
-            <Col>
+            <Col className="long-key">
               <strong>Ethereum Address: </strong>{this.props.ethereumAddress}
             </Col>
           </Row>
