@@ -47,11 +47,11 @@ export default class RequestSponsorship extends Component {
        body: formData
       })
       let responseJson = await response.json();
-      console.log(responseJson);
+      // console.log(responseJson);
       loadWallet(this.props.privateKey);
       let contract = await loadContract(responseJson.abi, responseJson.contractAddress, 4300000, '22000000000', this.props.kuwaId);
       let challenge  = await contract.methods.getChallenge().call();
-      this.props.showStepTwo(challenge);
+      this.props.showUploadToStorage(challenge);
     }
   
     async dummyRequest() {
@@ -62,7 +62,7 @@ export default class RequestSponsorship extends Component {
       loadWallet(this.props.privateKey);
       let contract = await loadContract(JSON.parse(response.abi), response.address, 4300000, '22000000000', this.props.kuwaId);
       let challenge  = await contract.methods.getChallenge().call();
-      this.props.showStepTwo(challenge);
+      this.props.showUploadToStorage(challenge);
     }
   
     render() {
