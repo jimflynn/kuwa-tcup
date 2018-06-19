@@ -17,6 +17,11 @@ export default class Loading extends Component {
             <img className="loading-kuwa-reg" src={loading} alt="loading" />
           </Col>
         </Row>
+        <Row className="row-kuwa-reg">
+          <Col>
+            <h4>{this.props.loadingMessage}</h4>
+          </Col>
+        </Row>
       </Container>
     );
   }

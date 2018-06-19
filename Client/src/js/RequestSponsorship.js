@@ -42,16 +42,23 @@ export default class RequestSponsorship extends Component {
       formData.append('address',this.props.kuwaId);
       formData.append('SS',this.state.password);
       
-      let response = await fetch('http://alpha.kuwa.org:3000/sponsorship_requests/', {
-       method: 'POST',
-       body: formData
-      })
-      let responseJson = await response.json();
-      // console.log(responseJson);
-      loadWallet(this.props.privateKey);
-      let contract = await loadContract(responseJson.abi, responseJson.contractAddress, 4300000, '22000000000', this.props.kuwaId);
-      let challenge  = await contract.methods.getChallenge().call();
-      this.props.showUploadToStorage(challenge);
+      try {
+        this.props.showLoading('Requesting Sponsorship. This may take several minutes.');
+        this.props.hideRequestSponsorship();
+        let response = await fetch('http://alpha.kuwa.org:3000/sponsorship_requests/', {
+          method: 'POST',
+          body: formData
+        })
+        let responseJson = await response.json();
+        loadWallet(this.props.privateKey);
+        let contract = await loadContract(responseJson.abi, responseJson.contractAddress, 4300000, '22000000000', this.props.kuwaId);
+        let challenge  = await contract.methods.getChallenge().call();
+        this.props.showUploadToStorage(challenge);
+        this.props.hideLoading();
+      } catch(e) {
+        alert("There was an error on the server. Please try again later");
+      }
+      
     }
   
     async dummyRequest() {

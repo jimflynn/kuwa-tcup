@@ -24,6 +24,10 @@ class CreateKuwaId extends Component {
     this.processKeystore = this.processKeystore.bind(this);
     this.showRegistrationRequest = this.showRegistrationRequest.bind(this);
     this.showUploadToStorage = this.showUploadToStorage.bind(this);
+    this.showLoading = this.showLoading.bind(this);
+    this.hideLoading = this.hideLoading.bind(this);
+    this.showRequestSponsorship = this.showRequestSponsorship.bind(this);
+    this.hideRequestSponsorship = this.hideRequestSponsorship.bind(this);
     this.state = {
       showSetPassword: true,
       showLoading: false,
@@ -104,12 +108,37 @@ class CreateKuwaId extends Component {
    * @return {void}@memberof CreateKuwaId
    */
   createKeys(password) {
+    this.showLoading('Generating Keys...');
     this.setState({
-      showSetPassword: false,
-      showLoading: true
+      showSetPassword: false
     });
     this.password = password;
     this.generateKeystore();
+  }
+
+  showLoading(loadingMessage) {
+    this.loadingMessage = loadingMessage;
+    this.setState({
+      showLoading: true
+    });
+  }
+
+  hideLoading() {
+    this.setState({
+      showLoading: false
+    });
+  }
+
+  showRequestSponsorship() {
+    this.setState({
+      showRequestSponsorship: true
+    })
+  }
+
+  hideRequestSponsorship() {
+    this.setState({
+      showRequestSponsorship: false
+    })
   }
 
   /**
@@ -121,7 +150,6 @@ class CreateKuwaId extends Component {
   showUploadToStorage(challenge) {
     this.challenge = challenge;
     this.setState({
-      showRequestSponsorship: false,
       showUploadToStorage: true
     });
   }
@@ -135,13 +163,18 @@ class CreateKuwaId extends Component {
       );
     } else if (this.state.showLoading) {
       return (
-        <Loading />
+        <Loading 
+          loadingMessage = {this.loadingMessage}
+        />
       );
     } else if (this.state.showRequestSponsorship) {
       return (
         <RequestSponsorship 
           kuwaId = {this.kuwaId}
           privateKey = {this.privateKey}
+          showLoading = {this.showLoading}
+          hideLoading = {this.hideLoading}
+          hideRequestSponsorship = {this.hideRequestSponsorship}
           showUploadToStorage = {challenge => this.showUploadToStorage(challenge)}
         />
       );
