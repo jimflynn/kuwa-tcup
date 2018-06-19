@@ -10,7 +10,7 @@ export default class Video extends Component {
     render() {
         return (
             <Container>
-                <Row>
+                <Row className="row-kuwa-reg">
                     <Col>
                         <Button color="primary" onClick={this.takeVideo}>Take Video</Button>
                         <div id="videoArea"></div>

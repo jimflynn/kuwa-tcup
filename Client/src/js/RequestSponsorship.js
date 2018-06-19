@@ -62,6 +62,8 @@ export default class RequestSponsorship extends Component {
           this.props.hideLoading();
         }
       } catch(e) {
+        this.props.showRequestSponsorship();
+        this.props.hideLoading();
         alert("There was an error on the server. Please try again later");
       }
       
