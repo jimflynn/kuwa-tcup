@@ -50,11 +50,17 @@ export default class RequestSponsorship extends Component {
           body: formData
         })
         let responseJson = await response.json();
-        loadWallet(this.props.privateKey);
-        let contract = await loadContract(responseJson.abi, responseJson.contractAddress, 4300000, '22000000000', this.props.kuwaId);
-        let challenge  = await contract.methods.getChallenge().call();
-        this.props.showUploadToStorage(challenge);
-        this.props.hideLoading();
+        if (responseJson.message === 'invalid Shared Secret') {
+          this.props.showRequestSponsorship();
+          this.props.hideLoading();
+          alert('Invalid Shared Secret');
+        } else {
+          loadWallet(this.props.privateKey);
+          let contract = await loadContract(responseJson.abi, responseJson.contractAddress, 4300000, '22000000000', this.props.kuwaId);
+          let challenge  = await contract.methods.getChallenge().call();
+          this.props.showUploadToStorage(challenge);
+          this.props.hideLoading();
+        }
       } catch(e) {
         alert("There was an error on the server. Please try again later");
       }

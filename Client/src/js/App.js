@@ -174,6 +174,7 @@ class CreateKuwaId extends Component {
           privateKey = {this.privateKey}
           showLoading = {this.showLoading}
           hideLoading = {this.hideLoading}
+          showRequestSponsorship = {this.showRequestSponsorship}
           hideRequestSponsorship = {this.hideRequestSponsorship}
           showUploadToStorage = {challenge => this.showUploadToStorage(challenge)}
         />
