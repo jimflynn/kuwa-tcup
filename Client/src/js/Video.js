@@ -32,7 +32,7 @@ function takeVideo() {
     var options = {
         limit: 1,   // Max number of video clips in a single capture operation
         duration: 15,    // Max duration of each video clip
-        quality: 0  // 0 means low quality, 1 means high quality
+        quality: 1  // 0 means low quality, 1 means high quality
     };
 
     console.log("You are allowed 15 seconds to record the video");
