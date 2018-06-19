@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Container, Row, Col, Form, FormGroup, Label, Input, Badge, Collapse, Card, CardBody } from 'reactstrap';
+import Video from './Video';
 import '../css/App.css';
 
 /**
@@ -84,6 +85,11 @@ export default class UploadToStorage extends Component {
           <Row className="row-kuwa-reg">
             <Col>
               <strong>Challenge Phrase: </strong>{this.props.challenge === 0 ? "Challenge expired" : this.props.challenge}
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Video />
             </Col>
           </Row>
           <Row className="row-kuwa-reg">

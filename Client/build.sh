@@ -8,6 +8,16 @@ if [ ! -d cordovaClient ]; then
     cd cordovaClient
     cordova platform add android
     wait
+    cordova plugin add cordova-plugin-media-capture
+    wait
+    cordova plugin add cordova-plugin-device
+    wait
+    cordova plugin add cordova-plugin-dialogs
+    wait
+    cordova plugin add cordova-plugin-file
+    wait
+    cordova plugin add cordova-plugin-camera
+    wait
     cd ..
 fi
 
