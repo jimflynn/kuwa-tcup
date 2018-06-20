@@ -5,6 +5,7 @@ export default class Video extends Component {
     constructor(props) {
         super(props);
         this.takeVideo = this.takeVideo.bind(this);
+        this.captureVideo = this.captureVideo.bind(this);
         this.captureError = this.captureError.bind(this);
         this.captureSuccess = this.captureSuccess.bind(this);
         this.renderVideo = this.renderVideo.bind(this);
@@ -15,7 +16,7 @@ export default class Video extends Component {
 
     takeVideo() {
         // console.log("You are allowed 15 seconds to record the video");
-        navigator.notification.alert('You are allowed 15 seconds to record the video', captureVideo, 'Alert', 'OK');
+        navigator.notification.alert('You are allowed 15 seconds to record the video', this.captureVideo, 'Alert', 'OK');
     }
 
     captureVideo() {
@@ -48,7 +49,7 @@ export default class Video extends Component {
             return (
                 <Row className="row-kuwa-reg">
                     <Col>
-                        <video width="400" height="300" controls>
+                        <video width={window.innerWidth} height="400" controls>
                             <source src={this.videoPath} type='video/mp4'/>
                         </video>
                         <h5>Video stored at: {this.videoPath}</h5>
