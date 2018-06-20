@@ -24,6 +24,7 @@ class CreateKuwaId extends Component {
     this.processKeystore = this.processKeystore.bind(this);
     this.showRegistrationRequest = this.showRegistrationRequest.bind(this);
     this.showUploadToStorage = this.showUploadToStorage.bind(this);
+    this.hideUploadToStorage = this.hideUploadToStorage.bind(this);
     this.showLoading = this.showLoading.bind(this);
     this.hideLoading = this.hideLoading.bind(this);
     this.showRequestSponsorship = this.showRequestSponsorship.bind(this);
@@ -147,10 +148,17 @@ class CreateKuwaId extends Component {
    * @param  {number} challenge 
    * @return {void}@memberof CreateKuwaId
    */
-  showUploadToStorage(challenge) {
-    this.challenge = challenge;
+  showUploadToStorage(challenge, sponsorResponse) {
+    this.challenge = challenge ? challenge : this.challenge;
+    this.sponsorResponse = sponsorResponse ? sponsorResponse : this.sponsorResponse;
     this.setState({
       showUploadToStorage: true
+    });
+  }
+
+  hideUploadToStorage() {
+    this.setState({
+      showUploadToStorage: false
     });
   }
 
@@ -176,7 +184,7 @@ class CreateKuwaId extends Component {
           hideLoading = {this.hideLoading}
           showRequestSponsorship = {this.showRequestSponsorship}
           hideRequestSponsorship = {this.hideRequestSponsorship}
-          showUploadToStorage = {challenge => this.showUploadToStorage(challenge)}
+          showUploadToStorage = {(challenge, sponsorResponse) => this.showUploadToStorage(challenge, sponsorResponse)}
         />
       );
     } else if (this.state.showUploadToStorage) {
@@ -184,6 +192,11 @@ class CreateKuwaId extends Component {
         <UploadToStorage 
           ethereumAddress = {this.kuwaId}
           challenge = {this.challenge}
+          sponsorResponse = {this.sponsorResponse}
+          showLoading = {this.showLoading}
+          hideLoading = {this.hideLoading}
+          showUploadToStorage = {(challenge, sponsorResponse) => this.showUploadToStorage(challenge, sponsorResponse)}
+          hideUploadToStorage = {this.hideUploadToStorage}
         />
       );
     }

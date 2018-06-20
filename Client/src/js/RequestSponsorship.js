@@ -58,7 +58,7 @@ export default class RequestSponsorship extends Component {
           loadWallet(this.props.privateKey);
           let contract = await loadContract(responseJson.abi, responseJson.contractAddress, 4300000, '22000000000', this.props.kuwaId);
           let challenge  = await contract.methods.getChallenge().call();
-          this.props.showUploadToStorage(challenge);
+          this.props.showUploadToStorage(challenge, responseJson);
           this.props.hideLoading();
         }
       } catch(e) {

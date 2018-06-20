@@ -22,12 +22,12 @@ export default class UploadToStorage extends Component {
       this.state = {
         collapse: false
       }
-      this.alerting = this.alerting.bind(this);
       this.uploadToStorage = this.uploadToStorage.bind(this);
+      this.getVideoFilePath = this.getVideoFilePath.bind(this);
     }
   
-    alerting() {
-      alert("Not yet implemented")
+    getVideoFilePath(videoFilePath) {
+      this.videoFilePath = videoFilePath;
     }
   
     /**
@@ -39,18 +39,29 @@ export default class UploadToStorage extends Component {
       var formData = new FormData();
   
       var fileField = document.querySelector("input[type='file']");
+
+      var videoFile = new File(this.videoFilePath, 'video');
+      alert(this.videoFilePath);
+      alert(videoFile);
   
       formData.append('ClientAddress',this.props.ethereumAddress);
-      formData.append('ChallengeVideo',fileField.files[0]);
-      formData.append('ContractABI',"this.props.kuwaId");
-      formData.append('ContractAddress',"this.state.password");
-      
-      let response = await fetch('http://alpha.kuwa.org:3002/KuwaRegistration/', {
-       method: 'POST',
-       body: formData
-      })
-      console.log(response);
-      return false;
+      formData.append('ChallengeVideo',videoFile);
+      formData.append('ContractABI',JSON.stringify(this.props.sponsorResponse.abi));
+      formData.append('ContractAddress',this.props.sponsorResponse.contractAddress);
+      try {
+        this.props.showLoading('Uploading Information. This may take several minutes.');
+        this.props.hideUploadToStorage();
+        let response = await fetch('http://alpha.kuwa.org:3002/KuwaRegistration/', {
+          method: 'POST',
+          body: formData
+        })
+        alert("Success!");
+      } catch(e){
+        alert(e);
+        alert("There was an error. Please try later");
+      }
+      this.props.showUploadToStorage();
+      this.props.hideLoading();
     }
   
     render() {
@@ -89,7 +100,9 @@ export default class UploadToStorage extends Component {
           </Row>
           <Row>
             <Col>
-              <Video />
+              <Video 
+                getVideoFilePath = {videoFilePath => this.getVideoFilePath(videoFilePath)}
+              />
             </Col>
           </Row>
           <Row className="row-kuwa-reg">

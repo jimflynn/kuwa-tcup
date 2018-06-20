@@ -34,6 +34,7 @@ export default class Video extends Component {
 
     captureSuccess(s) {
         this.videoPath = s[0].fullPath;
+        this.props.getVideoFilePath(this.videoPath);
         this.setState({
             videoStatus: 'success'
         });
@@ -45,9 +46,9 @@ export default class Video extends Component {
                 <Row className="row-kuwa-reg">
                     <Col>
                         <video width="400" height="300" controls>
-                            <source src={this.videoPath.substring(7)} type='video/mp4'/>
+                            <source src={this.videoPath} type='video/mp4'/>
                         </video>
-                        <h5>Video stored at: {this.videoPath.substring(7)}</h5>
+                        <h5>Video stored at: {this.videoPath}</h5>
                     </Col>
                 </Row>
             );
