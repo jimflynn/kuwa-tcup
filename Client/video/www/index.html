@@ -18,22 +18,24 @@
 	<script>
 
     document.addEventListener("deviceready", init, false);
-	
+
 	function init() {
 		document.querySelector("#takeVideo").addEventListener("touchend", takeVideo, false);
 	}
 
     function takeVideo() {
-        var options = {
+        console.log("You are allowed 15 seconds to record the video");
+        navigator.notification.alert('You are allowed 15 seconds to record the video', captureVideo, 'Alert', 'OK');
+    }
+
+	function captureVideo() {
+		var options = {
             limit: 1,   // Max number of video clips in a single capture operation
             duration: 15,    // Max duration of each video clip
-            quality: 0  // 0 means low quality, 1 means high quality
+            quality: 1  // 0 means low quality, 1 means high quality
         };
-
-        console.log("You are allowed 15 seconds to record the video");
-        navigator.notification.alert('You are allowed 15 seconds to record the video', null, 'Alert', 'OK');    //wait for user to click ok and then start recording. Use a promise?
-        navigator.device.capture.captureVideo(captureSuccess, captureError, options);
-    }
+		navigator.device.capture.captureVideo(captureSuccess, captureError, options);
+	}
 
 	function captureError(err) {
         console.log("Failed to record video " + JSON.stringify(err));
