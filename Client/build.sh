@@ -10,6 +10,8 @@ if [ ! -d cordovaClient ]; then
     wait
     cordova plugin add cordova-plugin-media-capture
     wait
+    cordova plugin add cordova-plugin-android-permissions
+    wait
     cordova plugin add cordova-plugin-file-transfer
     wait
     cordova plugin add cordova-plugin-device
