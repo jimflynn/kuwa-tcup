@@ -24,7 +24,7 @@ function init() {
         permissions.checkPermission(permission, successCallback, null);
         function successCallback(status) {
             if (!status.hasPermission) {
-                permissions.requestPermission(permission, null, null);
+                permissions.requestPermission(permission, null, () => successCallback(status));
             }
         }
     })

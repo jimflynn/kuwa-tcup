@@ -52,7 +52,6 @@ export default class Video extends Component {
                         <video width={window.innerWidth} height="400" controls>
                             <source src={this.videoPath} type='video/mp4'/>
                         </video>
-                        <h5>Video stored at: {this.videoPath}</h5>
                     </Col>
                 </Row>
             );
