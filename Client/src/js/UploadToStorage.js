@@ -36,24 +36,45 @@ export default class UploadToStorage extends Component {
      * @memberof UploadToStorage
      */
     async uploadToStorage() {
-      var formData = new FormData();
+      let formData = new FormData();
   
-      var fileField = document.querySelector("input[type='file']");
+      // var videoFile = new File(this.videoFilePath, 'video');
+      // let videoFile = new File(this.videoFilePath);
+      let videoFilePath = this.videoFilePath;
 
-      var videoFile = new File(this.videoFilePath, 'video');
-      // alert(this.videoFilePath);
-      // alert(videoFile);
+      let resolveLocalFileSystemUtil = new Promise((resolve, reject) => {
+        window.resolveLocalFileSystemURL(videoFilePath, successOnFile, null)
+        function successOnFile(fileEntry) {
+          fileEntry.file(file => resolve(file));
+        }
+      });
+
+      let file = await resolveLocalFileSystemUtil;
+
+      let reader = new FileReader();
+      let loadVideo = new Promise((resolve, reject) => {
+        reader.onloadend = (e) => {
+          let videoBlob = new Blob([reader.result], { type:file.type});
+          alert('resolved!');
+          resolve(videoBlob);
+        }
+      });
+
+      reader.readAsArrayBuffer(file);
+      let videoFile = await loadVideo;
+
+      // var fileField = document.querySelector("input[type='file']");
   
       formData.append('ClientAddress',this.props.ethereumAddress);
-      formData.append('ChallengeVideo',fileField.files[0]);
-      // formData.append('ChallengeVideo',videoFile);
+      // formData.append('ChallengeVideo',fileField.files[0]);
+      formData.append('ChallengeVideo',videoFile);
       formData.append('ContractABI',JSON.stringify(this.props.sponsorResponse.abi));
       formData.append('ContractAddress',this.props.sponsorResponse.contractAddress);
       try {
         this.props.showLoading('Uploading Information. This may take several minutes.');
         this.props.hideUploadToStorage();
-        // let response = await fetch('http://alpha.kuwa.org:3002/KuwaRegistration/', {
-        let response = await fetch('http://localhost:3002', {
+        let response = await fetch('http://alpha.kuwa.org:3002/KuwaRegistration/', {
+        // let response = await fetch('http://localhost:3002', {
           method: 'POST',
           body: formData
         })
