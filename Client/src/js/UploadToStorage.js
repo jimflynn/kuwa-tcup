@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Container, Row, Col, Form, FormGroup, Label, Input, Badge, Collapse, Card, CardBody } from 'reactstrap';
+import { Button, Container, Row, Col, Badge, Collapse, Card, CardBody } from 'reactstrap';
 import Video from './Video';
 import '../css/App.css';
 
@@ -36,10 +36,10 @@ export default class UploadToStorage extends Component {
      * @memberof UploadToStorage
      */
     async uploadToStorage() {
+      this.props.showLoading('Uploading Information. This may take several minutes.');
+      this.props.hideUploadToStorage();
       let formData = new FormData();
   
-      // var videoFile = new File(this.videoFilePath, 'video');
-      // let videoFile = new File(this.videoFilePath);
       let videoFilePath = this.videoFilePath;
 
       let resolveLocalFileSystemUtil = new Promise((resolve, reject) => {
@@ -48,31 +48,23 @@ export default class UploadToStorage extends Component {
           fileEntry.file(file => resolve(file));
         }
       });
-
       let file = await resolveLocalFileSystemUtil;
 
       let reader = new FileReader();
       let loadVideo = new Promise((resolve, reject) => {
         reader.onloadend = (e) => {
           let videoBlob = new Blob([reader.result], { type:file.type});
-          alert('resolved!');
           resolve(videoBlob);
         }
       });
-
       reader.readAsArrayBuffer(file);
       let videoFile = await loadVideo;
-
-      // var fileField = document.querySelector("input[type='file']");
   
       formData.append('ClientAddress',this.props.ethereumAddress);
-      // formData.append('ChallengeVideo',fileField.files[0]);
       formData.append('ChallengeVideo',videoFile);
       formData.append('ContractABI',JSON.stringify(this.props.sponsorResponse.abi));
       formData.append('ContractAddress',this.props.sponsorResponse.contractAddress);
       try {
-        this.props.showLoading('Uploading Information. This may take several minutes.');
-        this.props.hideUploadToStorage();
         let response = await fetch('http://alpha.kuwa.org:3002/KuwaRegistration/', {
         // let response = await fetch('http://localhost:3002', {
           method: 'POST',
@@ -130,13 +122,7 @@ export default class UploadToStorage extends Component {
           </Row>
           <Row className="row-kuwa-reg">
             <Col>
-              <Form>
-                <FormGroup>
-                  <Label for="videoFile">File</Label>
-                  <Input type="file" id="videoFile" />
-                </FormGroup>
-                <Button color="primary" onClick={this.uploadToStorage}>Upload Info</Button>
-              </Form>
+              <Button color="primary" onClick={this.uploadToStorage}>Upload Info</Button>
             </Col>
           </Row>
         </Container>
