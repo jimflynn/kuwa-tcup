@@ -20,6 +20,7 @@ export default class Video extends Component {
         // console.log("You are allowed 15 seconds to record the video");
         this.err = undefined;
         this.setState({videoStatus: 'waiting'});
+        this.props.setVideoStatus('waiting');
         navigator.notification.alert('You are allowed 15 seconds to record the video', this.captureVideo, 'Alert', 'OK');
     }
 
@@ -45,6 +46,7 @@ export default class Video extends Component {
         this.setState({
             videoStatus: 'success'
         });
+        this.props.setVideoStatus('success');
     }
 
     renderVideo() {

@@ -20,14 +20,36 @@ export default class UploadToStorage extends Component {
       super(props);
       this.toggle = toggle.bind(this);
       this.state = {
-        collapse: false
+        collapse: false,
+        videoStatus: 'waiting'
       }
       this.uploadToStorage = this.uploadToStorage.bind(this);
       this.getVideoFilePath = this.getVideoFilePath.bind(this);
+      this.renderButton = this.renderButton.bind(this);
+      this.setVideoStatus = this.setVideoStatus.bind(this);
     }
   
     getVideoFilePath(videoFilePath) {
       this.videoFilePath = videoFilePath;
+    }
+
+    setVideoStatus(status) {
+      this.setState({videoStatus: status});
+    }
+
+    renderButton() {
+      if (this.state.videoStatus === 'success') {
+        return(
+          <Row className="row-kuwa-reg">
+            <Col>
+              <Button color="primary" className="elem-kuwa-reg" onClick={this.uploadToStorage}>Upload Info</Button>
+            </Col>
+          </Row>
+        );
+      }
+      return(
+        <Row></Row>
+      )
     }
   
     /**
@@ -117,14 +139,11 @@ export default class UploadToStorage extends Component {
             <Col>
               <Video 
                 getVideoFilePath = {videoFilePath => this.getVideoFilePath(videoFilePath)}
+                setVideoStatus = {status => this.setVideoStatus(status)}
               />
             </Col>
           </Row>
-          <Row className="row-kuwa-reg">
-            <Col>
-              <Button color="primary" onClick={this.uploadToStorage}>Upload Info</Button>
-            </Col>
-          </Row>
+          {this.renderButton()}
         </Container>
       );
     }
