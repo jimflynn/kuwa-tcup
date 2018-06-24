@@ -4,6 +4,7 @@ import SetPassword from './SetPassword';
 import Loading from './Load';
 import RequestSponsorship from './RequestSponsorship';
 import UploadToStorage from './UploadToStorage';
+import { exportToFile, saveFile, loadFile } from './lib'
 import '../css/App.css';
 
 /**
@@ -66,7 +67,7 @@ class CreateKuwaId extends Component {
    * @param  {KeyObject} keyObject 
    * @return {void}@memberof CreateKuwaId
    */
-  processKeystore(keyObject) {
+  async processKeystore(keyObject) {
     if ( !keyObject ) {
       this.setState({
         showLoading: false
@@ -74,6 +75,25 @@ class CreateKuwaId extends Component {
       alert("An error occurred when generating keys.");
     } else {      
       this.kuwaId = '0x' + keyObject.address;
+      await exportToFile(keyObject, cordova.file.externalDataDirectory);
+      let accountId = 'identifier';
+      let kuwaId = {};
+      kuwaId['address'] = this.kuwaId;
+      let myKeys = {};
+      myKeys[accountId] = kuwaId;
+      let blob = new Blob([JSON.stringify(myKeys)], {type : 'application/json'});
+      await saveFile(cordova.file.externalDataDirectory, 'myKeys', blob);
+      myKeys = await loadFile(cordova.file.externalDataDirectory, 'myKeys');
+      let reader = new FileReader();
+      let json = new Promise((resolve, reject) => {
+        reader.onload = function() {
+          resolve(reader.result);
+        }
+      });
+      reader.readAsText(myKeys);
+      // myKeys = await json;
+      myKeys = JSON.parse(await json);
+      // alert(myKeys['identifier']['address']);
       keythereum.recover(this.password, keyObject, this.showRegistrationRequest);
     }
   }
