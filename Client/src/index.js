@@ -4,8 +4,9 @@ import './css/index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CreateKuwaId from './js/App';
 import Navigation from './js/Navigation';
-import { stat } from 'fs';
-// import registerServiceWorker from './registerServiceWorker';
+
+import { Provider } from 'react-redux';
+import { store } from './js/store';
 
 document.addEventListener("deviceready", init, false);
 
@@ -29,8 +30,14 @@ function init() {
         }
     })
 
-    ReactDOM.render(<Navigation />, document.getElementById('navigationBar'));
-    ReactDOM.render(<CreateKuwaId />, document.getElementById('root'));
+    ReactDOM.render(
+        <Provider store={store}>
+            <Navigation />
+        </Provider>, document.getElementById('navigationBar'));
+    ReactDOM.render(
+        <Provider store={store}>
+            <CreateKuwaId />
+        </Provider>, document.getElementById('root'));
 }
 
 // registerServiceWorker();

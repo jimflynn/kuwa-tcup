@@ -1,58 +1,17 @@
 import React, { Component } from 'react';
 import { Button, Container, Row, Col, Form, FormGroup, Label, Input, Badge, Collapse, Card, CardBody } from 'reactstrap';
 
+import { toggleCollapse, togglePasswordVisibility } from './actions/screenActions';
+import { createKeys } from './actions/kuwaActions';
+import { connect } from 'react-redux';
+
 /**
  * Shows component to create password for the keypair generated
  * @export
  * @class SetPassword
  * @extends Component
  */
-export default class SetPassword extends Component {
-  /**
-   * Creates an instance of SetPassword.
-   * @param  {any} props 
-   * @memberof SetPassword
-   */
-  constructor(props) {
-    super(props);
-    this.toggle = toggle.bind(this);
-    this.state = { 
-      collapse: false,
-      show: true,
-      password: '',
-      inputType: 'password' 
-    };
-    this.handleChange = handleChange.bind(this);
-    this.createKeys = this.createKeys.bind(this);
-    this.passwordIsValid = this.passwordIsValid.bind(this);
-    this.togglePassword = togglePassword.bind(this);
-  }
-
-  /**
-   * Creates keys using the passed method from the parent create keys by checking a valid
-   * password
-   * @return {void}@memberof SetPassword
-   */
-  createKeys() {
-    if (this.passwordIsValid()) {
-      this.props.createKeys(this.state.password);
-    } else {
-      alert('Please specify a password to protect your private key.');
-    }
-  }
-  
-  /**
-   * Checks that the password created has the required conditions
-   * @return 
-   * @memberof SetPassword
-   */
-  passwordIsValid() {
-    if (this.state.password !== '') {
-      return true;
-    }
-    return false;
-  }
-
+class SetPassword extends Component {
   render() {
     return (
       <Container>
@@ -60,7 +19,7 @@ export default class SetPassword extends Component {
           <Col>
             <h2>
               <span className="header-kuwa-reg">Create your Kuwa Identity</span>
-              <Button color="primary" onClick={this.toggle} outline>
+              <Button color="primary" onClick={this.props.toggleCollapse} outline>
                 <Badge color="primary">?</Badge>
               </Button>
             </h2>
@@ -68,7 +27,7 @@ export default class SetPassword extends Component {
         </Row>
         <Row className="row-kuwa-reg">
           <Col>
-            <Collapse isOpen={this.state.collapse}>
+            <Collapse isOpen={!this.props.collapsed}>
               <Card className="elem-kuwa-reg">
                 <CardBody>
                   Some explanation of what the Kuwa ID is and probably why you are creating a key pair.
@@ -86,17 +45,21 @@ export default class SetPassword extends Component {
           <Col>
             <Form>
             <FormGroup>
+              <Label for="identifier">Identifier</Label>
+              <Input type="text" name="identifier" id="identifier" placeholder="Kuwa Identifier" onChange={event => {this.identifier = event.target.value}} />
+            </FormGroup>
+            <FormGroup>
               <Label for="password">Password</Label>
-              <Input type={this.state.inputType} name="password" id="password" placeholder="Kuwa password" value={this.state.password} onChange={this.handleChange} />
+              <Input type={this.props.showPassword ? "text" : "password"} name="password" id="password" placeholder="Kuwa password" onChange={event => {this.password = event.target.value}} />
             </FormGroup>
             <FormGroup check>
               <Label check>
-                <Input type="checkbox" onChange={this.togglePassword} />
+                <Input type="checkbox" onChange={this.props.togglePasswordVisibility} />
                 Show Password
               </Label>
             </FormGroup>
             <br/>
-            <Button color="primary" onClick={this.createKeys}>Create Keys</Button>
+            <Button color="primary" onClick={() => this.props.createKeys(this.identifier, this.password)}>Create Keys</Button>
             </Form>
           </Col>
         </Row>
@@ -105,22 +68,25 @@ export default class SetPassword extends Component {
   }
 }
 
-var togglePassword = function(){
-    var inputType = 'password';
-    if (this.state.inputType === 'password') {
-      inputType = 'text';
+const mapStateToProps = state => {
+  return {
+    showPassword: state.screenReducer.setPassword.showPassword,
+    collapsed: state.screenReducer.setPassword.collapsed,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    createKeys: (identifier, password) => {
+      dispatch(createKeys(identifier, password))
+    },
+    toggleCollapse: () => {
+      dispatch(toggleCollapse("setPassword"))
+    },
+    togglePasswordVisibility: () => {
+      dispatch(togglePasswordVisibility("setPassword"))
     }
-    this.setState({
-      inputType: inputType
-    });
   }
-  
-  var handleChange = function(event) {
-    this.setState({
-      password: event.target.value
-    });
-  }
-  
-  var toggle = function() {
-    this.setState({ collapse: !this.state.collapse });
-  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SetPassword);

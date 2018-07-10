@@ -3,6 +3,12 @@ import { Button, Container, Row, Col, Badge, Collapse, Card, CardBody } from 're
 import Video from './Video';
 import '../css/App.css';
 
+import { Provider } from 'react-redux';
+import { store } from './store'
+import { toggleCollapse } from './actions/screenActions';
+import { uploadToStorage } from './actions/kuwaActions';
+import { connect } from 'react-redux';
+
 /**
  * Component that shows the upload screen of the video with the challenge recorded, the kuwa ID,
  * the contract ABI, and the contract address
@@ -10,105 +16,15 @@ import '../css/App.css';
  * @class UploadToStorage
  * @extends Component
  */
-export default class UploadToStorage extends Component {
-    /**
-     * Creates an instance of UploadToStorage.
-     * @param  {any} props 
-     * @memberof UploadToStorage
-     */
-    constructor(props) {
-      super(props);
-      this.toggle = toggle.bind(this);
-      this.state = {
-        collapse: false,
-        videoStatus: 'waiting'
-      }
-      this.uploadToStorage = this.uploadToStorage.bind(this);
-      this.getVideoFilePath = this.getVideoFilePath.bind(this);
-      this.renderButton = this.renderButton.bind(this);
-      this.setVideoStatus = this.setVideoStatus.bind(this);
-    }
-  
-    getVideoFilePath(videoFilePath) {
-      this.videoFilePath = videoFilePath;
-    }
-
-    setVideoStatus(status) {
-      this.setState({videoStatus: status});
-    }
-
-    renderButton() {
-      if (this.state.videoStatus === 'success') {
-        return(
-          <Row className="row-kuwa-reg">
-            <Col>
-              <Button color="primary" className="elem-kuwa-reg" onClick={this.uploadToStorage}>Upload Info</Button>
-            </Col>
-          </Row>
-        );
-      }
-      return(
-        <Row></Row>
-      )
-    }
-  
-    /**
-     * Sends challenge recorded, the kuwa ID, the contract ABI, and the contract address
-     * @return 
-     * @memberof UploadToStorage
-     */
-    async uploadToStorage() {
-      this.props.showLoading('Uploading Information. This may take several minutes.');
-      this.props.hideUploadToStorage();
-      let formData = new FormData();
-  
-      let videoFilePath = this.videoFilePath;
-
-      let resolveLocalFileSystemUtil = new Promise((resolve, reject) => {
-        window.resolveLocalFileSystemURL(videoFilePath, successOnFile, null)
-        function successOnFile(fileEntry) {
-          fileEntry.file(file => resolve(file));
-        }
-      });
-      let file = await resolveLocalFileSystemUtil;
-
-      let reader = new FileReader();
-      let loadVideo = new Promise((resolve, reject) => {
-        reader.onloadend = (e) => {
-          let videoBlob = new Blob([reader.result], { type:file.type});
-          resolve(videoBlob);
-        }
-      });
-      reader.readAsArrayBuffer(file);
-      let videoFile = await loadVideo;
-  
-      formData.append('ClientAddress',this.props.ethereumAddress);
-      formData.append('ChallengeVideo',videoFile);
-      formData.append('ContractABI',JSON.stringify(this.props.sponsorResponse.abi));
-      formData.append('ContractAddress',this.props.sponsorResponse.contractAddress);
-      try {
-        let response = await fetch('http://alpha.kuwa.org:3002/KuwaRegistration/', {
-        // let response = await fetch('http://localhost:3002', {
-          method: 'POST',
-          body: formData
-        })
-        alert("Success!");
-      } catch(e){
-        alert(e);
-        alert("There was an error. Please try later");
-      }
-      this.props.showUploadToStorage();
-      this.props.hideLoading();
-    }
-  
-    render() {
+class UploadToStorage extends Component {
+  render() {
       return(
         <Container>
           <Row className="row-kuwa-reg">
             <Col>
               <h2>
                 <span className="header-kuwa-reg">Submit Your Kuwa ID Request</span>
-                <Button color="primary" onClick={this.toggle} outline>
+                <Button color="primary" onClick={this.props.toggleCollapse} outline>
                   <Badge color="primary">?</Badge>
                 </Button>
               </h2>
@@ -116,7 +32,7 @@ export default class UploadToStorage extends Component {
           </Row>
           <Row className="row-kuwa-reg">
             <Col>
-              <Collapse isOpen={this.state.collapse}>
+              <Collapse isOpen={!this.props.collapsed}>
                 <Card className="elem-kuwa-reg">
                   <CardBody>
                     Some explanation.
@@ -137,18 +53,54 @@ export default class UploadToStorage extends Component {
           </Row>
           <Row>
             <Col>
-              <Video 
-                getVideoFilePath = {videoFilePath => this.getVideoFilePath(videoFilePath)}
-                setVideoStatus = {status => this.setVideoStatus(status)}
-              />
+              <Provider store={store}>
+                <Video />
+              </Provider>
             </Col>
           </Row>
-          {this.renderButton()}
+          {renderButton(this.props)}
         </Container>
       );
     }
   }
   
-  var toggle = function() {
-    this.setState({ collapse: !this.state.collapse });
+const renderButton = (props) => {
+  if (props.videoStatus === 'success') {
+    return(
+      <Row className="row-kuwa-reg">
+        <Col>
+          <Button color="primary" className="elem-kuwa-reg" onClick={() => props.uploadToStorage(props.videoFilePath, props.ethereumAddress, props.abi, props.contractAddress)}>Upload Info</Button>
+        </Col>
+      </Row>
+    );
   }
+  return(
+    <Row></Row>
+  )
+}
+
+const mapStateToProps = state => {
+  let currentKuwaId = state.kuwaReducer.currentKuwaId;
+  return {
+    collapsed: state.screenReducer.uploadToStorage.collapsed,
+    ethereumAddress: state.kuwaReducer.kuwaIds[currentKuwaId].address,
+    challenge: state.kuwaReducer.kuwaIds[currentKuwaId].challenge,
+    abi: state.kuwaReducer.kuwaIds[currentKuwaId].abi,
+    contractAddress: state.kuwaReducer.kuwaIds[currentKuwaId].contractAddress,
+    videoStatus: state.videoReducer.videoStatus,
+    videoFilePath: state.videoReducer.videoFilePath
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    uploadToStorage: (videoFilePath, ethereumAddress, abi, contractAddress) => {
+      dispatch(uploadToStorage(videoFilePath, ethereumAddress, abi, contractAddress))
+    },
+    toggleCollapse: () => {
+      dispatch(toggleCollapse("uploadToStorage"))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UploadToStorage);

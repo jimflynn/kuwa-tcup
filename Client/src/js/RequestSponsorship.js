@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Web3 from 'web3';
 import { Button, Container, Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
 
-var web3 = new Web3();
-web3.setProvider(new web3.providers.HttpProvider("https://rinkeby.infura.io/8Dx9RdhjqIl1y3EQzQpl"));
+import { toggleCollapse, togglePasswordVisibility } from './actions/screenActions';
+import { requestSponsorship } from './actions/kuwaActions';
+import { connect } from 'react-redux';
 
 /**
  * Shows component in charge of requesing sponsorship to the sponsor
@@ -11,75 +11,7 @@ web3.setProvider(new web3.providers.HttpProvider("https://rinkeby.infura.io/8Dx9
  * @class RequestSponsorship
  * @extends Component
  */
-export default class RequestSponsorship extends Component {
-    /**
-     * Creates an instance of RequestSponsorship.
-     * @param  {any} props 
-     * @memberof RequestSponsorship
-     */
-    constructor(props) {
-      super(props);
-      this.toggle = toggle.bind(this);
-      this.requestSponsorship = this.requestSponsorship.bind(this);
-      this.handleChange = handleChange.bind(this);
-      this.togglePassword = togglePassword.bind(this);
-      this.state = { 
-        collapse: false, 
-        password: '',
-        inputType: 'password'
-      };
-      this.dummyRequest = this.dummyRequest.bind(this);
-    }
-  
-    /**
-     * Sends POST request to the sponsor to get the smart contract address and challenge by
-     * loading the Smart Contract after receiving a successful response
-     * @return {void}@memberof RequestSponsorship
-     */
-    async requestSponsorship() {
-      var formData = new FormData();
-  
-      formData.append('address',this.props.kuwaId);
-      formData.append('SS',this.state.password);
-      
-      try {
-        this.props.showLoading('Requesting Sponsorship. This may take several minutes.');
-        this.props.hideRequestSponsorship();
-        let response = await fetch('http://alpha.kuwa.org:3000/sponsorship_requests/', {
-          method: 'POST',
-          body: formData
-        })
-        let responseJson = await response.json();
-        if (responseJson.message === 'invalid Shared Secret') {
-          this.props.showRequestSponsorship();
-          this.props.hideLoading();
-          alert('Invalid Shared Secret');
-        } else {
-          loadWallet(this.props.privateKey);
-          let contract = await loadContract(responseJson.abi, responseJson.contractAddress, 4300000, '22000000000', this.props.kuwaId);
-          let challenge  = await contract.methods.getChallenge().call();
-          this.props.showUploadToStorage(challenge, responseJson);
-          this.props.hideLoading();
-        }
-      } catch(e) {
-        this.props.showRequestSponsorship();
-        this.props.hideLoading();
-        alert("There was an error on the server. Please try again later");
-      }
-      
-    }
-  
-    async dummyRequest() {
-      let response = {
-        address:"0x6FD87c913e22E75b53fA1DB501081134a18aEF96",
-        abi:abi
-      }
-      loadWallet(this.props.privateKey);
-      let contract = await loadContract(JSON.parse(response.abi), response.address, 4300000, '22000000000', this.props.kuwaId);
-      let challenge  = await contract.methods.getChallenge().call();
-      this.props.showUploadToStorage(challenge);
-    }
-  
+class RequestSponsorship extends Component {
     render() {
       return (
         <Container>
@@ -95,16 +27,16 @@ export default class RequestSponsorship extends Component {
               <Form>
                 <FormGroup>
                   <Label for="password">Provide Shared Secret to request sponsorship</Label>
-                  <Input type={this.state.inputType} placeholder="Shared Secret" value={this.state.password} onChange={this.handleChange} />
+                  <Input type={this.props.showPassword ? "text" : "password"} placeholder="Shared Secret" onChange={event => {this.sharedSecret = event.target.value}} />
                 </FormGroup>
                   <FormGroup check>
                   <Label check>
-                    <Input type="checkbox" onChange={this.togglePassword} />
+                    <Input type="checkbox" onChange={this.props.togglePasswordVisibility} />
                     Show Shared Secret
                   </Label>
                 </FormGroup>
                 <br/>
-                <Button color="primary" onClick={this.requestSponsorship}>Request Sponsorship</Button>
+                <Button color="primary" onClick={() => this.props.requestSponsorship(this.props.keyObject, this.props.privateKey, this.sharedSecret)}>Request Sponsorship</Button>
               </Form>
             </Col>        
           </Row>
@@ -113,65 +45,27 @@ export default class RequestSponsorship extends Component {
     }
   }
 
-  /**
-   * Shows and hide password
-   * @return {void}
-   */
-  var togglePassword = function(){
-    var inputType = 'password';
-    if (this.state.inputType === 'password') {
-      inputType = 'text';
-    }
-    this.setState({
-      inputType: inputType
-    });
+const mapStateToProps = state => {
+  let currentKuwaId = state.kuwaReducer.currentKuwaId;
+  return {
+    showPassword: state.screenReducer.requestSponsorship.showPassword,
+    keyObject: state.kuwaReducer.kuwaIds[currentKuwaId].keyObject,
+    privateKey: state.kuwaReducer.kuwaIds[currentKuwaId].privateKey
   }
-  
-  /**
-   * Saves the value of the password in the password state variable
-   * @param  {Object} event 
-   * @return {void}
-   */
-  var handleChange = function(event) {
-    this.setState({
-      password: event.target.value
-    });
-  }
-  
-  /**
-   * Collapses and shows the help text of the current component
-   * @return {void}
-   */
-  var toggle = function() {
-    this.setState({ collapse: !this.state.collapse });
-  }
+}
 
-  /**
-   * Creates a wallet with the provided private key
-   * @param  {string} privateKey 
-   * @return {void}
-   */
-  var loadWallet = function(privateKey) {
-    web3.eth.accounts.wallet.clear();
-    web3.eth.accounts.wallet.add(privateKey);
+const mapDispatchToProps = dispatch => {
+  return {
+    requestSponsorship: (keyObject, privateKey, sharedSecret) => {
+      dispatch(requestSponsorship(keyObject, privateKey, sharedSecret))
+    },
+    toggleCollapse: () => {
+      dispatch(toggleCollapse("requestSponsorship"))
+    },
+    togglePasswordVisibility: () => {
+      dispatch(togglePasswordVisibility("requestSponsorship"))
+    }
   }
-  
-  /**
-   * Loads a smart contract
-   * @param  {JSON} abi 
-   * @param  {string} contractAddress 
-   * @param  {number} gas 
-   * @param  {string} gasPrice 
-   * @param  {string} from 
-   * @return 
-   */
-  var loadContract = async function(abi, contractAddress, gas, gasPrice, from) {
-    let contract = new web3.eth.Contract(abi);
-    contract.options.address = contractAddress;
-    contract.options.from = from;
-    contract.options.gasPrice = gasPrice;
-    contract.options.gas = gas;
-    return contract;
-  }
-  
-  var abi = '[{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"markAsInvalid","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"killContract","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_amount","type":"uint256"}],"name":"withdraw","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"standard","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getChallenge","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"withdrawals","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"markAsValid","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"address"}],"name":"allowance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getRegistrationStatus","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"_initialSupply","type":"uint256"},{"name":"_clientAddress","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"payable":true,"stateMutability":"payable","type":"fallback"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_owner","type":"address"},{"indexed":true,"name":"_spender","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"_challenge","type":"uint256"},{"indexed":false,"name":"_registrationStatus","type":"uint8"}],"name":"ChallengeValue","type":"event"}]';
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RequestSponsorship);
