@@ -58,7 +58,8 @@ const mapStateToProps = state => {
     return {
         videoStatus: state.videoReducer.videoStatus,
         videoFilePath: state.videoReducer.videoFilePath,
-        videoError: state.videoReducer.videoError
+        videoError: state.videoReducer.videoError,
+        isMobile: state.kuwaReducer.isMobile
     }
   }
   

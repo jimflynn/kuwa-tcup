@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import keythereum from 'keythereum';
 import SetPassword from './SetPassword';
-import Loading from './Load';
+import { Loading } from './Load';
 import RequestSponsorship from './RequestSponsorship';
 import UploadToStorage from './UploadToStorage';
 import { exportToFile, saveFile, loadFile } from './lib'
