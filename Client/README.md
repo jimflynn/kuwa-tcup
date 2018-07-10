@@ -15,12 +15,8 @@ Once [Node.js](https://nodejs.org/en/) is installed, you will be able to install
 $ sudo npm install -g cordova
 ```
 
-Check that all Cordova requirements are met before continuing
-```
-$ cordova requirements
-```
-
-You may check this [site](https://cordova.apache.org/docs/en/latest/guide/cli/index.html) for troubleshooting
+Make sure you have the latest Gradle version, Java 8, and Android Studio installed and that ALL the paths are set up correctly.
+You may check this [site](https://cordova.apache.org/docs/en/latest/guide/cli/index.html) for troubleshooting with Gradle, Java, and Android Studio paths and other issues.
 
 ### Installing
 
