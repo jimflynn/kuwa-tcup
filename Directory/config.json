@@ -1,0 +1,15 @@
+{
+    "eth_client" : {
+        "my_address": "0xde89471e94ffaaf346090abe1ccd4b448818dcbf",
+        "key_store_dir": "/home/jun/.ethereum",
+        "password": "tcup",
+        "eth_network_url": "https://rinkeby.infura.io/8Dx9RdhjqIl1y3EQzQpl"
+    },
+    "db_client": {
+        "host": "localhost",
+        "user": "root",
+        "password": "redemption",
+        "database": "test"
+    },
+    "dir_to_scan": "/home/jun/Documents/tcup/Directory/test"
+}
