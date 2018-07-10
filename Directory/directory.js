@@ -6,6 +6,7 @@ const Web3 = require('web3');
 const solc = require('solc');
 const keythereum = require('keythereum');
 const util = require('util');
+const SqlString = require('sqlstring');
 
 
 class DirScanner {
@@ -38,7 +39,7 @@ class DirScanner {
                                     JSON.parse(data.contractABI), data.contractAddress,
                                     4300000, '22000000000', this.ethClient.myAddress
                                 );
-                data.status = await contract.methods.getRegistrationStatus().call();
+                data.status = parseInt(await contract.methods.getRegistrationStatus().call());
             }
             catch (err) {
                 console.error(err);
@@ -104,44 +105,54 @@ class DBClient {
         return conn;
     }
 
-    insertSingle(tableName, data) {
+    insertOrUpdateSingle(tableName, data) {
         let date = getCurrentDateTime();
+
         let command = sprintf(
-                        "INSERT INTO %s \
-                        (registration_id, kuwa_address, contract_address, \
+                        `INSERT INTO %s \
+                         (registration_id, kuwa_address, contract_address, \
                          application_binary_interface_id, status, created, \
                          updated, last_checked) \
-                         VALUES (%d, '%s', '%s', %d, %d, '%s', '%s', '%s');",
-                         tableName, 0, data.clientAddress, data.contractAddress, 1, data.status,
-                         date, date, date);
-
+                         VALUES (%d, '%s', '%s', %d, %d, '%s', '%s', '%s') \
+                         ON DUPLICATE KEY UPDATE
+                         application_binary_interface_id = %d, status = %d, updated = '%s';
+                         `,
+                         tableName,
+                         0, data.clientAddress, data.contractAddress, 1, data.status, date, date, date,
+                         1, data.status, date
+                     );
+        console.log(command);
         this.conn.query(command, function(err, results, fields) {
-            if (err) {
-                console.error(err);
-            }
-            console.log('Rows affected:', results.affectedRows);
+         if (err) {
+             console.error(err);
+         }
+         console.log('Rows affected:', results.affectedRows);
         });
-    }
 
-    insertBatch() {
-        /* TODO */
-    }
-
-    updateSingle(tableName, data) {
-        var date = getCurrentDateTime();
-        let command = `
-            UPDATE ?
-            SET application_binary_interface_id = 1, status = ?, updated = ?,
-            WHERE kuwa_address = ?
-            `;
-
-        let vals = [tableName, data.status, date, data.clientAddress];
+        // Not working...
+        /*let insertVals = [0, data.clientAddress, data.contractAddress, 1, data.status,
+                          date, date, date];
+        let updateVals = [1, data.status, date];
+        let vals = [tableName, insertVals, ...updateVals];
+        console.log(vals);
+        let command = 'INSERT INTO ?\
+                      (registration_id, kuwa_address, contract_address,\
+                      application_binary_interface_id, status, created,\
+                      updated, last_checked)\
+                      VALUES ?\
+                      ON DUPLICATE KEY UPDATE\
+                      application_binary_interface_id = ?, status = ?, updated = ?\
+                      ';
         this.conn.query(command, vals, function(err, results, fields) {
             if (err) {
                 console.error(err);
             }
             console.log('Rows affected:', results.affectedRows);
-        });
+        });*/
+    }
+
+    insertBatch() {
+        /* TODO */
     }
 
     updateBatch() {
@@ -214,7 +225,7 @@ let run = async function() {
     for (let i = 0; i < clientDirs.length; i++) {
         let data = await dirScanner.processClientDir(clientDirs[i]);
         if (data)
-            await dbClient.insertSingle('registration', data);
+            await dbClient.insertOrUpdateSingle('registration', data);
     }
     dbClient.conn.end();
 }

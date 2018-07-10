@@ -8,7 +8,7 @@
     "db_client": {
         "host": "localhost",
         "user": "root",
-        "password": "redemption",
+        "password": "root",
         "database": "test"
     },
     "dir_to_scan": "/home/jun/Documents/tcup/Directory/test"
