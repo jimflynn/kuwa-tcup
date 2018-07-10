@@ -1,3 +1,5 @@
+var fs = require('fs');
+var https = require('https');
 const mysql = require('mysql');
 const express = require('express');
 const port = process.env.PORT || 8081;
@@ -14,10 +16,16 @@ var pool = mysql.createPool({
     dateStrings : true
 });
 
+var credentials = {
+    key : fs.readFileSync('server.key'),
+    cert: fs.readFileSync('server.cert')
+}
+
 app.get('/registration', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
     pool.getConnection((error,connection) => {
         if (error) {
-            res.json({"code" : 100, "status" : "Error in connecting to database"});
+            return res.json({"code" : 100, "status" : "Error in connecting to database"});
             return;
         }
         console.log('UI backend has connected to Kuwa database!');
@@ -25,18 +33,21 @@ app.get('/registration', (req, res) => {
             if (!err) {
                 connection.release();
                 rows = JSON.parse(JSON.stringify(rows));
-                res.json(rows);
+                return res.json(rows);
             }
             else {
-                res.json({"code" : 100, "status" : "Error in querying database"});
+                return res.json({"code" : 100, "status" : "Error in querying database"});
                 return;
             }
         });
         connection.on('error', (err) => {
-            res.json({"code" : 100, "status" : "Error in connecting to database"});
+            return res.json({"code" : 100, "status" : "Error in connecting to database"});
             return;
         })
     });
 });
 
-app.listen(port, () => console.log(`Listening on port ${port}`));
+https.createServer(credentials, app)
+    .listen(port, function () {
+        console.log('Server listening on port ' + port);
+    });

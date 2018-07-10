@@ -10,6 +10,7 @@ var fs = require('fs');
 var mysql = require('mysql');
 var crypto = require('crypto');
 var chokidar = require('chokidar');
+var spawn = require('child_process').spawn;
 
 var Web3 = require('web3');
 var web3 = new Web3('https://rinkeby.infura.io/8Dx9RdhjqIl1y3EQzQpl');
@@ -26,6 +27,16 @@ var loadContract = async function(ContractABI, ContractAddress) {
 }
 
 var findDuplicate = function(mapping, hashval) {
+
+    // call python sub-process
+    var py = spawn('python', ['test.py']);
+    py.stdout.on('data', function(data) {
+        console.log(data.toString());
+    })
+    py.stdout.on('end', function(){
+        console.log("Python process terminated successfully!!");
+    });
+
     for (var key in mapping) {
         if (mapping[key] === hashval)
             return true;
@@ -76,15 +87,15 @@ function registerFile(event, filePath) {
     if(event == 'addDir' && filePath.length > dir.length) {
 
         let info = JSON.parse(fs.readFileSync(filePath + '/' + 'info.json', 'utf8'));
-        console.log(info);
+        // console.log(info);
         let ContractABI = JSON.parse(info.ContractABI);
-        console.log(ContractABI);
+        // console.log(ContractABI);
         let ClientAddress = info.ClientAddress;
         let ContractAddress = info.ContractAddress;
 
         let hash = '';
         let sha = crypto.createHash('sha256');
-        let file = fs.ReadStream(filePath + '/' + 'ChallengeVideo.mp4');
+        let file = fs.ReadStream(filePath + '/' + 'vid.txt');
         file.on('data', function(data) {
             sha.update(data);
         })
@@ -93,14 +104,14 @@ function registerFile(event, filePath) {
             hash = sha.digest('hex');
 
             let duplicate = findDuplicate(dict, hash);
-            console.log('Duplicate File:', duplicate);
+            console.log('Duplicate File? :', duplicate);
 
             if(!duplicate) {
 
                 dict[filePath] = hash;
                 console.log(filePath + ' => ' + hash + ': Valid');
-                console.log("Current Hash Table:");
-                console.log(dict);
+                // console.log("Current Hash Table:");
+                // console.log(dict);
 
                 // TODO: for now, only display the smart contract challenge phrase
                 // later while setting up the complete system, get `ContractAddress` from storage manager
@@ -120,8 +131,8 @@ function registerFile(event, filePath) {
             }
             else {
                 console.log(filePath + ' => ' + hash + ': Invalid; Hash already exists');
-                console.log("Current Hash Table:");
-                console.log(dict);
+                // console.log("Current Hash Table:");
+                // console.log(dict);
 
                 // add entry to DB
                 let con = createSQLConnection();
