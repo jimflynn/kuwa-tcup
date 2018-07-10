@@ -6,7 +6,7 @@
 
 3. Next , run 'truffle compile' and then 'truffle migrate', note the address the KuwaFaucet contract is deployed to. 
 
-4. Replace the contract address referenced in App.js
+4. Replace the contract address referenced in server.js
 
 5. Start the react app by running 'npm start'
 
