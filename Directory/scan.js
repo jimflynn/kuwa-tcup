@@ -121,15 +121,14 @@ class DBClient {
                          0, data.clientAddress, data.contractAddress, 1, data.status, date, date, date,
                          1, data.status, date
                      );
-        console.log(command);
         this.conn.query(command, function(err, results, fields) {
-         if (err) {
+            if (err) {
              console.error(err);
-         }
-         console.log('Rows affected:', results.affectedRows);
+            }
+            console.log('Rows affected:', results.affectedRows);
         });
 
-        // Not working...
+        // Prepared/parameterized statement not working...
         /*let insertVals = [0, data.clientAddress, data.contractAddress, 1, data.status,
                           date, date, date];
         let updateVals = [1, data.status, date];
