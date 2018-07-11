@@ -1,11 +1,12 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const webpack = require('webpack');
 
 module.exports = {
     node: {
         fs: "empty"
-     },
+    },
     entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, 'cordovaClient/www'),
@@ -40,6 +41,12 @@ module.exports = {
             }
         ]
     },
+    resolve: {
+        alias: {
+            videojs: 'video.js',
+            WaveSurfer: 'wavesurfer.js'
+        }
+    },
     plugins: [
         new HtmlWebpackPlugin({
             template: './src/index.html'
@@ -47,6 +54,10 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: "css/bundle.css",
             chunkFilename: "[id].css"
-          })
+        }),
+        new webpack.ProvidePlugin({
+            videojs: 'video.js/dist/video.cjs.js',
+            RecordRTC: 'recordrtc'
+        })
     ]
 }
