@@ -90,11 +90,9 @@ app.get('/blockchain', function(req,res){
 	
 	//using the contract ABI to create the contract object and initialising an instnce of it
 	var KuwaFaucet = web3.eth.contract(contractABI);
-	var app = KuwaFaucet.at(0xe7643211b4b18497600d2a97c59efdd1ed74e292);
-	console.log(app);
 
 	//calling the getValidKuwaID method to retrieve the list of public keys
-   message = KuwaFaucet.at('0xe7643211b4b18497600d2a97c59efdd1ed74e292').getValidKuwaID.call();
+   message = KuwaFaucet.at('0xeb3ec6eee46acecfeee10fa097049c88826e71c3').getValidKuwaID.call();
 
    res.send((message));
 
