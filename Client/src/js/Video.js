@@ -15,15 +15,16 @@ class Video extends Component {
         if (!this.props.isMobile) {
             const videoJsOptions = {
                 controls: true,
-                width: 320,
-                height: 240,
+                width: getVideoWidth(),
+                height: getVideoHeight(),
                 fluid: false,
                 plugins: {
                     record: {
                         audio: true,
                         video: true,
                         maxLength: 15,
-                        debug: true
+                        debug: true,
+                        videoMimeType: 'video/webm;codecs=H264'
                     }
                 }
             };
@@ -48,11 +49,12 @@ class Video extends Component {
 
             // user completed recording and stream is available
             // Upload the Blob to your server or download it locally !
+            let player = this.player;
             this.player.on('finishRecord', function() {
 
                 // the blob object contains the recorded data that
                 // can be downloaded by the user, stored on server etc.
-                var videoBlob = this.player.recordedData.video;
+                var videoBlob = player.recordedData.video;
 
                 console.log('finished recording: ', videoBlob);
             });
@@ -94,7 +96,13 @@ const renderButton = (props) => {
 const renderVideo = (props) => {
     if(!props.isMobile) {
         return (
-            <video id="webVideo" className="video-js vjs-default-skin"></video>
+            <Row className="row-kuwa-reg">
+                <Col>
+                    <center>
+                        <video id="webVideo" className="video-js vjs-default-skin"></video>
+                    </center>
+                </Col>
+            </Row>
         )
     }
     if (props.videoStatus === 'success') {
