@@ -106,6 +106,27 @@ export function uploadToStorage(videoFilePath, ethereumAddress, abi, contractAdd
     }
 }
 
+export function webUploadToStorage(videoBlob, ethereumAddress, abi, contractAddress) {
+    return {
+        type: 'WEB_UPLOAD_TO_STORAGE',
+        payload: new Promise((resolve, reject) => {
+            let formData = new FormData();
+            formData.append('ClientAddress',ethereumAddress);
+            formData.append('ChallengeVideo',videoBlob);
+            formData.append('ContractABI',JSON.stringify(abi));
+            formData.append('ContractAddress',contractAddress);
+            fetch('http://alpha.kuwa.org:3002/KuwaRegistration/', {
+                method: 'POST',
+                body: formData
+            }).then(response => {
+                resolve(response)
+            }).catch(e => {
+                reject(e)
+            })
+        })
+    }
+}
+
 /**
  * Creates a wallet with the provided private key
  * @param  {string} privateKey 

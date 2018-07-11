@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Container, Row, Col } from 'reactstrap';
 
-import { captureVideo } from './actions/videoActions';
+import { captureVideo, webStartVideo, webFinishedVideo, webErrorVideo } from './actions/videoActions';
 import { connect } from 'react-redux';
 
 import videojs from 'video.js';
@@ -28,6 +28,8 @@ class Video extends Component {
                     }
                 }
             };
+
+            let props = this.props
     
             // instantiate Video.js
             this.player = videojs("webVideo", videoJsOptions, function onPlayerReady(){
@@ -39,12 +41,12 @@ class Video extends Component {
     
             // error handling
             this.player.on('error', function(error) {
-                console.warn(error);
+                props.webErrorVideo(error);
             });
 
             // user clicked the record button and started recording !
             this.player.on('startRecord', function() {
-                console.log('started recording! Do whatever you need to');
+                props.webStartVideo();
             });
 
             // user completed recording and stream is available
@@ -56,7 +58,7 @@ class Video extends Component {
                 // can be downloaded by the user, stored on server etc.
                 var videoBlob = player.recordedData.video;
 
-                console.log('finished recording: ', videoBlob);
+                props.webFinishedVideo(videoBlob);
             });
         }
     }
@@ -152,6 +154,15 @@ const mapDispatchToProps = dispatch => {
     return {
         captureVideo: () => {
             dispatch(captureVideo())
+        },
+        webStartVideo: () => {
+            dispatch(webStartVideo())
+        },
+        webFinishedVideo: (videoBlob) => {
+            dispatch(webFinishedVideo(videoBlob))
+        },
+        webErrorVideo: (videoError) => {
+            dispatch(webErrorVideo(videoError))
         }
     }
 }

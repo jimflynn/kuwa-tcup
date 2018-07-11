@@ -76,6 +76,7 @@ const kuwaReducer = (state = initialState, action) => {
                 }
             })
         case 'UPLOAD_TO_STORAGE_PENDING':
+        case 'WEB_UPLOAD_TO_STORAGE_PENDING':
             return Object.assign({}, state, {
                 screen: {
                     screenName: "LOADING",
@@ -83,6 +84,7 @@ const kuwaReducer = (state = initialState, action) => {
                 }
             })
         case 'UPLOAD_TO_STORAGE_FULFILLED':
+        case 'WEB_UPLOAD_TO_STORAGE_FULFILLED':
             return Object.assign({}, state, {
                 screen: {
                     screenName: "LOADING",
@@ -90,6 +92,7 @@ const kuwaReducer = (state = initialState, action) => {
                 }
             })
         case 'UPLOAD_TO_STORAGE_REJECTED':
+        case 'WEB_UPLOAD_TO_STORAGE_REJECTED':
             return Object.assign({}, state, {
                 screen: {
                     screenName: "UPLOAD_TO_STORAGE"

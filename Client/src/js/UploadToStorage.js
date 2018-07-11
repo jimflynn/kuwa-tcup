@@ -6,7 +6,7 @@ import '../css/App.css';
 import { Provider } from 'react-redux';
 import { store } from './store'
 import { toggleCollapse } from './actions/screenActions';
-import { uploadToStorage } from './actions/kuwaActions';
+import { webUploadToStorage, uploadToStorage  } from './actions/kuwaActions';
 import { connect } from 'react-redux';
 
 /**
@@ -58,7 +58,11 @@ class UploadToStorage extends Component {
               </Provider>
             </Col>
           </Row>
-          {renderButton(this.props)}
+          <Row className="row-kuwa-reg">
+            <Col>
+              {renderButton(this.props)}
+            </Col>
+          </Row>
         </Container>
       );
     }
@@ -66,13 +70,15 @@ class UploadToStorage extends Component {
   
 const renderButton = (props) => {
   if (props.videoStatus === 'success') {
-    return(
-      <Row className="row-kuwa-reg">
-        <Col>
-          <Button color="primary" className="elem-kuwa-reg" onClick={() => props.uploadToStorage(props.videoFilePath, props.ethereumAddress, props.abi, props.contractAddress)}>Upload Info</Button>
-        </Col>
-      </Row>
-    );
+    if(props.isMobile) {
+      return(
+        <Button color="primary" className="elem-kuwa-reg" onClick={() => props.uploadToStorage(props.videoFilePath, props.ethereumAddress, props.abi, props.contractAddress)}>Upload Information</Button>
+      );
+    } else {
+      return(
+        <Button color="primary" className="elem-kuwa-reg" onClick={() => props.webUploadToStorage(props.videoBlob, props.ethereumAddress, props.abi, props.contractAddress)}>Upload Information</Button>
+      );
+    }
   }
   return(
     <Row></Row>
@@ -82,13 +88,15 @@ const renderButton = (props) => {
 const mapStateToProps = state => {
   let currentKuwaId = state.kuwaReducer.currentKuwaId;
   return {
+    isMobile: state.kuwaReducer.isMobile,
     collapsed: state.screenReducer.uploadToStorage.collapsed,
     ethereumAddress: state.kuwaReducer.kuwaIds[currentKuwaId].address,
     challenge: state.kuwaReducer.kuwaIds[currentKuwaId].challenge,
     abi: state.kuwaReducer.kuwaIds[currentKuwaId].abi,
     contractAddress: state.kuwaReducer.kuwaIds[currentKuwaId].contractAddress,
     videoStatus: state.videoReducer.videoStatus,
-    videoFilePath: state.videoReducer.videoFilePath
+    videoFilePath: state.videoReducer.videoFilePath,
+    videoBlob: state.videoReducer.videoBlob
   }
 }
 
@@ -96,6 +104,9 @@ const mapDispatchToProps = dispatch => {
   return {
     uploadToStorage: (videoFilePath, ethereumAddress, abi, contractAddress) => {
       dispatch(uploadToStorage(videoFilePath, ethereumAddress, abi, contractAddress))
+    },
+    webUploadToStorage: (videoBlob, ethereumAddress, abi, contractAddress) => {
+      dispatch(webUploadToStorage(videoBlob, ethereumAddress, abi, contractAddress))
     },
     toggleCollapse: () => {
       dispatch(toggleCollapse("uploadToStorage"))
