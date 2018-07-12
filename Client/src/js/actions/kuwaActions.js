@@ -45,7 +45,7 @@ export function requestSponsorship(keyObject, privateKey, sharedSecret) {
             formData.append('address', keyObject.address);
             formData.append('SS', sharedSecret);
             try {
-                fetch('http://alpha.kuwa.org:3000/sponsorship_requests/', {
+                fetch('https://alpha.kuwa.org:3000/sponsorship_requests/', {
                     method: 'POST',
                     body: formData
                 }).then(response => {
@@ -92,7 +92,7 @@ export function uploadToStorage(videoFilePath, ethereumAddress, abi, contractAdd
                     formData.append('ChallengeVideo',videoFile);
                     formData.append('ContractABI',JSON.stringify(abi));
                     formData.append('ContractAddress',contractAddress);
-                    fetch('http://alpha.kuwa.org:3002/KuwaRegistration/', {
+                    fetch('https://alpha.kuwa.org:3003/KuwaRegistration/', {
                         method: 'POST',
                         body: formData
                     }).then(response => {
@@ -115,7 +115,7 @@ export function webUploadToStorage(videoBlob, ethereumAddress, abi, contractAddr
             formData.append('ChallengeVideo',videoBlob);
             formData.append('ContractABI',JSON.stringify(abi));
             formData.append('ContractAddress',contractAddress);
-            fetch('http://alpha.kuwa.org:3002/KuwaRegistration/', {
+            fetch('https://alpha.kuwa.org:3003/KuwaRegistration/', {
                 method: 'POST',
                 body: formData
             }).then(response => {
