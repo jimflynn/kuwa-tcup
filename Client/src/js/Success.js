@@ -18,7 +18,7 @@ export const Success = (props) => {
         </Row>
         <Row className="row-kuwa-reg">
             <Col>
-                <img className="loading-kuwa-reg" src={success} alt="success" />
+                <img className="responsive-kuwa-img" src={success} alt="success" />
             </Col>
         </Row>
     </Container>

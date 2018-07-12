@@ -18,7 +18,7 @@ export const Error = (props) => {
         </Row>
         <Row className="row-kuwa-reg">
             <Col>
-                <img className="loading-kuwa-reg" src={error} alt="error" />
+                <img className="responsive-kuwa-img" src={error} alt="error" />
             </Col>
         </Row>
     </Container>
