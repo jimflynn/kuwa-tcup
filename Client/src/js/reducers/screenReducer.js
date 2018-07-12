@@ -13,8 +13,10 @@ const initialState = {
         showPassword: false
     },
     uploadToStorage: {
-        collapsed: true,
-        showPassword: false
+        collapsed: true
+    },
+    navigation: {
+        collapsed: true
     }
 }
 

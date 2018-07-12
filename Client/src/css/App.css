@@ -40,6 +40,11 @@
   margin: 100px;
 }
 
+.responsive-kuwa-img {
+  max-width: 100%;
+  height: auto;
+}
+
 .long-key {
   word-wrap: break-word;
 }

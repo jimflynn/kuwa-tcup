@@ -51,7 +51,7 @@ export function requestSponsorship(keyObject, privateKey, sharedSecret) {
                 }).then(response => {
                     response.json().then(responseJson => {
                         if (responseJson.message === 'invalid Shared Secret') {
-                            reject("Invalid Shared Secret")
+                            reject({error: "Invalid Shared Secret."})
                         } else {
                             loadWallet(privateKey);
                             loadContract(responseJson.abi, responseJson.contractAddress, 4300000, '22000000000', keyObject.address).then(contract => {
@@ -61,7 +61,7 @@ export function requestSponsorship(keyObject, privateKey, sharedSecret) {
                             })
                         }
                     })
-                })
+                }).catch(e => reject({error: "Sorry, we are experiencing internal problems."}))
             } catch(e) {
                 reject("There was an error on the server. Please try again later");
             }
@@ -98,9 +98,30 @@ export function uploadToStorage(videoFilePath, ethereumAddress, abi, contractAdd
                     }).then(response => {
                         resolve(response)
                     }).catch(e => {
-                        reject(e)
+                        reject({error: "Seems like the Information was not uploaded"})
                     })
                 })
+            })
+        })
+    }
+}
+
+export function webUploadToStorage(videoBlob, ethereumAddress, abi, contractAddress) {
+    return {
+        type: 'WEB_UPLOAD_TO_STORAGE',
+        payload: new Promise((resolve, reject) => {
+            let formData = new FormData();
+            formData.append('ClientAddress',ethereumAddress);
+            formData.append('ChallengeVideo',videoBlob);
+            formData.append('ContractABI',JSON.stringify(abi));
+            formData.append('ContractAddress',contractAddress);
+            fetch('http://alpha.kuwa.org:3002/KuwaRegistration/', {
+                method: 'POST',
+                body: formData
+            }).then(response => {
+                resolve(response)
+            }).catch(e => {
+                reject(e)
             })
         })
     }

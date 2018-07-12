@@ -24,13 +24,38 @@ export function captureVideo() {
         }
 
         function captureError(err) {
-            let error = JSON.stringify(err);
+            let videoError = JSON.stringify(err);
             dispatch({
                 type: 'CAPTURE_VIDEO_REJECTED',
                 payload: {
-                    error
+                    videoError
                 }
             })
+        }
+    }
+}
+
+export function webStartVideo() {
+    return {
+        type: 'WEB_CAPTURE_VIDEO_PENDING'
+    }
+}
+
+export function webFinishedVideo(videoBlob) {
+    return {
+        type: 'WEB_CAPTURE_VIDEO_FULFILLED',
+        payload: {
+            videoBlob
+        }
+    }
+}
+
+export function webErrorVideo(videoError) {
+    videoError = JSON.stringify(videoError);
+    return {
+        type: 'WEB_CAPTURE_VIDEO_REJECTED',
+        payload: {
+            videoError
         }
     }
 }
