@@ -4,15 +4,23 @@ Author - Hrishikesh Kashyap, Last Updated - 06/15/2018
 */
 /**TODO: Make the port number and directory to save the file a config option*/
 
-const port = process.env.PORT || 3002;
+const port = process.env.PORT || 3003;
 
 var express = require('express');
 var formidable = require('formidable');
 const bodyParser = require('body-parser');
 const path = require('path');
-var fs = require('fs-extra'); //var fs = require('fs')
+var fs = require('fs-extra'); 
+var fs1 = require('fs');
 var app = express();
+var https = require('https');
+var http = require('http');
 
+
+var options = {
+ key: fs1.readFileSync('/etc/httpd/conf/ssl.key/server.key'),
+ cert: fs1.readFileSync('/etc/httpd/conf/ssl.crt/alpha_kuwa_org.pem')
+};
 
 app.get('/', function (req, res){
   res.sendFile(__dirname + '/index.html');
@@ -29,6 +37,7 @@ app.use((req, res, next) => {
 });
 
 app.post('/KuwaRegistration', function (req, res){
+  console.log('e1');
   var form = new formidable.IncomingForm();
 
   // parsing the form POST request
@@ -38,8 +47,8 @@ app.post('/KuwaRegistration', function (req, res){
     console.log(fields);
 
     var oldpath = files.ChallengeVideo.path;
-    var newpath = __dirname + '/registrations/' + fields.ClientAddress + '/ChallengeVideo.mp4';
-    var newInfoFilePath = __dirname +'/registrations/'+fields.ClientAddress+'/'+'info.json';
+    var newpath = '/registrations/' + fields.ClientAddress + '/ChallengeVideo.mp4';
+    var newInfoFilePath = '/registrations/'+fields.ClientAddress+'/'+'info.json';
 
     // creating the new dir and copying the contents
     fs.createFile(newpath, function(err) {
@@ -72,4 +81,14 @@ app.post('/KuwaRegistration', function (req, res){
 
 });
 
-app.listen(port, () => console.log(`Server listening on port ${port}`));
+//http.createServer(app).listen(port, function() {
+//    console.log('Storage manager Server Started On Port %d', port);
+//});
+
+https.createServer(options, app).listen(port, function() {
+    console.log('Storage manager Server Started On Port %d', port);
+});
+
+//app.listen(port, () => console.log(`Server listening on port ${port}`));
+
+
