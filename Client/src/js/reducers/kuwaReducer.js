@@ -86,6 +86,11 @@ const kuwaReducer = (state = initialState, action) => {
         case 'UPLOAD_TO_STORAGE_FULFILLED':
         case 'WEB_UPLOAD_TO_STORAGE_FULFILLED':
             return Object.assign({}, state, {
+                kuwaIds: Object.assign({}, state.kuwaIds, {
+                    [state.currentKuwaId]: Object.assign({}, state.kuwaIds[state.currentKuwaId], {
+                        info_uploaded: true
+                    })
+                }),
                 screen: {
                     screenName: "LOADING",
                     helpText: 'Done'

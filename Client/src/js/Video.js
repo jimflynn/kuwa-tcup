@@ -31,33 +31,23 @@ class Video extends Component {
 
             let props = this.props
     
-            // instantiate Video.js
             this.player = videojs("webVideo", videoJsOptions, function onPlayerReady(){
-                // print version information at startup
                 var msg = 'Using video.js ' + videojs.VERSION +
                     ' with videojs-record ' + videojs.getPluginVersion('record')
                 videojs.log(msg);
             });
     
-            // error handling
             this.player.on('error', function(error) {
                 props.webErrorVideo(error);
             });
 
-            // user clicked the record button and started recording !
             this.player.on('startRecord', function() {
                 props.webStartVideo();
             });
 
-            // user completed recording and stream is available
-            // Upload the Blob to your server or download it locally !
             let player = this.player;
             this.player.on('finishRecord', function() {
-
-                // the blob object contains the recorded data that
-                // can be downloaded by the user, stored on server etc.
-                var videoBlob = player.recordedData.video;
-
+                let videoBlob = player.recordedData.video;
                 props.webFinishedVideo(videoBlob);
             });
         }
