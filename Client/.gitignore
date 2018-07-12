@@ -1,3 +1,4 @@
 node_modules/
 cordovaClient/
 video/
+webBuild.sh

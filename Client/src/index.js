@@ -5,16 +5,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // import 'video.js/dist/video-js.min.css';
 // import 'videojs-record/dist/css/videojs.record.min.css';
 import CreateKuwaId from './js/App';
-import Navigation from './js/Navigation';
 
 import { Provider } from 'react-redux';
 import { store } from './js/store';
 
 const renderDom = () => {
-    ReactDOM.render(
-        <Provider store={store}>
-            <Navigation />
-        </Provider>, document.getElementById('navigationBar'));
     ReactDOM.render(
         <Provider store={store}>
             <CreateKuwaId />

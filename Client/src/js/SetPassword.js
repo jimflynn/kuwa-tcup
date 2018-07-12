@@ -30,7 +30,7 @@ class SetPassword extends Component {
             <Collapse isOpen={!this.props.collapsed}>
               <Card className="elem-kuwa-reg">
                 <CardBody>
-                  Some explanation of what the Kuwa ID is and probably why you are creating a key pair.
+                  Here you will create your unique Kuwa ID that identifies who you are and allows you to be sponsored. It is VERY important that you remember your password. If you forget it, there is not way to recover it. Keep your password in a SAFE place. 
                 </CardBody>
               </Card>
             </Collapse>

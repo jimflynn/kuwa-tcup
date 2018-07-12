@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import keythereum from 'keythereum';
+import Navigation from './Navigation';
 import SetPassword from './SetPassword';
 import { Loading } from './Load';
+import { Success } from './Success';
+import { Error } from './Error';
 import RequestSponsorship from './RequestSponsorship';
 import UploadToStorage from './UploadToStorage';
-import { exportToFile, saveFile, loadFile } from './lib'
 import '../css/App.css';
 
 import { connect } from 'react-redux';
@@ -18,35 +19,49 @@ import { store } from './store'
  */
 class CreateKuwaId extends Component {
   render() {
-    switch(this.props.screen.screenName) {
-      case 'SET_PASSWORD':
-        return(
-          <Provider store={store}>
-            <SetPassword />
-          </Provider>
-        )
-      case 'LOADING':
-        return (
-          <Loading loadingMessage={this.props.screen.helpText} />
-        )
-      case 'REQUEST_SPONSORSHIP':
-        return (
-          <Provider store={store}>
-            <RequestSponsorship />
-          </Provider>
-        )
-      case 'UPLOAD_TO_STORAGE':
-        return (
-          <Provider store={store}>
-            <UploadToStorage />
-          </Provider>
-        )
-      default:
-        return (
-          <Loading loadingMessage="ERROR LOADING SCREEN" />
-        )
-    }
-    
+    return (
+      <div>
+        <Provider store={store}>
+          <Navigation />
+        </Provider>
+        <Provider store={store}>
+          {renderScreen(this.props)}
+        </Provider>
+      </div>
+    )
+  }
+}
+
+const renderScreen = (props) => {
+  switch(props.screen.screenName) {
+    case 'SET_PASSWORD':
+      return(
+          <SetPassword />
+      )
+    case 'LOADING':
+      return (
+        <Loading loadingMessage={props.screen.helpText} />
+      )
+    case 'SUCCESS':
+      return (
+        <Success successMessage={props.screen.helpText} />
+      )
+    case 'ERROR':
+      return (
+        <Error errorMessage={props.screen.helpText} />
+      )
+    case 'REQUEST_SPONSORSHIP':
+      return (
+          <RequestSponsorship />
+      )
+    case 'UPLOAD_TO_STORAGE':
+      return (
+          <UploadToStorage />
+      )
+    default:
+      return (
+        <Error errorMessage="ERROR LOADING SCREEN" />
+      )
   }
 }
 
