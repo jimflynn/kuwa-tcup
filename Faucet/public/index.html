@@ -1,41 +1,36 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-   <link rel="stylesheet" type="text/html" href="index.css">
-
-   <title>Kuwa Faucet</title>
+        <meta charset="utf-8">
+        <title>Kuwa Alpha Implementation</title>
+        <meta name="description" content="The Kuwa Alpha Implementation">
+        <meta name="author" content="The Kuwa Foundation, Inc.">
+        <!--
+        <link rel="stylesheet" href="css/styles.css?v=1.0">
+        <script src="js/scripts.js"></script>
+        -->
 </head>
 <body>
-   <h1>Kuwa Faucet</h1>
-   
-   <button onclick="getKuwaID()">Get Kuwa IDs</button>
-   <p id="addr1"></p>
-   <p id="addr2"></p>
-   <p id="addr3"></p>
+        <h2>Kuwa Faucet (Edina)</h2>
+        <button onclick="getKuwaID()">Get Kuwa IDs</button>
+        <p id="addr1"></p>
+        <p id="addr2"></p>
+        <p id="addr3"></p>
+
+        <p><p><a href="../">Faucets Page</a></p></p>
+        <p><p><a href="/">Alpha Home Page</a></p></p>
 </body>
+
 <script>
    function getKuwaID()
    {
-	var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() {
-         if (this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText);
+        
+         document.getElementById("addr1").innerHTML = 'xpub6Cg17gepLkXu8uM1Q8Y5ZRCg2yNcbDHcHrBF955LGtL7Tg9cec9xpCzMzEVs9uRSUvwCshoppm4h4Ze67YC9nVKzupeye5qbJurXq2JEy2x';
+         document.getElementById("addr2").innerHTML = 'xpub6BiWuCaFQEkfHWniH5385b3Ffc7asL6QzWFF5GmbTZMNHRB6StK699QbtGVcAftUBkdwK4Fwo7bQh1wXyR7oBhCfR9NNTh5EaRXLbQEG7nQ';
+         document.getElementById("addr3").innerHTML = 'xpub6Cs8CzmVHxWCxQdGZY5VFCjnp5fZNf4TLErmaprJdps8y3wePuV7sNnPq7PUj8vwXaedUbPDcMdpgjt6DoiLopVvUAhacNAu6kHrvUqYNkH';
 
-            //since the response is received as a string and it is actually an array , removing the special characters like [],
-            str2 = this.responseText.replace(/[&\/\\#+()$~%.'":*?<>{}]/g,'');
-            var res = str2.split(",");
-            console.log(this.responseText);
-         document.getElementById("addr1").innerHTML = res[0];
-         document.getElementById("addr2").innerHTML = res[1];
-         document.getElementById("addr3").innerHTML = res[2];
-
-         }
-      };
-      xhttp.open("GET", "/blockchain", true);
-      xhttp.send();
+         
    }
 </script>
 </html>
+             

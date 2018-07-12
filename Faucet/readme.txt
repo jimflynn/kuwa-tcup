@@ -11,3 +11,6 @@
 5. Start the react app by running 'npm start'
 
 6. Open localhost:3000 to make the request to get valid Kuwa IDs.
+
+
+7.
