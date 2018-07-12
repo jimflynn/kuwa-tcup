@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import keythereum from 'keythereum';
 import SetPassword from './SetPassword';
 import { Loading } from './Load';
+import { Success } from './Success';
+import { Error } from './Error';
 import RequestSponsorship from './RequestSponsorship';
 import UploadToStorage from './UploadToStorage';
-import { exportToFile, saveFile, loadFile } from './lib'
 import '../css/App.css';
 
 import { connect } from 'react-redux';
@@ -28,6 +28,14 @@ class CreateKuwaId extends Component {
       case 'LOADING':
         return (
           <Loading loadingMessage={this.props.screen.helpText} />
+        )
+      case 'SUCCESS':
+        return (
+          <Success successMessage={this.props.screen.helpText} />
+        )
+      case 'ERROR':
+        return (
+          <Error errorMessage={this.props.screen.helpText} />
         )
       case 'REQUEST_SPONSORSHIP':
         return (

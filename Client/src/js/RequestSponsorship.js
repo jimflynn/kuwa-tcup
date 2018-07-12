@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Container, Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Container, Row, Col, Form, FormGroup, Label, Input, Badge, Collapse, Card, CardBody } from 'reactstrap';
 
 import { toggleCollapse, togglePasswordVisibility } from './actions/screenActions';
 import { requestSponsorship } from './actions/kuwaActions';
@@ -22,6 +22,29 @@ class RequestSponsorship extends Component {
               </h3>
             </Col>
           </Row>
+          
+          <Row className="row-kuwa-reg">
+            <Col>
+              <h2>
+                <span className="header-kuwa-reg">Create your Kuwa Identity</span>
+                <Button color="primary" onClick={this.props.toggleCollapse} outline>
+                  <Badge color="primary">?</Badge>
+                </Button>
+              </h2>
+            </Col>
+          </Row>
+          <Row className="row-kuwa-reg">
+            <Col>
+              <Collapse isOpen={!this.props.collapsed}>
+                <Card className="elem-kuwa-reg">
+                  <CardBody>
+                    The Shared Secret is obtained from your Sponsor.
+                  </CardBody>
+                </Card>
+              </Collapse>
+            </Col>
+          </Row>
+
           <Row className="row-kuwa-reg">
             <Col>
               <Form>
@@ -50,7 +73,8 @@ const mapStateToProps = state => {
   return {
     showPassword: state.screenReducer.requestSponsorship.showPassword,
     keyObject: state.kuwaReducer.kuwaIds[currentKuwaId].keyObject,
-    privateKey: state.kuwaReducer.kuwaIds[currentKuwaId].privateKey
+    privateKey: state.kuwaReducer.kuwaIds[currentKuwaId].privateKey,
+    collapsed: state.screenReducer.requestSponsorship.collapsed
   }
 }
 

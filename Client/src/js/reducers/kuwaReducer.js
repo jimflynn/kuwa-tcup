@@ -72,7 +72,8 @@ const kuwaReducer = (state = initialState, action) => {
         case 'REQUEST_SPONSORSHIP_REJECTED':
             return Object.assign({}, state, {
                 screen: {
-                    screenName: "REQUEST_SPONSORSHIP"
+                    screenName: "ERROR",
+                    helpText: action.payload.error
                 }
             })
         case 'UPLOAD_TO_STORAGE_PENDING':
@@ -92,15 +93,16 @@ const kuwaReducer = (state = initialState, action) => {
                     })
                 }),
                 screen: {
-                    screenName: "LOADING",
-                    helpText: 'Done'
+                    screenName: "SUCCESS",
+                    helpText: 'You are now part of the Kuwa community.'
                 }
             })
         case 'UPLOAD_TO_STORAGE_REJECTED':
         case 'WEB_UPLOAD_TO_STORAGE_REJECTED':
             return Object.assign({}, state, {
                 screen: {
-                    screenName: "UPLOAD_TO_STORAGE"
+                    screenName: "ERROR",
+                    helpText: action.payload.error
                 }
             })
         default:
