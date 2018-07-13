@@ -45,6 +45,17 @@
   height: auto;
 }
 
+.responsive-navbar-brand {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  position: absolute;
+}
+
+.navbar {
+  position:relative;
+}
+
 .long-key {
   word-wrap: break-word;
 }

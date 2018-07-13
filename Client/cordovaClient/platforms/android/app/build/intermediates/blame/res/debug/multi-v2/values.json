@@ -21,6 +21,28 @@
                     }
                 }
             ]
+        },
+        {
+            "outputFile": "/home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
+            "map": [
+                {
+                    "source": "/home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/res/values/strings.xml",
+                    "from": {
+                        "startLines": "4,2,3",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "169,55,110",
+                        "endColumns": "63,54,58",
+                        "endOffsets": "228,105,164"
+                    },
+                    "to": {
+                        "startLines": "2,3,4",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,119,174",
+                        "endColumns": "63,54,58",
+                        "endOffsets": "114,169,228"
+                    }
+                }
+            ]
         }
     ]
 }

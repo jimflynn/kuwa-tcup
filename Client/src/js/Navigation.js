@@ -20,7 +20,7 @@ import {
 class Navigation extends React.Component {
   render() {
     return (
-      <Navbar color="light" light expand="md">
+      <Navbar color="light" light expand="md">    
         <NavbarBrand href="/"><img src={logo} alt="logo" /></NavbarBrand>
         <NavbarToggler onClick={this.props.toggleCollapse} />
         <Collapse isOpen={!this.props.collapsed} navbar>
