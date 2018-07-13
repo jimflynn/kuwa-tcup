@@ -17,7 +17,7 @@ import { store } from './store'
  * @class CreateKuwaId
  * @extends Component
  */
-class CreateKuwaId extends Component {
+class App extends Component {
   render() {
     return (
       <div>
@@ -71,4 +71,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(CreateKuwaId);
+export default connect(mapStateToProps)(App);
