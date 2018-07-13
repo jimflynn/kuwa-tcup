@@ -1,0 +1,26 @@
+{
+    "logs": [
+        {
+            "outputFile": "/home/jflynn/TCUP/tcup/Client/cordovaClient/platforms/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
+            "map": [
+                {
+                    "source": "/home/jflynn/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/res/values/strings.xml",
+                    "from": {
+                        "startLines": "-1,2,-1",
+                        "startColumns": "-1,4,-1",
+                        "startOffsets": "-1,55,-1",
+                        "endColumns": "-1,54,-1",
+                        "endOffsets": "-1,105,-1"
+                    },
+                    "to": {
+                        "startLines": "2,3,4",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,119,174",
+                        "endColumns": "63,54,58",
+                        "endOffsets": "114,169,228"
+                    }
+                }
+            ]
+        }
+    ]
+}
