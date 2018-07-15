@@ -8,6 +8,8 @@ import kuwaReducer from './reducers/kuwaReducer';
 import screenReducer from './reducers/screenReducer';
 import videoReducer from './reducers/videoReducer';
 
+import config from 'config';
+
 const actionLogger = createLogger();
 
 const rootReducer = combineReducers({
@@ -22,7 +24,7 @@ if (window.usingCordova) {
     history = createHashHistory();
 } else {
     history = createBrowserHistory({
-        basename:'/client/'
+        basename: config.baseUrl
     });
 }
 

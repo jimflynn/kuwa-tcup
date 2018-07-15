@@ -1,0 +1,8 @@
+{
+    "requestUrl": {
+        "requestSponsorshipUrl": "https://alpha.kuwa.org:3000/sponsorship_requests/",
+        "uploadInformationUrl": "https://alpha.kuwa.org:3003/KuwaRegistration/"
+    },
+    "baseUrl": "/client/",
+    "web3Provider": "https://rinkeby.infura.io/8Dx9RdhjqIl1y3EQzQpl"
+}

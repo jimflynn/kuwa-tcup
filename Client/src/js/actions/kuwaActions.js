@@ -8,8 +8,11 @@ import { CREATE_KUWA_ID,
     UPLOAD_TO_STORAGE, 
     UNLOCK_KUWA_ID, BACK } from './types';
 
-var web3 = new Web3();
-web3.setProvider(new web3.providers.HttpProvider("https://rinkeby.infura.io/8Dx9RdhjqIl1y3EQzQpl"));
+import config from 'config';
+
+let web3 = new Web3();
+//web3.setProvider(new web3.providers.HttpProvider("https://rinkeby.infura.io/8Dx9RdhjqIl1y3EQzQpl"));
+web3.setProvider(new web3.providers.HttpProvider(config.web3Provider));
 
 export function createKeys(password) {
     return dispatch => {
@@ -63,7 +66,7 @@ export function requestSponsorship(keyObject, privateKey, sharedSecret) {
         let formData = new FormData();
         formData.append('address', keyObject.address);
         formData.append('SS', sharedSecret);
-        fetch('https://alpha.kuwa.org:3000/sponsorship_requests/', {
+        fetch(config.requestUrl.requestSponsorshipUrl, {
             method: 'POST',
             body: formData
         }).then(response => {
@@ -107,7 +110,7 @@ export function uploadToStorage(videoFilePath, ethereumAddress, abi, contractAdd
         })
         let formData = new FormData();
         new Promise((resolve, reject) => {
-            window.resolveLocalFileSystemURL(videoFilePath, successOnFile, null)
+            resolveLocalFileSystemURL(videoFilePath, successOnFile, null)
             function successOnFile(fileEntry) {
                 fileEntry.file(file => resolve(file));
             }
@@ -124,7 +127,7 @@ export function uploadToStorage(videoFilePath, ethereumAddress, abi, contractAdd
                 formData.append('ChallengeVideo',videoFile);
                 formData.append('ContractABI',JSON.stringify(abi));
                 formData.append('ContractAddress',contractAddress);
-                fetch('https://alpha.kuwa.org:3003/KuwaRegistration/', {
+                fetch(config.requestUrl.uploadInformationUrl, {
                     method: 'POST',
                     body: formData
                 }).then(response => {
@@ -158,7 +161,7 @@ export function webUploadToStorage(videoBlob, ethereumAddress, abi, contractAddr
         formData.append('ChallengeVideo',videoBlob);
         formData.append('ContractABI',JSON.stringify(abi));
         formData.append('ContractAddress',contractAddress);
-        fetch('https://alpha.kuwa.org:3003/KuwaRegistration/', {
+        fetch(config.requestUrl.uploadInformationUrl, {
             method: 'POST',
             body: formData
         }).then(response => {

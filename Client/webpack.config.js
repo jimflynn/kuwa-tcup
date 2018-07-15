@@ -2,8 +2,12 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const webpack = require('webpack');
+const config = require('./src/js/config.json');
 
 module.exports = {
+    externals: {
+        config: JSON.stringify(config)
+    },
     node: {
         fs: "empty"
     },
