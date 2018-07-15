@@ -7,7 +7,6 @@ import { toggleCollapse, togglePasswordVisibility } from './actions/screenAction
 import { createKeys } from './actions/kuwaActions';
 import { connect } from 'react-redux';
 
-let identifier;
 let password;
 
 /**
@@ -64,10 +63,6 @@ const renderSetPassword = (props) => {
         <Col>
           <Form>
           <FormGroup>
-            <Label for="identifier">Identifier</Label>
-            <Input type="text" name="identifier" id="identifier" placeholder="Kuwa Identifier" onChange={event => {identifier = event.target.value}} />
-          </FormGroup>
-          <FormGroup>
             <Label for="password">Password</Label>
             <Input type={props.showPassword ? "text" : "password"} name="password" id="password" placeholder="Kuwa password" onChange={event => {password = event.target.value}} />
           </FormGroup>
@@ -78,7 +73,7 @@ const renderSetPassword = (props) => {
             </Label>
           </FormGroup>
           <br/>
-          <Button color="primary" onClick={() => props.createKeys(identifier, password)}>Create Keys</Button>
+          <Button color="primary" onClick={() => props.createKeys(password)}>Create Keys</Button>
           </Form>
         </Col>
       </Row>
@@ -97,8 +92,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    createKeys: (identifier, password) => {
-      dispatch(createKeys(identifier, password))
+    createKeys: password => {
+      dispatch(createKeys(password))
     },
     toggleCollapse: () => {
       dispatch(toggleCollapse("setPassword"))

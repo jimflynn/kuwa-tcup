@@ -11,7 +11,7 @@ import { CREATE_KUWA_ID,
 var web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider("https://rinkeby.infura.io/8Dx9RdhjqIl1y3EQzQpl"));
 
-export function createKeys(identifier, password) {
+export function createKeys(password) {
     return dispatch => {
         dispatch({
             type: 'CREATE_KEYS_PENDING'
@@ -38,7 +38,7 @@ export function createKeys(identifier, password) {
                     let privateKeyInHex = privateKey.toString('hex');
                     dispatch({
                         type: 'CREATE_KEYS_FULFILLED',
-                        payload: {keyObject, identifier, privateKeyInHex}
+                        payload: {keyObject, privateKeyInHex}
                     })
                     dispatch(push('/RequestSponsorship'))
                 })

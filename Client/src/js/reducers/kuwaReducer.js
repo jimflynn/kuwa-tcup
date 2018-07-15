@@ -8,8 +8,7 @@ import {
     
 const initialState = {
     isMobile: window.usingCordova,
-    currentKuwaId: "",
-    kuwaIds: {},
+    kuwaId: {},
     screen: {
         setPassword: {loading: false},
         requestSponsorship: {loading: false},
@@ -36,15 +35,13 @@ const kuwaReducer = (state = initialState, action) => {
         case 'CREATE_KEYS_FULFILLED':
             return Object.assign({}, state, {
                 currentKuwaId: action.payload.identifier,
-                kuwaIds: Object.assign({}, state.kuwaIds, {
-                    [action.payload.identifier]: {
-                        address: '0x' + action.payload.keyObject.address,
-                        privateKey: '0x' + action.payload.privateKeyInHex,
-                        keyObject: action.payload.keyObject,
-                        sponsorship: "NOT_SPONSORED",
-                        info_uploaded: false,
-                        unlocked: false
-                    }
+                kuwaId: Object.assign({}, state.kuwaId, {
+                    address: '0x' + action.payload.keyObject.address,
+                    privateKey: '0x' + action.payload.privateKeyInHex,
+                    keyObject: action.payload.keyObject,
+                    sponsorship: "NOT_SPONSORED",
+                    info_uploaded: false,
+                    unlocked: false
                 }),
                 screen: Object.assign({}, state.screen, {
                     setPassword: {
@@ -65,14 +62,12 @@ const kuwaReducer = (state = initialState, action) => {
             })
         case 'REQUEST_SPONSORSHIP_FULFILLED':
             return Object.assign({}, state, {
-                kuwaIds: Object.assign({}, state.kuwaIds, {
-                    [state.currentKuwaId]: Object.assign({}, state.kuwaIds[state.currentKuwaId], {
-                        sponsorship: "SPONSORED",
-                        unlocked: true,
-                        contractAddress: action.payload.responseJson.contractAddress,
-                        abi: action.payload.responseJson.abi,
-                        challenge: action.payload.challenge
-                    })
+                kuwaId: Object.assign({}, state.kuwaId, {
+                    sponsorship: "SPONSORED",
+                    unlocked: true,
+                    contractAddress: action.payload.responseJson.contractAddress,
+                    abi: action.payload.responseJson.abi,
+                    challenge: action.payload.challenge
                 }),
                 screen: Object.assign({}, state.screen, {
                     requestSponsorship: {
@@ -106,10 +101,8 @@ const kuwaReducer = (state = initialState, action) => {
         case 'UPLOAD_TO_STORAGE_FULFILLED':
         case 'WEB_UPLOAD_TO_STORAGE_FULFILLED':
             return Object.assign({}, state, {
-                kuwaIds: Object.assign({}, state.kuwaIds, {
-                    [state.currentKuwaId]: Object.assign({}, state.kuwaIds[state.currentKuwaId], {
-                        info_uploaded: true
-                    })
+                kuwaId: Object.assign({}, state.kuwaId, {
+                    info_uploaded: true
                 }),
                 screen: Object.assign({}, state.screen, {
                     uploadToStorage: {

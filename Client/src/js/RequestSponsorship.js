@@ -89,8 +89,12 @@ const mapStateToProps = state => {
   let currentKuwaId = state.kuwaReducer.currentKuwaId;
   return {
     showPassword: state.screenReducer.requestSponsorship.showPassword,
-    keyObject: state.kuwaReducer.kuwaIds[currentKuwaId].keyObject,
-    privateKey: state.kuwaReducer.kuwaIds[currentKuwaId].privateKey,
+    // keyObject: state.kuwaReducer.kuwaIds[currentKuwaId].keyObject,
+    // privateKey: state.kuwaReducer.kuwaIds[currentKuwaId].privateKey,
+
+    keyObject: state.kuwaReducer.kuwaId.keyObject,
+    privateKey: state.kuwaReducer.kuwaId.privateKey,
+
     collapsed: state.screenReducer.requestSponsorship.collapsed,
     loading: state.kuwaReducer.screen.requestSponsorship.loading,
     loadingMessage: state.kuwaReducer.screen.loading.helpText
