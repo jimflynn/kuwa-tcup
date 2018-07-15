@@ -34,6 +34,8 @@ const screenReducer = (state = initialState, action) => {
                     showPassword: !state[action.payload].showPassword
                 })
             })
+        case 'COLLAPSE_AND_HIDE_PASSWORD':
+            return initialState
         default:
             return state
     }

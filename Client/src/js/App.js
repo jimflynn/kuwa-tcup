@@ -10,7 +10,11 @@ import '../css/App.css';
 
 import { connect } from 'react-redux';
 import { Provider } from 'react-redux';
-import { store } from './store'
+import { store } from './store';
+import { history } from './store';
+
+import { Route, Switch } from 'react-router';
+import { ConnectedRouter } from 'connected-react-router';
 
 /**
  * Loads different components depending on the state of the program
@@ -19,13 +23,23 @@ import { store } from './store'
  */
 class App extends Component {
   render() {
+    let errorMessage = this.props.helpText.error;
+    let successMessage = this.props.helpText.success;
     return (
       <div>
         <Provider store={store}>
-          <Navigation />
-        </Provider>
-        <Provider store={store}>
-          {renderScreen(this.props)}
+          <ConnectedRouter history={history}>
+            <div>
+              <Navigation />
+              <Switch>
+                <Route exact path='/' component={SetPassword}/>
+                <Route exact path='/Error' render={(props) => <Error errorMessage={errorMessage} />}/>
+                <Route exact path='/RequestSponsorship' component={RequestSponsorship}/>
+                <Route exact path='/UploadToStorage' component={UploadToStorage}/>
+                <Route exact path='/Success' render={(props) => <Success successMessage={successMessage} />}/>
+              </Switch>
+            </div>
+          </ConnectedRouter>
         </Provider>
       </div>
     )
@@ -67,7 +81,14 @@ const renderScreen = (props) => {
 
 const mapStateToProps = state => {
   return {
-    screen: state.kuwaReducer.screen
+    screen: state.kuwaReducer.screen,
+    pathname: state.router.location.pathname,
+    search: state.router.location.search,
+    hash: state.router.location.hash,
+    helpText: {
+      success: state.kuwaReducer.screen.success.helpText,
+      error: state.kuwaReducer.screen.error.helpText
+    }
   }
 }
 

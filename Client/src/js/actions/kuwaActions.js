@@ -1,5 +1,6 @@
 import keythereum from 'keythereum';
 import Web3 from 'web3';
+import { push } from 'connected-react-router'
 import { CREATE_KUWA_ID, 
     CREATE_KEYS,
     CREATE_KEYS_SUCCESS,
@@ -14,6 +15,9 @@ export function createKeys(identifier, password) {
     return dispatch => {
         dispatch({
             type: 'CREATE_KEYS_PENDING'
+        })
+        dispatch({
+            type: 'COLLAPSE_AND_HIDE_PASSWORD'
         })
         //defining parameters and options to create an ethereum wallet
         let params = { keyBytes: 32, ivBytes: 16 };
@@ -36,12 +40,14 @@ export function createKeys(identifier, password) {
                         type: 'CREATE_KEYS_FULFILLED',
                         payload: {keyObject, identifier, privateKeyInHex}
                     })
+                    dispatch(push('/RequestSponsorship'))
                 })
             });
         } catch(e) {
             dispatch({
                 type: 'CREATE_KEYS_REJECTED'
             })
+            dispatch(push('/Error'))
         }
     }
 }
@@ -50,6 +56,9 @@ export function requestSponsorship(keyObject, privateKey, sharedSecret) {
     return dispatch => {
         dispatch({
             type: 'REQUEST_SPONSORSHIP_PENDING',
+        })
+        dispatch({
+            type: 'COLLAPSE_AND_HIDE_PASSWORD'
         })
         let formData = new FormData();
         formData.append('address', keyObject.address);
@@ -64,6 +73,7 @@ export function requestSponsorship(keyObject, privateKey, sharedSecret) {
                         type: 'REQUEST_SPONSORSHIP_REJECTED',
                         payload: {error: "Invalid Shared Secret."}
                     })
+                    dispatch(push('/Error'))
                 } else {
                     loadWallet(privateKey);
                     loadContract(responseJson.abi, responseJson.contractAddress, 4300000, '22000000000', keyObject.address).then(contract => {
@@ -72,6 +82,7 @@ export function requestSponsorship(keyObject, privateKey, sharedSecret) {
                                 type: 'REQUEST_SPONSORSHIP_FULFILLED',
                                 payload: {challenge, responseJson}
                             })
+                            dispatch(push('/UploadToStorage'))
                         })
                     })
                 }
@@ -81,6 +92,7 @@ export function requestSponsorship(keyObject, privateKey, sharedSecret) {
                 type: 'REQUEST_SPONSORSHIP_REJECTED',
                 payload: {error: "Sorry, we are experiencing internal problems."}
             })
+            dispatch(push('/Error'))
         })
     }
 }
@@ -89,6 +101,9 @@ export function uploadToStorage(videoFilePath, ethereumAddress, abi, contractAdd
     return dispatch => {
         dispatch({
             type: 'UPLOAD_TO_STORAGE_PENDING'
+        })
+        dispatch({
+            type: 'COLLAPSE_AND_HIDE_PASSWORD'
         })
         let formData = new FormData();
         new Promise((resolve, reject) => {
@@ -117,11 +132,13 @@ export function uploadToStorage(videoFilePath, ethereumAddress, abi, contractAdd
                         type: 'UPLOAD_TO_STORAGE_FULFILLED',
                         payload: {response}
                     })
+                    dispatch(push('/Success'))
                 }).catch(e => {
                     dispatch({
                         type: 'UPLOAD_TO_STORAGE_REJECTED',
                         payload: {error: "Seems like the Information was not uploaded"}
                     })
+                    dispatch(push('/Error'))
                 })
             })
         })
@@ -132,6 +149,9 @@ export function webUploadToStorage(videoBlob, ethereumAddress, abi, contractAddr
     return dispatch => {
         dispatch({
             type: 'WEB_UPLOAD_TO_STORAGE_PENDING'
+        })
+        dispatch({
+            type: 'COLLAPSE_AND_HIDE_PASSWORD'
         })
         let formData = new FormData();
         formData.append('ClientAddress',ethereumAddress);
@@ -146,11 +166,13 @@ export function webUploadToStorage(videoBlob, ethereumAddress, abi, contractAddr
                 type: 'WEB_UPLOAD_TO_STORAGE_FULFILLED',
                 payload: {response}
             })
+            dispatch(push('/Success'))
         }).catch(e => {
             dispatch({
                 type: 'WEB_UPLOAD_TO_STORAGE_REJECTED',
                 payload: {error: "Seems like the Information was not uploaded"}
             })
+            dispatch(push('/Error'))
         })
     }
 }
