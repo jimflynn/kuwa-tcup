@@ -7,6 +7,7 @@ import  { createLogger } from 'redux-logger';
 import kuwaReducer from './reducers/kuwaReducer';
 import screenReducer from './reducers/screenReducer';
 import videoReducer from './reducers/videoReducer';
+import qrReducer from './reducers/qrReducer';
 
 import config from 'config';
 
@@ -15,7 +16,8 @@ const actionLogger = createLogger();
 const rootReducer = combineReducers({
     kuwaReducer,
     screenReducer,
-    videoReducer
+    videoReducer,
+    qrReducer
 })
 
 

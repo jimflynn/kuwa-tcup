@@ -1,12 +1,26 @@
 import { Button, Container, Row, Col, Form, FormGroup, Label, Input, Badge, Collapse, Card, CardBody } from 'reactstrap';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Instascan from 'instascan';
+
+import { startScanner, qrCodeFound } from './actions/qrActions';
 
 class QRCode extends Component {
+    componentDidMount() {
+        if(!this.props.isMobile) {
+            this.scanner = new Instascan.Scanner({ video: document.getElementById('qrScanner') });
+            let foundQrCode = (function(kuwaId) {
+                qrCodeFound(kuwaId, this.scanner)
+            }).bind(this);
+            this.scanner.addListener('scan', foundQrCode);
+        }
+    }
     render() {
+        console.log("Scanner", this.scanner)
         return (
             <Container>
                 {showQRCode(this.props)}
+                {scanQRCode(this.props, this.scanner)}
             </Container>
         )
     }
@@ -42,15 +56,34 @@ const showQRCode = (props) => {
     );
 }
 
+const scanQRCode = (props, scanner) => {
+    if(props.isMobile) {
+        return null;
+    } else {
+        return (
+            <div>
+                <Button color="primary" onClick={() => props.startScanner(scanner)}>Start Scan</Button>
+                <video id="qrScanner" />
+            </div>
+        );
+    }
+}
+
 const mapStateToProps = state => {
     return {
-        qrCodeSrc: state.kuwaReducer.kuwaId.qrCodeSrc
+        qrCodeSrc: state.kuwaReducer.kuwaId.qrCodeSrc,
+        isMobile: state.kuwaReducer.isMobile
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-
+        startScanner: scanner => {
+            dispatch(startScanner(scanner))
+        },
+        qrCodeFound: (kuwaId, scanner) => {
+            dispatch(qrCodeFound(kuwaId, scanner))
+        }
     }
 }
 
