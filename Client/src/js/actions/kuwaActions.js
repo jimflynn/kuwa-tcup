@@ -12,7 +12,6 @@ import { CREATE_KUWA_ID,
 import config from 'config';
 
 let web3 = new Web3();
-//web3.setProvider(new web3.providers.HttpProvider("https://rinkeby.infura.io/8Dx9RdhjqIl1y3EQzQpl"));
 web3.setProvider(new web3.providers.HttpProvider(config.web3Provider));
 
 export function createKeys(password) {
@@ -193,7 +192,7 @@ function generateQrCode(ethereumAddress) {
     }
 
     return new Promise((resolve, reject) => {
-        qrcode.toDataURL('text', opts, function (err, url) {
+        qrcode.toDataURL(ethereumAddress, opts, function (err, url) {
             if (err) throw reject(err);
             resolve(url);
         })
