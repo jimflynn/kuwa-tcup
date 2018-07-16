@@ -10,6 +10,7 @@ import {
   import logo from '../img/site-logo.png';
   import { toggleCollapse } from './actions/screenActions';
   import { connect } from 'react-redux';
+import { push } from 'connected-react-router';
 
 /**
  * Shows the navigation bar of The Kuwa Foundation
@@ -21,7 +22,7 @@ class Navigation extends React.Component {
   render() {
     return (
       <Navbar color="light" light expand="md">    
-        <NavbarBrand href="/"><img src={logo} alt="logo" /></NavbarBrand>
+        <NavbarBrand href="javascript:void(0);" onClick={() => this.props.navigateTo('/')}><img src={logo} alt="logo" /></NavbarBrand>
         <NavbarToggler onClick={this.props.toggleCollapse} />
         <Collapse isOpen={!this.props.collapsed} navbar>
           <Nav className="ml-auto" navbar>
@@ -40,7 +41,7 @@ const navigationLink = (props) => {
   if(!props.isMobile) {
     return (
       <NavItem>
-        <NavLink href="/client/">Home</NavLink>
+        <NavLink href="javascript:void(0);" onClick={() => props.navigateTo('/')}>Home</NavLink>
       </NavItem>
     )
   }
@@ -58,6 +59,9 @@ const mapDispatchToProps = dispatch => {
   return {
     toggleCollapse: () => {
       dispatch(toggleCollapse("navigation"))
+    },
+    navigateTo: link => {
+      dispatch(push(link))
     }
   }
 }
