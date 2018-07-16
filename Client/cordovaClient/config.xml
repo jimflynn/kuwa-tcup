@@ -46,4 +46,5 @@
     <plugin name="cordova-plugin-camera" spec="^4.0.3" />
     <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
     <engine name="android" spec="^7.0.0" />
+    <plugin name="cordova-plugin-qrscanner" spec="^2.6.0" />
 </widget>

@@ -1,26 +1,27 @@
-import { Button, Container, Row, Col, Form, FormGroup, Label, Input, Badge, Collapse, Card, CardBody } from 'reactstrap';
+import { Button, Container, Row, Col, Table } from 'reactstrap';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Instascan from 'instascan';
 
 import { startScanner, qrCodeFound } from './actions/qrActions';
 
+let scanner;
+
 class QRCode extends Component {
     componentDidMount() {
         if(!this.props.isMobile) {
-            this.scanner = new Instascan.Scanner({ video: document.getElementById('qrScanner') });
-            let foundQrCode = (function(kuwaId) {
-                qrCodeFound(kuwaId, this.scanner)
-            }).bind(this);
-            this.scanner.addListener('scan', foundQrCode);
+            scanner = new Instascan.Scanner({ video: document.getElementById('qrScanner') });
+            scanner.addListener('scan', (function(kuwaId) {
+                this.props.qrCodeFound(kuwaId, scanner);
+            }).bind(this));
         }
     }
     render() {
-        console.log("Scanner", this.scanner)
         return (
             <Container>
                 {showQRCode(this.props)}
-                {scanQRCode(this.props, this.scanner)}
+                {scanQRCode(this.props)}
+                {showNetwork(this.props)}
             </Container>
         )
     }
@@ -56,23 +57,61 @@ const showQRCode = (props) => {
     );
 }
 
-const scanQRCode = (props, scanner) => {
+const scanQRCode = (props) => {
     if(props.isMobile) {
         return null;
     } else {
         return (
             <div>
-                <Button color="primary" onClick={() => props.startScanner(scanner)}>Start Scan</Button>
-                <video id="qrScanner" />
+                <Row className="row-kuwa-reg">
+                    <Col>
+                        <Button color="primary" onClick={() => props.startScanner(scanner)}>Start Scan</Button>
+                    </Col>
+                </Row>
+                <Row className="row-kuwa-reg">
+                    <Col>
+                        <video id="qrScanner" />
+                    </Col>
+                </Row>
             </div>
         );
     }
 }
 
+const showNetwork = (props) => {
+    return (
+        <Row className="row-kuwa-reg">
+            <Col>
+                <Table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Kuwa ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {props.kuwaNetwork.map((kuwaId, index) => {
+                            return (
+                                <tr key={(index + 1).toString()}>
+                                    <th scope="row">{index + 1}</th>
+                                    <td>{kuwaId}</td>
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+                </Table>
+            </Col>
+        </Row>
+    )
+}
+
 const mapStateToProps = state => {
     return {
         qrCodeSrc: state.kuwaReducer.kuwaId.qrCodeSrc,
-        isMobile: state.kuwaReducer.isMobile
+        isMobile: state.kuwaReducer.isMobile,
+        scanner: state.qrReducer.scanner,
+        kuwaNetwork: state.qrReducer.kuwaNetwork,
+        qrStatus: state.qrReducer.qrStatus
     }
 }
 
