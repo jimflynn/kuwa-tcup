@@ -1,5 +1,6 @@
 import keythereum from 'keythereum';
 import Web3 from 'web3';
+import qrcode from 'qrcode';
 import { push } from 'connected-react-router'
 import { CREATE_KUWA_ID, 
     CREATE_KEYS,
@@ -39,11 +40,13 @@ export function createKeys(password) {
             keythereum.dump(password, dk.privateKey, dk.salt, dk.iv, options, keyObject => {
                 keythereum.recover(password, keyObject, privateKey => {
                     let privateKeyInHex = privateKey.toString('hex');
-                    dispatch({
-                        type: 'CREATE_KEYS_FULFILLED',
-                        payload: {keyObject, privateKeyInHex}
+                    generateQrCode('0x' + keyObject.address).then(qrCodeSrc => {
+                        dispatch({
+                            type: 'CREATE_KEYS_FULFILLED',
+                            payload: {keyObject, privateKeyInHex, qrCodeSrc}
+                        })
+                        dispatch(push('/RequestSponsorship'))
                     })
-                    dispatch(push('/RequestSponsorship'))
                 })
             });
         } catch(e) {
@@ -178,6 +181,23 @@ export function webUploadToStorage(videoBlob, ethereumAddress, abi, contractAddr
             dispatch(push('/Error'))
         })
     }
+}
+
+function generateQrCode(ethereumAddress) {
+    let opts = {
+        errorCorrectionLevel: 'H',
+        type: 'image/jpeg',
+        rendererOpts: {
+            quality: 0.3
+        }
+    }
+
+    return new Promise((resolve, reject) => {
+        qrcode.toDataURL('text', opts, function (err, url) {
+            if (err) throw reject(err);
+            resolve(url);
+        })
+    })
 }
 
 /**

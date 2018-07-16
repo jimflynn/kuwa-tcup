@@ -28,6 +28,9 @@ class Navigation extends React.Component {
           <Nav className="ml-auto" navbar>
             {navigationLink(this.props)}
             <NavItem>
+              <NavLink href="javascript:void(0);" onClick={() => this.props.navigateTo('/QRCodeGen')}>QR Code</NavLink>
+            </NavItem>
+            <NavItem>
               <NavLink href="http://kuwa.io/">Kuwa</NavLink>
             </NavItem>
           </Nav>

@@ -41,7 +41,8 @@ const kuwaReducer = (state = initialState, action) => {
                     keyObject: action.payload.keyObject,
                     sponsorship: "NOT_SPONSORED",
                     info_uploaded: false,
-                    unlocked: false
+                    unlocked: false,
+                    qrCodeSrc: action.payload.qrCodeSrc
                 }),
                 screen: Object.assign({}, state.screen, {
                     setPassword: {

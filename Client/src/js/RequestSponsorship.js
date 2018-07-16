@@ -44,7 +44,7 @@ const renderRequestSponsorship = props => {
       <Row className="row-kuwa-reg">
         <Col>
           <h2>
-            <span className="header-kuwa-reg">Create your Kuwa Identity</span>
+            <span className="header-kuwa-reg">Provide Passcode</span>
             <Button color="primary" onClick={props.toggleCollapse} outline>
               <Badge color="primary">?</Badge>
             </Button>

@@ -6,6 +6,7 @@ import { Success } from './Success';
 import { Error } from './Error';
 import RequestSponsorship from './RequestSponsorship';
 import UploadToStorage from './UploadToStorage';
+import QRCodeGen from './QRCodeGen';
 import '../css/App.css';
 
 import { connect } from 'react-redux';
@@ -36,6 +37,7 @@ class App extends Component {
                 <Route exact path='/Error' render={(props) => <Error errorMessage={errorMessage} />}/>
                 <Route exact path='/RequestSponsorship' component={RequestSponsorship}/>
                 <Route exact path='/UploadToStorage' component={UploadToStorage}/>
+                <Route exact path='/QRCodeGen' component={QRCodeGen}/>
                 <Route exact path='/Success' render={(props) => <Success successMessage={successMessage} />}/>
               </Switch>
             </div>
