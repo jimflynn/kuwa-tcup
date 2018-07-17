@@ -15,27 +15,34 @@ class App extends Component {
     this.onColumnChange = this.onColumnChange.bind(this);
     this.renderTableHeaders = this.renderTableHeaders.bind(this);
     this.renderTableBody = this.renderTableBody.bind(this);
-    //this.getColumnList = this.getColumnList.bind(this);
-    //this.getData = this.getData.bind(this);
+    this.getData = this.getData.bind(this);
   };
 
   componentDidMount() {
-    axios.get(`http://localhost:3001/api/kuwaIds`)
-      .then(res => {
-        let data = JSON.parse(res.data);
-        let cols = Object.keys(data[0]);
-        this.setState({ columns: cols });
-        this.setState({ selectedColumns: cols });
+      this.getData("/kuwaIds");
+  }
+
+  getData(resource) {
+    axios.get(`${this.props.baseUrl}${resource}`).then(res => {
+      let data = JSON.parse(res.data);
+      let cols;
+      if (data.length === 0) {
         this.setState({ tableData: data });
-      })
-      .catch (error => {
-        if (error.response) {
-          alert(error.response.data);
-        }
-        else {
-          console.log(error.message);
-        }
-      });
+        return;
+      }
+      cols = Object.keys(data[0]);
+      this.setState({ columns: cols });
+      this.setState({ selectedColumns: cols });
+      this.setState({ tableData: data });
+    })
+    .catch (error => {
+      if (error.response) {
+        alert(error.response.data);
+      }
+      else {
+        console.log(error.message);
+      }
+    });
   }
 
   renderTable() {
@@ -76,13 +83,21 @@ class App extends Component {
     let columnsHTML = [];
     for (let i = 0; i < this.state.columns.length; i++){
       let column = this.state.columns[i];
-      columnsHTML.push(<option key={column} value={column}>{column}</option>);
+      /*columnsHTML.push(<div key={column}>
+                        <input type="checkbox" key={column} value={column} onChange={this.onColumnChange}/>
+                        <label htmlFor={column}>{column}</label>
+                       </div>);*/
+      columnsHTML.push(<div><input type="checkbox" key={column} value={column} onChange={this.onColumnChange}/>{column}</div>);
     }
-    return columnsHTML;
+
+    return (<div>
+              <legend>Select columns: </legend>
+                  {columnsHTML}
+            </div>);
   }
 
   onColumnChange(event) {
-    let options = event.target.options;
+    let options = event.target.checked;
     let selectedColumns = [];
     for (let i = 0; i < options.length; i++){
       if (options[i].selected){
@@ -91,18 +106,18 @@ class App extends Component {
     }
     this.setState({
       selectedColumns,
-      //tableData: [],
-      });
+    });
   }
 
   render() {
     return (
       <div>
         <h1 style={{fontSize: '1.2em', color: '#177CB8', marginBottom: '0'}}>Kuwa Clients</h1>
+        <button onClick={()=> this.getData("/kuwaIds")}>All Kuwa IDs</button>
+        <button onClick={()=> this.getData("/kuwaIds/valid")}>Valid Kuwa IDs</button>
+        <button onClick={()=> this.getData("/kuwaIds/invalid")}>Invalid Kuwa IDs</button>
         <br/>
-        <select className='columnMultiSelect' onChange={this.onColumnChange} multiple>
           { this.renderColumnList() }
-        </select>
         <br/>
         <br/>
         { this.state.tableData.length > 0 ? this.renderTable() : null }

@@ -44,6 +44,7 @@ class DirScanner {
             catch (err) {
                 console.error(err);
                 /*TODO*/
+                throw err;
             }
         }
 
