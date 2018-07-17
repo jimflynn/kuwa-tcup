@@ -2,7 +2,7 @@ var fs = require('fs');
 var https = require('https');
 const mysql = require('mysql');
 const express = require('express');
-const port = process.env.PORT || 8081;
+const port = process.env.PORT || 3011;
 
 const app = express();
 
@@ -10,7 +10,7 @@ var pool = mysql.createPool({
     connectionLimit : 100,
     host     : 'localhost',
     user     : 'root',
-    password : 'sqlpassword',
+    password : String.raw`(-h(3~8u"_ZE{lV%m(2SWze$F-7K<$,ej:2+@=-O\43**|>j6!2~uPmeJko[ASo=`,
     database : 'alpha_kuwa_registrar_moe',
     timezone : 'local',
     dateStrings : true
@@ -47,7 +47,6 @@ app.get('/registration', (req, res) => {
     });
 });
 
-https.createServer(credentials, app)
-    .listen(port, function () {
-        console.log('Server listening on port ' + port);
-    });
+https.createServer(credentials, app).listen(port, function () {
+    console.log('Server listening on port ' + port);
+});
