@@ -33,12 +33,14 @@ export function qrCodeFound(kuwaId, scanner) {
     }
 }
 
-export function mobileStartScanner(scanner) {
+export function mobileStartScanner(component) {
     return dispatch => {
         // Make the webview transparent so the video preview is visible behind it.
-        // QRScanner.show();
-        document.getElementById("root").style.opacity = "0.0";
-        document.body.style.backgroundColor = 'transparent';
+        QRScanner.show();
+        // document.getElementById("root").style.opacity = "0.0";
+        // document.body.style.backgroundColor = 'transparent';
+        document.getElementById("root").setAttribute("class", "transparent-root")
+        document.body.setAttribute("class", "transparent-body")
         // Be sure to make any opaque HTML elements transparent here to avoid
         // covering the video.
         dispatch({
@@ -49,22 +51,31 @@ export function mobileStartScanner(scanner) {
         QRScanner.scan(displayContents);
         
         function displayContents(err, kuwaId){
-            document.getElementById("root").style.opacity = "";
-            document.body.style.backgroundColor = '';
-            if(err){
-                dispatch({
-                    type: 'QR_CODE_ERROR',
-                    payload: {
-                        qrError: err
+            // document.getElementById("root").style.opacity = "";
+            // document.body.style.backgroundColor = '';
+            QRScanner.hide(function() {
+                document.getElementById("root").setAttribute("class", "opaque-root");
+                document.body.setAttribute("class", "opaque-body");
+                document.getElementById("root").setAttribute("style", "background-color: white;");
+                document.body.setAttribute("style", "background-color: white;");
+                document.documentElement.setAttribute("style", "background-color: white;");
+                QRScanner.destroy(function() {
+                    if(err){
+                        dispatch({
+                            type: 'QR_CODE_ERROR',
+                            payload: {
+                                qrError: err
+                            }
+                        })
+                    } else {
+                        // The scan completed, display the contents of the QR code:
+                        dispatch({
+                            type: 'QR_CODE_FOUND',
+                            payload: { kuwaId }
+                        })
                     }
                 })
-            } else {
-                // The scan completed, display the contents of the QR code:
-                dispatch({
-                    type: 'QR_CODE_FOUND',
-                    payload: { kuwaId }
-                })
-            }
+            })
         }
     }
 }

@@ -20,7 +20,7 @@ class QRCode extends Component {
         return (
             <Container>
                 {showQRCode(this.props)}
-                {scanQRCode(this.props)}
+                {scanQRCode(this.props, this)}
                 {showNetwork(this.props)}
             </Container>
         )
@@ -57,12 +57,12 @@ const showQRCode = (props) => {
     );
 }
 
-const scanQRCode = (props) => {
+const scanQRCode = (props, component) => {
     if(props.isMobile) {
         return (
             <Row className="row-kuwa-reg">
                 <Col>
-                    <Button color="primary" onClick={props.mobileStartScanner}>Start Scan</Button>
+                    <Button color="primary" onClick={() => props.mobileStartScanner(component)}>Start Scan</Button>
                 </Col>
             </Row>
         )
@@ -129,8 +129,8 @@ const mapDispatchToProps = dispatch => {
         qrCodeFound: (kuwaId, scanner) => {
             dispatch(qrCodeFound(kuwaId, scanner))
         },
-        mobileStartScanner: () => {
-            dispatch(mobileStartScanner())
+        mobileStartScanner: (component) => {
+            dispatch(mobileStartScanner(component))
         }
     }
 }

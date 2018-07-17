@@ -72,6 +72,22 @@ body {
   word-wrap: break-word;
 }
 
+.transparent-body {
+  background-color: transparent;
+}
+
+.opaque-body {
+  background-color: white;
+}
+
+.transparent-root {
+  opacity: 0;
+}
+
+.opaque-root {
+  opacity: 1;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
