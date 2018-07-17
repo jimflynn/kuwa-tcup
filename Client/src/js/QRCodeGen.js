@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Instascan from 'instascan';
 
-import { startScanner, qrCodeFound } from './actions/qrActions';
+import { startScanner, qrCodeFound, mobileStartScanner } from './actions/qrActions';
 
 let scanner;
 
@@ -59,7 +59,13 @@ const showQRCode = (props) => {
 
 const scanQRCode = (props) => {
     if(props.isMobile) {
-        return null;
+        return (
+            <Row className="row-kuwa-reg">
+                <Col>
+                    <Button color="primary" onClick={props.mobileStartScanner}>Start Scan</Button>
+                </Col>
+            </Row>
+        )
     } else {
         return (
             <div>
@@ -122,6 +128,9 @@ const mapDispatchToProps = dispatch => {
         },
         qrCodeFound: (kuwaId, scanner) => {
             dispatch(qrCodeFound(kuwaId, scanner))
+        },
+        mobileStartScanner: () => {
+            dispatch(mobileStartScanner())
         }
     }
 }

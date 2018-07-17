@@ -19,7 +19,7 @@ const renderDom = () => {
 const init = () => {
     let permissions = cordova.plugins.permissions;
     let list = [
-        // permissions.CAMERA,
+        permissions.CAMERA,
         permissions.RECORD_AUDIO,
         permissions.READ_EXTERNAL_STORAGE,
         permissions.WRITE_EXTERNAL_STORAGE,
