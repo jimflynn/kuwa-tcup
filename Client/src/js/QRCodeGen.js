@@ -20,7 +20,7 @@ class QRCode extends Component {
         return (
             <Container>
                 {showQRCode(this.props)}
-                {scanQRCode(this.props, this)}
+                {scanQRCode(this.props)}
                 {showNetwork(this.props)}
             </Container>
         )
@@ -57,12 +57,12 @@ const showQRCode = (props) => {
     );
 }
 
-const scanQRCode = (props, component) => {
+const scanQRCode = (props) => {
     if(props.isMobile) {
         return (
             <Row className="row-kuwa-reg">
                 <Col>
-                    <Button color="primary" onClick={() => props.mobileStartScanner(component)}>Start Scan</Button>
+                    <Button color="primary" onClick={props.mobileStartScanner}>Start Scan</Button>
                 </Col>
             </Row>
         )
@@ -88,7 +88,8 @@ const showNetwork = (props) => {
     return (
         <Row className="row-kuwa-reg">
             <Col>
-                <Table>
+                <div style={{width: '100%', maxWidth: '100%' }}>
+                <Table style={{tableLayout: 'fixed'}}>
                     <thead>
                         <tr>
                             <th>#</th>
@@ -100,12 +101,13 @@ const showNetwork = (props) => {
                             return (
                                 <tr key={(index + 1).toString()}>
                                     <th scope="row">{index + 1}</th>
-                                    <td>{kuwaId}</td>
+                                    <td style={{wordWrap: 'break-word'}}>{kuwaId}</td>
                                 </tr>
                             )
                         })}
                     </tbody>
                 </Table>
+                </div>
             </Col>
         </Row>
     )
@@ -129,8 +131,8 @@ const mapDispatchToProps = dispatch => {
         qrCodeFound: (kuwaId, scanner) => {
             dispatch(qrCodeFound(kuwaId, scanner))
         },
-        mobileStartScanner: (component) => {
-            dispatch(mobileStartScanner(component))
+        mobileStartScanner: () => {
+            dispatch(mobileStartScanner())
         }
     }
 }

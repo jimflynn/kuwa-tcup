@@ -33,32 +33,19 @@ export function qrCodeFound(kuwaId, scanner) {
     }
 }
 
-export function mobileStartScanner(component) {
+export function mobileStartScanner() {
     return dispatch => {
         // Make the webview transparent so the video preview is visible behind it.
         QRScanner.show();
-        // document.getElementById("root").style.opacity = "0.0";
-        // document.body.style.backgroundColor = 'transparent';
-        document.getElementById("root").setAttribute("class", "transparent-root")
-        document.body.setAttribute("class", "transparent-body")
-        // Be sure to make any opaque HTML elements transparent here to avoid
-        // covering the video.
+        document.getElementById("root").style.opacity = "0";
+        document.body.style.backgroundColor = 'transparent';
         dispatch({
             type: 'QR_CODE_SCAN_PENDING'
         })
-        // Start a scan. Scanning will continue until something is detected or
-        // `QRScanner.cancelScan()` is called.
         QRScanner.scan(displayContents);
         
         function displayContents(err, kuwaId){
-            // document.getElementById("root").style.opacity = "";
-            // document.body.style.backgroundColor = '';
             QRScanner.hide(function() {
-                document.getElementById("root").setAttribute("class", "opaque-root");
-                document.body.setAttribute("class", "opaque-body");
-                document.getElementById("root").setAttribute("style", "background-color: white;");
-                document.body.setAttribute("style", "background-color: white;");
-                document.documentElement.setAttribute("style", "background-color: white;");
                 QRScanner.destroy(function() {
                     if(err){
                         dispatch({
@@ -74,6 +61,11 @@ export function mobileStartScanner(component) {
                             payload: { kuwaId }
                         })
                     }
+                    setTimeout(function() { 
+                        document.getElementById("root").style.opacity = "1";
+                        document.body.removeAttribute("style");
+                        document.documentElement.removeAttribute("style");
+                    }, 500)
                 })
             })
         }
