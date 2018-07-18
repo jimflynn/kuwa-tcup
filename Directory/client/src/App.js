@@ -7,15 +7,15 @@ class App extends Component {
     super(props);
 
     this.state = {
-      selectedColumns: [],
       columns: [],
-      tableData:[],
+      tableData:[]
     };
 
-    this.onColumnChange = this.onColumnChange.bind(this);
     this.renderTableHeaders = this.renderTableHeaders.bind(this);
     this.renderTableBody = this.renderTableBody.bind(this);
     this.getData = this.getData.bind(this);
+    this.renderSelectBox = this.renderSelectBox.bind(this);
+    this.handleStatusChange = this.handleStatusChange.bind(this);
   };
 
   componentDidMount() {
@@ -23,7 +23,7 @@ class App extends Component {
   }
 
   getData(resource) {
-    axios.get(`${this.props.baseUrl}${resource}`).then(res => {
+    axios.get(`${this.props.baseApiUrl}${resource}`).then(res => {
       let data = JSON.parse(res.data);
       let cols;
       if (data.length === 0) {
@@ -31,8 +31,8 @@ class App extends Component {
         return;
       }
       cols = Object.keys(data[0]);
-      this.setState({ columns: cols });
-      this.setState({ selectedColumns: cols });
+      if (this.state.columns.length === 0)
+        this.setState({ columns: cols });
       this.setState({ tableData: data });
     })
     .catch (error => {
@@ -58,9 +58,9 @@ class App extends Component {
 
   renderTableHeaders() {
     let headers = [];
-    for (let i = 0; i < this.state.selectedColumns.length; i++) {
-      let col = this.state.selectedColumns[i];
-      headers.push(<th key={col} style={{backgroundColor: '#177CB8', color: 'white', border: '1px solid grey', borderCollapse: 'collapse', padding: '5px'}}>{col}</th>)
+    for (let i = 0; i < this.state.columns.length; i++) {
+      let col = this.state.columns[i];
+      headers.push(<th key={col}>{col}</th>)
     }
     return (<tr>{headers}</tr>);
   }
@@ -70,57 +70,47 @@ class App extends Component {
     this.state.tableData.forEach(function(row) {
       rows.push(
         <tr key={btoa('row'+rows.length)}>
-          {this.state.selectedColumns.map(col =>
-            <td key={col} style={{border: '1px solid grey', borderCollapse: 'collapse', padding: '5px'}}>{row[col]}</td>
-          )}
+          {this.state.columns.map(col => <td key={col}>{row[col]}</td>)}
         </tr>
       )
     }.bind(this));
     return (<tbody>{rows}</tbody>);
   }
 
-  renderColumnList() {
-    let columnsHTML = [];
-    for (let i = 0; i < this.state.columns.length; i++){
-      let column = this.state.columns[i];
-      /*columnsHTML.push(<div key={column}>
-                        <input type="checkbox" key={column} value={column} onChange={this.onColumnChange}/>
-                        <label htmlFor={column}>{column}</label>
-                       </div>);*/
-      columnsHTML.push(<div><input type="checkbox" key={column} value={column} onChange={this.onColumnChange}/>{column}</div>);
-    }
-
-    return (<div>
-              <legend>Select columns: </legend>
-                  {columnsHTML}
-            </div>);
+  renderSelectBox() {
+    return (
+      <div class="select-box">
+        <select value="select-status" onChange={this.handleStatusChange}>
+          <option value="select-status">Select status:</option>
+          <option value="">All</option>
+          <option value="0">Invalid</option>
+          <option value="1">Valid</option>
+          <option value="2">Waiting</option>
+          <option value="3">Preliminary</option>
+        </select>
+      </div>
+      );
   }
 
-  onColumnChange(event) {
-    let options = event.target.checked;
-    let selectedColumns = [];
-    for (let i = 0; i < options.length; i++){
-      if (options[i].selected){
-        selectedColumns.push(options[i].value);
-      }
+  handleStatusChange(event) {
+    let status = event.target.value;
+    if (status === "") {
+      this.getData("/kuwaIds");
+      return;
     }
-    this.setState({
-      selectedColumns,
-    });
+
+    this.getData("/kuwaIds/" + status);
   }
 
   render() {
     return (
       <div>
-        <h1 style={{fontSize: '1.2em', color: '#177CB8', marginBottom: '0'}}>Kuwa Clients</h1>
-        <button onClick={()=> this.getData("/kuwaIds")}>All Kuwa IDs</button>
-        <button onClick={()=> this.getData("/kuwaIds/valid")}>Valid Kuwa IDs</button>
-        <button onClick={()=> this.getData("/kuwaIds/invalid")}>Invalid Kuwa IDs</button>
+        <h1>Directory of Kuwa IDs</h1>
         <br/>
-          { this.renderColumnList() }
+          { this.renderSelectBox() }
         <br/>
         <br/>
-        { this.state.tableData.length > 0 ? this.renderTable() : null }
+        { this.state.tableData.length > 0 ? this.renderTable() : "Nothing to display" }
       </div>
     );
   }
