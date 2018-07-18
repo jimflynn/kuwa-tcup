@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import logo from './Kuwa.png';
 import './App.css';
 
 class App extends Component {
@@ -29,18 +29,15 @@ class App extends Component {
             <div className="App">
                 <header className="App-header">
                     <img src={logo} className="App-logo" alt="logo" />
-                    <h1 className="App-title">Kuwa Registrar Database</h1>
+                    <h1 className="App-title">Kuwa Registrar Database (Moe)</h1>
                 </header>
                 <table id="tableIdToFill">
-                    <thead>
                         <tr>
                             <th>Client Address</th>
                             <th>Contract Address</th>
-                            <th>Timestamp</th>
+                            <th>Timestamp(UTC)</th>
                             <th>Registration Status</th>
                         </tr>
-                    </thead>
-                    <thead>
                         {this.state.registrations.map((row, index) => 
                         <tr key={row.registration_id}>
                             <td> {row.client_address} </td>
@@ -49,7 +46,6 @@ class App extends Component {
                             <td> {row.status} </td>
                         </tr>
                         )}
-                    </thead>
                 </table>
             </div>
         );
