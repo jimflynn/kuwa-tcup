@@ -70,7 +70,14 @@ class App extends Component {
     this.state.tableData.forEach(function(row) {
       rows.push(
         <tr key={btoa('row'+rows.length)}>
-          {this.state.columns.map(col => <td key={col}>{row[col]}</td>)}
+          {this.state.columns.map(col => {
+            if (col === "Registration Contract Address") {
+              let url = this.props.etherScanBaseUrl + row[col];
+              return <td key={col}><a href={url} target="_blank" rel="noopener noreferrer">{row[col]}</a></td>;
+            }
+            else
+              return <td key={col}>{row[col]}</td>;
+          })}
         </tr>
       )
     }.bind(this));
@@ -79,7 +86,7 @@ class App extends Component {
 
   renderSelectBox() {
     return (
-      <div class="select-box">
+      <div className="select-box">
         <select value="select-status" onChange={this.handleStatusChange}>
           <option value="select-status">Select status:</option>
           <option value="">All</option>
