@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import logo from './Kuwa.png';
 import axios from 'axios';
 
 class App extends Component {
@@ -47,7 +48,7 @@ class App extends Component {
 
   renderTable() {
     return (
-      <table>
+      <table id="tableIdToFill">
         <thead>
           { this.renderTableHeaders() }
         </thead>
@@ -87,7 +88,7 @@ class App extends Component {
   renderSelectBox() {
     return (
       <div className="select-box">
-        <select value="select-status" onChange={this.handleStatusChange}>
+        <select id="select-box" value="select-status" onChange={this.handleStatusChange}>
           <option value="select-status">Select status:</option>
           <option value="">All</option>
           <option value="0">Invalid</option>
@@ -111,8 +112,11 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Directory of Kuwa IDs</h1>
+      <div className="App">
+      <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <h1 className="App-title">Directory of Kuwa IDs</h1>
+      </header>
         <br/>
           { this.renderSelectBox() }
         <br/>
