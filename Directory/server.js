@@ -22,7 +22,7 @@ app.use(function(req, res, next) {
 
 // Set routes
 app.get('/', function(req, res) {
-    res.json("Welcome");
+  res.json("Welcome");
 });
 
 let api = require('./routes/api');

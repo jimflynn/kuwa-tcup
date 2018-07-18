@@ -1,5 +1,6 @@
 const fs = require('fs');
 const mysql = require('mysql');
+const sprintf = require('sprintf-js').sprintf;
 
 // Create pool of DB connections
 let configFilePath = "config.json";
@@ -10,11 +11,39 @@ const pool = mysql.createPool({
     user: config['db_client'].user,
     password:  config['db_client'].password,
     database: config['db_client'].database,
-    connectionLimit: 10, // Hardcoded. Put in config.json.
+    connectionLimit: config['db_client'].connection_limit
+});
+
+
+/* Get the selected columns from "config.json" converted to display format,
+We can perhaps put the column mappings as another table in the DB?
+*/
+let cols = (function getCols() {
+  let columns = config['db_client']['columns'];
+  let selectedCols = columns['selected'];
+  let cols = "";
+  let delim = ",";
+  for (let i = 0; i < selectedCols.length; i++) {
+      if (i == selectedCols.length - 1) {
+          delim = "";
+      }
+      cols += selectedCols[i] + " AS " + "'" + columns["mapping"][selectedCols[i]] +  "'" + delim;
+    }
+    if (cols == "")
+        return "*";
+
+    return cols;
 });
 
 function getAll() {
-    command = `SELECT * from registration`; //TODO: Update last_checked
+    command = sprintf(`SELECT
+                        CASE status
+                          WHEN 0 THEN 'INVALID'
+                          WHEN 1 THEN 'VALID'
+                          WHEN 2 THEN 'WAITING'
+                          ELSE 'PRELIMINARY'
+                        END AS Status,
+                        %s FROM registration`, cols);  //TODO: Update last_checked
     return new Promise((resolve, reject) => {
         pool.query(command,
              function(err, rows, fields) {
@@ -25,8 +54,22 @@ function getAll() {
     })
 };
 
-function getAllValid(res) {
-    command = `SELECT * from registration WHERE status = 1`;    //TODO: Update last_checked
+/*
+Join with another SQL table? Yes, much more elegant solution. Right now, we have to take out "status"
+from "selected" in "config.json" or else there would be two "status" columns. You  also can't order columns.
+We can put status mappings in the "config.json" but that doesn't look right and is a bit hacky.
+See https://stackoverflow.com/questions/16753122/sql-how-to-replace-values-of-select-return
+*/
+function getAllWithStatus(status) {
+    command = sprintf(`SELECT
+                        CASE status
+                          WHEN 0 THEN 'INVALID'
+                          WHEN 1 THEN 'VALID'
+                          WHEN 2 THEN 'WAITING'
+                          ELSE 'PRELIMINARY'
+                        END AS Status,
+                        %s FROM registration
+                        WHERE status = %d`, cols, parseInt(status));   //TODO: Update last_checked
     return new Promise((resolve, reject) => {
         pool.query(command,
             function(err, rows, fields) {
@@ -37,18 +80,18 @@ function getAllValid(res) {
     });
 };
 
-function getAllInvalid(res) {
-    command = `SELECT * from registration WHERE status = 0`;    //TODO: Update last_checked
+/* Non promise-based by passing Express' response object to function*/
+/*function getAll(res) {
+    command = sprintf(`SELECT %s from registration`, cols);    //TODO: Update last_checked
     pool.query(command,
         function(err, rows, fields) {
             if (err) throw err;
             res.json(JSON.stringify(rows));
          }
     )
-};
+};*/
 
 module.exports = {
     getAll: getAll,
-    getAllValid: getAllValid,
-    getAllInvalid: getAllInvalid
+    getAllWithStatus: getAllWithStatus
 }

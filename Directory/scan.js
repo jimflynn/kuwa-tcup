@@ -29,6 +29,7 @@ class DirScanner {
             } catch (err) {
                 console.error(err);
                 /* TODO */
+                throw err;
             }
         });
 
@@ -56,8 +57,9 @@ class DirScanner {
         try {
             dirs = fs.readdirSync(rootDir);
         } catch (err) {
-            console.error("Error reading directory");
+            console.error(err);
             /*TODO*/
+            throw err;
         }
 
         return dirs;
@@ -81,7 +83,6 @@ class DirScanner {
                 return undefined;
         }
         catch (err) {
-            console.error(err);
             /* TODO */
             return undefined;
         }

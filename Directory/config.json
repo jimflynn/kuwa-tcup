@@ -1,4 +1,5 @@
 {
+    "api_base_url": "http://localhost:3001/api",
     "eth_client" : {
         "my_address": "0xde89471e94ffaaf346090abe1ccd4b448818dcbf",
         "key_store_dir": "/home/jun/.ethereum",
@@ -9,7 +10,26 @@
         "host": "localhost",
         "user": "root",
         "password": "root",
-        "database": "test"
+        "database": "test",
+        "connection_limit": 10,
+        "columns": {
+          "mapping": {
+              "registration_id": "Registration ID",
+              "kuwa_address": "Kuwa ID (address)",
+              "contract_address": "Registration Contract Address",
+              "application_binary_interface_id": "ABI Code",
+              "status": "Status",
+              "created": "Created",
+              "updated": "Updated",
+              "last_checked": "Checked"
+          },
+          "selected": [
+            "kuwa_address",
+            "contract_address",
+            "created",
+            "updated"
+          ]
+        }
     },
     "dir_to_scan": "/home/jun/Documents/tcup/Directory/test"
 }
