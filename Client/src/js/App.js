@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 import Navigation from './Navigation';
-import SetPassword from './SetPassword';
-import { Loading } from './Load';
-import { Success } from './Success';
-import { Error } from './Error';
-import RequestSponsorship from './RequestSponsorship';
-import UploadToStorage from './UploadToStorage';
-import QRCodeGen from './QRCodeGen';
+// import SetPassword from './SetPassword';
+
+import Steps from './Steps';
+import ProvideCredentials from './ProvideCredentials';
+import RecordRegistrationVideo from './RecordRegistrationVideo';
+import YourKuwaId from './YourKuwaId';
+
+// import { Loading } from './Load';
+// import { Success } from './Success';
+// import { Error } from './Error';
+// import RequestSponsorship from './RequestSponsorship';
+// import UploadToStorage from './UploadToStorage';
+// import QRCodeGen from './QRCodeGen';
 import '../css/App.css';
 
 import { connect } from 'react-redux';
@@ -33,12 +39,12 @@ class App extends Component {
             <div>
               <Navigation />
               <Switch>
-                <Route exact path='/' component={SetPassword}/>
-                <Route exact path='/Error' render={(props) => <Error errorMessage={errorMessage} />}/>
-                <Route exact path='/RequestSponsorship' component={RequestSponsorship}/>
+                <Route exact path='/' component={YourKuwaId}/>
+                {/* <Route exact path='/RequestSponsorship' component={RequestSponsorship}/>
                 <Route exact path='/UploadToStorage' component={UploadToStorage}/>
                 <Route exact path='/QRCodeGen' component={QRCodeGen}/>
-                <Route exact path='/Success' render={(props) => <Success successMessage={successMessage} />}/>
+                <Route exact path='/Error' render={(props) => <Error errorMessage={errorMessage} />}/>
+                <Route exact path='/Success' render={(props) => <Success successMessage={successMessage} />}/> */}
               </Switch>
             </div>
           </ConnectedRouter>

@@ -16,12 +16,28 @@ const initialState = {
         collapsed: true
     },
     navigation: {
-        collapsed: true
+        collapsed: true,
+        dropdown: {
+            sponsors: true,
+            registrars: true,
+            faucets: true,
+            registrationActions: true
+        }
     }
 }
 
 const screenReducer = (state = initialState, action) => {
     switch(action.type) {
+        case 'TOOGLE_DROPDOWN':
+            let componentName = action.payload.componentName;
+            let dropdownName = action.payload.dropdownName;
+            return Object.assign({}, state, {
+                [action.payload.componentName]: {
+                    dropdown: Object.assign({}, state[componentName].dropdown, {
+                        [dropdownName]: !state[componentName].dropdown[dropdownName]
+                    })
+                }
+            })
         case TOGGLE_COLLAPSE:
             return Object.assign({}, state, {
                 [action.payload]: Object.assign({}, state[action.payload], {

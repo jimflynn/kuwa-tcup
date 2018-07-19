@@ -16,3 +16,13 @@ export function togglePasswordVisibility(screenName) {
         payload: screenName
     }
 }
+
+export function toggleDropdown(componentName, dropdownName) {
+    return {
+        type: 'TOOGLE_DROPDOWN',
+        payload: {
+            componentName,
+            dropdownName
+        }
+    }
+}

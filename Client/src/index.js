@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './css/index.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-// import 'video.js/dist/video-js.min.css';
-// import 'videojs-record/dist/css/videojs.record.min.css';
+import 'font-awesome/css/font-awesome.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css'; 
+import 'mdbreact/dist/css/mdb.css';
 import App from './js/App';
 
 import { Provider } from 'react-redux';

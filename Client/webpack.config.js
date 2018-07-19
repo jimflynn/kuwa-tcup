@@ -33,6 +33,17 @@ module.exports = {
                   ]
             },
             {
+                test: /\.(ttf|eot|woff|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: 'fonts/[name].[ext]'
+                        }
+                    }
+                ]
+            },
+            {
                 test: /\.(gif|png|jpe?g|svg)$/i,
                 use: [
                     {
