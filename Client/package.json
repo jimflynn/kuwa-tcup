@@ -11,6 +11,8 @@
   "author": "The Kuwa Foundation, Inc. (kuwa.org) - Hrishikesh Kashyap, Jim Flynn, Carlos Daniel Mondragón Chapa",
   "license": "MIT",
   "dependencies": {
+    "@material-ui/core": "^1.4.0",
+    "@material-ui/icons": "^1.1.0",
     "connected-react-router": "^4.3.0",
     "history": "^4.7.2",
     "instascan": "^1.0.0",
@@ -24,8 +26,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "videojs-record": "^2.3.1",
-    "web3": "^1.0.0-beta.34",
-    "mdbreact": "git+https://github.com/mdbootstrap/React-Bootstrap-with-Material-Design.git#react-upgrade"
+    "web3": "^1.0.0-beta.34"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

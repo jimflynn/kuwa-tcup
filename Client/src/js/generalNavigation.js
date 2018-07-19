@@ -1,64 +1,100 @@
 import React from 'react';
-import { Navbar, NavbarNav, NavbarToggler, Collapse, NavItem, NavLink, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'mdbreact';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import grey from '@material-ui/core/colors/grey';
 
-export const generalNavigation = (props, extra) => (
-    <Navbar color="stylish-color-dark" dark expand="md">
-        <NavbarToggler onClick={props.toggleCollapse} />
-        <Collapse isOpen={!props.collapsed} navbar>
-            <NavbarNav left>
-                <NavItem>
-                    <NavLink to="/index.html">HOME</NavLink>
-                </NavItem>
+const sponsorsLinks = [
+    {
+        linkName: "Thelma Sponsor",
+        link: "https://alpha.kuwa.org/sponsor/thelma/"
+    },
+    {
+        linkName: "Louise Sponsor",
+        link: "http://alpha.kuwa.org:3001/sponsorship_requests"
+    }
+]
 
-                <NavItem>
-                    <Dropdown isOpen={!props.dropdownSponsors} toggle={() => props.toggleDropdown("sponsors")}>
-                    <DropdownToggle nav caret>SPONSORS</DropdownToggle>
-                    <DropdownMenu>
-                        <DropdownItem href="https://alpha.kuwa.org/sponsor/thelma/">Thelma Sponsor</DropdownItem>
-                        <DropdownItem href="http://alpha.kuwa.org:3001/sponsorship_requests">Louise Sponsor</DropdownItem>
-                    </DropdownMenu>
-                    </Dropdown>
-                </NavItem>
+const registrarsLinks = [
+    {
+        linkName: "Moe Registrar",
+        link: "https://alpha.kuwa.org/registrar/moe/"
+    },
+    {
+        linkName: "Larry Registrar",
+        link: "https://alpha.kuwa.org/registrar/larry/"
+    },
+    {
+        linkName: "Curly Registrar",
+        link: "https://alpha.kuwa.org/registrar/curly/"
+    }
+]
 
-                <NavItem>
-                    <NavLink to="/client/">CLIENT</NavLink>
-                </NavItem>
+const faucetsLinks = [
+    {
+        linkName: "Patsy Faucet",
+        link: "https://alpha.kuwa.org/#"
+    },
+    {
+        linkName: "Edina Faucet",
+        link: "https://alpha.kuwa.org/#"
+    }
+]
 
-                <NavItem>
-                    <Dropdown isOpen={!props.dropdownRegistrars} toggle={() => props.toggleDropdown("registrars")}>
-                    <DropdownToggle nav caret>REGISTRARS</DropdownToggle>
-                    <DropdownMenu>
-                        <DropdownItem href="https://alpha.kuwa.org/registrar/moe/">Moe Registrar</DropdownItem>
-                        <DropdownItem href="https://alpha.kuwa.org/registrar/larry/">Larry Registrar</DropdownItem>
-                        <DropdownItem href="https://alpha.kuwa.org/registrar/curly/">Curly Registrar</DropdownItem>
-                    </DropdownMenu>
-                    </Dropdown>
-                </NavItem>
+const homeLink = "https://alpha.kuwa.org/index.html";
+const clientLink = "https://alpha.kuwa.org/client/";
+const directoryLink = "http://alpha.kuwa.org:3011/";
+const repositoryLink = "https://alpha.kuwa.org/registrations/";
+const teamLink = "https://alpha.kuwa.org/developers/";
 
-                <NavItem>
-                    <Dropdown isOpen={!props.dropdownFaucets} toggle={() => props.toggleDropdown("faucets")}>
-                    <DropdownToggle nav caret>FAUCETS</DropdownToggle>
-                    <DropdownMenu>
-                        <DropdownItem href="https://alpha.kuwa.org/#">Patsy Faucet</DropdownItem>
-                        <DropdownItem href="https://alpha.kuwa.org/#">Edina Faucet</DropdownItem>
-                    </DropdownMenu>
-                    </Dropdown>
-                </NavItem>
+export const generalNavigation = (props) => (
+    <div style={{flexGrow: 1}}>
+        <AppBar position="static" style={{backgroundColor: grey[800]}}>
+            <Toolbar variant="dense">
+                <Typography variant="title" color="inherit" style={{flexGrow: 1}}>
+                    The Kuwa Foundation
+                </Typography>
 
-                <NavItem>
-                    <NavLink to="#">DIRECTORY</NavLink>
-                </NavItem>
+                <Button color="inherit" onClick={() => location.href = homeLink}>HOME</Button>
 
-                <NavItem>
-                    <NavLink to="/registrations/">REPOSITORY</NavLink>
-                </NavItem>
+                <Button id="sponsors" onClick={() => props.toggleDropdown("sponsors")} color="inherit">SPONSORS</Button>
+                {menuDropdown(props, props.dropdownSponsors, "sponsors", sponsorsLinks)}
 
-                <NavItem>
-                    <NavLink to="/developers/">TEAM</NavLink>
-                </NavItem>
+                <Button color="inherit" onClick={() => location.href = clientLink}>CLIENT</Button>
 
-                {extra ? extra : null}
-            </NavbarNav>
-        </Collapse>
-    </Navbar>
+                <Button id="registrars" onClick={() => props.toggleDropdown("registrars")} color="inherit">REGISTRARS</Button>
+                {menuDropdown(props, props.dropdownRegistrars, "registrars", registrarsLinks)}
+
+                <Button id="faucets" onClick={() => props.toggleDropdown("faucets")} color="inherit">FAUCETS</Button>
+                {menuDropdown(props, props.dropdownFaucets, "faucets", faucetsLinks)}
+
+                <Button color="inherit" onClick={() => location.href = directoryLink}>DIRECTORY</Button>
+
+                <Button color="inherit" onClick={() => location.href = repositoryLink}>REPOSITORY</Button>
+
+                <Button color="inherit" onClick={() => location.href = teamLink}>TEAM</Button>
+
+            </Toolbar>
+        </AppBar>
+    </div>
+)
+
+const menuDropdown = (props, isClosed, anchorElement, items) => (
+    <Menu
+        anchorEl={document.querySelector("#" + anchorElement)}
+        open={!isClosed}
+        onClose={() => props.toggleDropdown(anchorElement)}
+    >
+        {items.map((item, index) => {
+            return (
+                <MenuItem key={(index + 1).toString()} onClick={() => {
+                    props.toggleDropdown(anchorElement)
+                    location.href = item.link
+                }}>{item.linkName}</MenuItem>    
+            )
+        })}
+    </Menu>
 )
