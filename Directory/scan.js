@@ -37,7 +37,7 @@ class DirScanner {
             data.videoFilePath = videoFilePath;
             try {
                 let contract = await this.ethClient.loadContract(
-                                    JSON.parse(data.contractABI), data.contractAddress,
+                                    JSON.parse(data.ContractABI), data.ContractAddress,
                                     4300000, '22000000000', this.ethClient.myAddress
                                 );
                 data.status = parseInt(await contract.methods.getRegistrationStatus().call());
@@ -84,6 +84,7 @@ class DirScanner {
         }
         catch (err) {
             /* TODO */
+            console.log(undefined);
             return undefined;
         }
 
@@ -120,7 +121,7 @@ class DBClient {
                          application_binary_interface_id = %d, status = %d, updated = '%s';
                          `,
                          tableName,
-                         0, data.clientAddress, data.contractAddress, 1, data.status, date, date, date,
+                         0, data.ClientAddress, data.ContractAddress, 1, data.status, date, date, date,
                          1, data.status, date
                      );
         this.conn.query(command, function(err, results, fields) {
@@ -225,7 +226,7 @@ let run = async function() {
     let clientDirs = dirScanner.getDirListing(dirScanner.dirToScanPath);
     for (let i = 0; i < clientDirs.length; i++) {
         let data = await dirScanner.processClientDir(clientDirs[i]);
-        if (data)
+        if (typeof(data) !== "undefined")
             await dbClient.insertOrUpdateSingle('registration', data);
     }
     dbClient.conn.end();
