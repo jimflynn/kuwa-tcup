@@ -4,8 +4,8 @@ import Navigation from './Navigation';
 
 import Steps from './Steps';
 import ProvideCredentials from './ProvideCredentials';
-// import RecordRegistrationVideo from './RecordRegistrationVideo';
-// import YourKuwaId from './YourKuwaId';
+import RecordRegistrationVideo from './RecordRegistrationVideo';
+import YourKuwaId from './YourKuwaId';
 
 // import { Loading } from './Load';
 // import { Success } from './Success';
@@ -39,7 +39,7 @@ class App extends Component {
             <div>
               <Navigation />
               <Switch>
-                <Route exact path='/' component={ProvideCredentials}/>
+                <Route exact path='/' component={YourKuwaId}/>
                 {/* <Route exact path='/RequestSponsorship' component={RequestSponsorship}/>
                 <Route exact path='/UploadToStorage' component={UploadToStorage}/>
                 <Route exact path='/QRCodeGen' component={QRCodeGen}/>
