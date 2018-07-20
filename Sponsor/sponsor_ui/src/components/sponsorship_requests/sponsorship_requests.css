@@ -2,9 +2,6 @@ h2 {
 	text-align: center;
 }
 
-.address {
-    width: 400px;
-}
 table {
 	margin: auto;
     font-family: arial, sans-serif;
@@ -24,3 +21,4 @@ td, th {
 tr:nth-child(even) {
     background-color: #dddddd;
 }
+
