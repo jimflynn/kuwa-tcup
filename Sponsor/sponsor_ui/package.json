@@ -4,10 +4,14 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "boostrap": "^2.0.0",
+    "bootstrap": "^4.1.1",
     "react": "^16.4.0",
+    "react-bootstrap-table": "^4.3.1",
     "react-dom": "^16.4.0",
     "react-scripts": "1.1.4",
-    "reactjs-popup": "^1.1.1"
+    "reactjs-popup": "^1.1.1",
+    "reactstrap": "^6.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -15,5 +19,5 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://alpha.kuwa.org:3000"
+  "proxy": "https://alpha.kuwa.org:3000"
 }
