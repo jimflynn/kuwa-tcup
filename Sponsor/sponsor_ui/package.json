@@ -6,6 +6,7 @@
     "axios": "^0.18.0",
     "boostrap": "^2.0.0",
     "bootstrap": "^4.1.1",
+    "forever": "^0.15.3",
     "react": "^16.4.0",
     "react-bootstrap-table": "^4.3.1",
     "react-dom": "^16.4.0",
@@ -14,7 +15,7 @@
     "reactstrap": "^6.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=3001 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
