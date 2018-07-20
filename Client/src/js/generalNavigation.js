@@ -53,7 +53,7 @@ const teamLink = "https://alpha.kuwa.org/developers/";
 export const generalNavigation = (props) => (
     <div style={{flexGrow: 1}}>
         <AppBar position="static" style={{backgroundColor: grey[800]}}>
-            <Toolbar variant="dense">
+            <Toolbar>
                 <Typography variant="title" color="inherit" style={{flexGrow: 1}}>
                     The Kuwa Foundation
                 </Typography>

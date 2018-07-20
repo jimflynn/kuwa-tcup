@@ -1,19 +1,7 @@
-import { 
-    TOGGLE_COLLAPSE,
-    TOGGLE_PASSWORD_VISIBILITY    
-} from '../actions/types';
-
 const initialState = {
-    setPassword: {
-        collapsed: true,
-        showPassword: false
-    },
-    requestSponsorship: {
-        collapsed: true,
-        showPassword: false
-    },
-    uploadToStorage: {
-        collapsed: true
+    provideCredentials: {
+        showKuwaPassword: false,
+        showPasscode: false
     },
     navigation: {
         collapsed: true,
@@ -38,20 +26,18 @@ const screenReducer = (state = initialState, action) => {
                     })
                 }
             })
-        case TOGGLE_COLLAPSE:
+        case  'TOGGLE_KUWA_PASSWORD_VISIBILITY':
             return Object.assign({}, state, {
-                [action.payload]: Object.assign({}, state[action.payload], {
-                    collapsed: !state[action.payload].collapsed
+                provideCredentials: Object.assign({}, state.provideCredentials, {
+                    showKuwaPassword: !state.provideCredentials.showKuwaPassword
                 })
             })
-        case TOGGLE_PASSWORD_VISIBILITY:
+        case 'TOGGLE_PASSCODE_VISIBILITY':
             return Object.assign({}, state, {
-                [action.payload]: Object.assign({}, state[action.payload], {
-                    showPassword: !state[action.payload].showPassword
+                provideCredentials: Object.assign({}, state.provideCredentials, {
+                    showPasscode: !state.provideCredentials.showPasscode
                 })
             })
-        case 'COLLAPSE_AND_HIDE_PASSWORD':
-            return initialState
         default:
             return state
     }

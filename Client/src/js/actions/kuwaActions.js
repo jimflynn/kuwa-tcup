@@ -19,9 +19,6 @@ export function createKeys(password) {
         dispatch({
             type: 'CREATE_KEYS_PENDING'
         })
-        dispatch({
-            type: 'COLLAPSE_AND_HIDE_PASSWORD'
-        })
         //defining parameters and options to create an ethereum wallet
         let params = { keyBytes: 32, ivBytes: 16 };
         let dk = keythereum.create(params);
@@ -61,9 +58,6 @@ export function requestSponsorship(keyObject, privateKey, sharedSecret) {
     return dispatch => {
         dispatch({
             type: 'REQUEST_SPONSORSHIP_PENDING',
-        })
-        dispatch({
-            type: 'COLLAPSE_AND_HIDE_PASSWORD'
         })
         let formData = new FormData();
         formData.append('address', keyObject.address);
@@ -106,9 +100,6 @@ export function uploadToStorage(videoFilePath, ethereumAddress, abi, contractAdd
     return dispatch => {
         dispatch({
             type: 'UPLOAD_TO_STORAGE_PENDING'
-        })
-        dispatch({
-            type: 'COLLAPSE_AND_HIDE_PASSWORD'
         })
         let formData = new FormData();
         new Promise((resolve, reject) => {
@@ -154,9 +145,6 @@ export function webUploadToStorage(videoBlob, ethereumAddress, abi, contractAddr
     return dispatch => {
         dispatch({
             type: 'WEB_UPLOAD_TO_STORAGE_PENDING'
-        })
-        dispatch({
-            type: 'COLLAPSE_AND_HIDE_PASSWORD'
         })
         let formData = new FormData();
         formData.append('ClientAddress',ethereumAddress);

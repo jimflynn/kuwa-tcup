@@ -1,19 +1,12 @@
-import { 
-    TOGGLE_COLLAPSE,
-    TOGGLE_PASSWORD_VISIBILITY
- } from './types';
-
-export function toggleCollapse(screenName) {
+export function toggleKuwaPasswordVisibility() {
     return {
-        type: TOGGLE_COLLAPSE,
-        payload: screenName
+        type: 'TOGGLE_KUWA_PASSWORD_VISIBILITY'
     }
 }
 
-export function togglePasswordVisibility(screenName) {
+export function togglePasscodeVisibility() {
     return {
-        type: TOGGLE_PASSWORD_VISIBILITY,
-        payload: screenName
+        type: 'TOGGLE_PASSCODE_VISIBILITY'
     }
 }
 
