@@ -2,7 +2,8 @@ var fs = require('fs');
 var https = require('https');
 const mysql = require('mysql');
 const express = require('express');
-const port = process.env.PORT || 3011;
+const port = process.env.PORT || 3006;
+
 
 const app = express();
 
@@ -17,8 +18,8 @@ var pool = mysql.createPool({
 });
 
 var credentials = {
-    key : fs.readFileSync('server.key'),
-    cert: fs.readFileSync('server.cert')
+    key : fs.readFileSync('/etc/httpd/conf/ssl.key/server.key'),
+    cert: fs.readFileSync('/etc/httpd/conf/ssl.crt/alpha_kuwa_org.pem')
 }
 
 app.get('/registration', (req, res) => {

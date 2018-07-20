@@ -1,0 +1,56 @@
+
+> registrar@1.0.0 start /home/darshi/registrar
+> concurrently --kill-others-on-fail "nodemon watcher.js" "nodemon server.js" "PORT=3005 react-scripts start"
+
+[1] [33m[nodemon] 1.17.5[39m
+[1] [33m[nodemon] to restart at any time, enter `rs`[39m
+[1] [33m[nodemon] watching: *.*[39m
+[1] [32m[nodemon] starting `node server.js`[39m
+[0] [33m[nodemon] 1.17.5[39m
+[0] [33m[nodemon] to restart at any time, enter `rs`[39m
+[0] [33m[nodemon] watching: *.*[39m
+[0] [32m[nodemon] starting `node watcher.js`[39m
+[0] /home/darshi/registrar/watcher.js:54
+[0]         "INSERT INTO registration (client_address, contract_address, status) VALUES ('%s', '%s', %d)
+[0]         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[0] 
+[0] SyntaxError: Invalid or unexpected token
+[0]     at createScript (vm.js:80:10)
+[0]     at Object.runInThisContext (vm.js:139:10)
+[0]     at Module._compile (module.js:616:28)
+[0]     at Object.Module._extensions..js (module.js:663:10)
+[0]     at Module.load (module.js:565:32)
+[0]     at tryModuleLoad (module.js:505:12)
+[0]     at Function.Module._load (module.js:497:3)
+[0]     at Function.Module.runMain (module.js:693:10)
+[0]     at startup (bootstrap_node.js:191:16)
+[0]     at bootstrap_node.js:612:3
+[0] [31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[1] events.js:183
+[1]       throw er; // Unhandled 'error' event
+[1]       ^
+[1] 
+[1] Error: listen EADDRINUSE :::3006
+[1]     at Object._errnoException (util.js:992:11)
+[1]     at _exceptionWithHostPort (util.js:1014:20)
+[1]     at Server.setupListenHandle [as _listen2] (net.js:1355:14)
+[1]     at listenInCluster (net.js:1396:12)
+[1]     at Server.listen (net.js:1480:7)
+[1]     at Object.<anonymous> (/home/darshi/registrar/server.js:51:38)
+[1]     at Module._compile (module.js:652:30)
+[1]     at Object.Module._extensions..js (module.js:663:10)
+[1]     at Module.load (module.js:565:32)
+[1]     at tryModuleLoad (module.js:505:12)
+[1] [31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[2] Starting the development server...
+[2] 
+[2] Compiled successfully!
+[2] 
+[2] You can now view registrar in the browser.
+[2] 
+[2]   Local:            http://localhost:3005/
+[2]   On Your Network:  http://172.30.0.8:3005/
+[2] 
+[2] Note that the development build is not optimized.
+[2] To create a production build, use npm run build.
+[2] 
