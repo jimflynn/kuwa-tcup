@@ -10,7 +10,8 @@ var fs = require('fs');
 var mysql = require('mysql');
 var crypto = require('crypto');
 var chokidar = require('chokidar');
-
+var spawn = require('child_process').spawn;
+var path = require('path');
 var Web3 = require('web3');
 var web3 = new Web3('https://rinkeby.infura.io/8Dx9RdhjqIl1y3EQzQpl');
 
@@ -26,6 +27,16 @@ var loadContract = async function(ContractABI, ContractAddress) {
 }
 
 var findDuplicate = function(mapping, hashval) {
+
+    // call python sub-process
+    var py = spawn('python', ['./Sybil_detection/test.py']);
+    py.stdout.on('data', function(data) {
+        console.log(data.toString());
+    })
+    py.stdout.on('end', function(){
+        console.log("Python process terminated successfully!!");
+    });
+
     for (var key in mapping) {
         if (mapping[key] === hashval)
             return true;
@@ -33,58 +44,55 @@ var findDuplicate = function(mapping, hashval) {
     return false;
 }
 
-var createSQLConnection = function() {
-    let con = mysql.createConnection({
+let pool = mysql.createPool({
         host: "localhost",
         user: "root",
-        password: "sqlpassword",
+        password: String.raw`(-h(3~8u"_ZE{lV%m(2SWze$F-7K<$,ej:2+@=-O\43**|>j6!2~uPmeJko[ASo=`,
         database: "alpha_kuwa_registrar_moe",
         timezone : 'local',
         dateStrings : true
     });
-    return con;
-} 
 
-var insertRow = function(connection, ClientAddress, ContractAddress, status) {
-    connection.connect(function(err) {
-        if (err) {
-            throw err;
-        }
-        console.log("Watcher has connected to Kuwa Database!");
+var insertRow = function(ClientAddress, ContractAddress, status) {
         let sql = "INSERT INTO registration (client_address, contract_address, status)"
                     + " VALUES (" 
                     + "'" + ClientAddress + "'," 
                     + "'" + ContractAddress + "'," 
                     + status + ")";
-        connection.query(sql, function (err, result) {
-            if (err) {
-                throw err;
-            }
-            console.log("1 record inserted");
-        });
-    });
+	pool.getConnection((err, connection) => {
+		if(err) {
+			console.log("Error connecting to DB.");
+		}
+		connection.query(sql, (err, result) => {
+			console.log("Watcher connected to DB.");
+			if(!err) {
+				connection.release();
+				console.log("Record inserted successfully.");
+			}
+		});
+	});
 }
 
 // Start watching desired directory
-dir = '/home/darshi/Desktop/registrations/';
+dir = '/registrations';
 chokidar.watch(dir, {persistent: true}).on('all', registerFile);
 
 function registerFile(event, filePath) {
     console.log(event, filePath);
 
     // when new file detected, hash it and store in a Map.
-    if(event == 'addDir' && filePath.length > dir.length) {
+    if(event == 'add' && (path.basename(filePath) == 'info.json')) {
 
-        let info = JSON.parse(fs.readFileSync(filePath + '/' + 'info.json', 'utf8'));
-        console.log(info);
+        let info = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+        // console.log(info);
         let ContractABI = JSON.parse(info.ContractABI);
-        console.log(ContractABI);
+        // console.log(ContractABI);
         let ClientAddress = info.ClientAddress;
         let ContractAddress = info.ContractAddress;
 
         let hash = '';
         let sha = crypto.createHash('sha256');
-        let file = fs.ReadStream(filePath + '/' + 'ChallengeVideo.mp4');
+        let file = fs.ReadStream(path.dirname(filePath) + '/' + 'ChallengeVideo.mp4');
         file.on('data', function(data) {
             sha.update(data);
         })
@@ -93,14 +101,14 @@ function registerFile(event, filePath) {
             hash = sha.digest('hex');
 
             let duplicate = findDuplicate(dict, hash);
-            console.log('Duplicate File:', duplicate);
+            console.log('Duplicate File? :', duplicate);
 
             if(!duplicate) {
 
                 dict[filePath] = hash;
-                console.log(filePath + ' => ' + hash + ': Valid');
-                console.log("Current Hash Table:");
-                console.log(dict);
+                //console.log(filePath + ' => ' + hash + ': Valid');
+                // console.log("Current Hash Table:");
+                // console.log(dict);
 
                 // TODO: for now, only display the smart contract challenge phrase
                 // later while setting up the complete system, get `ContractAddress` from storage manager
@@ -115,23 +123,21 @@ function registerFile(event, filePath) {
                     });
 
                 // add entry to DB
-                let con = createSQLConnection();
-                insertRow(con, ClientAddress, ContractAddress, '1');
+                insertRow(ClientAddress, ContractAddress, '1');
             }
             else {
-                console.log(filePath + ' => ' + hash + ': Invalid; Hash already exists');
-                console.log("Current Hash Table:");
-                console.log(dict);
+                //console.log(filePath + ' => ' + hash + ': Invalid; Hash already exists');
+                // console.log("Current Hash Table:");
+                // console.log(dict);
 
                 // add entry to DB
-                let con = createSQLConnection();
-                insertRow(con, ClientAddress, ContractAddress, '0');
+                insertRow(ClientAddress, ContractAddress, '0');
             }
         })
     }
     else if(event == 'unlinkDir') {
-        console.log('Deleting ', filePath, '...');
+        //console.log('Deleting ', filePath, '...');
         delete dict[filePath];
-        console.log('dict = ', dict);
+        //console.log('dict = ', dict);
     }
 }

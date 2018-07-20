@@ -1,0 +1,46 @@
+[
+    {
+        "merged": "/home/jflynn/TCUP/tcup/Client/cordovaClient/platforms/android/app/build/intermediates/res/merged/debug/drawable-land-mdpi_screen.png.flat",
+        "source": "/home/jflynn/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/res/drawable-land-mdpi/screen.png"
+    },
+    {
+        "merged": "/home/jflynn/TCUP/tcup/Client/cordovaClient/platforms/android/app/build/intermediates/res/merged/debug/drawable-port-ldpi_screen.png.flat",
+        "source": "/home/jflynn/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/res/drawable-port-ldpi/screen.png"
+    },
+    {
+        "merged": "/home/jflynn/TCUP/tcup/Client/cordovaClient/platforms/android/app/build/intermediates/res/merged/debug/xml_config.xml.flat",
+        "source": "/home/jflynn/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/res/xml/config.xml"
+    },
+    {
+        "merged": "/home/jflynn/TCUP/tcup/Client/cordovaClient/platforms/android/app/build/intermediates/res/merged/debug/drawable-land-hdpi_screen.png.flat",
+        "source": "/home/jflynn/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/res/drawable-land-hdpi/screen.png"
+    },
+    {
+        "merged": "/home/jflynn/TCUP/tcup/Client/cordovaClient/platforms/android/app/build/intermediates/res/merged/debug/drawable-land-ldpi_screen.png.flat",
+        "source": "/home/jflynn/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/res/drawable-land-ldpi/screen.png"
+    },
+    {
+        "merged": "/home/jflynn/TCUP/tcup/Client/cordovaClient/platforms/android/app/build/intermediates/res/merged/debug/drawable-port-xhdpi_screen.png.flat",
+        "source": "/home/jflynn/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/res/drawable-port-xhdpi/screen.png"
+    },
+    {
+        "merged": "/home/jflynn/TCUP/tcup/Client/cordovaClient/platforms/android/app/build/intermediates/res/merged/debug/drawable-port-mdpi_screen.png.flat",
+        "source": "/home/jflynn/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/res/drawable-port-mdpi/screen.png"
+    },
+    {
+        "merged": "/home/jflynn/TCUP/tcup/Client/cordovaClient/platforms/android/app/build/intermediates/res/merged/debug/drawable-port-hdpi_screen.png.flat",
+        "source": "/home/jflynn/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/res/drawable-port-hdpi/screen.png"
+    },
+    {
+        "merged": "/home/jflynn/TCUP/tcup/Client/cordovaClient/platforms/android/app/build/intermediates/res/merged/debug/mipmap-mdpi_icon.png.flat",
+        "source": "/home/jflynn/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/res/mipmap-mdpi/icon.png"
+    },
+    {
+        "merged": "/home/jflynn/TCUP/tcup/Client/cordovaClient/platforms/android/app/build/intermediates/res/merged/debug/drawable-land-xhdpi_screen.png.flat",
+        "source": "/home/jflynn/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/res/drawable-land-xhdpi/screen.png"
+    },
+    {
+        "merged": "/home/jflynn/TCUP/tcup/Client/cordovaClient/platforms/android/app/build/intermediates/res/merged/debug/xml_camera_provider_paths.xml.flat",
+        "source": "/home/jflynn/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/res/xml/camera_provider_paths.xml"
+    }
+]

@@ -18,3 +18,8 @@ Client/node_modules/
 Client/react-client/client/node_modules/
 
 Client/react-client/client/platforms/
+
+\.DS_Store
+
+Client/webBuild\.sh
+node_modules/
