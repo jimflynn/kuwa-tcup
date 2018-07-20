@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { push } from 'connected-react-router'
 
 import kuwaIcon from '../img/kuwa-icon.png';
 
@@ -59,7 +60,7 @@ class Steps extends Component {
                             After the Kuwa network validates your ID, you can use your Kuwa ID to access Kuwa-compatible services, such as basic income distributions, financial services, voting, etc.
                         </Typography>
                         <div align="center">
-                            <Button variant="contained" style={{backgroundColor: buttonColor}}>
+                            <Button variant="contained" style={{backgroundColor: buttonColor}} onClick={() => this.props.navigateTo('/ProvideCredentials')}>
                                 Continue
                             </Button>
                         </div>
@@ -79,7 +80,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-
+        navigateTo: link => {
+            dispatch(push(link))
+        }
     }
 }
 

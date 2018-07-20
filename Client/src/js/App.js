@@ -39,9 +39,9 @@ class App extends Component {
             <div>
               <Navigation />
               <Switch>
-                <Route exact path='/' component={YourKuwaId}/>
-                {/* <Route exact path='/RequestSponsorship' component={RequestSponsorship}/>
-                <Route exact path='/UploadToStorage' component={UploadToStorage}/>
+                <Route exact path='/' component={Steps}/>
+                <Route exact path='/ProvideCredentials' component={ProvideCredentials}/>
+                {/* <Route exact path='/UploadToStorage' component={UploadToStorage}/>
                 <Route exact path='/QRCodeGen' component={QRCodeGen}/>
                 <Route exact path='/Error' render={(props) => <Error errorMessage={errorMessage} />}/>
                 <Route exact path='/Success' render={(props) => <Success successMessage={successMessage} />}/> */}
