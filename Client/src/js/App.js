@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import Navigation from './Navigation';
-// import SetPassword from './SetPassword';
 
 import Steps from './Steps';
 import ProvideCredentials from './ProvideCredentials';
 import RecordRegistrationVideo from './RecordRegistrationVideo';
 import YourKuwaId from './YourKuwaId';
 
-// import { Loading } from './Load';
-// import { Success } from './Success';
-import { Error } from './Error';
+import Success from './Success';
+import Error from './Error';
 // import RequestSponsorship from './RequestSponsorship';
 // import UploadToStorage from './UploadToStorage';
 // import QRCodeGen from './QRCodeGen';
@@ -43,8 +41,8 @@ class App extends Component {
                 <Route exact path='/ProvideCredentials' component={ProvideCredentials}/>
                 <Route exact path='/RecordRegistrationVideo' component={RecordRegistrationVideo}/>
                 <Route exact path='/YourKuwaId' component={YourKuwaId}/>
-                <Route exact path='/Error' render={(props) => <Error errorMessage="asdfasdf" />}/>
-                {/* <Route exact path='/Success' render={(props) => <Success successMessage="asdfasdf" />}/> */}
+                <Route exact path='/Error' component={Error}/>
+                <Route exact path='/Success' component={Success}/>
                 {/* <Route exact path='/' render={(props) => <Loading loadingMessage="Loading message" />}/> */}
               </Switch>
             </div>

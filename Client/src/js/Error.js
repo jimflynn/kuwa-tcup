@@ -1,37 +1,38 @@
-import React from 'react';
+import { Component } from 'react';
+import { connect } from 'react-redux';
+
+import { withStyles } from '@material-ui/core/styles';
+
 import error from '../img/error.png';
-import Grid from '@material-ui/core/Grid';
 
-/**
- * Shows loading Gif component
- * @export
- * @class Loading
- * @extends Component
- */
-// export const Error = (props) => {
-//   return (
-//     <Container>
-//         <Row className="row-kuwa-reg">
-//             <Col>
-//                 <h4>{props.errorMessage}</h4>
-//             </Col>
-//         </Row>
-//         <Row className="row-kuwa-reg">
-//             <Col>
-//                 <img className="responsive-kuwa-img" src={error} alt="error" />
-//             </Col>
-//         </Row>
-//     </Container>
-//   );
-// }
+import { generalOutcome } from './generalOutcome';
 
-export const Error = props => (
-    <Grid container>
-        <Grid container justify="center" style={{flexGrow: 1}}>
-            <img className="responsive-kuwa-img" src={error} alt="error" />
-        </Grid>
-        <Grid container justify="center" style={{flexGrow: 1}}>
-            <h3 style={{textAlign: "center"}}>{props.errorMessage}</h3>
-        </Grid>
-    </Grid>
-);
+const styles = theme => ({
+    root: Object.assign({}, theme.mixins.gutters(), {
+        paddingTop: theme.spacing.unit * 2,
+        paddingBottom: theme.spacing.unit * 2,
+    })
+});
+
+class Error extends Component {
+    render() {
+        const { classes } = this.props;
+        return (
+            generalOutcome(this.props.errorMessage, error, classes)
+        );
+    }
+}
+
+const mapStateToProps = state => {
+    return {
+        errorMessage: state.kuwaReducer.screen.error.helpText
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Error));
