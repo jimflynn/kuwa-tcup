@@ -13,7 +13,7 @@ export const Success = (props) => {
     <Container>
         <Row className="row-kuwa-reg">
             <Col>
-                <h4>{props.successMessage}</h4>
+                <h3>{props.successMessage}</h3>
             </Col>
         </Row>
         <Row className="row-kuwa-reg">

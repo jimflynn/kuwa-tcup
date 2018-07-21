@@ -39,7 +39,7 @@ class App extends Component {
             <div>
               <Navigation />
               <Switch>
-                <Route exact path='/' component={RecordRegistrationVideo}/>
+                <Route exact path='/' component={Steps}/>
                 <Route exact path='/ProvideCredentials' component={ProvideCredentials}/>
                 <Route exact path='/RecordRegistrationVideo' component={RecordRegistrationVideo}/>
                 <Route exact path='/YourKuwaId' component={YourKuwaId}/>
