@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { Loading } from './Load'
 import kuwaIcon from '../img/kuwa-icon.png';
 
 import { toggleKuwaPasswordVisibility, togglePasscodeVisibility } from './actions/screenActions';
+import { provideCredentials } from './actions/kuwaActions';
 
 import classNames from 'classnames';
 
@@ -28,8 +30,6 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 
 import Button from '@material-ui/core/Button';
 const buttonColor = "#11B73F";
-
-let passcode = "";
 
 const styles = theme => ({
     root: Object.assign({}, theme.mixins.gutters(), {
@@ -75,60 +75,8 @@ class ProvideCredentials extends Component {
                             </TableBody>
                         </Table>
 
-                        <Typography variant="title" align="left" style={{margin: "1em"}}>
-                            Kuwa registrations must have a sponsor. <strong>The Kuwa Foundation</strong> is the sponsor of your Kuwa registration. For credentials, we only require that you enter a passcode. If you do not have a passcode, please go to <a href="http://kuwa.org" target="_blank">http://kuwa.org</a> to request one.
-                        </Typography>
-
-                        <Grid>
-                        <FormControl style={{width: "100%"}} className={classNames(classes.margin, classes.textField)}>
-                            <InputLabel htmlFor="adornment-passcode">Enter the passcode we emailed you</InputLabel>
-                            <Input
-                                id="adornment-passcode"
-                                type={this.props.showPasscode ? 'text' : 'password'}
-                                value={this.state.passcode}
-                                onChange={event => this.setState({passcode: event.target.value})}
-                                endAdornment={
-                                <InputAdornment position="end">
-                                    <IconButton
-                                    aria-label="Toggle passcode visibility"
-                                    onClick={this.props.togglePasscodeVisibility}
-                                    onMouseDown={event => event.preventDefault()}
-                                    >
-                                        {this.props.showPasscode ? <Visibility /> : <VisibilityOff />}
-                                    </IconButton>
-                                </InputAdornment>
-                                }
-                            />
-                        </FormControl>
-                        </Grid>
-                        <Grid>
-                        <FormControl style={{width: "100%"}} className={classNames(classes.margin, classes.textField)}>
-                            <InputLabel htmlFor="adornment-kuwaPassword">Choose a Kuwa password</InputLabel>
-                            <Input
-                                id="adornment-kuwaPassword"
-                                type={this.props.showKuwaPassword ? 'text' : 'password'}
-                                value={this.state.kuwaPassword}
-                                onChange={event => this.setState({kuwaPassword: event.target.value})}
-                                endAdornment={
-                                <InputAdornment position="end">
-                                    <IconButton
-                                    aria-label="Toggle Kuwa Password visibility"
-                                    onClick={this.props.toggleKuwaPasswordVisibility}
-                                    onMouseDown={event => event.preventDefault()}
-                                    >
-                                        {this.props.showKuwaPassword ? <Visibility /> : <VisibilityOff />}
-                                    </IconButton>
-                                </InputAdornment>
-                                }
-                            />
-                        </FormControl>
-                        </Grid>
-
-                        <div align="center">
-                            <Button variant="contained" style={{backgroundColor: buttonColor, marginTop: "1em"}}>
-                                Continue
-                            </Button>
-                        </div>
+                        {this.props.loading ? <Loading loadingMessage="We are creating your Kuwa ID and requesting your sponsorship. This may take a few minutes..." /> : renderContent(this.props, this.state, this.setState.bind(this))}
+                    
                     </Paper>
                 </Grid>
             </Grid>
@@ -137,10 +85,71 @@ class ProvideCredentials extends Component {
     }
 }
 
+const renderContent = (props, state, setState) =>  (
+    <div>
+    <Typography variant="title" align="left" style={{margin: "1em"}}>
+        Kuwa registrations must have a sponsor. <strong>The Kuwa Foundation</strong> is the sponsor of your Kuwa registration. For credentials, we only require that you enter a passcode. If you do not have a passcode, please go to <a href="http://kuwa.org" target="_blank">http://kuwa.org</a> to request one.
+    </Typography>
+
+    <Grid>
+    <FormControl style={{width: "100%"}} className={classNames(props.classes.margin, props.classes.textField)}>
+        <InputLabel htmlFor="adornment-passcode">Enter the passcode we emailed you</InputLabel>
+        <Input
+            id="adornment-passcode"
+            type={props.showPasscode ? 'text' : 'password'}
+            value={state.passcode}
+            onChange={event => setState({passcode: event.target.value})}
+            endAdornment={
+            <InputAdornment position="end">
+                <IconButton
+                aria-label="Toggle passcode visibility"
+                onClick={props.togglePasscodeVisibility}
+                onMouseDown={event => event.preventDefault()}
+                >
+                    {props.showPasscode ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+            </InputAdornment>
+            }
+        />
+    </FormControl>
+    </Grid>
+    
+    <Grid>
+    <FormControl style={{width: "100%"}} className={classNames(props.classes.margin, props.classes.textField)}>
+        <InputLabel htmlFor="adornment-kuwaPassword">Choose a Kuwa password</InputLabel>
+        <Input
+            id="adornment-kuwaPassword"
+            type={props.showKuwaPassword ? 'text' : 'password'}
+            value={state.kuwaPassword}
+            onChange={event => setState({kuwaPassword: event.target.value})}
+            endAdornment={
+            <InputAdornment position="end">
+                <IconButton
+                aria-label="Toggle Kuwa Password visibility"
+                onClick={props.toggleKuwaPasswordVisibility}
+                onMouseDown={event => event.preventDefault()}
+                >
+                    {props.showKuwaPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+            </InputAdornment>
+            }
+        />
+    </FormControl>
+    </Grid>
+
+    <div align="center">
+        <Button variant="contained" style={{backgroundColor: buttonColor, marginTop: "1em"}} onClick={() => props.provideCredentials(state.kuwaPassword, state.passcode)}>
+            Continue
+        </Button>
+    </div>
+    </div>
+)
+
 const mapStateToProps = state => {
     return {
         showKuwaPassword: state.screenReducer.provideCredentials.showKuwaPassword,
-        showPasscode: state.screenReducer.provideCredentials.showPasscode
+        showPasscode: state.screenReducer.provideCredentials.showPasscode,
+        loading: state.kuwaReducer.screen.provideCredentials.loading
     }
 }
 
@@ -151,6 +160,9 @@ const mapDispatchToProps = dispatch => {
         },
         togglePasscodeVisibility: () => {
             dispatch(togglePasscodeVisibility())
+        },
+        provideCredentials: (kuwaPassword, passcode) => {
+            dispatch(provideCredentials(kuwaPassword, passcode))
         }
     }
 }

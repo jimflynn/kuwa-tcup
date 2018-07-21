@@ -2,19 +2,13 @@ import keythereum from 'keythereum';
 import Web3 from 'web3';
 import qrcode from 'qrcode';
 import { push } from 'connected-react-router'
-import { CREATE_KUWA_ID, 
-    CREATE_KEYS,
-    CREATE_KEYS_SUCCESS,
-    REQUEST_SPONSORSHIP, 
-    UPLOAD_TO_STORAGE, 
-    UNLOCK_KUWA_ID, BACK } from './types';
 
 import config from 'config';
 
 let web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider(config.web3Provider));
 
-export function createKeys(password) {
+export function provideCredentials(kuwaPassword, passcode) {
     return dispatch => {
         dispatch({
             type: 'CREATE_KEYS_PENDING'
@@ -32,36 +26,39 @@ export function createKeys(password) {
             }
         };
         try {
-            //The key object is generated using a combination of the password and private key. 
-            keythereum.dump(password, dk.privateKey, dk.salt, dk.iv, options, keyObject => {
-                keythereum.recover(password, keyObject, privateKey => {
+            //The key object is generated using a combination of the kuwaPassword and private key. 
+            keythereum.dump(kuwaPassword, dk.privateKey, dk.salt, dk.iv, options, keyObject => {
+                keythereum.recover(kuwaPassword, keyObject, privateKey => {
                     let privateKeyInHex = privateKey.toString('hex');
                     generateQrCode('0x' + keyObject.address).then(qrCodeSrc => {
                         dispatch({
                             type: 'CREATE_KEYS_FULFILLED',
                             payload: {keyObject, privateKeyInHex, qrCodeSrc}
                         })
-                        dispatch(push('/RequestSponsorship'))
+                        requestSponsorship(keyObject, privateKeyInHex, passcode, dispatch)
                     })
                 })
             });
         } catch(e) {
             dispatch({
-                type: 'CREATE_KEYS_REJECTED'
+                type: 'CREATE_KEYS_REJECTED',
+                payload: {
+                    error: "There was an error creating your Kuwa ID. Please try again."
+                }
             })
             dispatch(push('/Error'))
         }
     }
 }
 
-export function requestSponsorship(keyObject, privateKey, sharedSecret) {
-    return dispatch => {
+function requestSponsorship(keyObject, privateKey, passcode, dispatch) {
+    //return dispatch => {
         dispatch({
             type: 'REQUEST_SPONSORSHIP_PENDING',
         })
         let formData = new FormData();
         formData.append('address', keyObject.address);
-        formData.append('SS', sharedSecret);
+        formData.append('SS', passcode);
         fetch(config.requestUrl.requestSponsorshipUrl, {
             method: 'POST',
             body: formData
@@ -81,7 +78,7 @@ export function requestSponsorship(keyObject, privateKey, sharedSecret) {
                                 type: 'REQUEST_SPONSORSHIP_FULFILLED',
                                 payload: {challenge, responseJson}
                             })
-                            dispatch(push('/UploadToStorage'))
+                            dispatch(push('/RecordRegistrationVideo'))
                         })
                     })
                 }
@@ -93,7 +90,7 @@ export function requestSponsorship(keyObject, privateKey, sharedSecret) {
             })
             dispatch(push('/Error'))
         })
-    }
+    //}
 }
 
 export function uploadToStorage(videoFilePath, ethereumAddress, abi, contractAddress) {

@@ -9,7 +9,7 @@ import YourKuwaId from './YourKuwaId';
 
 // import { Loading } from './Load';
 // import { Success } from './Success';
-// import { Error } from './Error';
+import { Error } from './Error';
 // import RequestSponsorship from './RequestSponsorship';
 // import UploadToStorage from './UploadToStorage';
 // import QRCodeGen from './QRCodeGen';
@@ -39,12 +39,13 @@ class App extends Component {
             <div>
               <Navigation />
               <Switch>
-                <Route exact path='/' component={Steps}/>
+                <Route exact path='/' component={RecordRegistrationVideo}/>
                 <Route exact path='/ProvideCredentials' component={ProvideCredentials}/>
-                {/* <Route exact path='/UploadToStorage' component={UploadToStorage}/>
-                <Route exact path='/QRCodeGen' component={QRCodeGen}/>
-                <Route exact path='/Error' render={(props) => <Error errorMessage={errorMessage} />}/>
-                <Route exact path='/Success' render={(props) => <Success successMessage={successMessage} />}/> */}
+                <Route exact path='/RecordRegistrationVideo' component={RecordRegistrationVideo}/>
+                <Route exact path='/YourKuwaId' component={YourKuwaId}/>
+                <Route exact path='/Error' render={(props) => <Error errorMessage="asdfasdf" />}/>
+                {/* <Route exact path='/Success' render={(props) => <Success successMessage="asdfasdf" />}/> */}
+                {/* <Route exact path='/' render={(props) => <Loading loadingMessage="Loading message" />}/> */}
               </Switch>
             </div>
           </ConnectedRouter>

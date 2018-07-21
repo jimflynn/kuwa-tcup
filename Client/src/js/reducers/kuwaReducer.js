@@ -8,14 +8,16 @@ import {
     
 const initialState = {
     isMobile: window.usingCordova,
-    kuwaId: {},
+    kuwaId: {
+        address: "Your Kuwa ID has not been generated.",
+        challenge: "You need to be sponsored to get a challenge number."
+    },
     screen: {
-        setPassword: {loading: false},
+        provideCredentials: {loading: false},
         requestSponsorship: {loading: false},
         uploadToStorage: {loading: false},
         success: {helpText: ''},
-        error: {helpText: ''},
-        loading: {helpText: ''}
+        error: {helpText: ''}
     }
 }
 
@@ -24,11 +26,8 @@ const kuwaReducer = (state = initialState, action) => {
         case 'CREATE_KEYS_PENDING':
             return Object.assign({}, state, {
                 screen: Object.assign({}, state.screen, {
-                    setPassword: {
+                    provideCredentials: {
                         loading: true
-                    },
-                    loading: {
-                        helpText: 'Generating keys...'
                     }
                 })
             })
@@ -43,24 +42,10 @@ const kuwaReducer = (state = initialState, action) => {
                     info_uploaded: false,
                     unlocked: false,
                     qrCodeSrc: action.payload.qrCodeSrc
-                }),
-                screen: Object.assign({}, state.screen, {
-                    setPassword: {
-                        loading: false
-                    }
                 })
-            })
+            })    
         case 'REQUEST_SPONSORSHIP_PENDING':
-            return Object.assign({}, state, {
-                screen: Object.assign({}, state.screen, {
-                    requestSponsorship: {
-                        loading: true
-                    },
-                    loading: {
-                        helpText: 'Requesting Sponsorship. This may take several minutes...'
-                    }
-                })
-            })
+            return state;
         case 'REQUEST_SPONSORSHIP_FULFILLED':
             return Object.assign({}, state, {
                 kuwaId: Object.assign({}, state.kuwaId, {
@@ -71,15 +56,16 @@ const kuwaReducer = (state = initialState, action) => {
                     challenge: action.payload.challenge
                 }),
                 screen: Object.assign({}, state.screen, {
-                    requestSponsorship: {
+                    provideCredentials: {
                         loading: false
                     }
                 })
             })
+        case 'CREATE_KEYS_REJECTED':
         case 'REQUEST_SPONSORSHIP_REJECTED':
             return Object.assign({}, state, {
                 screen: Object.assign({}, state.screen, {
-                    requestSponsorship: {
+                    provideCredentials: {
                         loading: false
                     },
                     error: {

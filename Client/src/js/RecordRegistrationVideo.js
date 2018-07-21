@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Provider } from 'react-redux';
+import { store } from './store';
+import Video from './Video';
+
+import { webUploadToStorage, uploadToStorage  } from './actions/kuwaActions';
 
 import kuwaIcon from '../img/kuwa-icon.png';
 
@@ -50,13 +55,14 @@ class RecordRegistrationVideo extends Component {
                             Every living human is entitled to exactly one Kuwa ID. To help us identify you, we need a video of you speaking the following numbers:
                         </Typography>
                         <Typography variant="title" align="center" style={{margin: "1em"}}>
-                            <strong>Here will lie an amazing Challenge Number</strong>
+                            <strong>{this.props.challenge}</strong>
                         </Typography>
-                        <div align="center">
-                            <Button variant="contained" style={{backgroundColor: buttonColor}}>
-                                Record Video <i class="material-icons">videocam</i>
-                            </Button>
-                        </div>
+                        <Grid container justify="center" style={{margin: "1em"}}>
+                            <Provider store={store}>
+                                <Video />
+                            </Provider>
+                        </Grid>
+                        {renderButton(this.props)}
                     </Paper>
                 </Grid>
             </Grid>
@@ -65,15 +71,44 @@ class RecordRegistrationVideo extends Component {
     }
 }
 
+const renderButton = props => {
+    if (props.videoStatus === 'success') {
+        return (
+            <Grid container justify="center" style={{margin: "1em"}}> 
+                <Button variant="contained" style={{backgroundColor: buttonColor}} onClick={() => {
+                    let uploadFunction = props.webUploadToStorage
+                    if (window.isMobile) uploadFunction = props.uploadToStorage
+                    uploadFunction(props.videoFilePath, props.ethereumAddress, props.abi, props.contractAddress)
+                }}>
+                    Upload Video
+                </Button>
+            </Grid>
+        )
+    }
+    return null;
+}
+
 const mapStateToProps = state => {
     return {
+        ethereumAddress: state.kuwaReducer.kuwaId.address,
+        challenge: state.kuwaReducer.kuwaId.challenge,
+        abi: state.kuwaReducer.kuwaId.abi,
+        contractAddress: state.kuwaReducer.kuwaId.contractAddress,
 
+        videoStatus: state.videoReducer.videoStatus,
+        videoFilePath: state.videoReducer.videoFilePath,
+        videoBlob: state.videoReducer.videoBlob,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-
+        uploadToStorage: (videoFilePath, ethereumAddress, abi, contractAddress) => {
+            dispatch(uploadToStorage(videoFilePath, ethereumAddress, abi, contractAddress))
+        },
+        webUploadToStorage: (videoBlob, ethereumAddress, abi, contractAddress) => {
+            dispatch(webUploadToStorage(videoBlob, ethereumAddress, abi, contractAddress))
+        }
     }
 }
 

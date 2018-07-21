@@ -95,21 +95,13 @@ const renderButton = (props) => {
       );
     }
   }
-  return(
-    <Row></Row>
-  )
+  return null;
 }
 
 const mapStateToProps = state => {
-  let currentKuwaId = state.kuwaReducer.currentKuwaId;
   return {
     isMobile: state.kuwaReducer.isMobile,
     collapsed: state.screenReducer.uploadToStorage.collapsed,
-
-    // ethereumAddress: state.kuwaReducer.kuwaIds[currentKuwaId].address,
-    // challenge: state.kuwaReducer.kuwaIds[currentKuwaId].challenge,
-    // abi: state.kuwaReducer.kuwaIds[currentKuwaId].abi,
-    // contractAddress: state.kuwaReducer.kuwaIds[currentKuwaId].contractAddress,
 
     ethereumAddress: state.kuwaReducer.kuwaId.address,
     challenge: state.kuwaReducer.kuwaId.challenge,
