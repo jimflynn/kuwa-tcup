@@ -27,3 +27,9 @@ export function toggleCollapse(screenName) {
         }
     }
 }
+
+export function toggleDrawer() {
+    return {
+        type: 'TOGGLE_DRAWER'
+    }
+}

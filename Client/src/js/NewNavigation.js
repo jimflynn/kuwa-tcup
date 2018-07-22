@@ -32,7 +32,6 @@ class SwipeableTemporaryDrawer extends React.Component {
         this.state = {
             left: false
           };
-          this.self = this
     }
 
     

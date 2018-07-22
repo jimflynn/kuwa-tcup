@@ -1,5 +1,5 @@
 import React from 'react';
-import { toggleCollapse, toggleDropdown } from './actions/screenActions';
+import { toggleDropdown, toggleDrawer } from './actions/screenActions';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 
@@ -21,15 +21,16 @@ class Navigation extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        collapsed: state.screenReducer.navigation.collapsed,
-        dropdowns: state.screenReducer.dropdowns
+        toolbarTitle: "The Kuwa Foundation",
+        dropdowns: state.screenReducer.dropdowns,
+        drawerOpen: state.screenReducer.drawerOpen
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        toggleCollapse: () => {
-            dispatch(toggleCollapse("navigation"))
+        toggleDrawer: () => {
+            dispatch(toggleDrawer())
         },
         toggleDropdown: (dropdownName) => {
             dispatch(toggleDropdown(dropdownName))

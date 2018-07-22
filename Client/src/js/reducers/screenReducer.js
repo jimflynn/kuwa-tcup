@@ -4,15 +4,10 @@ const initialState = {
         showPasscode: false
     },
     navigation: {
-        collapsed: true,
-        dropdown: {
-            sponsors: true,
-            registrars: true,
-            faucets: true,
-            registrationActions: true
-        }
+        collapsed: true
     },
-    dropdowns: {}
+    dropdowns: {},
+    drawerOpen: false
 }
 
 const screenReducer = (state = initialState, action) => {
@@ -43,6 +38,10 @@ const screenReducer = (state = initialState, action) => {
                 provideCredentials: Object.assign({}, state.provideCredentials, {
                     showPasscode: !state.provideCredentials.showPasscode
                 })
+            })
+        case 'TOGGLE_DRAWER':
+            return Object.assign({}, state, {
+                drawerOpen: !state.drawerOpen
             })
         case 'TOGGLE_COLLAPSE':
             return Object.assign({}, state, {
