@@ -10,12 +10,20 @@ export function togglePasscodeVisibility() {
     }
 }
 
-export function toggleDropdown(componentName, dropdownName) {
+export function toggleDropdown(dropdownName) {
     return {
         type: 'TOOGLE_DROPDOWN',
         payload: {
-            componentName,
             dropdownName
+        }
+    }
+}
+
+export function toggleCollapse(screenName) {
+    return {
+        type: 'TOGGLE_COLLAPSE',
+        payload: {
+            screenName
         }
     }
 }

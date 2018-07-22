@@ -11,21 +11,27 @@ const initialState = {
             faucets: true,
             registrationActions: true
         }
-    }
+    },
+    dropdowns: {}
 }
 
 const screenReducer = (state = initialState, action) => {
     switch(action.type) {
         case 'TOOGLE_DROPDOWN':
-            let componentName = action.payload.componentName;
             let dropdownName = action.payload.dropdownName;
-            return Object.assign({}, state, {
-                [action.payload.componentName]: {
-                    dropdown: Object.assign({}, state[componentName].dropdown, {
-                        [dropdownName]: !state[componentName].dropdown[dropdownName]
+            if (state.dropdowns[dropdownName]) {
+                return Object.assign({}, state, {
+                    dropdowns: Object.assign({}, state.dropdowns, {
+                        [dropdownName]: !state.dropdowns[dropdownName]
                     })
-                }
-            })
+                })
+            } else {
+                return Object.assign({}, state, {
+                    dropdowns: Object.assign({}, state.dropdowns, {
+                        [dropdownName]: true
+                    })
+                })
+            }
         case  'TOGGLE_KUWA_PASSWORD_VISIBILITY':
             return Object.assign({}, state, {
                 provideCredentials: Object.assign({}, state.provideCredentials, {
@@ -36,6 +42,12 @@ const screenReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 provideCredentials: Object.assign({}, state.provideCredentials, {
                     showPasscode: !state.provideCredentials.showPasscode
+                })
+            })
+        case 'TOGGLE_COLLAPSE':
+            return Object.assign({}, state, {
+                navigation: Object.assign({}, state.navigation, {
+                    collapsed: !state.navigation.collapsed
                 })
             })
         default:

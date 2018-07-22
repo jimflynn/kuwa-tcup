@@ -7,92 +7,126 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import grey from '@material-ui/core/colors/grey';
 
-const sponsorsLinks = [
+const originalNavigationLinks = [
     {
-        linkName: "Thelma Sponsor",
-        link: "https://alpha.kuwa.org/sponsor/thelma/"
+        linkName: "HOME",
+        link: "https://alpha.kuwa.org/index.html"
     },
     {
-        linkName: "Louise Sponsor",
-        link: "http://alpha.kuwa.org:3001/sponsorship_requests"
-    }
+        linkName: "SPONSORS",
+        children: [
+            {
+                linkName: "Thelma Sponsor",
+                link: "https://alpha.kuwa.org/sponsor/thelma/"
+            },
+            {
+                linkName: "Louise Sponsor",
+                link: "http://alpha.kuwa.org:3001/sponsorship_requests"
+            }
+        ]
+    },
+    {
+        linkName: "CLIENT",
+        link: "https://alpha.kuwa.org/client/"
+    },
+    {
+        linkName: "REGISTRARS",
+        children: [
+            {
+                linkName: "Moe Registrar",
+                link: "https://alpha.kuwa.org/registrar/moe/"
+            },
+            {
+                linkName: "Larry Registrar",
+                link: "https://alpha.kuwa.org/registrar/larry/"
+            },
+            {
+                linkName: "Curly Registrar",
+                link: "https://alpha.kuwa.org/registrar/curly/"
+            }
+        ]
+    },
+    {
+        linkName: "FAUCETS",
+        children: [
+            {
+                linkName: "Patsy Faucet",
+                link: "https://alpha.kuwa.org/#"
+            },
+            {
+                linkName: "Edina Faucet",
+                link: "https://alpha.kuwa.org/#"
+            }
+        ]
+    },
+    {
+        linkName: "DIRECTORY",
+        link: "http://alpha.kuwa.org:3011/"
+    },
+    {
+        linkName: "REPOSITORY",
+        link: "https://alpha.kuwa.org/registrations/"
+    },
+    {
+        linkName: "TEAM",
+        link: "https://alpha.kuwa.org/developers/"
+    },
 ]
 
-const registrarsLinks = [
-    {
-        linkName: "Moe Registrar",
-        link: "https://alpha.kuwa.org/registrar/moe/"
-    },
-    {
-        linkName: "Larry Registrar",
-        link: "https://alpha.kuwa.org/registrar/larry/"
-    },
-    {
-        linkName: "Curly Registrar",
-        link: "https://alpha.kuwa.org/registrar/curly/"
-    }
-]
+export const generalNavigation = (props, extraNavigationLinks) => {
+    let newNavigationLinks = extraNavigationLinks ? originalNavigationLinks.concat(extraNavigationLinks) : originalNavigationLinks;
+    return (
+        <div style={{flexGrow: 1}}>
+            <AppBar position="static" style={{backgroundColor: grey[800]}}>
+                <Toolbar>
+                    <Typography variant="title" color="inherit" style={{flexGrow: 1}}>
+                        The Kuwa Foundation
+                    </Typography>
 
-const faucetsLinks = [
-    {
-        linkName: "Patsy Faucet",
-        link: "https://alpha.kuwa.org/#"
-    },
-    {
-        linkName: "Edina Faucet",
-        link: "https://alpha.kuwa.org/#"
-    }
-]
+                    {createDesktopToolbar(props, newNavigationLinks)}
 
-const homeLink = "https://alpha.kuwa.org/index.html";
-const clientLink = "https://alpha.kuwa.org/client/";
-const directoryLink = "http://alpha.kuwa.org:3011/";
-const repositoryLink = "https://alpha.kuwa.org/registrations/";
-const teamLink = "https://alpha.kuwa.org/developers/";
+                </Toolbar>
+            </AppBar>
+        </div>
+    )
+}
 
-export const generalNavigation = (props) => (
-    <div style={{flexGrow: 1}}>
-        <AppBar position="static" style={{backgroundColor: grey[800]}}>
-            <Toolbar>
-                <Typography variant="title" color="inherit" style={{flexGrow: 1}}>
-                    The Kuwa Foundation
-                </Typography>
-
-                <Button color="inherit" onClick={() => location.href = homeLink}>HOME</Button>
-
-                <Button id="sponsors" onClick={() => props.toggleDropdown("sponsors")} color="inherit">SPONSORS</Button>
-                {menuDropdown(props, props.dropdownSponsors, "sponsors", sponsorsLinks)}
-
-                <Button color="inherit" onClick={() => location.href = clientLink}>CLIENT</Button>
-
-                <Button id="registrars" onClick={() => props.toggleDropdown("registrars")} color="inherit">REGISTRARS</Button>
-                {menuDropdown(props, props.dropdownRegistrars, "registrars", registrarsLinks)}
-
-                <Button id="faucets" onClick={() => props.toggleDropdown("faucets")} color="inherit">FAUCETS</Button>
-                {menuDropdown(props, props.dropdownFaucets, "faucets", faucetsLinks)}
-
-                <Button color="inherit" onClick={() => location.href = directoryLink}>DIRECTORY</Button>
-
-                <Button color="inherit" onClick={() => location.href = repositoryLink}>REPOSITORY</Button>
-
-                <Button color="inherit" onClick={() => location.href = teamLink}>TEAM</Button>
-
-            </Toolbar>
-        </AppBar>
-    </div>
+const createDesktopToolbar = (props, navigationLinks) => (
+    navigationLinks.map((navItem, index) => {
+        if (navItem.children) {
+            return (
+                <div key={(index + 1).toString()}>
+                    <Button id={navItem.linkName} onClick={() => props.toggleDropdown(navItem.linkName)} color="inherit">{navItem.linkName}</Button>
+                    {menuDropdown(props, props.dropdowns[navItem.linkName], navItem.linkName, navItem.children)}
+                </div>
+            )
+        } else {
+            return (
+                <Button key={(index + 1).toString()} color="inherit" onClick={() => {
+                    if (navItem.link) 
+                        location.href = navItem.link
+                    else if (navItem.pushLink)
+                        props.navigateTo('/' + navItem.pushLink)
+                }}>{navItem.linkName}</Button>
+            )
+        }
+    })
 )
 
-const menuDropdown = (props, isClosed, anchorElement, items) => (
+const menuDropdown = (props, isOpen, anchorElement, items) => (
     <Menu
         anchorEl={document.querySelector("#" + anchorElement)}
-        open={!isClosed}
+        open={isOpen ? true : false}
         onClose={() => props.toggleDropdown(anchorElement)}
     >
         {items.map((item, index) => {
             return (
                 <MenuItem key={(index + 1).toString()} onClick={() => {
                     props.toggleDropdown(anchorElement)
-                    location.href = item.link
+                    if (item.link) 
+                        location.href = item.link
+                    else if (item.pushLink)
+                        props.navigateTo('/' + item.pushLink)
                 }}>{item.linkName}</MenuItem>    
             )
         })}

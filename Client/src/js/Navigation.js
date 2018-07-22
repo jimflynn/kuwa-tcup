@@ -22,11 +22,7 @@ class Navigation extends React.Component {
 const mapStateToProps = state => {
     return {
         collapsed: state.screenReducer.navigation.collapsed,
-        isMobile: state.kuwaReducer.isMobile,
-        dropdownSponsors: state.screenReducer.navigation.dropdown.sponsors,
-        dropdownRegistrars: state.screenReducer.navigation.dropdown.registrars,
-        dropdownFaucets: state.screenReducer.navigation.dropdown.faucets,
-        dropdownRegistrationActions: state.screenReducer.navigation.dropdown.registrationActions,
+        dropdowns: state.screenReducer.dropdowns
     }
 }
 
@@ -36,7 +32,7 @@ const mapDispatchToProps = dispatch => {
             dispatch(toggleCollapse("navigation"))
         },
         toggleDropdown: (dropdownName) => {
-            dispatch(toggleDropdown("navigation", dropdownName))
+            dispatch(toggleDropdown(dropdownName))
         },
         navigateTo: link => {
             dispatch(push(link))

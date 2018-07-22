@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Navigation from './Navigation';
 
+import NewNavigation from './NewNavigation';
+
 import Steps from './Steps';
 import ProvideCredentials from './ProvideCredentials';
 import RecordRegistrationVideo from './RecordRegistrationVideo';
@@ -8,8 +10,6 @@ import YourKuwaId from './YourKuwaId';
 
 import Success from './Success';
 import Error from './Error';
-// import RequestSponsorship from './RequestSponsorship';
-// import UploadToStorage from './UploadToStorage';
 // import QRCodeGen from './QRCodeGen';
 import '../css/App.css';
 
@@ -43,7 +43,6 @@ class App extends Component {
                 <Route exact path='/YourKuwaId' component={YourKuwaId}/>
                 <Route exact path='/Error' component={Error}/>
                 <Route exact path='/Success' component={Success}/>
-                {/* <Route exact path='/' render={(props) => <Loading loadingMessage="Loading message" />}/> */}
               </Switch>
             </div>
           </ConnectedRouter>
