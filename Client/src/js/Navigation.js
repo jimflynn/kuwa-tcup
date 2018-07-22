@@ -3,7 +3,7 @@ import { toggleDropdown, toggleDrawer } from './actions/screenActions';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 
-import { generalNavigation } from './generalNavigation';
+import GeneralNavigation from './generalNavigation';
 
 /**
  * Shows the navigation bar of The Kuwa Foundation
@@ -14,7 +14,8 @@ import { generalNavigation } from './generalNavigation';
 class Navigation extends React.Component {
     render() {
         return (
-            generalNavigation(this.props)
+            // generalNavigation(this.props)
+            <GeneralNavigation props={this.props} extraNavigationLinks={null} />
         );
     }
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -19,6 +19,8 @@ import DotIcon from '@material-ui/icons/Lens';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Collapse from '@material-ui/core/Collapse';
+
+import withWidth from '@material-ui/core/withWidth';
 
 const originalNavigationLinks = [
     {
@@ -86,29 +88,41 @@ const originalNavigationLinks = [
     },
 ]
 
-export const generalNavigation = (props, extraNavigationLinks) => {
-    let newNavigationLinks = extraNavigationLinks ? originalNavigationLinks.concat(extraNavigationLinks) : originalNavigationLinks;
-    return (
-            <AppBar position="static" style={{backgroundColor: grey[800]}}>
-                <Toolbar>
+class GeneralNavigation extends Component {
+    render() {
+        let newNavigationLinks = this.props.extraNavigationLinks ? originalNavigationLinks.concat(this.props.extraNavigationLinks) : originalNavigationLinks;
+        let props = this.props.props;
+        return (
+                <AppBar position="static" style={{backgroundColor: grey[800]}}>
+                    <Toolbar>
 
-                    <IconButton onClick={props.toggleDrawer} color="inherit" aria-label="Menu" style={{marginRight: "1em"}}>
-                        <MenuIcon />
-                    </IconButton>
+                        {this.props.width === 'xs' || this.props.width === 'sm' || this.props.width === 'md' ? 
+                            <IconButton onClick={props.toggleDrawer} color="inherit" aria-label="Menu" style={{marginRight: "1em"}}>
+                                <MenuIcon />
+                            </IconButton>
+                        :
+                            null
+                        }
 
-                    <Typography variant="title" color="inherit" style={{flexGrow: 1}}>
-                        {props.toolbarTitle ? props.toolbarTitle : "The Kuwa Foundation"}
-                    </Typography>
+                        <Typography variant="title" color="inherit" style={{flexGrow: 1}}>
+                            {props.toolbarTitle ? props.toolbarTitle : "The Kuwa Foundation"}
+                        </Typography>
 
-                    {/* {createDesktopToolbar(props, newNavigationLinks)} */}
-                    {createMobileToolbar(props, newNavigationLinks)}
-                </Toolbar>
-            </AppBar>
-    )
+                        {this.props.width === 'xs' || this.props.width === 'sm' || this.props.width === 'md' ? 
+                            createMobileToolbar(props, newNavigationLinks)
+                        :
+                            createDesktopToolbar(props, newNavigationLinks)
+                        }
+                    </Toolbar>
+                </AppBar>
+        )
+    }
+    
 }
 
 const createDesktopToolbar = (props, navigationLinks) => (
     navigationLinks.map((navItem, index) => {
+        // console.log("props", props)
         if (navItem.children) {
             return (
                 <div key={(index + 1).toString()}>
@@ -116,6 +130,7 @@ const createDesktopToolbar = (props, navigationLinks) => (
                     {menuDropdown(props, props.dropdowns[navItem.linkName], navItem.linkName, navItem.children)}
                 </div>
             )
+            // return null
         } else {
             return (
                 <Button key={(index + 1).toString()} color="inherit" onClick={() => {
@@ -235,3 +250,5 @@ const listDropdown = (items) => {
         
     )
 }
+
+export default withWidth()(GeneralNavigation)
