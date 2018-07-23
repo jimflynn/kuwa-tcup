@@ -33,7 +33,7 @@ var findDuplicate = function(mapping, hashval) {
 let pool = mysql.createPool({
 	host: "localhost",
 	user: "root",
-	password: 'sqlpassword',
+	password: String.raw`(-h(3~8u"_ZE{lV%m(2SWze$F-7K<$,ej:2+@=-O\43**|>j6!2~uPmeJko[ASo=`,
 	database: "alpha_kuwa_registrar_moe",
 	timezone : 'local',
 	dateStrings : true
