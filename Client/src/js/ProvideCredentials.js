@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { Loading } from './Load'
-import kuwaIcon from '../img/kuwa-icon.png';
+import { Loading } from './Load';
+import { paperHeader } from './paperHeader';
 
 import { toggleKuwaPasswordVisibility, togglePasscodeVisibility } from './actions/screenActions';
 import { provideCredentials } from './actions/kuwaActions';
@@ -13,11 +13,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableRow from '@material-ui/core/TableRow';
 
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
@@ -60,20 +55,7 @@ class ProvideCredentials extends Component {
                 <Grid item xs={12} sm={10} md={8} lg={6} xl={6}>
                     <Paper className={classes.root} elevation={1} style={{margin: 20}}>
 
-                        <Table>
-                            <TableBody>
-                                <TableRow>
-                                    <TableCell>
-                                        <img src={ kuwaIcon } alt="Kuwa Icon" />
-                                    </TableCell>
-                                    <TableCell align="left">
-                                        <Typography variant="headline">
-                                            <strong>Step 1</strong> – Provide credentials.
-                                        </Typography>
-                                    </TableCell>
-                                </TableRow>
-                            </TableBody>
-                        </Table>
+                        { paperHeader("Step 1 – Provide credentials.") }
 
                         {this.props.loading ? <Loading loadingMessage="We are creating your Kuwa ID and requesting your sponsorship. This may take a few minutes..." /> : renderContent(this.props, this.state, this.setState.bind(this))}
                     

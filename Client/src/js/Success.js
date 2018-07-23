@@ -18,7 +18,7 @@ class Success extends Component {
     render() {
         const { classes } = this.props;
         return (
-            generalOutcome(this.props.successMessage, success, classes)
+            generalOutcome("Success!", this.props.successMessage, success, classes)
         );
     }
 }

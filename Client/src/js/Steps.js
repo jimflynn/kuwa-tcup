@@ -1,18 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { push } from 'connected-react-router'
-
-import kuwaIcon from '../img/kuwa-icon.png';
+import { push } from 'connected-react-router';
 
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableRow from '@material-ui/core/TableRow';
+import { paperHeader } from './paperHeader';
 
 import Button from '@material-ui/core/Button';
 const buttonColor = "#11B73F";
@@ -32,20 +27,7 @@ class Steps extends Component {
                 <Grid item xs={12} sm={10} md={8} lg={6} xl={6}>
                     <Paper className={classes.root} elevation={1} style={{margin: 20}}>
 
-                        <Table>
-                            <TableBody>
-                                <TableRow>
-                                    <TableCell>
-                                        <img src={ kuwaIcon } alt="Kuwa Icon" />
-                                    </TableCell>
-                                    <TableCell align="left">
-                                        <Typography variant="headline">
-                                            Create your Kuwa ID
-                                        </Typography>
-                                    </TableCell>
-                                </TableRow>
-                            </TableBody>
-                        </Table>
+                        { paperHeader("Create your Kuwa ID") }
 
                         <Typography variant="title" align="left" style={{margin: "1em"}}>
                             <strong>Step 1 –</strong> Provide credentials.

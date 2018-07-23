@@ -3,7 +3,7 @@ import { toggleDropdown, toggleDrawer } from './actions/screenActions';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 
-import GeneralNavigation from './generalNavigation';
+import GeneralNavigation from './GeneralNavigation';
 
 /**
  * Shows the navigation bar of The Kuwa Foundation
