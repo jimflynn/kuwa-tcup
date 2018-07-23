@@ -9,7 +9,7 @@ Readme for the Sponsor Node App
 
 4> server.js is the main server, which can be started with 
 
-	$ npm server.js;
+	$ node server.js;
 
 	, or just with 
 	

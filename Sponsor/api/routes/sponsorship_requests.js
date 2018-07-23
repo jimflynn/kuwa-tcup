@@ -20,6 +20,7 @@ var web3 = new Web3();
 
 properties = JSON.parse(properties);
 
+//console.log('hello');
 //console.log(properties['SS']);
 
 
@@ -77,29 +78,37 @@ var run = async function(req, res, ip) {
     await loadWallet(properties['walletPath'], properties['accountAddress'], properties['password']);
 
     let compilation = await compileSolFile(properties['solFilePath'], 'KuwaRegistration');
-    let contractInstance =  await deployContract(compilation.abi, compilation.bc, 4300000, '22000000000', "0x"+properties['accountAddress'], [1000000, req.body.address]);
+    let contractInstance =  await deployContract(compilation.abi, compilation.bc, 4300000, '22000000000', "0x"+properties['accountAddress'], [1000000, req.fields.address]);
 
     // let contractInstance = await loadContract(compilation.abi, "0x30768510F1A57B12817CDC2a723C8AE21de071b5", 4300000, "22000000000", "0xF9F83AaA322aB613Db21229BE6ca9E2dF8a1A149");
 
     //await contractInstance.methods.generateChallenge().send();
     //let challenge = await contractInstance.methods.getChallenge().call();
     //console.log(challenge);
+    db.getConnection(function(err, connection) {
+      // Use the connection
+      var sql_query = "INSERT INTO sponsorship_request (sponsorship_request_id, ip, contract_address, client_address) VALUES ("+ null+ ", '"+ ip + "', '"+ contractInstance.options.address+"','" + req.fields.address + "')";
+         
+      connection.query( sql_query, function (error, row, fields) {
+      console.log(row);
+      //console.log(fields);
 
-    db.connection.query("INSERT INTO sponsorship_request (sponsorship_request_id, ip, registration_request_address) VALUES ("+ null+ ", '"+ ip + "', '"+ contractInstance.options.address+ "')")
-          .on('result', function (row) { 
+      res.status(200).json({
+               message: 'valid Shared Secret',
+	       contractAddress: contractInstance.options.address,
+	       abi: compilation.abi
+      });
 
-          	console.log(row['insertId']);         	
-          	db.connection.query("SELECT * FROM sponsorship_request WHERE sponsorship_request_id =" + row['insertId'])
-          		.on('result', function(row, conn){
-          			res.status('201').json({
-			message: 'valid Shared Secret ' + row['ip']        	
-		 	});	
-          		}) 
-            
-          })
-          .on('error', function (err) {
-            console.log({error: true, err: err});
-          });
+
+      // And done with the connection.
+      connection.release();
+
+      // Handle error after the release.
+      if (error) console.log(error);
+
+    // Don't use the connection here, it has been returned to the pool.
+      });
+    });
 
 }
 
@@ -110,20 +119,57 @@ router.get('/', (req, res, next) => {
 	});
 });
 
+router.get('/:SS', (req , res) => {
 
-
-router.get('/:SS/:address', (req , res, next) => {
+  var sponsorship_requests = [];
 
 	if(properties['SS'] === req.params.SS){
 
-		res.status('200').json({
-		message: 'invalid Shared Secret'
-		});
-	
+    // db.connection.query("SELECT * FROM sponsorship_request")
+    //       .on('result', function (row) { 
+
+    //         console.log(res.headersSent);           
+    //         return res.status(200).json({
+    //           message: 'valid Shared Secret'         
+    //         });
+
+    //         //res.write(row['ip']);
+    //         res.end();    
+            
+    //       })
+    //       .on('error', function (err) {
+    //         console.log({error: true, err: err});
+    //       });
+
+
+    db.getConnection(function(err, connection) {
+      // Use the connection
+      connection.query('SELECT * FROM sponsorship_request', function (error, rows, fields) {
+      //rows = JSON.parse(rows);
+      rows = JSON.stringify(rows);
+      rows = JSON.parse(rows);
+      //console.log(rows);
+      
+      sponsorship_requests = rows; 
+
+      res.status(200).json({
+               message: 'valid Shared Secret ',
+               sponsorship_requests: sponsorship_requests        
+      });
+
+
+      // And done with the connection.
+      connection.release();
+
+      // Handle error after the release.
+      if (error) console.log(error);
+
+    // Don't use the connection here, it has been returned to the pool.
+      });
+    });
+    //res.end();
 	}
 	else{
-
-
 		res.status('200').json({
 		message: 'invalid Shared Secret'
 		});	
@@ -133,10 +179,9 @@ router.get('/:SS/:address', (req , res, next) => {
 });
 
 
-
 router.post('/', (req, res, next) => {
-	console.log(req.body.SS);
-	if(properties['SS'] === req.body.SS){
+	//console.log(req);
+	if(properties['SS'] === req.fields.SS){
 		
 		//Get clients ip Address
 		var ip = req.headers['x-forwarded-for'] || 

@@ -2,13 +2,13 @@ h2 {
 	text-align: center;
 }
 
-
 table {
 	margin: auto;
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 80%;
 }
+
 
 td, th {
 	text-align: center;
@@ -21,3 +21,4 @@ td, th {
 tr:nth-child(even) {
     background-color: #dddddd;
 }
+
