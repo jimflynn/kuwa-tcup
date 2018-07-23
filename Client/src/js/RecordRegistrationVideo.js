@@ -57,9 +57,11 @@ const renderButton = props => {
         return (
             <Grid container justify="center" style={{margin: "1em"}}> 
                 <Button variant="contained" style={{backgroundColor: buttonColor}} onClick={() => {
-                    let uploadFunction = props.webUploadToStorage
-                    if (window.isMobile) uploadFunction = props.uploadToStorage
-                    uploadFunction(props.videoFilePath, props.ethereumAddress, props.abi, props.contractAddress)
+                    if (window.isMobile) {
+                        props.uploadToStorage(props.videoFilePath, props.ethereumAddress, props.abi, props.contractAddress)
+                    } else {
+                        props.webUploadToStorage(props.videoBlob, props.ethereumAddress, props.abi, props.contractAddress)
+                    }
                 }}>
                     Upload Video
                 </Button>

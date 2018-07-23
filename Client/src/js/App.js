@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import Navigation from './Navigation';
 
-import NewNavigation from './NewNavigation';
-
 import Steps from './Steps';
 import ProvideCredentials from './ProvideCredentials';
 import RecordRegistrationVideo from './RecordRegistrationVideo';
@@ -28,8 +26,6 @@ import { ConnectedRouter } from 'connected-react-router';
  */
 class App extends Component {
   render() {
-    let errorMessage = this.props.helpText.error;
-    let successMessage = this.props.helpText.success;
     return (
       <div>
         <Provider store={store}>
