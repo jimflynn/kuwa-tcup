@@ -3,6 +3,8 @@ import { Button, Container, Row, Col, Badge, Collapse, Card, CardBody } from 're
 import Video from './Video';
 import '../css/App.css';
 
+import { Loading } from './Load';
+
 import { Provider } from 'react-redux';
 import { store } from './store'
 import { toggleCollapse } from './actions/screenActions';
@@ -18,55 +20,68 @@ import { connect } from 'react-redux';
  */
 class UploadToStorage extends Component {
   render() {
-      return(
-        <Container>
-          <Row className="row-kuwa-reg">
-            <Col>
-              <h2>
-                <span className="header-kuwa-reg">Submit Your Kuwa ID Request</span>
-                <Button color="primary" onClick={this.props.toggleCollapse} outline>
-                  <Badge color="primary">?</Badge>
-                </Button>
-              </h2>
-            </Col>
-          </Row>
-          <Row className="row-kuwa-reg">
-            <Col>
-              <Collapse isOpen={!this.props.collapsed}>
-                <Card className="elem-kuwa-reg">
-                  <CardBody>
-                    Some explanation.
-                  </CardBody>
-                </Card>
-              </Collapse>
-            </Col>
-          </Row>
-          <Row className="row-kuwa-reg">
-            <Col className="long-key">
-              <strong>Ethereum Address: </strong>{this.props.ethereumAddress}
-            </Col>
-          </Row>
-          <Row className="row-kuwa-reg">
-            <Col>
-              <strong>Challenge Phrase: </strong>{this.props.challenge === 0 ? "Challenge expired" : this.props.challenge}
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <Provider store={store}>
-                <Video />
-              </Provider>
-            </Col>
-          </Row>
-          <Row className="row-kuwa-reg">
-            <Col>
-              {renderButton(this.props)}
-            </Col>
-          </Row>
-        </Container>
-      );
+      if (this.props.loading) {
+        return (
+          <Loading loadingMessage={this.props.loadingMessage} />
+        )
+      }
+      return (
+        <div>
+          {renderUploadToStorage(this.props)}
+        </div>
+      )
     }
   }
+
+const renderUploadToStorage = props => {
+  return (
+    <Container>
+      <Row className="row-kuwa-reg">
+        <Col>
+          <h2>
+            <span className="header-kuwa-reg">Submit Your Kuwa ID Request</span>
+            <Button color="primary" onClick={props.toggleCollapse} outline>
+              <Badge color="primary">?</Badge>
+            </Button>
+          </h2>
+        </Col>
+      </Row>
+      <Row className="row-kuwa-reg">
+        <Col>
+          <Collapse isOpen={!props.collapsed}>
+            <Card className="elem-kuwa-reg">
+              <CardBody>
+                Some explanation.
+              </CardBody>
+            </Card>
+          </Collapse>
+        </Col>
+      </Row>
+      <Row className="row-kuwa-reg">
+        <Col className="long-key">
+          <strong>Ethereum Address: </strong>{props.ethereumAddress}
+        </Col>
+      </Row>
+      <Row className="row-kuwa-reg">
+        <Col>
+          <strong>Challenge Phrase: </strong>{props.challenge === 0 ? "Challenge expired" : props.challenge}
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <Provider store={store}>
+            <Video />
+          </Provider>
+        </Col>
+      </Row>
+      <Row className="row-kuwa-reg">
+        <Col>
+          {renderButton(props)}
+        </Col>
+      </Row>
+    </Container>
+  );
+}
   
 const renderButton = (props) => {
   if (props.videoStatus === 'success') {
@@ -80,23 +95,24 @@ const renderButton = (props) => {
       );
     }
   }
-  return(
-    <Row></Row>
-  )
+  return null;
 }
 
 const mapStateToProps = state => {
-  let currentKuwaId = state.kuwaReducer.currentKuwaId;
   return {
     isMobile: state.kuwaReducer.isMobile,
     collapsed: state.screenReducer.uploadToStorage.collapsed,
-    ethereumAddress: state.kuwaReducer.kuwaIds[currentKuwaId].address,
-    challenge: state.kuwaReducer.kuwaIds[currentKuwaId].challenge,
-    abi: state.kuwaReducer.kuwaIds[currentKuwaId].abi,
-    contractAddress: state.kuwaReducer.kuwaIds[currentKuwaId].contractAddress,
+
+    ethereumAddress: state.kuwaReducer.kuwaId.address,
+    challenge: state.kuwaReducer.kuwaId.challenge,
+    abi: state.kuwaReducer.kuwaId.abi,
+    contractAddress: state.kuwaReducer.kuwaId.contractAddress,
+
     videoStatus: state.videoReducer.videoStatus,
     videoFilePath: state.videoReducer.videoFilePath,
-    videoBlob: state.videoReducer.videoBlob
+    videoBlob: state.videoReducer.videoBlob,
+    loading: state.kuwaReducer.screen.uploadToStorage.loading,
+    loadingMessage: state.kuwaReducer.screen.loading.helpText
   }
 }
 

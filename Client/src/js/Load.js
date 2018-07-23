@@ -1,6 +1,6 @@
 import React from 'react';
-import loading from '../img/loading.gif';
-import { Container, Row, Col } from 'reactstrap';
+import Grid from '@material-ui/core/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 /**
  * Shows loading Gif component
@@ -10,17 +10,13 @@ import { Container, Row, Col } from 'reactstrap';
  */
 export const Loading = (props) => {
   return (
-    <Container>
-      <Row className="row-kuwa-reg">
-        <Col>
-          <img className="loading-kuwa-reg" src={loading} alt="loading" />
-        </Col>
-      </Row>
-      <Row className="row-kuwa-reg">
-        <Col>
-          <h4>{props.loadingMessage}</h4>
-        </Col>
-      </Row>
-    </Container>
+    <Grid container>
+        <Grid container justify="center" style={{flexGrow: 1}}>
+            <CircularProgress className="loading-kuwa-reg" style={{ color: "#11B73F" }} thickness={4} size={100} />            
+        </Grid>
+        <Grid container justify="center" style={{flexGrow: 1}}>
+            <h3 style={{textAlign: "center"}}>{props.loadingMessage}</h3>
+        </Grid>
+    </Grid>
   );
 }

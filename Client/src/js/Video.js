@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Button, Container, Row, Col } from 'reactstrap';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+const buttonColor = "#11B73F";
 
 import { captureVideo, webStartVideo, webFinishedVideo, webErrorVideo } from './actions/videoActions';
 import { connect } from 'react-redux';
@@ -64,10 +66,10 @@ class Video extends Component {
 
     render() {
         return (
-            <Container>
+            <Grid container justify="center">
                 {renderButton(this.props)}
                 {renderVideo(this.props)}
-            </Container>
+            </Grid>
         );
     }
 }
@@ -75,11 +77,11 @@ class Video extends Component {
 const renderButton = (props) => {
     if(props.isMobile) {
         return (
-            <Row className="row-kuwa-reg">
-                <Col>
-                    <Button color="primary" onClick={props.captureVideo}>Take Video</Button>
-                </Col>
-            </Row>
+            <Grid container justify="center">
+                <Button variant="contained" style={{backgroundColor: buttonColor}}>
+                    Record Video <i class="material-icons">videocam</i>
+                </Button>
+            </Grid>
         )
         return null
     }
@@ -88,24 +90,18 @@ const renderButton = (props) => {
 const renderVideo = (props) => {
     if(!props.isMobile) {
         return (
-            <Row className="row-kuwa-reg">
-                <Col>
-                    <center>
-                        <video id="webVideo" className="video-js vjs-default-skin"></video>
-                    </center>
-                </Col>
-            </Row>
+            <Grid container justify="center">
+                <video id="webVideo" className="video-js vjs-default-skin"></video>
+            </Grid>
         )
     }
     if (props.videoStatus === 'success') {
         return (
-            <Row className="row-kuwa-reg">
-                <Col>
-                    <video width={getVideoWidth()} height={getVideoHeight()} controls>
-                        <source src={props.videoFilePath} type='video/mp4'/>
-                    </video>
-                </Col>
-            </Row>
+            <Grid container justify="center">
+                <video width={getVideoWidth()} height={getVideoHeight()} controls>
+                    <source src={props.videoFilePath} type='video/mp4'/>
+                </video>
+            </Grid>
         );
     }
     let message = "Waiting for new video to be recorded";
@@ -113,11 +109,9 @@ const renderVideo = (props) => {
         message = "Failed to record video " + props.videoError;
     }
     return (
-        <Row className="row-kuwa-reg">
-            <Col>
-                <h5>{message}</h5>
-            </Col>
-        </Row>
+        <Grid container justify="center">
+            <h5>{message}</h5>
+        </Grid>
     );
 }
 

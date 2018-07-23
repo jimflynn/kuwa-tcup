@@ -1,3 +1,9 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
 .App {
   text-align: center;
 }
@@ -45,8 +51,24 @@
   height: auto;
 }
 
+.responsive-navbar-brand {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  position: absolute;
+}
+
+.navbar {
+  position:relative;
+}
+
 .long-key {
   word-wrap: break-word;
+}
+
+/* This is for onsen */
+.page__background {
+  background-color: white;
 }
 
 @keyframes App-logo-spin {

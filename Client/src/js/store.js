@@ -1,17 +1,34 @@
 import { applyMiddleware, createStore, combineReducers } from 'redux';
+import { createBrowserHistory, createHashHistory } from 'history';
+import { connectRouter, routerMiddleware } from 'connected-react-router'
 import thunk from 'redux-thunk';
 import  { createLogger } from 'redux-logger';
-import promise from "redux-promise-middleware";
 
 import kuwaReducer from './reducers/kuwaReducer';
 import screenReducer from './reducers/screenReducer';
 import videoReducer from './reducers/videoReducer';
+import qrReducer from './reducers/qrReducer';
+
+import config from 'config';
 
 const actionLogger = createLogger();
-const promiseHandler = promise();
 
-export const store = createStore(combineReducers({
+const rootReducer = combineReducers({
     kuwaReducer,
     screenReducer,
-    videoReducer
-}), {}, applyMiddleware(actionLogger, promiseHandler, thunk));
+    videoReducer,
+    qrReducer
+})
+
+
+let history;
+if (window.usingCordova) {
+    history = createHashHistory();
+} else {
+    history = createBrowserHistory({
+        basename: config.baseUrl
+    });
+}
+
+export { history }
+export const store = createStore(connectRouter(history)(rootReducer), {}, applyMiddleware(actionLogger, thunk, routerMiddleware(history)));

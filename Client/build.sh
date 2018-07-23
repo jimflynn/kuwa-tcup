@@ -22,6 +22,10 @@ if [ ! -d cordovaClient ]; then
     wait
     cordova plugin add cordova-plugin-camera
     wait
+    cordova plugin add cordova-plugin-splashscreen
+    wait
+    cordova plugin add cordova-plugin-qrscanner
+    wait
     cd ..
 fi
 

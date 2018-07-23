@@ -5,12 +5,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="theme-color" content="#000000">
         <title>Create Your Kuwa Identity</title>
-        <script type="text/javascript" src="cordova.js"></script>
-        <!-- <link href="/node_modules/video.js/dist/video-js.min.css" rel="stylesheet">
-        <link href="/node_modules/videojs-record/dist/css/videojs.record.css" rel="stylesheet"> -->
-
+        <script>
+            window.usingCordova = false;
+        </script>
+        <script type="text/javascript" src="cordova.js" onload="javascript:window.usingCordova = true;"></script>
         <link href="https://vjs.zencdn.net/7.0.5/video-js.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/videojs-record/2.3.1/css/videojs.record.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        
     </head>
     <body>
         <noscript>

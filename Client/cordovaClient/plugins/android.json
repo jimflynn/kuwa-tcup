@@ -33,6 +33,9 @@
     },
     "cordova-plugin-splashscreen": {
       "PACKAGE_NAME": "org.kuwa.client"
+    },
+    "cordova-plugin-qrscanner": {
+      "PACKAGE_NAME": "org.kuwa.client"
     }
   },
   "dependent_plugins": {}

@@ -2,8 +2,12 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const webpack = require('webpack');
+const config = require('./config.json');
 
 module.exports = {
+    externals: {
+        config: JSON.stringify(config)
+    },
     node: {
         fs: "empty"
     },
@@ -27,6 +31,17 @@ module.exports = {
                     MiniCssExtractPlugin.loader,
                     "css-loader"
                   ]
+            },
+            {
+                test: /\.(ttf|eot|woff|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: 'fonts/[name].[ext]'
+                        }
+                    }
+                ]
             },
             {
                 test: /\.(gif|png|jpe?g|svg)$/i,

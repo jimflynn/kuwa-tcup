@@ -1,26 +1,38 @@
-import React from 'react';
-import success from '../img/success.png';
-import { Container, Row, Col } from 'reactstrap';
+import { Component } from 'react';
+import { connect } from 'react-redux';
 
-/**
- * Shows loading Gif component
- * @export
- * @class Loading
- * @extends Component
- */
-export const Success = (props) => {
-  return (
-    <Container>
-        <Row className="row-kuwa-reg">
-            <Col>
-                <h4>{props.successMessage}</h4>
-            </Col>
-        </Row>
-        <Row className="row-kuwa-reg">
-            <Col>
-                <img className="responsive-kuwa-img" src={success} alt="success" />
-            </Col>
-        </Row>
-    </Container>
-  );
+import { withStyles } from '@material-ui/core/styles';
+
+import success from '../img/success.png';
+
+import { generalOutcome } from './generalOutcome';
+
+const styles = theme => ({
+    root: Object.assign({}, theme.mixins.gutters(), {
+        paddingTop: theme.spacing.unit * 2,
+        paddingBottom: theme.spacing.unit * 2,
+    })
+});
+
+class Success extends Component {
+    render() {
+        const { classes } = this.props;
+        return (
+            generalOutcome("Success!", this.props.successMessage, success, classes)
+        );
+    }
 }
+
+const mapStateToProps = state => {
+    return {
+        successMessage: state.kuwaReducer.screen.success.helpText
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Success));

@@ -1,31 +1,51 @@
 import React, { Component } from 'react';
 import Navigation from './Navigation';
-import SetPassword from './SetPassword';
-import { Loading } from './Load';
-import { Success } from './Success';
-import { Error } from './Error';
-import RequestSponsorship from './RequestSponsorship';
-import UploadToStorage from './UploadToStorage';
+
+import NewNavigation from './NewNavigation';
+
+import Steps from './Steps';
+import ProvideCredentials from './ProvideCredentials';
+import RecordRegistrationVideo from './RecordRegistrationVideo';
+import YourKuwaId from './YourKuwaId';
+
+import Success from './Success';
+import Error from './Error';
+// import QRCodeGen from './QRCodeGen';
 import '../css/App.css';
 
 import { connect } from 'react-redux';
 import { Provider } from 'react-redux';
-import { store } from './store'
+import { store } from './store';
+import { history } from './store';
+
+import { Route, Switch } from 'react-router';
+import { ConnectedRouter } from 'connected-react-router';
 
 /**
  * Loads different components depending on the state of the program
  * @class CreateKuwaId
  * @extends Component
  */
-class CreateKuwaId extends Component {
+class App extends Component {
   render() {
+    let errorMessage = this.props.helpText.error;
+    let successMessage = this.props.helpText.success;
     return (
       <div>
         <Provider store={store}>
-          <Navigation />
-        </Provider>
-        <Provider store={store}>
-          {renderScreen(this.props)}
+          <ConnectedRouter history={history}>
+            <div>
+              <Navigation />
+              <Switch>
+                <Route exact path='/' component={Steps}/>
+                <Route exact path='/ProvideCredentials' component={ProvideCredentials}/>
+                <Route exact path='/RecordRegistrationVideo' component={RecordRegistrationVideo}/>
+                <Route exact path='/YourKuwaId' component={YourKuwaId}/>
+                <Route exact path='/Error' component={Error}/>
+                <Route exact path='/Success' component={Success}/>
+              </Switch>
+            </div>
+          </ConnectedRouter>
         </Provider>
       </div>
     )
@@ -67,8 +87,15 @@ const renderScreen = (props) => {
 
 const mapStateToProps = state => {
   return {
-    screen: state.kuwaReducer.screen
+    screen: state.kuwaReducer.screen,
+    pathname: state.router.location.pathname,
+    search: state.router.location.search,
+    hash: state.router.location.hash,
+    helpText: {
+      success: state.kuwaReducer.screen.success.helpText,
+      error: state.kuwaReducer.screen.error.helpText
+    }
   }
 }
 
-export default connect(mapStateToProps)(CreateKuwaId);
+export default connect(mapStateToProps)(App);
