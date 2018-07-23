@@ -14,7 +14,6 @@ import GeneralNavigation from './GeneralNavigation';
 class Navigation extends React.Component {
     render() {
         return (
-            // generalNavigation(this.props)
             <GeneralNavigation props={this.props} extraNavigationLinks={null} />
         );
     }

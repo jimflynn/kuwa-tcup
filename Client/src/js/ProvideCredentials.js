@@ -57,7 +57,7 @@ class ProvideCredentials extends Component {
 
                         { paperHeader("Step 1 – Provide credentials.") }
 
-                        {this.props.loading ? <Loading loadingMessage="We are creating your Kuwa ID and requesting your sponsorship. This may take a few minutes..." /> : renderContent(this.props, this.state, this.setState.bind(this))}
+                        { this.props.loading ? <Loading loadingMessage="We are creating your Kuwa ID and requesting your sponsorship. This may take a few minutes..." /> : renderContent(this.props, this.state, this.setState.bind(this)) }
                     
                     </Paper>
                 </Grid>

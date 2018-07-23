@@ -9,7 +9,7 @@ let scanner;
 
 class QRCode extends Component {
     componentDidMount() {
-        if(!this.props.isMobile) {
+        if(!window.usingCordova) {
             scanner = new Instascan.Scanner({ video: document.getElementById('qrScanner') });
             scanner.addListener('scan', (function(kuwaId) {
                 this.props.qrCodeFound(kuwaId, scanner);
@@ -58,7 +58,7 @@ const showQRCode = (props) => {
 }
 
 const scanQRCode = (props) => {
-    if(props.isMobile) {
+    if(window.usingCordova) {
         return (
             <Row className="row-kuwa-reg">
                 <Col>
@@ -116,7 +116,6 @@ const showNetwork = (props) => {
 const mapStateToProps = state => {
     return {
         qrCodeSrc: state.kuwaReducer.kuwaId.qrCodeSrc,
-        isMobile: state.kuwaReducer.isMobile,
         scanner: state.qrReducer.scanner,
         kuwaNetwork: state.qrReducer.kuwaNetwork,
         qrStatus: state.qrReducer.qrStatus

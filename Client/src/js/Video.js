@@ -14,7 +14,7 @@ import record from 'videojs-record/dist/videojs.record.js';
 
 class Video extends Component {
     componentDidMount() {
-        if (!this.props.isMobile) {
+        if (!window.usingCordova) {
             const videoJsOptions = {
                 controls: true,
                 width: getVideoWidth(),
@@ -57,7 +57,7 @@ class Video extends Component {
 
     // destroy player on unmount
     componentWillUnmount() {
-        if (!this.props.isMobile) {
+        if (!window.usingCordova) {
             if (this.player) {
                 this.player.dispose();
             }
@@ -75,7 +75,7 @@ class Video extends Component {
 }
 
 const renderButton = (props) => {
-    if(props.isMobile) {
+    if(window.usingCordova) {
         return (
             <Grid container justify="center">
                 <Button variant="contained" style={{backgroundColor: buttonColor}} onClick={props.captureVideo}>
@@ -88,7 +88,7 @@ const renderButton = (props) => {
 }
 
 const renderVideo = (props) => {
-    if(!props.isMobile) {
+    if(!window.usingCordova) {
         return (
             <Grid container justify="center">
                 <video id="webVideo" className="video-js vjs-default-skin"></video>
@@ -97,7 +97,7 @@ const renderVideo = (props) => {
     }
     if (props.videoStatus === 'success') {
         return (
-            <Grid container justify="center">
+            <Grid container justify="center" style={{margin: "1em"}}>
                 <video width={getVideoWidth()} height={getVideoHeight()} controls>
                     <source src={props.videoFilePath} type='video/mp4'/>
                 </video>
@@ -129,8 +129,7 @@ const mapStateToProps = state => {
     return {
         videoStatus: state.videoReducer.videoStatus,
         videoFilePath: state.videoReducer.videoFilePath,
-        videoError: state.videoReducer.videoError,
-        isMobile: state.kuwaReducer.isMobile
+        videoError: state.videoReducer.videoError
     }
   }
   
