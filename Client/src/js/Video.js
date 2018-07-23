@@ -78,7 +78,7 @@ const renderButton = (props) => {
     if(props.isMobile) {
         return (
             <Grid container justify="center">
-                <Button variant="contained" style={{backgroundColor: buttonColor}}>
+                <Button variant="contained" style={{backgroundColor: buttonColor}} onClick={props.captureVideo}>
                     Record Video <i class="material-icons">videocam</i>
                 </Button>
             </Grid>

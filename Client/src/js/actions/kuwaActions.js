@@ -113,6 +113,10 @@ export function uploadToStorage(videoFilePath, ethereumAddress, abi, contractAdd
                     resolve(videoBlob);
                 }
             }).then(videoFile => {
+                console.log('ClientAddress', ethereumAddress)
+                console.log('ChallengeVideo', videoFile)
+                console.log('ContractABI', JSON.stringify(abi))
+                console.log('ContractAddress', contractAddress)
                 formData.append('ClientAddress',ethereumAddress);
                 formData.append('ChallengeVideo',videoFile);
                 formData.append('ContractABI',JSON.stringify(abi));
