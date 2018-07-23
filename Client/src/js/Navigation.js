@@ -33,8 +33,8 @@ const mapDispatchToProps = dispatch => {
         toggleDrawer: () => {
             dispatch(toggleDrawer())
         },
-        toggleDropdown: (dropdownName) => {
-            dispatch(toggleDropdown(dropdownName))
+        toggleDropdown: (linkName) => {
+            dispatch(toggleDropdown(linkName))
         },
         navigateTo: link => {
             dispatch(push(link))
