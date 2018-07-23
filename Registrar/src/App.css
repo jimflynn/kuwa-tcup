@@ -8,7 +8,7 @@
 }
 
 .App-header {
-  background-color: #AAAAAA;
+  background-color: #bbbbbb;
   height: 150px;
   padding: 20px;
   color: white;
@@ -39,6 +39,10 @@ th {
 }
 
 td {
-  font-size: 12px;
   font-family: monospace, monospace;
+  font-size: 13px;
+}
+
+tr:nth-child(even) {
+  background-color: #d3d3d3;
 }

@@ -34,6 +34,7 @@ class App extends Component {
                 <table id="tableIdToFill">
 			<tbody>
 	                        <tr>
+                                    <th>Index</th>
         	                    <th>Client Address</th>
                 	            <th>Contract Address</th>
                         	    <th>Timestamp(UTC)</th>
@@ -41,6 +42,7 @@ class App extends Component {
         	                </tr>
                 	        {this.state.registrations.map((row, index) =>
 		                <tr key={row.registration_id}>
+                                    <td>{index+1}</td>
 	                            <td><a href={"https://rinkeby.etherscan.io/address/"+row.client_address}
                                            target="_blank" rel="noopener noreferrer">{row.client_address}</a></td>
 	                            <td><a href={"https://rinkeby.etherscan.io/address/"+row.contract_address}

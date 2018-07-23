@@ -11,15 +11,17 @@ var pool = mysql.createPool({
     connectionLimit : 100,
     host     : 'localhost',
     user     : 'root',
-    password : String.raw`(-h(3~8u"_ZE{lV%m(2SWze$F-7K<$,ej:2+@=-O\43**|>j6!2~uPmeJko[ASo=`,
+    password : 'sqlpassword',
     database : 'alpha_kuwa_registrar_moe',
     timezone : 'local',
     dateStrings : true
 });
 
 var credentials = {
-    key : fs.readFileSync('/etc/httpd/conf/ssl.key/server.key'),
-    cert: fs.readFileSync('/etc/httpd/conf/ssl.crt/alpha_kuwa_org.pem')
+    // key : fs.readFileSync('/etc/httpd/conf/ssl.key/server.key'),
+    // cert: fs.readFileSync('/etc/httpd/conf/ssl.crt/alpha_kuwa_org.pem')
+    key : fs.readFileSync('server.key'),
+    cert: fs.readFileSync('server.cert')
 }
 
 app.get('/registration', (req, res) => {
@@ -29,7 +31,7 @@ app.get('/registration', (req, res) => {
             return res.json({"code" : 100, "status" : "Error in connecting to database"});
             return;
         }
-        console.log('UI backend has connected to Kuwa database!');
+        // console.log('UI backend has connected to Kuwa database!');
         connection.query("SELECT * FROM registration", (err,rows) => {
             if (!err) {
                 connection.release();

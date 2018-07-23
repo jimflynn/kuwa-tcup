@@ -31,30 +31,31 @@ var findDuplicate = function(mapping, hashval) {
 }
 
 let pool = mysql.createPool({
-host: "localhost",
-user: "root",
-password: String.raw`(-h(3~8u"_ZE{lV%m(2SWze$F-7K<$,ej:2+@=-O\43**|>j6!2~uPmeJko[ASo=`,
-database: "alpha_kuwa_registrar_moe",
-timezone : 'local',
-dateStrings : true
+	host: "localhost",
+	user: "root",
+	password: 'sqlpassword',
+	database: "alpha_kuwa_registrar_moe",
+	timezone : 'local',
+	dateStrings : true
 });
 
 var insertRow = function(ClientAddress, ContractAddress, status) {
 let command = sprintf(
-		        `INSERT INTO registration (client_address, contract_address, status) VALUES ('%s', '%s', %d) ON DUPLICATE KEY UPDATE client_address='%s', contract_address='%s';`,
-			ClientAddress, ContractAddress, status, ClientAddress, ContractAddress);
+	`INSERT INTO registration (client_address, contract_address, status) VALUES ('%s', '%s', %d) ON DUPLICATE KEY UPDATE client_address='%s', contract_address='%s';`,
+	ClientAddress, ContractAddress, status, ClientAddress, ContractAddress);
+
 pool.getConnection((err, connection) => {
-		if(err) {
+	if(err) {
 		console.log("Error connecting to DB.");
+	}
+	connection.query(command, (err, result) => {
+		console.log("Watcher connected to DB.");
+		if(!err) {
+			connection.release();
+			console.log("Record inserted successfully.");
 		}
-		connection.query(command, (err, result) => {
-				console.log("Watcher connected to DB.");
-				if(!err) {
-				connection.release();
-				console.log("Record inserted successfully.");
-				}
-				});
 		});
+	});
 }
 
 // Start watching desired directory
@@ -68,9 +69,7 @@ function registerFile(event, filePath) {
 	if(event == 'add' && (path.basename(filePath) == 'info.json')) {
 		try {
 			let info = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-			// console.log(info);
 			let ContractABI = JSON.parse(info.ContractABI);
-			// console.log(ContractABI);
 			let ClientAddress = info.ClientAddress;
 			let ContractAddress = info.ContractAddress;
 
@@ -100,11 +99,11 @@ function registerFile(event, filePath) {
 									console.log('challengePhrase =', challengePhrase);
 									})
 							.catch(function(err) {
-                                                                   console.log("Get Challenge failed.");
-                                                                   insertRow(ClientAddress, ContractAddress, '0');
-                                                             })
+                                console.log("Get Challenge failed.");
+                                insertRow(ClientAddress, ContractAddress, '0');
+                                })
 							})
-                                            .catch(function(err) {
+                            .catch(function(err) {
 						console.log("Loading Contract failed.");
                                                 insertRow(ClientAddress, ContractAddress, '0');
                                             });
