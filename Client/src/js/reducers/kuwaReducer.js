@@ -33,12 +33,11 @@ const kuwaReducer = (state = initialState, action) => {
             })
         case 'CREATE_KEYS_FULFILLED':
             return Object.assign({}, state, {
-                currentKuwaId: action.payload.identifier,
                 kuwaId: Object.assign({}, state.kuwaId, {
                     address: '0x' + action.payload.keyObject.address,
                     privateKey: '0x' + action.payload.privateKeyInHex,
                     keyObject: action.payload.keyObject,
-                    sponsorship: "NOT_SPONSORED",
+                    sponsored: false,
                     infoUploaded: false,
                     unlocked: false,
                     qrCodeSrc: action.payload.qrCodeSrc
@@ -49,7 +48,7 @@ const kuwaReducer = (state = initialState, action) => {
         case 'REQUEST_SPONSORSHIP_FULFILLED':
             return Object.assign({}, state, {
                 kuwaId: Object.assign({}, state.kuwaId, {
-                    sponsorship: "SPONSORED",
+                    sponsored: true,
                     unlocked: true,
                     contractAddress: action.payload.responseJson.contractAddress,
                     abi: action.payload.responseJson.abi,

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { push } from 'connected-react-router';
 
 import { Loading } from './Load';
 import { paperHeader } from './paperHeader';
@@ -69,58 +70,79 @@ class ProvideCredentials extends Component {
 
 const renderContent = (props, state, setState) =>  (
     <div>
+        { props.sponsored ? renderDone(props) : renderProvideCredentials(props, state, setState) }
+        
+    </div>
+)
+
+const renderProvideCredentials = (props, state, setState) =>  (
+    <div>
     <Typography variant="title" align="left" style={{margin: "1em"}}>
         Kuwa registrations must have a sponsor. <strong>The Kuwa Foundation</strong> is the sponsor of your Kuwa registration. For credentials, we only require that you enter a passcode. If you do not have a passcode, please go to <a href="http://kuwa.org" target="_blank">http://kuwa.org</a> to request one.
     </Typography>
 
     <Grid>
-    <FormControl style={{width: "100%"}} className={classNames(props.classes.margin, props.classes.textField)}>
-        <InputLabel htmlFor="adornment-passcode">Enter the passcode we emailed you</InputLabel>
-        <Input
-            id="adornment-passcode"
-            type={props.showPasscode ? 'text' : 'password'}
-            value={state.passcode}
-            onChange={event => setState({passcode: event.target.value})}
-            endAdornment={
-            <InputAdornment position="end">
-                <IconButton
-                aria-label="Toggle passcode visibility"
-                onClick={props.togglePasscodeVisibility}
-                onMouseDown={event => event.preventDefault()}
-                >
-                    {props.showPasscode ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-            </InputAdornment>
-            }
-        />
-    </FormControl>
+        <FormControl style={{width: "100%"}} className={classNames(props.classes.margin, props.classes.textField)}>
+            <InputLabel htmlFor="adornment-passcode">Enter the passcode we emailed you</InputLabel>
+            <Input
+                id="adornment-passcode"
+                type={props.showPasscode ? 'text' : 'password'}
+                value={state.passcode}
+                onChange={event => setState({passcode: event.target.value})}
+                endAdornment={
+                <InputAdornment position="end">
+                    <IconButton
+                    aria-label="Toggle passcode visibility"
+                    onClick={props.togglePasscodeVisibility}
+                    onMouseDown={event => event.preventDefault()}
+                    >
+                        {props.showPasscode ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                </InputAdornment>
+                }
+            />
+        </FormControl>
     </Grid>
     
     <Grid>
-    <FormControl style={{width: "100%"}} className={classNames(props.classes.margin, props.classes.textField)}>
-        <InputLabel htmlFor="adornment-kuwaPassword">Choose a Kuwa password</InputLabel>
-        <Input
-            id="adornment-kuwaPassword"
-            type={props.showKuwaPassword ? 'text' : 'password'}
-            value={state.kuwaPassword}
-            onChange={event => setState({kuwaPassword: event.target.value})}
-            endAdornment={
-            <InputAdornment position="end">
-                <IconButton
-                aria-label="Toggle Kuwa Password visibility"
-                onClick={props.toggleKuwaPasswordVisibility}
-                onMouseDown={event => event.preventDefault()}
-                >
-                    {props.showKuwaPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-            </InputAdornment>
-            }
-        />
-    </FormControl>
+        <FormControl style={{width: "100%"}} className={classNames(props.classes.margin, props.classes.textField)}>
+            <InputLabel htmlFor="adornment-kuwaPassword">Choose a Kuwa password</InputLabel>
+            <Input
+                id="adornment-kuwaPassword"
+                type={props.showKuwaPassword ? 'text' : 'password'}
+                value={state.kuwaPassword}
+                onChange={event => setState({kuwaPassword: event.target.value})}
+                endAdornment={
+                <InputAdornment position="end">
+                    <IconButton
+                    aria-label="Toggle Kuwa Password visibility"
+                    onClick={props.toggleKuwaPasswordVisibility}
+                    onMouseDown={event => event.preventDefault()}
+                    >
+                        {props.showKuwaPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                </InputAdornment>
+                }
+            />
+        </FormControl>
     </Grid>
 
     <div align="center">
         <Button variant="contained" style={{backgroundColor: buttonColor, marginTop: "1em"}} onClick={() => props.provideCredentials(state.kuwaPassword, state.passcode)}>
+            Continue
+        </Button>
+    </div>
+
+    </div>
+)
+
+const renderDone = props => (
+    <div>
+    <Typography variant="title" align="center" style={{margin: "1em"}}>
+        You have already provided your credentials.
+    </Typography>
+    <div align="center">
+        <Button variant="contained" style={{backgroundColor: buttonColor, marginTop: "1em"}} onClick={() => props.navigateTo('/RecordRegistrationVideo')}>
             Continue
         </Button>
     </div>
@@ -129,6 +151,7 @@ const renderContent = (props, state, setState) =>  (
 
 const mapStateToProps = state => {
     return {
+        sponsored: state.kuwaReducer.kuwaId.sponsored,
         showKuwaPassword: state.screenReducer.provideCredentials.showKuwaPassword,
         showPasscode: state.screenReducer.provideCredentials.showPasscode,
         loading: state.kuwaReducer.screen.provideCredentials.loading
@@ -145,6 +168,9 @@ const mapDispatchToProps = dispatch => {
         },
         provideCredentials: (kuwaPassword, passcode) => {
             dispatch(provideCredentials(kuwaPassword, passcode))
+        },
+        navigateTo: link => {
+            dispatch(push(link))
         }
     }
 }

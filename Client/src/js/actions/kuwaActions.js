@@ -125,7 +125,7 @@ export function uploadToStorage(videoFilePath, ethereumAddress, abi, contractAdd
                         type: 'UPLOAD_TO_STORAGE_FULFILLED',
                         payload: {response}
                     })
-                    dispatch(push('/Success'))
+                    dispatch(push('/YourKuwaId'))
                 }).catch(e => {
                     dispatch({
                         type: 'UPLOAD_TO_STORAGE_REJECTED',
@@ -156,7 +156,7 @@ export function webUploadToStorage(videoBlob, ethereumAddress, abi, contractAddr
                 type: 'WEB_UPLOAD_TO_STORAGE_FULFILLED',
                 payload: {response}
             })
-            dispatch(push('/Success'))
+            dispatch(push('/YourKuwaId'))
         }).catch(e => {
             dispatch({
                 type: 'WEB_UPLOAD_TO_STORAGE_REJECTED',
