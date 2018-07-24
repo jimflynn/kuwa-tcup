@@ -1,0 +1,26 @@
+{
+    "logs": [
+        {
+            "outputFile": "/home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-w500dp-v13/values-w500dp-v13.xml",
+            "map": [
+                {
+                    "source": "/home/clankster99/.gradle/caches/transforms-1/files-1.1/appcompat-v7-23.1.0.aar/478c1de88eaa520a886ffec14c1b9787/res/values-w500dp/values-w500dp.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "4",
+                        "startOffsets": "290",
+                        "endColumns": "54",
+                        "endOffsets": "340"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "54",
+                        "endOffsets": "105"
+                    }
+                }
+            ]
+        }
+    ]
+}
