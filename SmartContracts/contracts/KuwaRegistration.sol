@@ -4,111 +4,22 @@ pragma solidity ^0.4.2;
  * The KuwaToken contract does this and that...
  */
 contract KuwaRegistration {
-    //name
-    string public name = "KuwaToken";
-
-    //symbol
-    string public symbol = "Kuwa";
-
-    //standard
-    string public standard = "KuwaToken v1.0";//not ERC20
-
-    uint256 public totalSupply; //making public eliminates use of the function returning total supply for ERC20
-
     address private clientAddress;
     address private sponsorAddress;
 
     uint256 private challenge;
     uint256 private challengeCreationTime;
-    
-    // May need to remove this
-    mapping(address => uint256) public withdrawals;
 
     enum RegistrationStatus { ChallengeGenerated, ChallengeExpired, WaitingForValidation, Valid, Invalid }
-    RegistrationStatus private registrationStatus;
-
-    mapping (address => uint256) public balanceOf; //ERC 20 balanceOf
-    mapping(address => mapping(address => uint256)) public allowance;
-
-	//Transfer event
-    event Transfer(
-        address indexed _from,
-        address indexed _to,
-        uint256 _value
-    );
-
-	// Approve event 
-    event Approval(
-        address indexed _owner,
-        address indexed _spender,
-        uint256 _value
-    );
-
-    event ChallengeValue (
-        uint256 _challenge,
-        RegistrationStatus _registrationStatus
-    );
+    bytes20 private registrationStatus;
 
 	//constructor
 	//set the total number of tokens
 	//read total number of tokens
-    constructor (uint256 _initialSupply, address _clientAddress) public{
-        // allocate the initial supply
-        balanceOf[msg.sender] = _initialSupply;
-        totalSupply = _initialSupply;
+    constructor (address _clientAddress) public{
         clientAddress = _clientAddress;
         sponsorAddress = msg.sender;
         generateChallenge();
-    }
-    
-	// Transfer
-    function transfer(address _to, uint256 _value) public returns(bool success){
-        // Exception if account doesnt have enough balance
-        require(balanceOf[msg.sender] >= _value, "Revert balance to Sender");
-        
-        //Transfer the balance
-        balanceOf[msg.sender] -= _value;
-        balanceOf[_to] += _value;
-
-        //fire Transfer event according to ERC20
-        emit Transfer(msg.sender, _to, _value);
-        
-        return true;
-    }
-
-	//delegated transfers
-	//approve
-    function approve(address _spender, uint256 _value) public returns (bool success) {
-        allowance[msg.sender][_spender] = _value;
-        emit Approval(msg.sender, _spender, _value);
-        return true;
-    }
-	
-	//transferfrom
-    function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {
-        require(_value <= balanceOf[_from], "Revert balance to sender");
-        require(_value <= allowance[_from][msg.sender], "Revert balance to sender because he doesnt have enough allowance");
-
-        balanceOf[_from] -= _value;
-        balanceOf[_to] += _value;
-
-        allowance[_from][msg.sender] -= _value;
-
-        emit Transfer(_from, _to, _value);
-
-        return true;
-    }
-
-    // fallback function for contract to receive ether
-    function() payable public {
-        withdrawals[msg.sender] = msg.value;
-        require(withdrawals[msg.sender] == msg.value);
-    }
-
-    function withdraw(uint256 _amount) public {
-        require(_amount <= withdrawals[msg.sender], "Amount is exceeded");
-        //require(msg.sender.send(_amount), "Revert withdrawal");
-        msg.sender.transfer(_amount);
     }
 
     // Generates a 5-digit pseudorandom number
@@ -132,7 +43,7 @@ contract KuwaRegistration {
     function generateChallenge() private {
         challenge = rand(clientAddress);
         challengeCreationTime = block.timestamp;
-        registrationStatus = RegistrationStatus.ChallengeGenerated;
+        registrationStatus = "Challenge Generated";
     }
 
     // This was not part of the specification of the week but it makes sense to add it
@@ -146,18 +57,22 @@ contract KuwaRegistration {
         return 0;
     }
 
-    function getRegistrationStatus() public view returns(RegistrationStatus) {
+    function getRegistrationStatus() public view returns(bytes20) {
         return registrationStatus;
     }
 
-    function markAsValid() public returns(bool success) {
-        registrationStatus = RegistrationStatus.Valid;
-        return true;
+    function markAsValid() public {
+        registrationStatus = "Valid";
     }
 
-    function markAsInvalid() public returns(bool success) {
-        registrationStatus = RegistrationStatus.Invalid;
-        return true;
+    function markAsInvalid() public {
+        registrationStatus = "Invalid";
+    }
+
+    // Possible values for newStatus are:
+    // Challenge Expired, Video Uploaded, QR code scanned
+    function setRegistrationStatusTo(bytes20 newStatus) public {
+        registrationStatus = newStatus;
     }
 
     /* Kills this contract and refunds the balance to the Sponsor */
