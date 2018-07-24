@@ -71,7 +71,6 @@ class ProvideCredentials extends Component {
 const renderContent = (props, state, setState) =>  (
     <div>
         { props.sponsored ? renderDone(props) : renderProvideCredentials(props, state, setState) }
-        
     </div>
 )
 

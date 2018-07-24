@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Provider } from 'react-redux';
 import { store } from './store';
+import { push } from 'connected-react-router';
 import Video from './Video';
 
 import { webUploadToStorage, uploadToStorage  } from './actions/kuwaActions';
@@ -43,18 +44,7 @@ class RecordRegistrationVideo extends Component {
 
 const renderContent = props => (
     <div>
-        <Typography variant="subheading" align="left" style={{margin: "1em"}}>
-            Every living human is entitled to exactly one Kuwa ID. To help us identify you, we need a video of you speaking the following numbers:
-        </Typography>
-        <Typography variant="title" align="center" style={{margin: "1em"}}>
-            <strong>{props.challenge}</strong>
-        </Typography>
-        <Grid container justify="center" style={{margin: "1em"}}>
-            <Provider store={store}>
-                <Video />
-            </Provider>
-        </Grid>
-        {renderButton(props)}
+        { props.infoUploaded ? renderDone(props) : renderRecordRegistrationVideo(props) }
     </div>
 )
 
@@ -77,6 +67,36 @@ const renderButton = props => {
     return null;
 }
 
+const renderRecordRegistrationVideo = props => (
+    <div>
+        <Typography variant="subheading" align="left" style={{margin: "1em"}}>
+            Every living human is entitled to exactly one Kuwa ID. To help us identify you, we need a video of you speaking the following numbers:
+        </Typography>
+        <Typography variant="title" align="center" style={{margin: "1em"}}>
+            <strong>{props.challenge}</strong>
+        </Typography>
+        <Grid container justify="center" style={{margin: "1em"}}>
+            <Provider store={store}>
+                <Video />
+            </Provider>
+        </Grid>
+        {renderButton(props)}
+    </div>
+)
+
+const renderDone = props => (
+    <div>
+    <Typography variant="title" align="center" style={{margin: "1em"}}>
+        You have already uploaded your challenge video.
+    </Typography>
+    <div align="center">
+        <Button variant="contained" style={{backgroundColor: buttonColor, marginTop: "1em"}} onClick={() => props.navigateTo('/YourKuwaId')}>
+            Continue
+        </Button>
+    </div>
+    </div>
+)
+
 const mapStateToProps = state => {
     return {
         ethereumAddress: state.kuwaReducer.kuwaId.address,
@@ -87,6 +107,7 @@ const mapStateToProps = state => {
         videoStatus: state.videoReducer.videoStatus,
         videoFilePath: state.videoReducer.videoFilePath,
         videoBlob: state.videoReducer.videoBlob,
+        infoUploaded: state.kuwaReducer.kuwaId.infoUploaded,
 
         loading: state.kuwaReducer.screen.uploadToStorage.loading
     }
@@ -99,6 +120,9 @@ const mapDispatchToProps = dispatch => {
         },
         webUploadToStorage: (videoBlob, ethereumAddress, abi, contractAddress) => {
             dispatch(webUploadToStorage(videoBlob, ethereumAddress, abi, contractAddress))
+        },
+        navigateTo: link => {
+            dispatch(push(link))
         }
     }
 }
