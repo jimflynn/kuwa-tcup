@@ -7,14 +7,15 @@
 // Decimals    : 18
 //
 //
-// Originally by: (c) BokkyPooBah / Bok Consulting Pty Ltd 2018. The MIT Licence.
-// Reference: https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md
+// Template originally by: (c) BokkyPooBah / Bok Consulting Pty Ltd 2018. The MIT License.
+// ERC20 Standard reference: https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md
 // Modified by Deh-Jun Tzou
 // ----------------------------------------------------------------------------
 pragma solidity ^0.4.24;
 
 import "./ERC20Interface.sol";
 import "./SafeMath.sol";
+import "./Owned.sol";
 
 // ----------------------------------------------------------------------------
 // Contract function to receive approval and execute function in one call
@@ -23,37 +24,6 @@ import "./SafeMath.sol";
 // ----------------------------------------------------------------------------
 contract ApproveAndCallFallBack {
     function receiveApproval(address from, uint256 tokens, address token, bytes data) public;
-}
-
-
-// ----------------------------------------------------------------------------
-// Owned contract
-// ----------------------------------------------------------------------------
-contract Owned {
-    address public owner;
-    address public newOwner;
-
-    event OwnershipTransferred(address indexed _from, address indexed _to);
-
-    constructor() public {
-        owner = msg.sender;
-    }
-
-    modifier onlyOwner {
-        require(msg.sender == owner);
-        _;
-    }
-
-    function transferOwnership(address _newOwner) public onlyOwner {
-        newOwner = _newOwner;
-    }
-
-    function acceptOwnership() public {
-        require(msg.sender == newOwner);
-        emit OwnershipTransferred(owner, newOwner);
-        owner = newOwner;
-        newOwner = address(0);
-    }
 }
 
 
@@ -68,6 +38,7 @@ contract KuwaToken is ERC20Interface, Owned {
     string public  name;
     uint8 public decimals;
     uint _totalSupply;
+    //uint _minStake;
 
     mapping(address => uint) balances;
     mapping(address => mapping(address => uint)) allowed;
@@ -83,6 +54,7 @@ contract KuwaToken is ERC20Interface, Owned {
         _totalSupply = 1000000 * 10**uint(decimals);
         balances[owner] = _totalSupply;
         emit Transfer(address(0), owner, _totalSupply);
+        //_minStake = 100000 * 10**uint(decimals);
     }
 
 

@@ -2,7 +2,7 @@
 // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md
 // Author: ConsenSys
 // Modified by: Deh-Jun Tzou
-pragma solidity ^0.4.21;
+pragma solidity ^0.4.24;
 
 
 contract ERC20Interface {
