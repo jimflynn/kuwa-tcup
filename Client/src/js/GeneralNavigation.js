@@ -92,6 +92,7 @@ class GeneralNavigation extends Component {
     render() {
         let newNavigationLinks = this.props.extraNavigationLinks ? originalNavigationLinks.concat(this.props.extraNavigationLinks) : originalNavigationLinks;
         let props = this.props.props;
+        //console.log(props);
         return (
                 <AppBar position="static" style={{backgroundColor: grey[800]}}>
                     <Toolbar>
@@ -103,7 +104,9 @@ class GeneralNavigation extends Component {
                         :
                             null
                         }
-
+                        <div>
+                        
+                        </div>
                         <Typography variant="title" color="inherit" style={{flexGrow: 1}}>
                             {props.toolbarTitle ? props.toolbarTitle : "The Kuwa Foundation"}
                         </Typography>
@@ -122,7 +125,7 @@ class GeneralNavigation extends Component {
 
 const createDesktopToolbar = (props, navigationLinks) => (
     navigationLinks.map((navItem, index) => {
-        // console.log("props", props)
+        console.log(props);
         if (navItem.children) {
             return (
                 <div key={(index + 1).toString()}>
@@ -135,7 +138,7 @@ const createDesktopToolbar = (props, navigationLinks) => (
             return (
                 <Button key={(index + 1).toString()} color="inherit" onClick={() => {
                     if (navItem.link) 
-                        location.href = navItem.link
+                        window.location.href = navItem.link
                     else if (navItem.pushLink)
                         props.navigateTo('/' + navItem.pushLink)
                 }}>{navItem.linkName}</Button>
@@ -155,7 +158,7 @@ const menuDropdown = (props, isOpen, anchorElement, items) => (
                 <MenuItem key={(index + 1).toString()} onClick={() => {
                     props.toggleDropdown(anchorElement)
                     if (item.link) 
-                        location.href = item.link
+                        window.location.href = item.link
                     else if (item.pushLink)
                         props.navigateTo('/' + item.pushLink)
                 }}>{item.linkName}</MenuItem>    
@@ -189,7 +192,6 @@ const createMobileToolbar = (props, navigationLinks) => {
 const drawerContent = (props, navigationLinks) => (
     <div style={{width: '100%', maxWidth: 360}}>
         <List component="nav">
-
         {navigationLinks.map((navItem, index) => {
             if (navItem.children) {
                 return (
@@ -203,7 +205,7 @@ const drawerContent = (props, navigationLinks) => (
                         </ListItem>
                         <Collapse in={props.dropdowns[navItem.linkName]} timeout="auto" unmountOnExit>
                             <List component="div" disablePadding>
-                                {listDropdown(navItem.children)}
+                                {listDropdown(props, navItem.children)}
                             </List>
                         </Collapse>
                     </div>
@@ -212,7 +214,7 @@ const drawerContent = (props, navigationLinks) => (
                 return (
                     <ListItem button key={(index + 1).toString()} color="inherit" onClick={() => {
                         if (navItem.link) 
-                            location.href = navItem.link
+                            window.location.href = navItem.link
                         else if (navItem.pushLink)
                             props.navigateTo('/' + navItem.pushLink)
                     }}>
@@ -230,13 +232,13 @@ const drawerContent = (props, navigationLinks) => (
     </div>
 )
 
-const listDropdown = (items) => {
+const listDropdown = (props, items) => {
     return (
         items.map((item, index) => {
             return (
                 <ListItem key={index + 1} button onClick={() => {
                     if (item.link) 
-                        location.href = item.link
+                        window.location.href = item.link
                     else if (item.pushLink)
                         props.navigateTo('/' + item.pushLink)
                 }} style={{paddingLeft: "2em"}}>

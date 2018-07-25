@@ -28,7 +28,7 @@ class YourKuwaId extends Component {
                         <Typography variant="title" align="center" style={{margin: "1em"}}>
                             <strong>Kuwa ID:</strong>
                         </Typography>
-                        <Typography variant="title" align="center" style={{margin: "1em"}}>
+                        <Typography variant="title" align="center" style={{wordWrap: "break-word", margin: "1em"}}>
                             { this.props.kuwaId }
                         </Typography>
                         <Typography variant="subheading" align="left" style={{margin: "1em"}}>
