@@ -16,7 +16,7 @@ contract KuwaRegistration {
 	//constructor
 	//set the total number of tokens
 	//read total number of tokens
-    constructor (address _clientAddress) public{
+    constructor (address _clientAddress, address) public{
         clientAddress = _clientAddress;
         sponsorAddress = msg.sender;
         generateChallenge();
@@ -79,6 +79,19 @@ contract KuwaRegistration {
     function killContract() public {
         require(msg.sender == sponsorAddress);
         selfdestruct(sponsorAddress);
+    }
+
+    uint votes = 0;
+    function vote(string status) public {
+        
+    }
+
+    function hasSufficientFunds(address qkr) private returns(bool) {
+        
+    }
+
+    function didAnte(address qkr) private returns(bool) {
+
     }
 }
 

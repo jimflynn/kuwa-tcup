@@ -48,7 +48,7 @@ contract KuwaToken is ERC20Interface, Owned {
     // Constructor
     // ------------------------------------------------------------------------
     constructor() public {
-        symbol = "KUWA";
+        symbol = "KWA";
         name = "Kuwa Token";
         decimals = 18;
         _totalSupply = 1000000 * 10**uint(decimals);
@@ -80,6 +80,9 @@ contract KuwaToken is ERC20Interface, Owned {
     // - 0 value transfers are allowed
     // ------------------------------------------------------------------------
     function transfer(address _to, uint _value) public returns (bool success) {
+        require(_value <= balances[msg.sender]);
+        require(_to != address(0));
+
         balances[msg.sender] = balances[msg.sender].sub(_value);
         balances[_to] = balances[_to].add(_value);
         emit Transfer(msg.sender, _to, _value);
@@ -137,6 +140,7 @@ contract KuwaToken is ERC20Interface, Owned {
     // Token owner can approve for `_spender` to transferFrom(...) `_value`
     // tokens from the token owner's account. The `_spender` contract function
     // `receiveApproval(...)` is then executed
+    // TODO: Understand this!
     // ------------------------------------------------------------------------
     function approveAndCall(address _spender, uint _value, bytes _data) public returns (bool success) {
         allowed[msg.sender][_spender] = _value;
@@ -156,7 +160,7 @@ contract KuwaToken is ERC20Interface, Owned {
 
     // ------------------------------------------------------------------------
     // Owner can transfer out any accidentally sent ERC20 tokens
-    // I don't understand this...
+    // TODO: Understand this!
     // ------------------------------------------------------------------------
     function transferAnyERC20Token(address _tokenAddress, uint _tokens) public onlyOwner returns (bool success) {
         return ERC20Interface(_tokenAddress).transfer(owner, _tokens);

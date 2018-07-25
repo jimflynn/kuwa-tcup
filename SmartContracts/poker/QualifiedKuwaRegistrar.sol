@@ -4,24 +4,31 @@
 pragma solidity ^0.4.21;
 
 import "./Owned.sol";
+import "./KuwaToken.sol";
+import "../contracts/KuwaRegistration.sol";
 
 contract QualifiedKuwaRegistrar is Owned {
     
     uint public _totalStake;
+    address public kuwaTokenContract;
+    address public kuwaFoundation;
 
-    constructor() public {
-        
+    constructor(address _kuwaTokenContract, address _kuwaFoundation) public {
+        kuwaTokenContract = _kuwaTokenContract;
+        kuwaFoundation = _kuwaFoundation;
     }
 
-    function requestTokens(address _tokenContract, uint _value) public onlyOwner returns (bool success) {
-        
-    }
-    
-    function totalStake() public view returns (uint) {
-        return _totalStake;
+    function myAddress() public pure returns(address) {
+        return this;
     }
 
-    function vote(address _registrant, string _status) public {
-        
+    function vote(address _registrantContract, string status, uint _value) public onlyOwner {
+        require(_value == 1);
+
+        KuwaToken kt = KuwaToken(kuwaTokenContract);
+        if (!kt.approve(_registrantContract, _value))
+            return;
+        KuwaRegistration kr = KuwaRegistration(_registrantContract);
+        kr.vote(status);
     }
 }
