@@ -13,17 +13,17 @@ const initialState = {
 const screenReducer = (state = initialState, action) => {
     switch(action.type) {
         case 'TOOGLE_DROPDOWN':
-            let dropdownName = action.payload.dropdownName;
-            if (state.dropdowns[dropdownName]) {
+            let linkName = action.payload.linkName;
+            if (state.dropdowns[linkName]) {
                 return Object.assign({}, state, {
                     dropdowns: Object.assign({}, state.dropdowns, {
-                        [dropdownName]: !state.dropdowns[dropdownName]
+                        [linkName]: !state.dropdowns[linkName]
                     })
                 })
             } else {
                 return Object.assign({}, state, {
                     dropdowns: Object.assign({}, state.dropdowns, {
-                        [dropdownName]: true
+                        [linkName]: true
                     })
                 })
             }

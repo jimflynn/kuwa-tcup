@@ -19,7 +19,7 @@ export const generalOutcome = (header, message, image, classes) => (
 
                 <Grid container justify="center">
                     <Grid item>
-                    <img className="responsive-kuwa-img" style={{maxWidth: "100%", height: "auto"}} src={ image } alt="error" />
+                    <img className="responsive-kuwa-img" style={{maxWidth: "100%", height: "auto"}} src={ image } alt="image" />
                     </Grid>
                 </Grid>
             </Paper>
