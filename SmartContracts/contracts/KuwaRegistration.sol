@@ -126,7 +126,32 @@ contract KuwaRegistration {
 
     function payout() public {
         require(block.timestamp - timeOfFirstVote > 3600);
-        
+        bytes32 majorityStatus;
+        uint finalPot = kt.balanceOf(this);
+        uint dividend;
+        if (valid > invalid) {
+            majorityStatus = keccak256("valid");
+            dividend = finalPot / valid;
+        }
+        else if (invalid > valid) {
+            majorityStatus = keccak256("invalid");
+            dividend = finalPot / invalid;
+        }
+        else {
+            majorityStatus = 0x0;
+            dividend = finalPot / (valid + invalid);
+        }
+
+        for (uint i = 0; i < voters.length; i++) {
+            if (majorityStatus == 0x0) {
+                kt.transfer(voters[i], dividend);
+            }
+            else {
+                if (map[voters[i]] == majorityStatus) {
+                    kt.transfer(voters[i], dividend);
+                }
+            }
+        }
     }
 
     function sponsorAnte() public {
