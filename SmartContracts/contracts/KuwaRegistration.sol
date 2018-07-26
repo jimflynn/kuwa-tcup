@@ -1,7 +1,10 @@
 pragma solidity ^0.4.2;
 
+
+import "./KuwaToken.sol";
+
 /**
- * The KuwaToken contract does this and that...
+ * The Kuwa Registration contract does this and that...
  */
 contract KuwaRegistration {
     address private clientAddress;
@@ -10,15 +13,22 @@ contract KuwaRegistration {
     uint256 private challenge;
     uint256 private challengeCreationTime;
 
-    enum RegistrationStatus { ChallengeGenerated, ChallengeExpired, WaitingForValidation, Valid, Invalid }
     bytes20 private registrationStatus;
+
+    // For Poker Protocol 
+    // ---------------------
+    KuwaToken kt;
+    address kuwaTokenContract;
+    //----------------------
 
 	//constructor
 	//set the total number of tokens
 	//read total number of tokens
-    constructor (address _clientAddress, address) public{
+    constructor (address _clientAddress, address _kuwaTokenContract) public{
         clientAddress = _clientAddress;
         sponsorAddress = msg.sender;
+        kuwaTokenContract = _kuwaTokenContract;
+        kt = KuwaToken(_kuwaTokenContract);
         generateChallenge();
     }
 
@@ -81,17 +91,66 @@ contract KuwaRegistration {
         selfdestruct(sponsorAddress);
     }
 
-    uint votes = 0;
+    /** ---------------------- Poker Protocol ------------------------- */
+    uint invalid = 0;
+    uint valid = 0;
+    uint timeOfFirstVote;
+    mapping(address => bytes32) map;
+    address[] public voters;
+
     function vote(string status) public {
+        require(kt.balanceOf(msg.sender) >= 100001);
+        require(kt.allowance(msg.sender, this) == 1);
+        if (block.timestamp - timeOfFirstVote > 3600) {
+            kt.approve(msg.sender, 1);
+            return;
+        }
+        bytes32 statusDigest = keccak256(_toLower(status));
+        require(statusDigest == keccak256("valid") || statusDigest == keccak256("invalid"));
+        require(map[msg.sender] == 0x0);
+
+        if (valid + invalid < 1) {
+            timeOfFirstVote = block.timestamp;
+        }
+        
+        kt.transferFrom(msg.sender, this, 1);
+        if (statusDigest == keccak256("valid")) {
+            valid += 1;
+        }
+        else {
+            invalid += 1;
+        }
+        voters.push(msg.sender);
+        map[msg.sender] = statusDigest;
+    }
+
+    function payout() public {
+        require(block.timestamp - timeOfFirstVote > 3600);
         
     }
 
-    function hasSufficientFunds(address qkr) private returns(bool) {
-        
-    }
-
-    function didAnte(address qkr) private returns(bool) {
+    function sponsorAnte() public {
 
     }
+
+    /* Author: Thomas MacLean */
+    function _toLower(string str) public pure returns(string) {
+        bytes memory bStr = bytes(str);
+        bytes memory bLower = new bytes(bStr.length);
+        for (uint i = 0; i < bStr.length; i++) {
+            // Uppercase character...
+            if ((bStr[i] >= 65) && (bStr[i] <= 90)) {
+                // So we add 32 to make it lowercase
+                bLower[i] = bytes1(int(bStr[i]) + 32);
+            } else {
+                bLower[i] = bStr[i];
+            }
+        }
+        return string(bLower);
+    }
+
+    /** --------------------------------------------------------------- */
 }
+
+
 
