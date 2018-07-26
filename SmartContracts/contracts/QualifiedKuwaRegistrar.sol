@@ -18,7 +18,7 @@ contract QualifiedKuwaRegistrar is Owned {
         kuwaFoundation = _kuwaFoundation;
     }
 
-    function myAddress() public pure returns(address) {
+    function myAddress() public view returns(address) {
         return this;
     }
 
