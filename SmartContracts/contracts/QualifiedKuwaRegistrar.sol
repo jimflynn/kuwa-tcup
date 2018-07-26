@@ -22,13 +22,15 @@ contract QualifiedKuwaRegistrar is Owned {
         return this;
     }
 
-    function vote(address _registrantContract, string status, uint _value) public onlyOwner {
+    function vote(address _registrantContract, string status, uint _value) public onlyOwner returns(bool) {
         require(_value == 1);
 
         KuwaToken kt = KuwaToken(kuwaTokenContract);
-        if (!kt.approve(_registrantContract, _value))
-            return;
+        if (kt.allowance(myAddress(), _registrantContract) < 1) {
+            if (!kt.approve(_registrantContract, _value))
+                return;
+        }
         KuwaRegistration kr = KuwaRegistration(_registrantContract);
-        kr.vote(status);
+        return kr.vote(status);
     }
 }

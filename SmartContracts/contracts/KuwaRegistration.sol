@@ -24,7 +24,7 @@ contract KuwaRegistration {
 	//constructor
 	//set the total number of tokens
 	//read total number of tokens
-    constructor (address _clientAddress, address _kuwaTokenContract) public{
+    constructor (address _clientAddress, address _kuwaTokenContract) public {
         clientAddress = _clientAddress;
         sponsorAddress = msg.sender;
         kuwaTokenContract = _kuwaTokenContract;
@@ -94,17 +94,14 @@ contract KuwaRegistration {
     /** ---------------------- Poker Protocol ------------------------- */
     uint invalid = 0;
     uint valid = 0;
-    uint timeOfFirstVote;
+    uint timeOfFirstVote = 0;
     mapping(address => bytes32) map;
     address[] public voters;
 
-    function vote(string status) public {
+    function vote(string status) public returns(bool){
+        require(block.timestamp - timeOfFirstVote <= 3600);
         require(kt.balanceOf(msg.sender) >= 100001);
         require(kt.allowance(msg.sender, this) == 1);
-        if (block.timestamp - timeOfFirstVote > 3600) {
-            kt.approve(msg.sender, 1);
-            return;
-        }
         bytes32 statusDigest = keccak256(_toLower(status));
         require(statusDigest == keccak256("valid") || statusDigest == keccak256("invalid"));
         require(map[msg.sender] == 0x0);
@@ -122,10 +119,12 @@ contract KuwaRegistration {
         }
         voters.push(msg.sender);
         map[msg.sender] = statusDigest;
+        return true;
     }
 
-    function payout() public {
+    function payout() public returns(bool) {
         require(block.timestamp - timeOfFirstVote > 3600);
+        
         bytes32 majorityStatus;
         uint finalPot = kt.balanceOf(this);
         uint dividend;
@@ -152,10 +151,12 @@ contract KuwaRegistration {
                 }
             }
         }
+        return true;
     }
 
-    function sponsorAnte() public {
-
+    function sponsorAnte() public returns(bool) {
+        require(msg.sender == sponsorAddress);
+        return kt.transfer(this, 1);
     }
 
     /* Author: Thomas MacLean */
