@@ -98,33 +98,33 @@ const scannedKuwaId = (props) => {
 }
 
 const handleScanAction = (props, state, setState) => {
-    if (props.qrStatus === "Scanning") {
-        props.stopScanner(state.scanner);
-        setState({ 
-            videoWidth: 0,
-            videoHeight: 0 })
+    if(window.usingCordova) {
+        props.mobileStartScanner();
     } else {
-        setState({ 
-            videoWidth: "90%",
-            videoHeight: "auto" })
-        scanId(props, setState)
-    }
-}
-
-const scanId = (props, setState) => {
-    if(!window.usingCordova) {
-        let scanner = new Instascan.Scanner({ video: document.getElementById('qrScanner') });
-        setState({ scanner });
-        scanner.addListener('scan', function(kuwaId) {
-            props.qrCodeFound(kuwaId, scanner);
+        if (props.qrStatus === "Scanning") {
+            props.stopScanner(state.scanner);
             setState({ 
                 videoWidth: 0,
                 videoHeight: 0 })
-        });
-        props.startScanner(scanner);
-    } else {
-        props.mobileStartScanner();
+        } else {
+            setState({ 
+                videoWidth: "90%",
+                videoHeight: "auto" })
+            
+                let scanner = new Instascan.Scanner({ video: document.getElementById('qrScanner') });
+                setState({ scanner });
+                scanner.addListener('scan', function(kuwaId) {
+                    props.qrCodeFound(kuwaId, scanner);
+                    setState({ 
+                        videoWidth: 0,
+                        videoHeight: 0 })
+                });
+                props.startScanner(scanner);
+        }
     }
+
+
+    
 }
 
 const mapStateToProps = state => {

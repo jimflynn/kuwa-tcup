@@ -86,9 +86,9 @@ export function mobileStartScanner() {
                     }
                     setTimeout(function() { 
                         document.getElementById("root").style.opacity = "1";
-                        document.body.removeAttribute("style");
+                        document.body.style.backgroundColor = 'white';
                         document.documentElement.removeAttribute("style");
-                    }, 500)
+                    }, 1000)
                 })
             })
         }
