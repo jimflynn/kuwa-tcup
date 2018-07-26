@@ -13,15 +13,13 @@ var pool = mysql.createPool({
     user     : 'root',
     password : String.raw`(-h(3~8u"_ZE{lV%m(2SWze$F-7K<$,ej:2+@=-O\43**|>j6!2~uPmeJko[ASo=`,
     database : 'alpha_kuwa_registrar_moe',
-    timezone : 'local',
+    timezone : '-04:00',
     dateStrings : true
 });
 
 var credentials = {
-    // key : fs.readFileSync('/etc/httpd/conf/ssl.key/server.key'),
-    // cert: fs.readFileSync('/etc/httpd/conf/ssl.crt/alpha_kuwa_org.pem')
-    key : fs.readFileSync('server.key'),
-    cert: fs.readFileSync('server.cert')
+    key : fs.readFileSync('/etc/httpd/conf/ssl.key/server.key'),
+    cert: fs.readFileSync('/etc/httpd/conf/ssl.crt/alpha_kuwa_org.pem')
 }
 
 app.get('/registration', (req, res) => {

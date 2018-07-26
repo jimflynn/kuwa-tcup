@@ -9,7 +9,6 @@
 
 .App-header {
   background-color: #bbbbbb;
-  height: 150px;
   padding: 20px;
   color: white;
 }
@@ -17,6 +16,7 @@
 .App-title {
   font-size: 1.5em;
   color: black;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 
 .App-intro {
@@ -28,21 +28,46 @@
   to { transform: rotate(360deg); }
 }
 
-#tableIdToFill {
+table {
   width: 100%;
-  border: 2px solid;
-  font-size: 15px;
 }
 
 th {
-  border: 1px solid #000000;
+  padding: 2px solid #000000;
+  background: #424242;
+  color: #FFFFFF;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-size: 14px;
 }
 
 td {
   font-family: monospace, monospace;
-  font-size: 13px;
+  font-size:14px;
 }
 
 tr:nth-child(even) {
-  background-color: #d3d3d3;
+  background-color: #d2d2d2;
+}
+
+.caret {
+display: inline-block;
+width: 0;
+height: 0;
+margin-left: 2px;
+vertical-align: middle;
+border-top: 4px dashed;
+border-top: 4px solid \9;
+border-right: 4px solid transparent;
+border-left: 4px solid transparent;
+}
+
+.dropup, .dropdown {
+position: relative;
+}
+
+.dropup .caret, .navbar-fixed-bottom .dropdown .caret {
+border-top: 0;
+border-bottom: 4px dashed;
+border-bottom: 4px solid \9;
+content: "";
 }
