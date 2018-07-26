@@ -25,9 +25,32 @@ export function startScanner(scanner) {
 export function qrCodeFound(kuwaId, scanner) {
     return dispatch => {
         scanner.stop().then(() => {
+            if (isValidKuwaId(kuwaId)) {
+                dispatch({
+                    type: 'QR_CODE_FOUND',
+                    payload: { kuwaId }
+                })
+            } else {
+                dispatch({
+                    type: 'QR_CODE_INVALID'
+                })
+            }
+        })
+    }
+}
+
+function isValidKuwaId(kuwaId) {
+    if (typeof kuwaId === 'string' || kuwaId instanceof String) {
+        if(kuwaId.length === 42 && kuwaId.startsWith("0x")) return true;
+    }
+    return false;
+}
+
+export function stopScanner(scanner) {
+    return dispatch => {
+        scanner.stop().then(() => {
             dispatch({
-                type: 'QR_CODE_FOUND',
-                payload: { kuwaId }
+                type: 'QR_CODE_STOP_SCAN'
             })
         })
     }

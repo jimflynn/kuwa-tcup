@@ -7,6 +7,7 @@ import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import PermIcon from '@material-ui/icons/PermIdentity';
+import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
 
 import grey from '@material-ui/core/colors/grey';
 
@@ -44,9 +45,14 @@ class SimpleBottomNavigation extends React.Component {
                     <BottomNavigationAction onClick={() => {
                         if(this.state.value !== 0) this.props.navigateTo('/YourKuwaId')
                     }} classes={{ root: classes.root, selected: classes.selected }} label="Your Kuwa ID" icon={<PermIcon />} />
+
                     <BottomNavigationAction onClick={() => {
                         if(this.state.value !== 1) this.props.navigateTo('/YourStatus')
                     }} classes={{ root: classes.root, selected: classes.selected }} label="Kuwa ID Status" icon={<FavoriteIcon />} />
+
+                    <BottomNavigationAction onClick={() => {
+                        if(this.state.value !== 2) this.props.navigateTo('/YourNetwork')
+                    }} classes={{ root: classes.root, selected: classes.selected }} label="Your Network" icon={<PeopleOutlineIcon />} />
                 </BottomNavigation>
             </div>
         );
