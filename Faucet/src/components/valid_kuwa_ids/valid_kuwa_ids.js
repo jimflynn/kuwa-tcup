@@ -12,7 +12,11 @@ import {
   InputGroupButtonDropdown,
   InputGroupDropdown,
   Input,
+  Fade,
   Collapse,
+  Container,
+  Row,
+  Col,
   Navbar,
   NavbarToggler,
   NavbarBrand,
@@ -31,7 +35,7 @@ function blockLinks(cell, row){
 }
 
 function amountFormatter(cell,row){
-  return `50`;
+  return `<div>50</div>`;
 }
 
 class KuwaFaucet extends Component {
@@ -50,7 +54,8 @@ class KuwaFaucet extends Component {
       dropdownOpen: false,
       dropdownValue: 'Choose currency',
       visible: false,
-      amountBox: null
+      amountBox: null,
+      fadeIn: true
     }
 
     this.toggle = this.toggle.bind(this);
@@ -144,9 +149,12 @@ class KuwaFaucet extends Component {
      return (
       <div>
         
-
+        <Container>
+          <Row>  
           <InputGroup>
+          <Col>
           <Input placeholder="Enter amount" maxLength="10" name="amountBox" value={ this.state.amountBox } onChange={ this.handleChange }/>
+          </Col>
           <InputGroupButtonDropdown addonType="append" isOpen={this.state.dropdownOpen} toggle={this.toggleDropDown}>
             <DropdownToggle caret>
               {this.state.dropdownValue}
@@ -156,10 +164,14 @@ class KuwaFaucet extends Component {
               <DropdownItem divider />
             </DropdownMenu>
           </InputGroupButtonDropdown>
-        </InputGroup>
+          </InputGroup>
+          </Row>
+        </Container>
+
+
         <br />
           <Button id="faucet-payment-button" color="success" size="lg" onClick={this.onPayBtnClick}>Pay</Button>{' '}
-          <Alert color="info" isOpen={this.state.visible} toggle={this.onDismiss}>
+          <Alert color="info" isOpen={this.state.visible} toggle={this.onDismiss} fade={this.state.fadeIn} >
         { this.state.amountBox } KuwaCoins are being sent to each of the valid Kuwa IDs
       </Alert>
           <br />
@@ -170,7 +182,7 @@ class KuwaFaucet extends Component {
               <TableHeaderColumn dataField="timestamp" filter={ { type: 'TextFilter', delay: 200 }} isKey dataSort editable={ false } hidden={ true }> Time </TableHeaderColumn>
               <TableHeaderColumn dataField="client_address" dataSort editable={ false }> Kuwa ID(Address)</TableHeaderColumn>
               <TableHeaderColumn dataField="contract_address" dataSort dataFormat={blockLinks} editable={ false }> Registration Contract Address</TableHeaderColumn>
-              <TableHeaderColumn dataField="Amount" dataformat={amountFormatter}> Amount </TableHeaderColumn>
+              <TableHeaderColumn dataField="amount" dataSort dataFormat={amountFormatter} > Amount </TableHeaderColumn>
 
         </BootstrapTable>
       </div>
