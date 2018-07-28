@@ -1,21 +1,21 @@
 // Contract that a Qualified Kuwa Registrar will deploy.
 // Registrars are required to stake at least 100K Kuwa tokens.
 // Written by: Deh-Jun Tzou
-pragma solidity ^0.4.21;
+pragma solidity ^0.4.24;
 
 import "./Owned.sol";
 import "./KuwaToken.sol";
-import "../contracts/KuwaRegistration.sol";
+import "./KuwaRegistration.sol";
 
 contract QualifiedKuwaRegistrar is Owned {
     
     uint public _totalStake;
     address public kuwaTokenContract;
-    address public kuwaFoundation;
+    //address public kuwaFoundation;
 
-    constructor(address _kuwaTokenContract, address _kuwaFoundation) public {
+    constructor(address _kuwaTokenContract/*, address _kuwaFoundation*/) public {
         kuwaTokenContract = _kuwaTokenContract;
-        kuwaFoundation = _kuwaFoundation;
+        //kuwaFoundation = _kuwaFoundation;
     }
 
     function myAddress() public view returns(address) {

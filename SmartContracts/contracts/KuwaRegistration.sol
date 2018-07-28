@@ -1,4 +1,4 @@
-pragma solidity ^0.4.2;
+pragma solidity ^0.4.24;
 
 
 import "./KuwaToken.sol";
@@ -24,12 +24,13 @@ contract KuwaRegistration {
 	//constructor
 	//set the total number of tokens
 	//read total number of tokens
-    constructor (address _clientAddress, address _kuwaTokenContract) public {
+    constructor (address _clientAddress, address _kuwaTokenContract) public payable {
         clientAddress = _clientAddress;
         sponsorAddress = msg.sender;
         kuwaTokenContract = _kuwaTokenContract;
         kt = KuwaToken(_kuwaTokenContract);
         generateChallenge();
+        //sponsorAnte();
     }
 
     // Generates a 5-digit pseudorandom number
@@ -154,7 +155,7 @@ contract KuwaRegistration {
         return true;
     }
 
-    function sponsorAnte() public returns(bool) {
+    function sponsorAnte() public payable returns(bool) {
         require(msg.sender == sponsorAddress);
         return kt.transfer(this, 1);
     }
