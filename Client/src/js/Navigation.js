@@ -5,6 +5,16 @@ import { push } from 'connected-react-router';
 
 import GeneralNavigation from './GeneralNavigation';
 
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import grey from '@material-ui/core/colors/grey';
+
+const requestYourPasscode = [{
+    linkName: "REQUEST YOUR PASSCODE",
+    link: "http://alpha.kuwa.org:3007/"
+}]
+
 /**
  * Shows the navigation bar of The Kuwa Foundation
  * @export
@@ -13,12 +23,31 @@ import GeneralNavigation from './GeneralNavigation';
  */
 class Navigation extends React.Component {
     render() {
-        return (
-            // generalNavigation(this.props)
-            <GeneralNavigation props={this.props} extraNavigationLinks={null} />
-        );
+        if (window.usingCordova) {
+            return (
+                <div>
+                    { mobileAppToolbar(this.props) }
+                </div>
+            )
+        } else {
+            return (
+                <GeneralNavigation props={this.props} extraNavigationLinks={requestYourPasscode} />
+            );
+        }
     }
 }
+
+const mobileAppToolbar = (props) => (
+    <AppBar position="static" style={{backgroundColor: grey[800]}}>
+        <Toolbar>
+
+            <Typography variant="title" color="inherit" style={{flexGrow: 1}}>
+                {props.toolbarTitle ? props.toolbarTitle : "The Kuwa Foundation"}
+            </Typography>
+
+        </Toolbar>
+    </AppBar>
+)
 
 const mapStateToProps = state => {
     return {
@@ -33,8 +62,8 @@ const mapDispatchToProps = dispatch => {
         toggleDrawer: () => {
             dispatch(toggleDrawer())
         },
-        toggleDropdown: (dropdownName) => {
-            dispatch(toggleDropdown(dropdownName))
+        toggleDropdown: (actionName) => {
+            dispatch(toggleDropdown(actionName))
         },
         navigateTo: link => {
             dispatch(push(link))

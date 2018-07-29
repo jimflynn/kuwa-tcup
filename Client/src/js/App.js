@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import Navigation from './Navigation';
-
-import NewNavigation from './NewNavigation';
+import BottomNavigation from './BottomNavigation';
 
 import Steps from './Steps';
 import ProvideCredentials from './ProvideCredentials';
 import RecordRegistrationVideo from './RecordRegistrationVideo';
 import YourKuwaId from './YourKuwaId';
+import YourStatus from './YourStatus';
 
 import Success from './Success';
 import Error from './Error';
@@ -28,8 +28,6 @@ import { ConnectedRouter } from 'connected-react-router';
  */
 class App extends Component {
   render() {
-    let errorMessage = this.props.helpText.error;
-    let successMessage = this.props.helpText.success;
     return (
       <div>
         <Provider store={store}>
@@ -41,9 +39,11 @@ class App extends Component {
                 <Route exact path='/ProvideCredentials' component={ProvideCredentials}/>
                 <Route exact path='/RecordRegistrationVideo' component={RecordRegistrationVideo}/>
                 <Route exact path='/YourKuwaId' component={YourKuwaId}/>
+                <Route exact path='/YourStatus' component={YourStatus}/>
                 <Route exact path='/Error' component={Error}/>
                 <Route exact path='/Success' component={Success}/>
               </Switch>
+              <BottomNavigation />
             </div>
           </ConnectedRouter>
         </Provider>

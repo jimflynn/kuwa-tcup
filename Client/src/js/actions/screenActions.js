@@ -10,11 +10,11 @@ export function togglePasscodeVisibility() {
     }
 }
 
-export function toggleDropdown(dropdownName) {
+export function toggleDropdown(linkName) {
     return {
         type: 'TOOGLE_DROPDOWN',
         payload: {
-            dropdownName
+            linkName
         }
     }
 }
