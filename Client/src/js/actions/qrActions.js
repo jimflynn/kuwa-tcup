@@ -60,7 +60,7 @@ export function mobileStartScanner() {
     return dispatch => {
         // Make the webview transparent so the video preview is visible behind it.
         QRScanner.show();
-        document.getElementById("root").style.opacity = "0";
+        // document.getElementById("root").style.opacity = "0";
         document.body.style.backgroundColor = 'transparent';
         dispatch({
             type: 'QR_CODE_SCAN_PENDING'
@@ -85,10 +85,10 @@ export function mobileStartScanner() {
                         })
                     }
                     setTimeout(function() { 
-                        document.getElementById("root").style.opacity = "1";
+                        // document.getElementById("root").style.opacity = "1";
                         document.body.style.backgroundColor = 'white';
                         document.documentElement.removeAttribute("style");
-                    }, 1000)
+                    }, 500)
                 })
             })
         }
