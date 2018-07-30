@@ -100,7 +100,8 @@ contract KuwaRegistration {
     address[] public voters;
 
     function vote(string status) public returns(bool){
-        require(block.timestamp - timeOfFirstVote <= 3600);
+        require(kt.allowance(sponsorAddress, this) == 1);
+        require(timeOfFirstVote == 0 || block.timestamp - timeOfFirstVote <= 3600);
         require(kt.balanceOf(msg.sender) >= 100001);
         require(kt.allowance(msg.sender, this) == 1);
         bytes32 statusDigest = keccak256(_toLower(status));
@@ -155,10 +156,10 @@ contract KuwaRegistration {
         return true;
     }
 
-    function sponsorAnte() public payable returns(bool) {
+    /*function sponsorAnte() public payable returns(bool) {
         require(msg.sender == sponsorAddress);
-        return kt.transfer(this, 1);
-    }
+        
+    }*/
 
     /* Author: Thomas MacLean */
     function _toLower(string str) public pure returns(string) {
