@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Mon Jul 30 13:18:46 EDT 2018
+#Mon Jul 30 17:01:44 EDT 2018
 20.base=/home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_
 143.base=/home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/build/intermediates/assets/debug
 340.file=/home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_textfield_search_activated_mtrl_alpha.9.png

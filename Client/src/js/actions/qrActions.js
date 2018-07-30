@@ -56,11 +56,28 @@ export function stopScanner(scanner) {
     }
 }
 
+function stopScan(dispatch) {
+    return function() {
+        QRScanner.hide(function() {
+            QRScanner.destroy(function() {
+                dispatch({
+                    type: 'QR_CODE_STOP_SCAN'
+                })
+                setTimeout(function() { 
+                    document.body.style.backgroundColor = 'white';
+                    document.documentElement.removeAttribute("style");
+                    document.removeEventListener("backbutton", stopScan(dispatch), true);
+                }, 500)
+            })
+        })
+    }
+}
+
 export function mobileStartScanner() {
     return dispatch => {
+        document.addEventListener("backbutton", stopScan(dispatch), true);
         // Make the webview transparent so the video preview is visible behind it.
         QRScanner.show();
-        // document.getElementById("root").style.opacity = "0";
         document.body.style.backgroundColor = 'transparent';
         dispatch({
             type: 'QR_CODE_SCAN_PENDING'
@@ -85,9 +102,9 @@ export function mobileStartScanner() {
                         })
                     }
                     setTimeout(function() { 
-                        // document.getElementById("root").style.opacity = "1";
                         document.body.style.backgroundColor = 'white';
                         document.documentElement.removeAttribute("style");
+                        document.addEventListener("backbutton", stopScan(dispatch), true);
                     }, 500)
                 })
             })
