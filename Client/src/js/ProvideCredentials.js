@@ -127,7 +127,17 @@ const renderProvideCredentials = (props, state, setState) =>  (
     </Grid>
 
     <div align="center">
-        <Button variant="contained" style={{backgroundColor: buttonColor, marginTop: "1em"}} onClick={() => props.provideCredentials(state.kuwaPassword, state.passcode)}>
+        <Button variant="contained" style={{backgroundColor: buttonColor, marginTop: "1em"}} onClick={() => {
+                if (state.passcode === "") {
+                    alert("Please provide a passcode");
+                    return;
+                }
+                if (state.kuwaPassword === "") {
+                    alert("Please provide a password");
+                    return;
+                }
+                props.provideCredentials(state.kuwaPassword, state.passcode)
+            }}>
             Continue
         </Button>
     </div>
