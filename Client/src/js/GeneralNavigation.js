@@ -93,7 +93,7 @@ class GeneralNavigation extends Component {
         let newNavigationLinks = this.props.extraNavigationLinks ? originalNavigationLinks.concat(this.props.extraNavigationLinks) : originalNavigationLinks;
         let props = this.props.props;
         return (
-                <AppBar position="static" style={{backgroundColor: grey[800]}}>
+                <AppBar id="webNavbar" position="static" style={{backgroundColor: grey[800]}}>
                     <Toolbar>
 
                         {this.props.width === 'xs' || this.props.width === 'sm' || this.props.width === 'md' ? 

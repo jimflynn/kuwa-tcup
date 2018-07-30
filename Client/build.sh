@@ -26,6 +26,8 @@ if [ ! -d cordovaClient ]; then
     wait
     cordova plugin add cordova-plugin-qrscanner
     wait
+    cordova plugin add cordova-plugin-screen-orientation
+    wait
     cd ..
 fi
 

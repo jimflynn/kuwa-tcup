@@ -33,7 +33,7 @@ class SimpleBottomNavigation extends React.Component {
         const { classes } = this.props;
         return (
             <div>
-                <div style={{ padding: "2em" }}></div>
+                <div id="bottomNav" style={{ padding: "2em" }}></div>
                 <BottomNavigation
                     value={this.state.value}
                     onChange={(event, value) => {

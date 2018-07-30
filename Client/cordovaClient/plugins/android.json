@@ -36,7 +36,14 @@
     },
     "cordova-plugin-qrscanner": {
       "PACKAGE_NAME": "org.kuwa.client"
+    },
+    "cordova-plugin-screen-orientation": {
+      "PACKAGE_NAME": "org.kuwa.client"
     }
   },
-  "dependent_plugins": {}
+  "dependent_plugins": {
+    "es6-promise-plugin": {
+      "PACKAGE_NAME": "org.kuwa.client"
+    }
+  }
 }

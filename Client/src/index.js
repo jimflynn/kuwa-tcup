@@ -38,6 +38,8 @@ const init = () => {
     //     navigator.app.backHistory();
     // }
 
+    
+
     renderDom();
 }
 

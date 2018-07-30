@@ -46,6 +46,20 @@ class YourKuwaId extends Component {
 }
 
 class QRSquare extends Component {
+    componentWillMount() {
+        let orientation = window.screen.orientation.type;
+        if (orientation.includes("portrait")) {
+            window.screen.orientation.lock("portrait");
+        } else if (orientation.includes("landscape")) {
+            window.screen.orientation.lock("landscape");
+        }
+
+        let bottomNav = document.getElementById("bottomNav");
+        let navigation = document.getElementById("mobileNavbar");
+
+        this.canvasWidth = window.innerWidth;
+        this.canvasHeight = window.innerHeight - navigation.offsetHeight - bottomNav.offsetHeight;
+    }
     componentDidMount() {
         let canvas = document.getElementById("square");
         let ctx = canvas.getContext("2d");
@@ -65,9 +79,13 @@ class QRSquare extends Component {
         ctx.stroke();
     }
 
+    componentWillUnmount() {
+        window.screen.orientation.unlock();
+    }
+
     render() {
         return (
-            <canvas id="square" width={ window.innerWidth } height={ window.innerHeight }></canvas>
+            <canvas id="square" width={ this.canvasWidth } height={ this.canvasHeight }></canvas>
         );
     }
 }
