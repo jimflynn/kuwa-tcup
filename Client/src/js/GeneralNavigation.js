@@ -92,9 +92,8 @@ class GeneralNavigation extends Component {
     render() {
         let newNavigationLinks = this.props.extraNavigationLinks ? originalNavigationLinks.concat(this.props.extraNavigationLinks) : originalNavigationLinks;
         let props = this.props.props;
-        //console.log(props);
         return (
-                <AppBar position="static" style={{backgroundColor: grey[800]}}>
+                <AppBar id="webNavbar" position="static" style={{backgroundColor: grey[800]}}>
                     <Toolbar>
 
                         {this.props.width === 'xs' || this.props.width === 'sm' || this.props.width === 'md' ? 
@@ -125,7 +124,6 @@ class GeneralNavigation extends Component {
 
 const createDesktopToolbar = (props, navigationLinks) => (
     navigationLinks.map((navItem, index) => {
-        console.log(props);
         if (navItem.children) {
             return (
                 <div key={(index + 1).toString()}>
@@ -133,7 +131,6 @@ const createDesktopToolbar = (props, navigationLinks) => (
                     {menuDropdown(props, props.dropdowns[navItem.linkName], navItem.linkName, navItem.children)}
                 </div>
             )
-            // return null
         } else {
             return (
                 <Button key={(index + 1).toString()} color="inherit" onClick={() => {
@@ -161,7 +158,7 @@ const menuDropdown = (props, isOpen, anchorElement, items) => (
                         window.location.href = item.link
                     else if (item.pushLink)
                         props.navigateTo('/' + item.pushLink)
-                }}>{item.linkName}</MenuItem>    
+                }}>{item.linkName}</MenuItem>
             )
         })}
     </Menu>

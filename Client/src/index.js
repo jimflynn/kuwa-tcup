@@ -32,11 +32,13 @@ const init = () => {
         }
     })
 
-    document.addEventListener("backbutton", onBackKeyDown, false);
-    function onBackKeyDown() {
-        history.go(-1);
-        navigator.app.backHistory();
-    }
+    // document.addEventListener("backbutton", onBackKeyDown, false);
+    // function onBackKeyDown() {
+    //     history.go(-1);
+    //     navigator.app.backHistory();
+    // }
+
+    
 
     renderDom();
 }

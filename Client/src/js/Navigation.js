@@ -38,7 +38,7 @@ class Navigation extends React.Component {
 }
 
 const mobileAppToolbar = (props) => (
-    <AppBar position="static" style={{backgroundColor: grey[800]}}>
+    <AppBar id="mobileNavbar" position="static" style={{backgroundColor: grey[800]}}>
         <Toolbar>
 
             <Typography variant="title" color="inherit" style={{flexGrow: 1}}>

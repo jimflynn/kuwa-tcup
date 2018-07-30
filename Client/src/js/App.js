@@ -7,6 +7,7 @@ import ProvideCredentials from './ProvideCredentials';
 import RecordRegistrationVideo from './RecordRegistrationVideo';
 import YourKuwaId from './YourKuwaId';
 import YourStatus from './YourStatus';
+import YourNetwork from './YourNetwork';
 
 import Success from './Success';
 import Error from './Error';
@@ -40,6 +41,7 @@ class App extends Component {
                 <Route exact path='/RecordRegistrationVideo' component={RecordRegistrationVideo}/>
                 <Route exact path='/YourKuwaId' component={YourKuwaId}/>
                 <Route exact path='/YourStatus' component={YourStatus}/>
+                <Route exact path='/YourNetwork' component={YourNetwork}/>
                 <Route exact path='/Error' component={Error}/>
                 <Route exact path='/Success' component={Success}/>
               </Switch>
