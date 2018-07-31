@@ -32,6 +32,7 @@ contract KuwaRegistration {
         kuwaTokenContract = _kuwaTokenContract;
         kt = KuwaToken(_kuwaTokenContract);
         generateChallenge();
+        setRegistrationStatusTo("Credentials Provided");
         //sponsorAnte();
     }
 
@@ -83,8 +84,12 @@ contract KuwaRegistration {
     }
 
     // Possible values for newStatus are:
-    // Challenge Expired, Video Uploaded, QR code scanned, Valid, Invalid
+    // Credentials Provided, Challenge Expired, Video Uploaded, QR Code Scanned, Valid, Invalid
     function setRegistrationStatusTo(bytes32 newStatus) public {
+        bool validInputA = newStatus == "Credentials Provided" || newStatus == "Challenge Expired";
+        bool validInputB = newStatus == "Video Uploaded" || newStatus == "QR Code Scanned";
+        bool validInputC = newStatus == "Valid" || newStatus == "Invalid";
+        require(validInputA || validInputB || validInputC);
         registrationStatus = newStatus;
     }
 
