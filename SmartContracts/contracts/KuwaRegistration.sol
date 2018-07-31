@@ -13,7 +13,9 @@ contract KuwaRegistration {
     uint256 private challenge;
     uint256 private challengeCreationTime;
 
-    bytes20 private registrationStatus;
+    bytes32 private registrationStatus;
+
+    address[] private kuwaNetwork;
 
     // For Poker Protocol 
     // ---------------------
@@ -30,6 +32,7 @@ contract KuwaRegistration {
         kuwaTokenContract = _kuwaTokenContract;
         kt = KuwaToken(_kuwaTokenContract);
         generateChallenge();
+        setRegistrationStatusTo("Credentials Provided");
         //sponsorAnte();
     }
 
@@ -39,12 +42,12 @@ contract KuwaRegistration {
         uint256 lastBlockNumber = block.number - 1;
         uint256 hashVal = uint256(blockhash(lastBlockNumber));
         // This turns the input data into a 100-sided die
-        // by dividing by ceil(2 ^ 256 / 100000).
-        uint256 FACTOR = 1157920892373161954235709850086879078532699846656405640394575840079131296;
+        // by dividing by ceil(2 ^ 256 / 10000).
+        uint256 FACTOR = 11579208923731619542357098500868790785326998466564056403945758400791312963;
         uint256 randNum = uint256(uint256(keccak256(abi.encodePacked(hashVal, _publicKey))) / FACTOR) + 1;
         // Sometimes the leading value is 0, so because we want the number always to
-        // be 5 digits long, we just need to place it at the end of the challenge.
-        while (randNum < 10000) {
+        // be 4 digits long, we just need to place it at the end of the challenge.
+        while (randNum < 1000) {
             randNum = randNum * 10;
         }
         return randNum;
@@ -60,7 +63,7 @@ contract KuwaRegistration {
     // This was not part of the specification of the week but it makes sense to add it
     function getChallenge() public view returns(uint256) {
         uint256 timeElapsed = block.timestamp - challengeCreationTime;
-        // timestamp is in seconds, therefore, 36000s == 10min.
+        // timestamp is in seconds, therefore, 36000s == 10hours.
         // We may need to change this later.
         if (timeElapsed < 36000) {
             return challenge;
@@ -68,13 +71,25 @@ contract KuwaRegistration {
         return 0;
     }
 
-    function getRegistrationStatus() public view returns(bytes20) {
+    function addScannedKuwaId(address kuwaId) public {
+        kuwaNetwork.push(kuwaId);
+    }
+
+    function getKuwaNetwork() public view returns(address[]) {
+        return kuwaNetwork;
+    }
+
+    function getRegistrationStatus() public view returns(bytes32) {
         return registrationStatus;
     }
 
     // Possible values for newStatus are:
-    // Challenge Expired, Video Uploaded, QR code scanned, Valid, Invalid
-    function setRegistrationStatusTo(bytes20 newStatus) public {
+    // Credentials Provided, Challenge Expired, Video Uploaded, QR Code Scanned, Valid, Invalid
+    function setRegistrationStatusTo(bytes32 newStatus) public {
+        bool validInputA = newStatus == "Credentials Provided" || newStatus == "Challenge Expired";
+        bool validInputB = newStatus == "Video Uploaded" || newStatus == "QR Code Scanned";
+        bool validInputC = newStatus == "Valid" || newStatus == "Invalid";
+        require(validInputA || validInputB || validInputC);
         registrationStatus = newStatus;
     }
 
