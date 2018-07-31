@@ -104,15 +104,15 @@ var run = async function() {
     // let balance = await kuwaTokenInstance.methods.balanceOf("0xf9f83aaa322ab613db21229be6ca9e2df8a1a149").call({ from:"0xf9f83aaa322ab613db21229be6ca9e2df8a1a149" })
     // console.log(balance);
 
-    // let challenge = await contractInstance.methods.getChallenge().call();
-    // console.log(challenge);
+    let challenge = await contractInstance.methods.getChallenge().call();
+    console.log(challenge);
     // await contractInstance.methods.addScannedKuwaId("0xF9F83AaA322aB613Db21229BE6ca9E2dF8a1A149").send()
     // let kuwaNetwork = await contractInstance.methods.getKuwaNetwork().call();
     // console.log(kuwaNetwork);
 
-    await contractInstance.methods.setRegistrationStatusTo(web3.utils.utf8ToHex('Challenge Expired')).send();
-    let registrationStatus = await contractInstance.methods.getRegistrationStatus().call();
-    console.log(web3.utils.hexToUtf8(registrationStatus));
+    // await contractInstance.methods.setRegistrationStatusTo(web3.utils.utf8ToHex('Challenge Expired')).send();
+    // let registrationStatus = await contractInstance.methods.getRegistrationStatus().call();
+    // console.log(web3.utils.hexToUtf8(registrationStatus));
 }
 
 run().catch(err => console.log(err));
