@@ -1,0 +1,49 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "org.kuwa.client"
+    },
+    "cordova-plugin-media-capture": {
+      "PACKAGE_NAME": "org.kuwa.client"
+    },
+    "cordova-plugin-android-permissions": {
+      "PACKAGE_NAME": "org.kuwa.client"
+    },
+    "cordova-plugin-file-transfer": {
+      "PACKAGE_NAME": "org.kuwa.client"
+    },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "org.kuwa.client"
+    },
+    "cordova-plugin-dialogs": {
+      "PACKAGE_NAME": "org.kuwa.client"
+    },
+    "cordova-plugin-file": {
+      "PACKAGE_NAME": "org.kuwa.client"
+    },
+    "cordova-plugin-camera": {
+      "PACKAGE_NAME": "org.kuwa.client"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "org.kuwa.client"
+    },
+    "cordova-plugin-qrscanner": {
+      "PACKAGE_NAME": "org.kuwa.client"
+    },
+    "cordova-plugin-screen-orientation": {
+      "PACKAGE_NAME": "org.kuwa.client"
+    }
+  },
+  "dependent_plugins": {
+    "es6-promise-plugin": {
+      "PACKAGE_NAME": "org.kuwa.client"
+    }
+  }
+}

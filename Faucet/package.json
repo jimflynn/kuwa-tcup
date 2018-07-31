@@ -1,18 +1,24 @@
 {
-  "name": "test11",
-  "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
-  "directories": {
-    "test": "test"
+  "name": "sponsor_ui",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.18.0",
+    "boostrap": "^2.0.0",
+    "bootstrap": "^4.1.1",
+    "forever": "^0.15.3",
+    "react": "^16.4.0",
+    "react-bootstrap-table": "^4.3.1",
+    "react-dom": "^16.4.0",
+    "react-scripts": "1.1.4",
+    "reactjs-popup": "^1.1.1",
+    "reactstrap": "^6.1.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "PORT=3015 react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "web3": "^0.20.4"
-  }
+  "proxy": "https://alpha.kuwa.org:3000"
 }
