@@ -15,6 +15,8 @@ contract KuwaRegistration {
 
     bytes20 private registrationStatus;
 
+    address[] private kuwaNetwork;
+
     // For Poker Protocol 
     // ---------------------
     KuwaToken kt;
@@ -66,6 +68,14 @@ contract KuwaRegistration {
             return challenge;
         }
         return 0;
+    }
+
+    function addScannedKuwaId(address kuwaId) public {
+        kuwaNetwork.push(kuwaId);
+    }
+
+    function getKuwaNetwork() public view returns(address[]) {
+        return kuwaNetwork;
     }
 
     function getRegistrationStatus() public view returns(bytes20) {
