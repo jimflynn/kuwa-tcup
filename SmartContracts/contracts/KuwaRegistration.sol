@@ -13,7 +13,7 @@ contract KuwaRegistration {
     uint256 private challenge;
     uint256 private challengeCreationTime;
 
-    bytes20 private registrationStatus;
+    bytes32 private registrationStatus;
 
     address[] private kuwaNetwork;
 
@@ -78,13 +78,13 @@ contract KuwaRegistration {
         return kuwaNetwork;
     }
 
-    function getRegistrationStatus() public view returns(bytes20) {
+    function getRegistrationStatus() public view returns(bytes32) {
         return registrationStatus;
     }
 
     // Possible values for newStatus are:
     // Challenge Expired, Video Uploaded, QR code scanned, Valid, Invalid
-    function setRegistrationStatusTo(bytes20 newStatus) public {
+    function setRegistrationStatusTo(bytes32 newStatus) public {
         registrationStatus = newStatus;
     }
 
