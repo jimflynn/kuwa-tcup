@@ -7,7 +7,7 @@ import {
     BACK } from '../actions/types';
     
 const initialState = {
-    isMobile: window.usingCordova,
+    usingCordova: window.usingCordova,
     kuwaId: {
         address: "Your Kuwa ID has not been generated.",
         challenge: "You need to be sponsored to get a challenge number."
@@ -33,13 +33,12 @@ const kuwaReducer = (state = initialState, action) => {
             })
         case 'CREATE_KEYS_FULFILLED':
             return Object.assign({}, state, {
-                currentKuwaId: action.payload.identifier,
                 kuwaId: Object.assign({}, state.kuwaId, {
                     address: '0x' + action.payload.keyObject.address,
                     privateKey: '0x' + action.payload.privateKeyInHex,
                     keyObject: action.payload.keyObject,
-                    sponsorship: "NOT_SPONSORED",
-                    info_uploaded: false,
+                    sponsored: false,
+                    infoUploaded: false,
                     unlocked: false,
                     qrCodeSrc: action.payload.qrCodeSrc
                 })
@@ -49,7 +48,7 @@ const kuwaReducer = (state = initialState, action) => {
         case 'REQUEST_SPONSORSHIP_FULFILLED':
             return Object.assign({}, state, {
                 kuwaId: Object.assign({}, state.kuwaId, {
-                    sponsorship: "SPONSORED",
+                    sponsored: true,
                     unlocked: true,
                     contractAddress: action.payload.responseJson.contractAddress,
                     abi: action.payload.responseJson.abi,
@@ -79,9 +78,6 @@ const kuwaReducer = (state = initialState, action) => {
                 screen: Object.assign({}, state.screen, {
                     uploadToStorage: {
                         loading: true
-                    },
-                    loading: {
-                        helpText: 'Uploading Information. This may take several minutes...'
                     }
                 })
             })
@@ -89,7 +85,7 @@ const kuwaReducer = (state = initialState, action) => {
         case 'WEB_UPLOAD_TO_STORAGE_FULFILLED':
             return Object.assign({}, state, {
                 kuwaId: Object.assign({}, state.kuwaId, {
-                    info_uploaded: true
+                    infoUploaded: true
                 }),
                 screen: Object.assign({}, state.screen, {
                     uploadToStorage: {

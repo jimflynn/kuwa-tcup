@@ -34,6 +34,9 @@
     <feature name="QRScanner">
         <param name="android-package" value="com.bitpay.cordova.qrscanner.QRScanner" />
     </feature>
+    <feature name="CDVOrientation">
+        <param name="android-package" value="cordova.plugins.screenorientation.CDVOrientation" />
+    </feature>
     <name>Kuwa Registration</name>
     <description>
         A reference implementation of a Kuwa Registration app.

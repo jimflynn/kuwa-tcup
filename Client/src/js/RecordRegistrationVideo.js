@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Provider } from 'react-redux';
 import { store } from './store';
+import { push } from 'connected-react-router';
 import Video from './Video';
 
 import { webUploadToStorage, uploadToStorage  } from './actions/kuwaActions';
 import { paperHeader } from './paperHeader';
+import { Loading } from './Load';
 
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -24,42 +26,38 @@ const styles = theme => ({
 
 class RecordRegistrationVideo extends Component {
     render() {
-        const { classes } = this.props;
         return (
             <Grid container justify="center" style={{flexGrow: 1}}>
                 <Grid item xs={12} sm={10} md={8} lg={6} xl={6}>
-                    <Paper className={classes.root} elevation={1} style={{margin: 20}}>
+                    <Paper className={this.props.classes.root} elevation={1} style={{margin: 20}}>
 
-                        { paperHeader("Step 2 – Record your registration video.") }
+                    { paperHeader("Step 2 – Record your registration video.") }
 
-                        <Typography variant="subheading" align="left" style={{margin: "1em"}}>
-                            Every living human is entitled to exactly one Kuwa ID. To help us identify you, we need a video of you speaking the following numbers:
-                        </Typography>
-                        <Typography variant="title" align="center" style={{margin: "1em"}}>
-                            <strong>{this.props.challenge}</strong>
-                        </Typography>
-                        <Grid container justify="center" style={{margin: "1em"}}>
-                            <Provider store={store}>
-                                <Video />
-                            </Provider>
-                        </Grid>
-                        {renderButton(this.props)}
+                    { this.props.loading ? <Loading loadingMessage="Uploading Information. This may take several minutes..." /> : renderContent(this.props) }
+
                     </Paper>
                 </Grid>
             </Grid>
-            
-        );
+        )
     }
 }
+
+const renderContent = props => (
+    <div>
+        { props.infoUploaded ? renderDone(props) : renderRecordRegistrationVideo(props) }
+    </div>
+)
 
 const renderButton = props => {
     if (props.videoStatus === 'success') {
         return (
             <Grid container justify="center" style={{margin: "1em"}}> 
                 <Button variant="contained" style={{backgroundColor: buttonColor}} onClick={() => {
-                    let uploadFunction = props.webUploadToStorage
-                    if (window.isMobile) uploadFunction = props.uploadToStorage
-                    uploadFunction(props.videoFilePath, props.ethereumAddress, props.abi, props.contractAddress)
+                    if (window.usingCordova) {
+                        props.uploadToStorage(props.videoFilePath, props.ethereumAddress, props.abi, props.contractAddress)
+                    } else {
+                        props.webUploadToStorage(props.videoBlob, props.ethereumAddress, props.abi, props.contractAddress)
+                    }
                 }}>
                     Upload Video
                 </Button>
@@ -68,6 +66,34 @@ const renderButton = props => {
     }
     return null;
 }
+
+const renderRecordRegistrationVideo = props => (
+    <div>
+        <Typography variant="subheading" align="left" style={{margin: "1em"}}>
+            Every living human is entitled to exactly one Kuwa ID. To help us identify you, we need a video of you speaking the following numbers:
+        </Typography>
+        <Typography variant="title" align="center" style={{margin: "1em"}}>
+            <strong>{props.challenge}</strong>
+        </Typography>
+        <Provider store={store}>
+            <Video />
+        </Provider>
+        {renderButton(props)}
+    </div>
+)
+
+const renderDone = props => (
+    <div>
+    <Typography variant="title" align="center" style={{margin: "1em"}}>
+        You have already uploaded your challenge video.
+    </Typography>
+    <div align="center">
+        <Button variant="contained" style={{backgroundColor: buttonColor, marginTop: "1em"}} onClick={() => props.navigateTo('/YourKuwaId')}>
+            Continue
+        </Button>
+    </div>
+    </div>
+)
 
 const mapStateToProps = state => {
     return {
@@ -79,6 +105,9 @@ const mapStateToProps = state => {
         videoStatus: state.videoReducer.videoStatus,
         videoFilePath: state.videoReducer.videoFilePath,
         videoBlob: state.videoReducer.videoBlob,
+        infoUploaded: state.kuwaReducer.kuwaId.infoUploaded,
+
+        loading: state.kuwaReducer.screen.uploadToStorage.loading
     }
 }
 
@@ -89,6 +118,9 @@ const mapDispatchToProps = dispatch => {
         },
         webUploadToStorage: (videoBlob, ethereumAddress, abi, contractAddress) => {
             dispatch(webUploadToStorage(videoBlob, ethereumAddress, abi, contractAddress))
+        },
+        navigateTo: link => {
+            dispatch(push(link))
         }
     }
 }
