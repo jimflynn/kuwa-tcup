@@ -223,27 +223,18 @@ var run = async function() {
 }*/
 
     
-    kuwaToken.methods.transfer(wallets.sponsor, 200001).send({from: wallets.kuwa_foundation})
-        .then(function(receipt) {
-            console.log(receipt);
-        })
-        .catch(function(error) {
-            console.error(error);
-        });
+    await kuwaToken.methods.transfer(wallets.sponsor, 200001).send({from: wallets.kuwa_foundation});
 
     console.log("Token balance of Sponsor");
 
     kuwaToken.methods.balanceOf(wallets.sponsor).call({from: wallets.kuwa_foundation})
             .then(function(balance) {
-                    console.log(key + ": " + balance);
+                    console.log(balance);
                 }
             )
             .catch(
                 console.error
             );
-    };
-
-    console.log("Starting Poker protocol...");
 }
 
 run().catch(err => console.log(err));
