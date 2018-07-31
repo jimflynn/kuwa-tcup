@@ -18,8 +18,11 @@ properties = JSON.parse(properties);
 var walletPath = properties.walletPath;
 var walletAddress = "0x" + properties.accountAddress.toString("hex");
 var walletPassword = properties.password;
+var walletNonce = 0;
 
 var dict = {};
+var queue = [];
+
 
 var loadContract = async function(ContractABI, ContractAddress, from, gasPrice, gas) {
 	let contract = new web3.eth.Contract(ContractABI);
@@ -47,19 +50,27 @@ var getChallengePhrase = async function(smartContract) {
 
 var validateKuwaID = async function(senderAddress, ContractAddress, smartContract, gasLimit, gasPrice) {
     console.log('Sending Transaction...');
-	let receipt = await smartContract.methods.markAsValid().send({from: senderAddress, gas: gasLimit, gasPrice: gasPrice});
-	return receipt;
+	// await smartContract.methods.markAsValid().send({from: senderAddress, gas: gasLimit, gasPrice: gasPrice});
+	let receipt = smartContract.methods.markAsValid().send({from: senderAddress, 
+                                                            gas: gasLimit, 
+                                                            gasPrice: gasPrice, nonce: walletNonce});
+    walletNonce = walletNonce + 1;
+    return receipt;
 }
 
 var inValidateKuwaID = async function(senderAddress, ContractAddress, smartContract, gasLimit, gasPrice) {
-	let receipt = await smartContract.methods.markAsInvalid().send({from: senderAddress, gas: gasLimit, gasPrice: gasPrice});
-	return receipt;
+    console.log('Sending Transaction...');
+	// await smartContract.methods.markAsInvalid().send({from: senderAddress, gas: gasLimit, gasPrice: gasPrice});
+	let receipt = smartContract.methods.markAsInvalid().send({from: senderAddress, 
+                                                              gas: gasLimit, 
+                                                              gasPrice: gasPrice, nonce: walletNonce});
+    walletNonce = walletNonce + 1;
+    return receipt;
 }
 
 var getStatus = async function(smartContract) {
     console.log('Getting Status...');
-	let regStatus = await smartContract.methods.getRegistrationStatus().call();
-	return regStatus;
+    return smartContract.methods.getRegistrationStatus().call();
 }
 
 var findDuplicate = function(mapping, hashval) {
@@ -73,6 +84,7 @@ var findDuplicate = function(mapping, hashval) {
 let pool = mysql.createPool({
 	host: "localhost",
 	user: "root",
+	// password: "sqlpassword",
 	password: String.raw`(-h(3~8u"_ZE{lV%m(2SWze$F-7K<$,ej:2+@=-O\43**|>j6!2~uPmeJko[ASo=`,
 	database: "alpha_kuwa_registrar_moe",
 	timezone : '-04:00',
@@ -84,29 +96,38 @@ var insertRow = function(ClientAddress, ContractAddress, regStatus) {
 		`INSERT INTO registration (client_address, contract_address, status) VALUES ('%s', '%s', %d) ON DUPLICATE KEY UPDATE client_address='%s', contract_address='%s', status=%d;`,
 		ClientAddress, ContractAddress, regStatus, ClientAddress, ContractAddress, regStatus);
 
-	pool.getConnection((err, connection) => {
-		if(err) {
-			console.log("Error in Client - " + ClientAddress);
-			console.log(err);
-		}
-		connection.query(command, (err, result) => {
-			console.log("Watcher connected to DB.");
-			if(!err) {
-				console.log("Record inserted - " + ClientAddress);
-			}
-		});
-		connection.release();
-	});
+    pool.getConnection((err, connection) => {
+            if(err) {
+            console.log("Error in Client - " + ClientAddress);
+            console.log(err);
+            }
+            connection.query(command, (err, result) => {
+                    console.log("Watcher connected to DB.");
+                    if(!err) {
+                    console.log("Record inserted - " + ClientAddress);
+                    }
+                    });
+            connection.release();
+            });
 }
 
+// get wallet Nonce
+web3.eth.getTransactionCount(walletAddress).then((nonce) => {
+    walletNonce = nonce;
+    console.log("Nonce = ", walletNonce);
+});
+
 // Start watching desired directory
-dir = '/registrations';
+dir = '/home/darshi/registrations';
 chokidar.watch(dir, {persistent: true}).on('all', registerFile);
 
-async function registerFile(event, filePath) {
+function addFileToQueue(event, filePath) {
     console.log(event, filePath);
+    // when new file detected, store it in a queue.
+    queue.push(filePath);
+}
 
-    // when new file detected, hash it and store in a Map.
+async function registerFile(event, filePath) {
     if(event == 'add' && (path.basename(filePath) == 'info.json')) {
         try {
             let info = JSON.parse(fs.readFileSync(filePath, 'utf8'));
@@ -124,10 +145,11 @@ async function registerFile(event, filePath) {
             if(!duplicate) {
                 dict[filePath] = hash;
                 await loadWallet(walletPath, walletAddress, walletPassword);
+                console.log("Wallet loaded.");
                 let smartContract = await loadContract(ContractABI, ContractAddress, walletAddress, "50000000000", "60000");
                 console.log("Smart Contract generated.");
                 let challengePhrase = await getChallengePhrase(smartContract);
-                console.log('challengePhrase =', challengePhrase);
+                console.log("challengePhrase = ", challengePhrase);
                 let receipt = await validateKuwaID(walletAddress, ContractAddress, smartContract, "60000", "50000000000");
                 console.log(receipt);
                 let regStatus = await getStatus(smartContract, ContractAddress);
@@ -136,22 +158,21 @@ async function registerFile(event, filePath) {
             }
             else {
                 await loadWallet(walletPath, walletAddress, walletPassword);
+                console.log("Wallet loaded.");
                 let smartContract = await loadContract(ContractABI, ContractAddress, walletAddress, "50000000000", "60000");
                 console.log("Smart Contract generated.");
                 let challengePhrase = await getChallengePhrase(smartContract);
-                console.log('challengePhrase =', challengePhrase);
+                console.log("challengePhrase = ", challengePhrase);
                 let receipt = await inValidateKuwaID(walletAddress, ContractAddress, smartContract, "60000", "50000000000");
                 console.log(receipt);
                 let regStatus = await getStatus(smartContract, ContractAddress);
                 console.log("Registration Status of " + ClientAddress + "= " + regStatus);
                 insertRow(ClientAddress, ContractAddress, regStatus);
             }
+            queue.shift();
         }
         catch(err) {
             console.log("ERROR: " + err.message);
         }
-    }
-    else if(event == 'unlinkDir') {
-        delete dict[filePath];
     }
 }

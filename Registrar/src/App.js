@@ -69,7 +69,7 @@ class App extends Component {
                         dataSort={ true } 
                         dataAlign='center' 
                         dataField='timestamp' >
-                            Timestamp
+                            Timestamp(EDT)
                     </TableHeaderColumn>
 
                     <TableHeaderColumn 

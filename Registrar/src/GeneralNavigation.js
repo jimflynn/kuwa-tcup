@@ -49,7 +49,7 @@ const originalNavigationLinks = [
         children: [
             {
                 linkName: "Moe Registrar",
-                link: "https://alpha.kuwa.org/registrar/moe/"
+                link: "http://alpha.kuwa.org:3005"
             },
             {
                 linkName: "Larry Registrar",
