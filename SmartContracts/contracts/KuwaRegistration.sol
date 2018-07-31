@@ -72,16 +72,8 @@ contract KuwaRegistration {
         return registrationStatus;
     }
 
-    function markAsValid() public {
-        registrationStatus = "Valid";
-    }
-
-    function markAsInvalid() public {
-        registrationStatus = "Invalid";
-    }
-
     // Possible values for newStatus are:
-    // Challenge Expired, Video Uploaded, QR code scanned
+    // Challenge Expired, Video Uploaded, QR code scanned, Valid, Invalid
     function setRegistrationStatusTo(bytes20 newStatus) public {
         registrationStatus = newStatus;
     }
