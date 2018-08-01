@@ -1,6 +1,8 @@
 import Instascan from 'instascan';
 let QRScanner = window.QRScanner;
 
+import config from 'config';
+
 export function startScanner(scanner) {
     return dispatch => {
         Instascan.Camera.getCameras().then(function (cameras) {
@@ -22,14 +24,18 @@ export function startScanner(scanner) {
     }
 }
 
-export function qrCodeFound(kuwaId, scanner) {
+export function qrCodeFound(kuwaId, scanner, contractAddress, abi) {
     return dispatch => {
         scanner.stop().then(() => {
             if (isValidKuwaId(kuwaId)) {
-                dispatch({
-                    type: 'QR_CODE_FOUND',
-                    payload: { kuwaId }
-                })
+                addScannedKuwaId(kuwaId, contractAddress, abi)
+                    .then(responseJson => {
+                        console.log(responseJson);
+                        dispatch({
+                            type: 'QR_CODE_FOUND',
+                            payload: { kuwaId }
+                        })
+                    })
             } else {
                 dispatch({
                     type: 'QR_CODE_INVALID'
@@ -73,7 +79,7 @@ function stopScan(dispatch) {
     }
 }
 
-export function mobileStartScanner() {
+export function mobileStartScanner(contractAddress, abi) {
     return dispatch => {
         document.addEventListener("backbutton", stopScan(dispatch), true);
         // Make the webview transparent so the video preview is visible behind it.
@@ -96,10 +102,14 @@ export function mobileStartScanner() {
                         })
                     } else {
                         // The scan completed, display the contents of the QR code:
-                        dispatch({
-                            type: 'QR_CODE_FOUND',
-                            payload: { kuwaId }
-                        })
+                        addScannedKuwaId(kuwaId, contractAddress, abi)
+                            .then(responseJson => {
+                                console.log(responseJson);
+                                dispatch({
+                                    type: 'QR_CODE_FOUND',
+                                    payload: { kuwaId }
+                                })
+                            })
                     }
                     setTimeout(function() { 
                         document.body.style.backgroundColor = 'white';
@@ -110,4 +120,22 @@ export function mobileStartScanner() {
             })
         }
     }
+}
+
+function addScannedKuwaId(scannedKuwaId, contractAddress, abi) {
+    let formData = new FormData();
+    formData.append('scannedKuwaId', scannedKuwaId);
+    formData.append('contractABI',JSON.stringify(abi));
+    formData.append('contractAddress',contractAddress);
+
+    return new Promise((resolve, reject) => {
+        fetch(config.requestUrl.addScannedKuwaIdUrl, { method: 'POST', body: formData })
+            .then(response => response.json())
+            .then(responseJson => {
+                resolve(responseJson);
+            })
+            .catch(e => {
+                reject(JSON.stringify(e));
+            })
+    })
 }

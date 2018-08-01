@@ -59,9 +59,11 @@ function requestSponsorship(keyObject, privateKey, passcode, dispatch) {
         let formData = new FormData();
         formData.append('address', keyObject.address);
         formData.append('SS', passcode);
-        fetch(config.requestUrl.requestSponsorshipUrl, { method: 'POST', body: formData })
-            .then(response => response.json())
-            .then(responseJson => {
+        fetch(config.requestUrl.requestSponsorshipUrl, {
+            method: 'POST',
+            body: formData
+        }).then(response => {
+            response.json().then(responseJson => {
                 if (responseJson.message === 'invalid Shared Secret') {
                     dispatch({
                         type: 'REQUEST_SPONSORSHIP_REJECTED',
@@ -70,31 +72,24 @@ function requestSponsorship(keyObject, privateKey, passcode, dispatch) {
                     dispatch(push('/Error'))
                 } else {
                     loadWallet(privateKey);
-                    loadContract(responseJson.abi, responseJson.contractAddress, 4300000, '22000000000', keyObject.address)
-                        .then(contract => Promise.all([
-                            contract.methods.getChallenge().call(),
-                            contract.methods.getRegistrationStatus().call()
-                        ]))
-                        .then(resolvedPromises => {
+                    loadContract(responseJson.abi, responseJson.contractAddress, 4300000, '22000000000', keyObject.address).then(contract => {
+                        contract.methods.getChallenge().call().then(challenge => {
                             dispatch({
                                 type: 'REQUEST_SPONSORSHIP_FULFILLED',
-                                payload: {
-                                    challenge: resolvedPromises[0], 
-                                    registrationStatus: resolvedPromises[1],
-                                    responseJson
-                                }
+                                payload: {challenge, responseJson}
                             })
                             dispatch(push('/RecordRegistrationVideo'))
                         })
+                    })
                 }
             })
-            .catch(e => {
-                dispatch({
-                    type: 'REQUEST_SPONSORSHIP_REJECTED',
-                    payload: {error: "Sorry, we are experiencing internal problems."}
-                })
-                dispatch(push('/Error'))
+        }).catch(e => {
+            dispatch({
+                type: 'REQUEST_SPONSORSHIP_REJECTED',
+                payload: {error: "Sorry, we are experiencing internal problems."}
             })
+            dispatch(push('/Error'))
+        })
     //}
 }
 
@@ -126,11 +121,18 @@ export function uploadToStorage(videoFilePath, ethereumAddress, abi, contractAdd
                     method: 'POST',
                     body: formData
                 }).then(response => {
-                    dispatch({
-                        type: 'UPLOAD_TO_STORAGE_FULFILLED',
-                        payload: {response}
-                    })
-                    dispatch(push('/YourKuwaId'))
+                    setRegistrationStatusTo("Video Uploaded", contractAddress, abi)
+                        .then(responseJson => {
+                            console.log(responseJson);
+                            dispatch({
+                                type: 'UPLOAD_TO_STORAGE_FULFILLED',
+                                payload: {
+                                    response,
+                                    registrationStatus: "Video Uploaded"
+                                }
+                            })
+                            dispatch(push('/YourKuwaId'))
+                        })
                 }).catch(e => {
                     dispatch({
                         type: 'UPLOAD_TO_STORAGE_REJECTED',
@@ -157,11 +159,18 @@ export function webUploadToStorage(videoBlob, ethereumAddress, abi, contractAddr
             method: 'POST',
             body: formData
         }).then(response => {
-            dispatch({
-                type: 'WEB_UPLOAD_TO_STORAGE_FULFILLED',
-                payload: {response}
-            })
-            dispatch(push('/YourKuwaId'))
+            setRegistrationStatusTo("Video Uploaded", contractAddress, abi)
+                .then(responseJson => {
+                    console.log(responseJson);
+                    dispatch({
+                        type: 'WEB_UPLOAD_TO_STORAGE_FULFILLED',
+                        payload: {
+                            response,
+                            registrationStatus: "Video Uploaded"
+                        }
+                    })
+                    dispatch(push('/YourKuwaId'))
+                })
         }).catch(e => {
             dispatch({
                 type: 'WEB_UPLOAD_TO_STORAGE_REJECTED',
@@ -189,7 +198,7 @@ function generateQrCode(ethereumAddress) {
     })
 }
 
-export function setRegistrationStatusTo(registrationStatus, contractAddress, abi) {
+function setRegistrationStatusTo(registrationStatus, contractAddress, abi) {
     let formData = new FormData();
     formData.append('registrationStatus', registrationStatus);
     formData.append('contractABI',JSON.stringify(abi));
@@ -197,24 +206,6 @@ export function setRegistrationStatusTo(registrationStatus, contractAddress, abi
 
     return new Promise((resolve, reject) => {
         fetch(config.requestUrl.setRegistrationStatusToUrl, { method: 'POST', body: formData })
-            .then(response => response.json())
-            .then(responseJson => {
-                resolve(responseJson);
-            })
-            .catch(e => {
-                reject(JSON.stringify(e));
-            })
-    })
-}
-
-export function addScannedKuwaId(scannedKuwaId, contractAddress, abi) {
-    let formData = new FormData();
-    formData.append('scannedKuwaId', scannedKuwaId);
-    formData.append('contractABI',JSON.stringify(abi));
-    formData.append('contractAddress',contractAddress);
-
-    return new Promise((resolve, reject) => {
-        fetch(config.requestUrl.addScannedKuwaIdUrl, { method: 'POST', body: formData })
             .then(response => response.json())
             .then(responseJson => {
                 resolve(responseJson);

@@ -87,7 +87,8 @@ const kuwaReducer = (state = initialState, action) => {
         case 'WEB_UPLOAD_TO_STORAGE_FULFILLED':
             return Object.assign({}, state, {
                 kuwaId: Object.assign({}, state.kuwaId, {
-                    infoUploaded: true
+                    infoUploaded: true,
+                    registrationStatus: action.payload.registrationStatus
                 }),
                 screen: Object.assign({}, state.screen, {
                     uploadToStorage: {

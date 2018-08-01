@@ -32,7 +32,7 @@ class YourKuwaId extends Component {
     }
 
     render() {
-        if (this.props.qrStatus === "Scanning") {
+        if (this.props.qrStatus === "Scanning" && window.usingCordova) {
             return (
                 <QRSquare />
             )
@@ -53,7 +53,6 @@ class QRSquare extends Component {
         } else if (orientation.includes("landscape")) {
             window.screen.orientation.lock("landscape");
         }
-
         let bottomNav = document.getElementById("bottomNav");
         let navigation = document.getElementById("mobileNavbar");
 
@@ -151,7 +150,7 @@ const scannedKuwaId = (props) => {
 
 const handleScanAction = (props, state, setState) => {
     if(window.usingCordova) {
-        props.mobileStartScanner();
+        props.mobileStartScanner(props.contractAddress, props.abi);
     } else {
         if (props.qrStatus === "Scanning") {
             props.stopScanner(state.scanner);
@@ -166,7 +165,7 @@ const handleScanAction = (props, state, setState) => {
                 let scanner = new Instascan.Scanner({ video: document.getElementById('qrScanner') });
                 setState({ scanner });
                 scanner.addListener('scan', function(kuwaId) {
-                    props.qrCodeFound(kuwaId, scanner);
+                    props.qrCodeFound(kuwaId, scanner, props.contractAddress, props.abi);
                     setState({ 
                         videoWidth: 0,
                         videoHeight: 0 })
@@ -185,7 +184,10 @@ const mapStateToProps = state => {
         kuwaId: state.kuwaReducer.kuwaId.address,
         scanner: state.qrReducer.scanner,
         qrStatus: state.qrReducer.qrStatus,
-        lastScannedKuwaId: state.qrReducer.lastScannedKuwaId
+        lastScannedKuwaId: state.qrReducer.lastScannedKuwaId,
+
+        abi: state.kuwaReducer.kuwaId.abi,
+        contractAddress: state.kuwaReducer.kuwaId.contractAddress,
     }
 }
 
@@ -197,11 +199,11 @@ const mapDispatchToProps = dispatch => {
         stopScanner: scanner => {
             dispatch(stopScanner(scanner))
         },
-        qrCodeFound: (kuwaId, scanner) => {
-            dispatch(qrCodeFound(kuwaId, scanner))
+        qrCodeFound: (kuwaId, scanner, contractAddress, abi) => {
+            dispatch(qrCodeFound(kuwaId, scanner, contractAddress, abi))
         },
-        mobileStartScanner: () => {
-            dispatch(mobileStartScanner())
+        mobileStartScanner: (contractAddress, abi) => {
+            dispatch(mobileStartScanner(contractAddress, abi))
         }
     }
 }
