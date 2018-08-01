@@ -112,7 +112,6 @@ contract KuwaRegistration {
     mapping(address => Vote) votes;
     address[] public voters;
     function vote(bytes32 _commit) public returns(bool) {
-                                                            // How to revert registrar's approve for transfer tokens?
         require(kt.allowance(sponsorAddress, this) == 1);   // Sponsor must provide ante before voting round for incentive
         require(timeOfFirstVote == 0 || block.timestamp - timeOfFirstVote <= 3600);     // Registrars have one hour to vote after the first vote is cast
         require(kt.balanceOf(msg.sender) >= 100001);   // Qualified registrars must possess at least 100,000 Kuwa tokens 
@@ -123,20 +122,26 @@ contract KuwaRegistration {
             timeOfFirstVote = block.timestamp;
         }
         
-        kt.transferFrom(msg.sender, this, 1);
+        if (!kt.transferFrom(msg.sender, this, 1))
+            return false;
         voters.push(msg.sender);
-        votes[msg.sender].commit = _commit;
-        votes[msg.sender].voted = true;
+        votes[msg.sender] = Vote({commit: _commit, voted: true, vote: 2, salt: 0x0, valid: false});
         return true;
+    }
+
+    function canVote() public view returns(bool) {
+        return (timeOfFirstVote == 0 || block.timestamp - timeOfFirstVote <= 3600);
     }
 
     function reveal(uint _vote, bytes32 _salt) public {
         uint timestamp = block.timestamp;
-        require(_vote == 0 || _vote == 1);
         require(timestamp - timeOfFirstVote > 3600 && timestamp - timeOfFirstVote <= 7200);
+        require(votes[msg.sender].voted);
+        require(_vote == 0 || _vote == 1);
+        
         votes[msg.sender].vote = _vote;
         votes[msg.sender].salt = _salt;
-        votes[msg.sender].valid = keccak256(_vote, _salt) == votes[msg.sender] ? true : false;
+        votes[msg.sender].valid = keccak256(_vote, _salt) == votes[msg.sender].commit ? true : false;
     }
 
     function decide() public returns(bool) {
@@ -149,7 +154,7 @@ contract KuwaRegistration {
         uint finalPot = kt.balanceOf(this);
         uint dividend;
         for (uint i = 0; i < voters.length; i++) {
-            Vote vote = votes[voters[i]];
+            Vote storage vote = votes[voters[i]];
             if (vote.valid) {
                 if (vote.vote == 1) {
                     valid++;
@@ -178,7 +183,7 @@ contract KuwaRegistration {
 
     function payout(uint _finalStatus, uint _dividend) private returns(bool) {
         for (uint j = 0; j < voters.length; j++) {
-            Vote vote = votes[voters[j]];
+            Vote storage vote = votes[voters[j]];
             if (vote.valid) {
                 if (_finalStatus == 2 || vote.vote == _finalStatus) {
                     kt.transfer(voters[j], _dividend);
