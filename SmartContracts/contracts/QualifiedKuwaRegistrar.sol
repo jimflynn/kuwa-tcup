@@ -22,7 +22,7 @@ contract QualifiedKuwaRegistrar is Owned {
         return this;
     }
 
-    function vote(address _registrantContract, string status, uint _value) public onlyOwner returns(bool) {
+    function vote(address _registrantContract, bytes32 commit, uint _value) public onlyOwner returns(bool) {
         require(_value == 1);
 
         KuwaToken kt = KuwaToken(kuwaTokenContract);
@@ -31,6 +31,6 @@ contract QualifiedKuwaRegistrar is Owned {
                 return;
         }
         KuwaRegistration kr = KuwaRegistration(_registrantContract);
-        return kr.vote(status);
+        return kr.vote(commit);
     }
 }

@@ -100,63 +100,88 @@ contract KuwaRegistration {
     }
 
     /** ---------------------- Poker Protocol ------------------------- */
-    uint invalid = 0;
-    uint valid = 0;
+    struct Vote {
+        bytes32 commit;
+        bool voted;
+        uint vote;
+        bytes32 salt;
+        bool valid;
+    }
+
     uint timeOfFirstVote = 0;
-    mapping(address => bytes32) map;
+    mapping(address => Vote) votes;
     address[] public voters;
+    function vote(bytes32 _commit) public returns(bool) {
+                                                            // How to revert registrar's approve for transfer tokens?
+        require(kt.allowance(sponsorAddress, this) == 1);   // Sponsor must provide ante before voting round for incentive
+        require(timeOfFirstVote == 0 || block.timestamp - timeOfFirstVote <= 3600);     // Registrars have one hour to vote after the first vote is cast
+        require(kt.balanceOf(msg.sender) >= 100001);   // Qualified registrars must possess at least 100,000 Kuwa tokens 
+        require(kt.allowance(msg.sender, this) == 1);   // Registrars must provide the required ante to vote
+        require(!votes[msg.sender].voted);    // Registrars cannot vote more than once
 
-    function vote(string status) public returns(bool){
-        require(kt.allowance(sponsorAddress, this) == 1);
-        require(timeOfFirstVote == 0 || block.timestamp - timeOfFirstVote <= 3600);
-        require(kt.balanceOf(msg.sender) >= 100001);
-        require(kt.allowance(msg.sender, this) == 1);
-        bytes32 statusDigest = keccak256(_toLower(status));
-        require(statusDigest == keccak256("valid") || statusDigest == keccak256("invalid"));
-        require(map[msg.sender] == 0x0);
-
-        if (valid + invalid < 1) {
+        if (timeOfFirstVote == 0) {
             timeOfFirstVote = block.timestamp;
         }
         
         kt.transferFrom(msg.sender, this, 1);
-        if (statusDigest == keccak256("valid")) {
-            valid += 1;
-        }
-        else {
-            invalid += 1;
-        }
         voters.push(msg.sender);
-        map[msg.sender] = statusDigest;
+        votes[msg.sender].commit = _commit;
+        votes[msg.sender].voted = true;
         return true;
     }
 
-    function payout() public returns(bool) {
-        require(block.timestamp - timeOfFirstVote > 3600);
+    function reveal(uint _vote, bytes32 _salt) public {
+        uint timestamp = block.timestamp;
+        require(_vote == 0 || _vote == 1);
+        require(timestamp - timeOfFirstVote > 3600 && timestamp - timeOfFirstVote <= 7200);
+        votes[msg.sender].vote = _vote;
+        votes[msg.sender].salt = _salt;
+        votes[msg.sender].valid = keccak256(_vote, _salt) == votes[msg.sender] ? true : false;
+    }
+
+    function decide() public returns(bool) {
+        require(msg.sender == sponsorAddress);
+        require(block.timestamp - timeOfFirstVote > 7200);
         
-        bytes32 majorityStatus;
+        uint valid = 0;
+        uint invalid = 0;
+        uint finalStatus = 0;
         uint finalPot = kt.balanceOf(this);
         uint dividend;
-        if (valid > invalid) {
-            majorityStatus = keccak256("valid");
+        for (uint i = 0; i < voters.length; i++) {
+            Vote vote = votes[voters[i]];
+            if (vote.valid) {
+                if (vote.vote == 1) {
+                    valid++;
+                }
+                else {
+                    invalid++;
+                }
+            }
+        }
+
+        if (invalid > valid) {
+            finalStatus = 0;
             dividend = finalPot / valid;
         }
-        else if (invalid > valid) {
-            majorityStatus = keccak256("invalid");
+        else if (valid > invalid) {
+            finalStatus = 1;
             dividend = finalPot / invalid;
         }
         else {
-            majorityStatus = 0x0;
+            finalStatus = 2;
             dividend = finalPot / (valid + invalid);
         }
 
-        for (uint i = 0; i < voters.length; i++) {
-            if (majorityStatus == 0x0) {
-                kt.transfer(voters[i], dividend);
-            }
-            else {
-                if (map[voters[i]] == majorityStatus) {
-                    kt.transfer(voters[i], dividend);
+        return payout(finalStatus, dividend);
+    }
+
+    function payout(uint _finalStatus, uint _dividend) private returns(bool) {
+        for (uint j = 0; j < voters.length; j++) {
+            Vote vote = votes[voters[j]];
+            if (vote.valid) {
+                if (_finalStatus == 2 || vote.vote == _finalStatus) {
+                    kt.transfer(voters[j], _dividend);
                 }
             }
         }
@@ -168,24 +193,5 @@ contract KuwaRegistration {
         
     }*/
 
-    /* Author: Thomas MacLean */
-    function _toLower(string str) public pure returns(string) {
-        bytes memory bStr = bytes(str);
-        bytes memory bLower = new bytes(bStr.length);
-        for (uint i = 0; i < bStr.length; i++) {
-            // Uppercase character...
-            if ((bStr[i] >= 65) && (bStr[i] <= 90)) {
-                // So we add 32 to make it lowercase
-                bLower[i] = bytes1(int(bStr[i]) + 32);
-            } else {
-                bLower[i] = bStr[i];
-            }
-        }
-        return string(bLower);
-    }
-
     /** --------------------------------------------------------------- */
 }
-
-
-
