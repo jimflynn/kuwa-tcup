@@ -93,22 +93,26 @@ var run = async function() {
 
     let compilation = await compileSolFile();
 
-    // let contractInstance =  await deployContract(compilation.kuwaRegistration.abi, compilation.kuwaRegistration.bc, 4300000, '22000000000', "0xf9f83aaa322ab613db21229be6ca9e2df8a1a149", ["0xf9f83aaa322ab613db21229be6ca9e2df8a1a149", "0xb324c068Bf7C89E51C8A5E54e7D6b45F380a2Daa"]);
+    let contractInstance =  await deployContract(compilation.kuwaRegistration.abi, compilation.kuwaRegistration.bc, 4300000, '22000000000', "0xf9f83aaa322ab613db21229be6ca9e2df8a1a149", ["0xf9f83aaa322ab613db21229be6ca9e2df8a1a149", "0xb324c068Bf7C89E51C8A5E54e7D6b45F380a2Daa"]);
 
-    let kuwaTokenInstance = await deployContract(compilation.kuwaToken.abi, compilation.kuwaToken.bc, 4300000, '22000000000', "0xf9f83aaa322ab613db21229be6ca9e2df8a1a149", []);
+    // let kuwaTokenInstance = await deployContract(compilation.kuwaToken.abi, compilation.kuwaToken.bc, 4300000, '22000000000', "0xf9f83aaa322ab613db21229be6ca9e2df8a1a149", []);
 
     // let contractInstance = await loadContract(compilation.abi, "0x30768510F1A57B12817CDC2a723C8AE21de071b5", 4300000, "22000000000", "0xF9F83AaA322aB613Db21229BE6ca9E2dF8a1A149");
 
-    await kuwaTokenInstance.methods.transfer("0x5a9e7bc667433ef82626de8e0d8576dbccb10683", 9).send({ from:"0xf9f83aaa322ab613db21229be6ca9e2df8a1a149" })
+    // await kuwaTokenInstance.methods.transfer("0x5a9e7bc667433ef82626de8e0d8576dbccb10683", 9).send({ from:"0xf9f83aaa322ab613db21229be6ca9e2df8a1a149" })
 
-    let balance = await kuwaTokenInstance.methods.balanceOf("0xf9f83aaa322ab613db21229be6ca9e2df8a1a149").call({ from:"0xf9f83aaa322ab613db21229be6ca9e2df8a1a149" })
-    console.log(balance);
+    // let balance = await kuwaTokenInstance.methods.balanceOf("0xf9f83aaa322ab613db21229be6ca9e2df8a1a149").call({ from:"0xf9f83aaa322ab613db21229be6ca9e2df8a1a149" })
+    // console.log(balance);
 
     // let challenge = await contractInstance.methods.getChallenge().call();
     // console.log(challenge);
     // await contractInstance.methods.addScannedKuwaId("0xF9F83AaA322aB613Db21229BE6ca9E2dF8a1A149").send()
     // let kuwaNetwork = await contractInstance.methods.getKuwaNetwork().call();
     // console.log(kuwaNetwork);
+
+    // await contractInstance.methods.setRegistrationStatusTo(web3.utils.utf8ToHex('Valid')).send();
+    let registrationStatus = await contractInstance.methods.getRegistrationStatus().call();
+    console.log(web3.utils.hexToUtf8(registrationStatus));
 }
 
 run().catch(err => console.log(err));
