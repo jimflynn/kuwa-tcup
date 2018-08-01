@@ -59,11 +59,9 @@ function requestSponsorship(keyObject, privateKey, passcode, dispatch) {
         let formData = new FormData();
         formData.append('address', keyObject.address);
         formData.append('SS', passcode);
-        fetch(config.requestUrl.requestSponsorshipUrl, {
-            method: 'POST',
-            body: formData
-        }).then(response => {
-            response.json().then(responseJson => {
+        fetch(config.requestUrl.requestSponsorshipUrl, { method: 'POST', body: formData })
+            .then(response => response.json())
+            .then(responseJson => {
                 if (responseJson.message === 'invalid Shared Secret') {
                     dispatch({
                         type: 'REQUEST_SPONSORSHIP_REJECTED',
@@ -72,24 +70,31 @@ function requestSponsorship(keyObject, privateKey, passcode, dispatch) {
                     dispatch(push('/Error'))
                 } else {
                     loadWallet(privateKey);
-                    loadContract(responseJson.abi, responseJson.contractAddress, 4300000, '22000000000', keyObject.address).then(contract => {
-                        contract.methods.getChallenge().call().then(challenge => {
+                    loadContract(responseJson.abi, responseJson.contractAddress, 4300000, '22000000000', keyObject.address)
+                        .then(contract => Promise.all([
+                            contract.methods.getChallenge().call(),
+                            contract.methods.getRegistrationStatus().call()
+                        ]))
+                        .then(resolvedPromises => {
                             dispatch({
                                 type: 'REQUEST_SPONSORSHIP_FULFILLED',
-                                payload: {challenge, responseJson}
+                                payload: {
+                                    challenge: resolvedPromises[0], 
+                                    registrationStatus: resolvedPromises[1],
+                                    responseJson
+                                }
                             })
                             dispatch(push('/RecordRegistrationVideo'))
                         })
-                    })
                 }
             })
-        }).catch(e => {
-            dispatch({
-                type: 'REQUEST_SPONSORSHIP_REJECTED',
-                payload: {error: "Sorry, we are experiencing internal problems."}
+            .catch(e => {
+                dispatch({
+                    type: 'REQUEST_SPONSORSHIP_REJECTED',
+                    payload: {error: "Sorry, we are experiencing internal problems."}
+                })
+                dispatch(push('/Error'))
             })
-            dispatch(push('/Error'))
-        })
     //}
 }
 
@@ -181,6 +186,42 @@ function generateQrCode(ethereumAddress) {
             if (err) throw reject(err);
             resolve(url);
         })
+    })
+}
+
+export function setRegistrationStatusTo(registrationStatus, contractAddress, abi) {
+    let formData = new FormData();
+    formData.append('registrationStatus', registrationStatus);
+    formData.append('contractABI',JSON.stringify(abi));
+    formData.append('contractAddress',contractAddress);
+
+    return new Promise((resolve, reject) => {
+        fetch(config.requestUrl.setRegistrationStatusToUrl, { method: 'POST', body: formData })
+            .then(response => response.json())
+            .then(responseJson => {
+                resolve(responseJson);
+            })
+            .catch(e => {
+                reject(JSON.stringify(e));
+            })
+    })
+}
+
+export function addScannedKuwaId(scannedKuwaId, contractAddress, abi) {
+    let formData = new FormData();
+    formData.append('scannedKuwaId', scannedKuwaId);
+    formData.append('contractABI',JSON.stringify(abi));
+    formData.append('contractAddress',contractAddress);
+
+    return new Promise((resolve, reject) => {
+        fetch(config.requestUrl.addScannedKuwaIdUrl, { method: 'POST', body: formData })
+            .then(response => response.json())
+            .then(responseJson => {
+                resolve(responseJson);
+            })
+            .catch(e => {
+                reject(JSON.stringify(e));
+            })
     })
 }
 

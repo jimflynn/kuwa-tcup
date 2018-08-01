@@ -9,6 +9,7 @@ import {
 const initialState = {
     usingCordova: window.usingCordova,
     kuwaId: {
+        registrationStatus: "New",
         address: "Your Kuwa ID has not been generated.",
         challenge: "You need to be sponsored to get a challenge number."
     },
@@ -52,7 +53,8 @@ const kuwaReducer = (state = initialState, action) => {
                     unlocked: true,
                     contractAddress: action.payload.responseJson.contractAddress,
                     abi: action.payload.responseJson.abi,
-                    challenge: action.payload.challenge
+                    challenge: action.payload.challenge,
+                    registrationStatus: action.payload.registrationStatus
                 }),
                 screen: Object.assign({}, state.screen, {
                     provideCredentials: {

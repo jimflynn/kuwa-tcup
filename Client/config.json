@@ -1,6 +1,8 @@
 {
     "requestUrl": {
-        "requestSponsorshipUrl": "https://alpha.kuwa.org:3000/sponsorship_requests/",
+        "requestSponsorshipUrl": "https://alpha.kuwa.org:3000/sponsorship_requests/deployContract",
+        "setRegistrationStatusToUrl": "https://alpha.kuwa.org:3000/sponsorship_requests/setRegistrationStatusTo",
+        "addScannedKuwaIdUrl": "https://alpha.kuwa.org:3000/sponsorship_requests/addScannedKuwaId",
         "uploadInformationUrl": "https://alpha.kuwa.org:3003/KuwaRegistration/"
     },
     "baseUrl": "/client/",
