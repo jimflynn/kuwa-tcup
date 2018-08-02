@@ -27,9 +27,6 @@ const styles = theme => ({
 class YourNetwork extends Component {
     componentDidMount() {
         this.props.getKuwaNetwork(this.props.privateKey, this.props.abi, this.props.contractAddress, this.props.kuwaId)
-        this.kuwaNetwork = this.props.kuwaNetwork.map((kuwaId, id) => {
-            return { id, kuwaId }
-        });
     }
 
     render() {
@@ -45,7 +42,7 @@ class YourNetwork extends Component {
                             <strong>These are the people whose QR codes you have scanned:</strong>
                         </Typography>
 
-                        { this.kuwaNetwork ? renderNetwork(this.kuwaNetwork) : null }
+                        { renderNetwork(this.props) }
 
                     </Paper>
                 </Grid>
@@ -54,26 +51,32 @@ class YourNetwork extends Component {
     }
 }
 
-const renderNetwork = (kuwaNetwork) => (
-    <Table>
-        <TableHead>
-        <TableRow>
-            <TableCell>Kuwa ID</TableCell>
-        </TableRow>
-        </TableHead>
-        <TableBody>
-        {kuwaNetwork.map(n => {
-            return (
-            <TableRow key={n.id}>
-                <TableCell component="th" scope="row">
-                    {n.kuwaId}
-                </TableCell>
+const renderNetwork = (props) => {
+    let kuwaNetwork = props.kuwaNetwork.map((kuwaId, id) => {
+        return { id, kuwaId }
+    });
+
+    return (
+        <Table>
+            <TableHead>
+            <TableRow>
+                <TableCell>Kuwa ID</TableCell>
             </TableRow>
-            );
-        })}
-        </TableBody>
-    </Table>
-)
+            </TableHead>
+            <TableBody>
+            {kuwaNetwork.map(n => {
+                return (
+                    <TableRow key={n.id}>
+                        <TableCell component="th" scope="row">
+                            {n.kuwaId}
+                        </TableCell>
+                    </TableRow>
+                );
+            })}
+            </TableBody>
+        </Table>
+    )
+}
 
 const mapStateToProps = state => {
     return {

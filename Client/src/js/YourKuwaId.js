@@ -108,21 +108,30 @@ const renderYourKuwaId = (props, state, setState) => (
             <Grid align="center">
                 <img src={ props.qrCodeSrc } alt="Here will lie a QR code" />
             </Grid>
-            <Typography variant="subheading" align="left" style={{margin: "1em"}}>
-                <strong>Step 3 –</strong> Please ask other people that you know to scan your QR code.
-            </Typography>
-            <Grid container spacing={24} justify="center">
-                <Grid item xs={6} align="center">
-                    <Button variant="contained" style={{backgroundColor: buttonColor}} onClick={() => handleScanAction(props, state, setState)}>
-                        { props.qrStatus === "Scanning" ? "Stop scan" : "Scan an ID"}
-                    </Button>
+
+            {
+                props.registrationStatus === "Video Uploaded" ?
+                <Typography variant="subheading" align="left" style={{margin: "1em"}}>
+                    <strong>Step 3 –</strong> Please ask other people that you know to scan your QR code.
+                </Typography>
+                : null
+            }
+
+            { 
+                props.qrStatus === "Found" ? null : 
+                <Grid container spacing={24} justify="center">
+                    <Grid item xs={6} align="center">
+                        <Button variant="contained" style={{backgroundColor: buttonColor}} onClick={() => handleScanAction(props, state, setState)}>
+                            { props.qrStatus === "Scanning" ? "Stop scan" : "Scan an ID"}
+                        </Button>
+                    </Grid>
+                    <Grid item xs={6} align="center">
+                        <Button variant="contained" style={{backgroundColor: buttonColor}} onClick={() => alert("JAJAJAJAJAJA")}>
+                            Export your ID
+                        </Button>
+                    </Grid>
                 </Grid>
-                <Grid item xs={6} align="center">
-                    <Button variant="contained" style={{backgroundColor: buttonColor}} onClick={() => alert("JAJAJAJAJAJA")}>
-                        Export your ID
-                    </Button>
-                </Grid>
-            </Grid>
+            }
 
             <Grid container justify="center" style={{margin: "1em"}}>
                 <Grid item xs={12} align="center">
@@ -130,7 +139,7 @@ const renderYourKuwaId = (props, state, setState) => (
                 </Grid>
             </Grid>
 
-            { props.qrStatus === "Found" ? <Loading loadingMessage={`We are adding ${ props.lastScannedKuwaId } to your network`} /> : null }
+            { props.qrStatus === "Found" ? <Loading loadingMessage="We are adding the scanned ID to your network" /> : null }
 
             <Typography variant="title" align="center" style={{margin: "1em"}}>
                 { scannedKuwaId(props) }
@@ -188,6 +197,8 @@ const mapStateToProps = state => {
         scanner: state.qrReducer.scanner,
         qrStatus: state.qrReducer.qrStatus,
         lastScannedKuwaId: state.qrReducer.lastScannedKuwaId,
+
+        registrationStatus: state.kuwaReducer.kuwaId.registrationStatus,
 
         abi: state.kuwaReducer.kuwaId.abi,
         contractAddress: state.kuwaReducer.kuwaId.contractAddress,
