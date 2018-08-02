@@ -70,7 +70,7 @@ class ProvideCredentials extends Component {
 
 const renderContent = (props, state, setState) =>  (
     <div>
-        { props.sponsored ? renderDone(props) : renderProvideCredentials(props, state, setState) }
+        { props.registrationStatus === "Credentials Provided" ? renderDone(props) : renderProvideCredentials(props, state, setState) }
     </div>
 )
 
@@ -160,7 +160,7 @@ const renderDone = props => (
 
 const mapStateToProps = state => {
     return {
-        sponsored: state.kuwaReducer.kuwaId.sponsored,
+        registrationStatus: state.kuwaReducer.kuwaId.registrationStatus,
         showKuwaPassword: state.screenReducer.provideCredentials.showKuwaPassword,
         showPasscode: state.screenReducer.provideCredentials.showPasscode,
         loading: state.kuwaReducer.screen.provideCredentials.loading

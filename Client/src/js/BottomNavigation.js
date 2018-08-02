@@ -29,7 +29,7 @@ class SimpleBottomNavigation extends React.Component {
         }
     }
     render() {
-        if (!this.props.infoUploaded) return null;
+        if (this.props.registrationStatus !== "Video Uploaded") return null;
         const { classes } = this.props;
         return (
             <div>
@@ -61,7 +61,7 @@ class SimpleBottomNavigation extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        infoUploaded: state.kuwaReducer.kuwaId.infoUploaded
+        registrationStatus: state.kuwaReducer.kuwaId.registrationStatus
     }
 }
 

@@ -67,7 +67,7 @@ function requestSponsorship(keyObject, privateKey, passcode, dispatch) {
                 if (responseJson.message === 'invalid Shared Secret') {
                     dispatch({
                         type: 'REQUEST_SPONSORSHIP_REJECTED',
-                        payload: {error: "Invalid Shared Secret."}
+                        payload: { error: "Invalid Shared Secret." }
                     })
                     dispatch(push('/Error'))
                 } else {
@@ -76,7 +76,7 @@ function requestSponsorship(keyObject, privateKey, passcode, dispatch) {
                         contract.methods.getChallenge().call().then(challenge => {
                             dispatch({
                                 type: 'REQUEST_SPONSORSHIP_FULFILLED',
-                                payload: {challenge, responseJson}
+                                payload: { challenge, responseJson }
                             })
                             dispatch(push('/RecordRegistrationVideo'))
                         })
@@ -86,14 +86,14 @@ function requestSponsorship(keyObject, privateKey, passcode, dispatch) {
         }).catch(e => {
             dispatch({
                 type: 'REQUEST_SPONSORSHIP_REJECTED',
-                payload: {error: "Sorry, we are experiencing internal problems."}
+                payload: { error: "Sorry, we are experiencing internal problems." }
             })
             dispatch(push('/Error'))
         })
     //}
 }
 
-export function uploadToStorage(videoFilePath, ethereumAddress, abi, contractAddress) {
+export function uploadToStorage(videoFilePath, kuwaId, abi, contractAddress) {
     return dispatch => {
         dispatch({
             type: 'UPLOAD_TO_STORAGE_PENDING'
@@ -113,7 +113,7 @@ export function uploadToStorage(videoFilePath, ethereumAddress, abi, contractAdd
                     resolve(videoBlob);
                 }
             }).then(videoFile => {
-                formData.append('ClientAddress',ethereumAddress);
+                formData.append('ClientAddress',kuwaId);
                 formData.append('ChallengeVideo',videoFile);
                 formData.append('ContractABI',JSON.stringify(abi));
                 formData.append('ContractAddress',contractAddress);
@@ -136,7 +136,7 @@ export function uploadToStorage(videoFilePath, ethereumAddress, abi, contractAdd
                 }).catch(e => {
                     dispatch({
                         type: 'UPLOAD_TO_STORAGE_REJECTED',
-                        payload: {error: "Seems like the Information was not uploaded"}
+                        payload: { error: "Seems like the Information was not uploaded" }
                     })
                     dispatch(push('/Error'))
                 })
@@ -145,13 +145,13 @@ export function uploadToStorage(videoFilePath, ethereumAddress, abi, contractAdd
     }
 }
 
-export function webUploadToStorage(videoBlob, ethereumAddress, abi, contractAddress) {
+export function webUploadToStorage(videoBlob, kuwaId, abi, contractAddress) {
     return dispatch => {
         dispatch({
             type: 'WEB_UPLOAD_TO_STORAGE_PENDING'
         })
         let formData = new FormData();
-        formData.append('ClientAddress',ethereumAddress);
+        formData.append('ClientAddress',kuwaId);
         formData.append('ChallengeVideo',videoBlob);
         formData.append('ContractABI',JSON.stringify(abi));
         formData.append('ContractAddress',contractAddress);
@@ -174,14 +174,14 @@ export function webUploadToStorage(videoBlob, ethereumAddress, abi, contractAddr
         }).catch(e => {
             dispatch({
                 type: 'WEB_UPLOAD_TO_STORAGE_REJECTED',
-                payload: {error: "Seems like the Information was not uploaded"}
+                payload: { error: "Seems like the Information was not uploaded" }
             })
             dispatch(push('/Error'))
         })
     }
 }
 
-function generateQrCode(ethereumAddress) {
+function generateQrCode(kuwaId) {
     let opts = {
         errorCorrectionLevel: 'H',
         type: 'image/jpeg',
@@ -191,7 +191,7 @@ function generateQrCode(ethereumAddress) {
     }
 
     return new Promise((resolve, reject) => {
-        qrcode.toDataURL(ethereumAddress, opts, function (err, url) {
+        qrcode.toDataURL(kuwaId, opts, function (err, url) {
             if (err) throw reject(err);
             resolve(url);
         })
@@ -214,6 +214,20 @@ function setRegistrationStatusTo(registrationStatus, contractAddress, abi) {
                 reject(JSON.stringify(e));
             })
     })
+}
+
+export function getRegistrationStatus(privateKey, abi, contractAddress, kuwaId) {
+    return dispatch => {
+        loadWallet(privateKey);
+        loadContract(abi, contractAddress, 4300000, '22000000000', kuwaId).then(contract => {
+            contract.methods.getRegistrationStatus().call().then(registrationStatus => {
+                dispatch({
+                    type: 'GET_REGISTRATION_STATUS',
+                    payload: { registrationStatus: web3.utils.hexToUtf8(registrationStatus) }
+                })
+            })
+        })
+    }
 }
 
 /**

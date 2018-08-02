@@ -111,6 +111,12 @@ const kuwaReducer = (state = initialState, action) => {
                     }
                 })
             })
+        case 'GET_REGISTRATION_STATUS':
+            return Object.assign({}, state, {
+                kuwaId: Object.assign({}, state.kuwaId, {
+                    registrationStatus: action.payload.registrationStatus
+                })
+            }) 
         default:
             return state;
     }
