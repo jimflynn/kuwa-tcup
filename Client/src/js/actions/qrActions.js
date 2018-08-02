@@ -28,12 +28,15 @@ export function qrCodeFound(kuwaId, scanner, contractAddress, abi) {
     return dispatch => {
         scanner.stop().then(() => {
             if (isValidKuwaId(kuwaId)) {
+                dispatch({
+                    type: 'QR_CODE_FOUND',
+                    payload: { kuwaId }
+                })
                 addScannedKuwaId(kuwaId, contractAddress, abi)
                     .then(responseJson => {
                         console.log(responseJson);
                         dispatch({
-                            type: 'QR_CODE_FOUND',
-                            payload: { kuwaId }
+                            type: 'QR_CODE_UPLOADED'
                         })
                     })
             } else {
@@ -101,13 +104,16 @@ export function mobileStartScanner(contractAddress, abi) {
                             }
                         })
                     } else {
+                        dispatch({
+                            type: 'QR_CODE_FOUND',
+                            payload: { kuwaId }
+                        })
                         // The scan completed, display the contents of the QR code:
                         addScannedKuwaId(kuwaId, contractAddress, abi)
                             .then(responseJson => {
                                 console.log(responseJson);
                                 dispatch({
-                                    type: 'QR_CODE_FOUND',
-                                    payload: { kuwaId }
+                                    type: 'QR_CODE_UPLOADED'
                                 })
                             })
                     }

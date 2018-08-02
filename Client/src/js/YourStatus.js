@@ -19,9 +19,8 @@ const styles = theme => ({
 });
 
 class YourStatus extends Component {
-    componentWillMount() {
+    componentDidMount() {
         this.props.getRegistrationStatus(this.props.privateKey, this.props.abi, this.props.contractAddress, this.props.kuwaId)
-        console.log(this.props)
     }
 
     render() {

@@ -11,7 +11,8 @@ const initialState = {
     kuwaId: {
         registrationStatus: "New",
         address: "Your Kuwa ID has not been generated.",
-        challenge: "You need to be sponsored to get a challenge number."
+        challenge: "You need to be sponsored to get a challenge number.",
+        kuwaNetwork: []
     },
     screen: {
         provideCredentials: {loading: false},
@@ -116,7 +117,13 @@ const kuwaReducer = (state = initialState, action) => {
                 kuwaId: Object.assign({}, state.kuwaId, {
                     registrationStatus: action.payload.registrationStatus
                 })
-            }) 
+            })
+        case 'GET_KUWA_NETWORK':
+            return Object.assign({}, state, {
+                kuwaId: Object.assign({}, state.kuwaId, {
+                    kuwaNetwork: action.payload.kuwaNetwork
+                })
+            })
         default:
             return state;
     }

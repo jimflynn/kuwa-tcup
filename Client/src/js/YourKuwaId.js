@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Loading } from './Load';
 
 import { startScanner, stopScanner, qrCodeFound, mobileStartScanner } from './actions/qrActions';
 import Instascan from 'instascan';
@@ -129,6 +130,8 @@ const renderYourKuwaId = (props, state, setState) => (
                 </Grid>
             </Grid>
 
+            { props.qrStatus === "Found" ? <Loading loadingMessage={`We are adding ${ props.lastScannedKuwaId } to your network`} /> : null }
+
             <Typography variant="title" align="center" style={{margin: "1em"}}>
                 { scannedKuwaId(props) }
             </Typography>
@@ -139,7 +142,7 @@ const renderYourKuwaId = (props, state, setState) => (
 
 const scannedKuwaId = (props) => {
     switch(props.qrStatus) {
-        case "Found":
+        case "Uploaded":
             return props.lastScannedKuwaId + " is now part of your network.";
         case "Invalid":
             return "The scanned QR code is not a Kuwa ID.";

@@ -230,6 +230,20 @@ export function getRegistrationStatus(privateKey, abi, contractAddress, kuwaId) 
     }
 }
 
+export function getKuwaNetwork(privateKey, abi, contractAddress, kuwaId) {
+    return dispatch => {
+        loadWallet(privateKey);
+        loadContract(abi, contractAddress, 4300000, '22000000000', kuwaId).then(contract => {
+            contract.methods.getKuwaNetwork().call().then(kuwaNetwork => {
+                dispatch({
+                    type: 'GET_KUWA_NETWORK',
+                    payload: { kuwaNetwork }
+                })
+            })
+        })
+    }
+}
+
 /**
  * Creates a wallet with the provided private key
  * @param  {string} privateKey 
