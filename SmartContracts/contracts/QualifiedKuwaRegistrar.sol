@@ -24,13 +24,17 @@ contract QualifiedKuwaRegistrar is Owned {
 
     function vote(address _registrantContract, bytes32 commit, uint _value) public onlyOwner returns(bool) {
         require(_value == 1);
-
+        // TODO: How to revert registrar's approve() for Kuwa Registration contract to transfer tokens to itself?
         KuwaToken kt = KuwaToken(kuwaTokenContract);
         if (kt.allowance(myAddress(), _registrantContract) < 1) {
             if (!kt.approve(_registrantContract, _value))
-                return;
+                return false;
         }
         KuwaRegistration kr = KuwaRegistration(_registrantContract);
-        return kr.vote(commit);
+        if (!kr.vote(commit)) {
+            if (!kt.approve(_registrantContract, 0))
+                return false;
+        }
+        return true;
     }
 }

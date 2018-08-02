@@ -106,6 +106,7 @@ contract KuwaRegistration {
         uint vote;
         bytes32 salt;
         bool valid;
+        bool isPaid;
     }
 
     uint timeOfFirstVote = 0;
@@ -113,7 +114,7 @@ contract KuwaRegistration {
     address[] public voters;
     function vote(bytes32 _commit) public returns(bool) {
         require(kt.allowance(sponsorAddress, this) == 1);   // Sponsor must provide ante before voting round for incentive
-        require(timeOfFirstVote == 0 || block.timestamp - timeOfFirstVote <= 3600);     // Registrars have one hour to vote after the first vote is cast
+        require(timeOfFirstVote == 0 || block.timestamp - timeOfFirstVote <= 3600); // Registrars have one hour to vote after the first vote is cast
         require(kt.balanceOf(msg.sender) >= 100001);   // Qualified registrars must possess at least 100,000 Kuwa tokens 
         require(kt.allowance(msg.sender, this) == 1);   // Registrars must provide the required ante to vote
         require(!votes[msg.sender].voted);    // Registrars cannot vote more than once
@@ -125,12 +126,12 @@ contract KuwaRegistration {
         if (!kt.transferFrom(msg.sender, this, 1))
             return false;
         voters.push(msg.sender);
-        votes[msg.sender] = Vote({commit: _commit, voted: true, vote: 2, salt: 0x0, valid: false});
+        votes[msg.sender] = Vote({commit: _commit, voted: true, vote: 2, salt: 0x0, valid: false, isPaid: false});
         return true;
     }
 
-    function canVote() public view returns(bool) {
-        return (timeOfFirstVote == 0 || block.timestamp - timeOfFirstVote <= 3600);
+    function remainingTime() public view returns(uint) {
+        return block.timestamp - timeOfFirstVote;
     }
 
     function reveal(uint _vote, bytes32 _salt) public {
@@ -144,15 +145,15 @@ contract KuwaRegistration {
         votes[msg.sender].valid = keccak256(_vote, _salt) == votes[msg.sender].commit ? true : false;
     }
 
+    uint finalStatus = 3;
+    uint dividend;
     function decide() public returns(bool) {
         require(msg.sender == sponsorAddress);
         require(block.timestamp - timeOfFirstVote > 7200);
         
         uint valid = 0;
         uint invalid = 0;
-        uint finalStatus = 0;
         uint finalPot = kt.balanceOf(this);
-        uint dividend;
         for (uint i = 0; i < voters.length; i++) {
             Vote storage vote = votes[voters[i]];
             if (vote.valid) {
@@ -168,26 +169,32 @@ contract KuwaRegistration {
         if (invalid > valid) {
             finalStatus = 0;
             dividend = finalPot / valid;
+            setRegistrationStatusTo("invalid");
         }
         else if (valid > invalid) {
             finalStatus = 1;
             dividend = finalPot / invalid;
+            setRegistrationStatusTo("valid");
         }
         else {
             finalStatus = 2;
             dividend = finalPot / (valid + invalid);
         }
 
-        return payout(finalStatus, dividend);
+        return true;
     }
 
-    function payout(uint _finalStatus, uint _dividend) private returns(bool) {
+    function payout() private returns(bool) {
+        require(finalStatus != 3);
+        require(msg.sender == sponsorAddress);
+
         for (uint j = 0; j < voters.length; j++) {
             Vote storage vote = votes[voters[j]];
-            if (vote.valid) {
-                if (_finalStatus == 2 || vote.vote == _finalStatus) {
-                    kt.transfer(voters[j], _dividend);
+            if (!vote.isPaid && vote.valid && (finalStatus == 2 || vote.vote == finalStatus)) {
+                if (!kt.transfer(voters[j], dividend)) {
+                    return false;
                 }
+                vote.isPaid = true;
             }
         }
         return true;
@@ -195,7 +202,6 @@ contract KuwaRegistration {
 
     /*function sponsorAnte() public payable returns(bool) {
         require(msg.sender == sponsorAddress);
-        
     }*/
 
     /** --------------------------------------------------------------- */
