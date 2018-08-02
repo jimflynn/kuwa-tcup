@@ -20,7 +20,7 @@ const styles = theme => ({
 
 class YourStatus extends Component {
     componentDidMount() {
-        this.props.getRegistrationStatus(this.props.privateKey, this.props.abi, this.props.contractAddress, this.props.kuwaId)
+        this.props.getRegistrationStatus(this.props.abi, this.props.contractAddress, this.props.kuwaId)
     }
 
     render() {
@@ -55,7 +55,6 @@ const mapStateToProps = state => {
     return {
         registrationStatus: state.kuwaReducer.kuwaId.registrationStatus,
         kuwaId: state.kuwaReducer.kuwaId.address,
-        privateKey: state.kuwaReducer.kuwaId.privateKey,
         abi: state.kuwaReducer.kuwaId.abi,
         contractAddress: state.kuwaReducer.kuwaId.contractAddress,
     }
@@ -66,8 +65,8 @@ const mapDispatchToProps = dispatch => {
         navigateTo: link => {
             dispatch(push(link))
         },
-        getRegistrationStatus: (privateKey, abi, contractAddress, kuwaId) => {
-            dispatch(getRegistrationStatus(privateKey, abi, contractAddress, kuwaId))
+        getRegistrationStatus: (abi, contractAddress, kuwaId) => {
+            dispatch(getRegistrationStatus(abi, contractAddress, kuwaId))
         }
     }
 }

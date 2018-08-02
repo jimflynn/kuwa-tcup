@@ -216,9 +216,9 @@ function setRegistrationStatusTo(registrationStatus, contractAddress, abi) {
     })
 }
 
-export function getRegistrationStatus(privateKey, abi, contractAddress, kuwaId) {
+export function getRegistrationStatus(abi, contractAddress, kuwaId) {
     return dispatch => {
-        loadWallet(privateKey);
+        // loadWallet(privateKey);
         loadContract(abi, contractAddress, 4300000, '22000000000', kuwaId).then(contract => {
             contract.methods.getRegistrationStatus().call().then(registrationStatus => {
                 dispatch({
@@ -230,9 +230,9 @@ export function getRegistrationStatus(privateKey, abi, contractAddress, kuwaId) 
     }
 }
 
-export function getKuwaNetwork(privateKey, abi, contractAddress, kuwaId) {
+export function getKuwaNetwork(abi, contractAddress, kuwaId) {
     return dispatch => {
-        loadWallet(privateKey);
+        // loadWallet(privateKey);
         loadContract(abi, contractAddress, 4300000, '22000000000', kuwaId).then(contract => {
             contract.methods.getKuwaNetwork().call().then(kuwaNetwork => {
                 dispatch({
@@ -249,7 +249,7 @@ export function getKuwaNetwork(privateKey, abi, contractAddress, kuwaId) {
  * @param  {string} privateKey 
  * @return {void}
  */
-const loadWallet = function(privateKey) {
+export const loadWallet = function(privateKey) {
     web3.eth.accounts.wallet.clear();
     web3.eth.accounts.wallet.add(privateKey);
 }
@@ -263,7 +263,7 @@ const loadWallet = function(privateKey) {
  * @param  {string} from 
  * @return 
  */
-const loadContract = async function(abi, contractAddress, gas, gasPrice, from) {
+export const loadContract = async function(abi, contractAddress, gas, gasPrice, from) {
     let contract = new web3.eth.Contract(abi);
     contract.options.address = contractAddress;
     contract.options.from = from;

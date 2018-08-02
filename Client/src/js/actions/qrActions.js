@@ -2,6 +2,7 @@ import Instascan from 'instascan';
 let QRScanner = window.QRScanner;
 
 import config from 'config';
+import { loadContract } from './kuwaActions';
 
 export function startScanner(scanner) {
     return dispatch => {
@@ -24,15 +25,15 @@ export function startScanner(scanner) {
     }
 }
 
-export function qrCodeFound(kuwaId, scanner, contractAddress, abi) {
+export function qrCodeFound(scannedKuwaId, scanner, contractAddress, abi) {
     return dispatch => {
         scanner.stop().then(() => {
-            if (isValidKuwaId(kuwaId)) {
+            if (isValidKuwaId(scannedKuwaId)) {
                 dispatch({
                     type: 'QR_CODE_FOUND',
-                    payload: { kuwaId }
+                    payload: { scannedKuwaId }
                 })
-                addScannedKuwaId(kuwaId, contractAddress, abi)
+                addScannedKuwaId(scannedKuwaId, contractAddress, abi)
                     .then(responseJson => {
                         console.log(responseJson);
                         dispatch({
@@ -48,9 +49,9 @@ export function qrCodeFound(kuwaId, scanner, contractAddress, abi) {
     }
 }
 
-function isValidKuwaId(kuwaId) {
-    if (typeof kuwaId === 'string' || kuwaId instanceof String) {
-        if(kuwaId.length === 42 && kuwaId.startsWith("0x")) return true;
+function isValidKuwaId(scannedKuwaId) {
+    if (typeof scannedKuwaId === 'string' || scannedKuwaId instanceof String) {
+        if(scannedKuwaId.length === 42 && scannedKuwaId.startsWith("0x")) return true;
     }
     return false;
 }
@@ -93,7 +94,7 @@ export function mobileStartScanner(contractAddress, abi) {
         })
         QRScanner.scan(displayContents);
         
-        function displayContents(err, kuwaId){
+        function displayContents(err, scannedKuwaId){
             QRScanner.hide(function() {
                 QRScanner.destroy(function() {
                     if(err){
@@ -106,10 +107,10 @@ export function mobileStartScanner(contractAddress, abi) {
                     } else {
                         dispatch({
                             type: 'QR_CODE_FOUND',
-                            payload: { kuwaId }
+                            payload: { scannedKuwaId }
                         })
-                        // The scan completed, display the contents of the QR code:
-                        addScannedKuwaId(kuwaId, contractAddress, abi)
+                        // The scan completed, send QR code to the smart contract
+                        addScannedKuwaId(scannedKuwaId, contractAddress, abi)
                             .then(responseJson => {
                                 console.log(responseJson);
                                 dispatch({
@@ -129,6 +130,14 @@ export function mobileStartScanner(contractAddress, abi) {
 }
 
 function addScannedKuwaId(scannedKuwaId, contractAddress, abi) {
+    // loadContract(abi, contractAddress, 4300000, '22000000000', kuwaId).then(contract => {
+    //     contract.methods.getKuwaNetwork().call().then(kuwaNetwork => {
+    //         if (kuwaNetwork.includes(scannedKuwaId)) {
+    //             return Promise.resolve(false);
+    //         }
+    //     })
+    // })
+
     let formData = new FormData();
     formData.append('scannedKuwaId', scannedKuwaId);
     formData.append('contractABI',JSON.stringify(abi));

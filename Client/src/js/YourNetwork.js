@@ -26,7 +26,7 @@ const styles = theme => ({
 
 class YourNetwork extends Component {
     componentDidMount() {
-        this.props.getKuwaNetwork(this.props.privateKey, this.props.abi, this.props.contractAddress, this.props.kuwaId)
+        this.props.getKuwaNetwork(this.props.abi, this.props.contractAddress, this.props.kuwaId)
     }
 
     render() {
@@ -81,7 +81,6 @@ const renderNetwork = (props) => {
 const mapStateToProps = state => {
     return {
         kuwaId: state.kuwaReducer.kuwaId.address,
-        privateKey: state.kuwaReducer.kuwaId.privateKey,
         abi: state.kuwaReducer.kuwaId.abi,
         contractAddress: state.kuwaReducer.kuwaId.contractAddress,
         kuwaNetwork: state.kuwaReducer.kuwaId.kuwaNetwork
@@ -93,8 +92,8 @@ const mapDispatchToProps = dispatch => {
         navigateTo: link => {
             dispatch(push(link))
         },
-        getKuwaNetwork: (privateKey, abi, contractAddress, kuwaId) => {
-            dispatch(getKuwaNetwork(privateKey, abi, contractAddress, kuwaId))
+        getKuwaNetwork: (abi, contractAddress, kuwaId) => {
+            dispatch(getKuwaNetwork(abi, contractAddress, kuwaId))
         }
     }
 }

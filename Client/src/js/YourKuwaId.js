@@ -152,7 +152,7 @@ const renderYourKuwaId = (props, state, setState) => (
 const scannedKuwaId = (props) => {
     switch(props.qrStatus) {
         case "Uploaded":
-            return props.lastScannedKuwaId + " is now part of your network.";
+            return props.scannedKuwaId + " is now part of your network.";
         case "Invalid":
             return "The scanned QR code is not a Kuwa ID.";
         default:
@@ -196,7 +196,7 @@ const mapStateToProps = state => {
         kuwaId: state.kuwaReducer.kuwaId.address,
         scanner: state.qrReducer.scanner,
         qrStatus: state.qrReducer.qrStatus,
-        lastScannedKuwaId: state.qrReducer.lastScannedKuwaId,
+        scannedKuwaId: state.qrReducer.scannedKuwaId,
 
         registrationStatus: state.kuwaReducer.kuwaId.registrationStatus,
 

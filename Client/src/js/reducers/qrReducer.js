@@ -1,5 +1,5 @@
 const initialState = {
-    lastScannedKuwaId: "",
+    scannedKuwaId: "",
     qrStatus: "Waiting",
     scanner: {}
 }
@@ -16,7 +16,7 @@ const qrReducer = (state = initialState, action) => {
             })
         case 'QR_CODE_FOUND':
             return Object.assign({}, state, {
-                lastScannedKuwaId: action.payload.kuwaId,
+                scannedKuwaId: action.payload.scannedKuwaId,
                 qrStatus: "Found"
             })
         case 'QR_CODE_UPLOADED':
