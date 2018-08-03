@@ -72,15 +72,22 @@ function requestSponsorship(keyObject, privateKey, passcode, dispatch) {
                     dispatch(push('/Error'))
                 } else {
                     loadWallet(privateKey);
-                    loadContract(responseJson.abi, responseJson.contractAddress, 4300000, '22000000000', keyObject.address).then(contract => {
-                        contract.methods.getChallenge().call().then(challenge => {
+                    loadContract(responseJson.abi, responseJson.contractAddress, 4300000, '22000000000', keyObject.address)
+                        .then(contract => Promise.all([
+                            contract.methods.getChallenge().call(),
+                            contract.methods.getRegistrationStatus().call()
+                        ]))
+                        .then(payload => {
                             dispatch({
                                 type: 'REQUEST_SPONSORSHIP_FULFILLED',
-                                payload: { challenge, responseJson }
+                                payload: { 
+                                    challenge: payload[0],
+                                    registrationStatus: web3.utils.hexToUtf8(payload[1]), 
+                                    responseJson 
+                                }
                             })
                             dispatch(push('/RecordRegistrationVideo'))
                         })
-                    })
                 }
             })
         }).catch(e => {

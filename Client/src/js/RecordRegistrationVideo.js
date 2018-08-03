@@ -44,7 +44,7 @@ class RecordRegistrationVideo extends Component {
 
 const renderContent = props => (
     <div>
-        { props.registrationStatus === "Video Uploaded" ? renderDone(props) : renderRecordRegistrationVideo(props) }
+        { props.registrationStatus === "Credentials Provided" ? renderRecordRegistrationVideo(props) : renderDone(props) }
     </div>
 )
 

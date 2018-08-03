@@ -71,7 +71,7 @@ class ProvideCredentials extends Component {
 
 const renderContent = (props, state, setState) =>  (
     <div>
-        { props.registrationStatus === "Credentials Provided" ? renderDone(props) : renderProvideCredentials(props, state, setState) }
+        { props.registrationStatus === "New" ? renderProvideCredentials(props, state, setState) : renderDone(props) }
     </div>
 )
 
