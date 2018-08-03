@@ -2,7 +2,7 @@ import Instascan from 'instascan';
 let QRScanner = window.QRScanner;
 
 import config from 'config';
-import { loadContract } from './kuwaActions';
+import { loadContract, getKuwaNetworkList } from './kuwaActions';
 
 export function startScanner(scanner) {
     return dispatch => {
@@ -25,7 +25,7 @@ export function startScanner(scanner) {
     }
 }
 
-export function qrCodeFound(scannedKuwaId, scanner, contractAddress, abi) {
+export function qrCodeFound(scannedKuwaId, scanner, contractAddress, abi, kuwaId) {
     return dispatch => {
         scanner.stop().then(() => {
             if (isValidKuwaId(scannedKuwaId)) {
@@ -33,12 +33,21 @@ export function qrCodeFound(scannedKuwaId, scanner, contractAddress, abi) {
                     type: 'QR_CODE_FOUND',
                     payload: { scannedKuwaId }
                 })
-                addScannedKuwaId(scannedKuwaId, contractAddress, abi)
-                    .then(responseJson => {
-                        console.log(responseJson);
-                        dispatch({
-                            type: 'QR_CODE_UPLOADED'
-                        })
+                getKuwaNetworkList(abi, contractAddress, kuwaId)
+                    .then(kuwaNetwork => {
+                        if (kuwaNetwork.map(n => n.toUpperCase()).includes(scannedKuwaId.toUpperCase())) {
+                            dispatch({
+                                type: 'QR_CODE_UPLOADED'
+                            })
+                        } else {
+                            addScannedKuwaId(scannedKuwaId, contractAddress, abi, kuwaId)
+                            .then(responseJson => {
+                                console.log(responseJson);
+                                dispatch({
+                                    type: 'QR_CODE_UPLOADED'
+                                })
+                            })
+                        }
                     })
             } else {
                 dispatch({
@@ -83,7 +92,7 @@ function stopScan(dispatch) {
     }
 }
 
-export function mobileStartScanner(contractAddress, abi) {
+export function mobileStartScanner(contractAddress, abi, kuwaId) {
     return dispatch => {
         document.addEventListener("backbutton", stopScan(dispatch), true);
         // Make the webview transparent so the video preview is visible behind it.
@@ -109,13 +118,21 @@ export function mobileStartScanner(contractAddress, abi) {
                             type: 'QR_CODE_FOUND',
                             payload: { scannedKuwaId }
                         })
-                        // The scan completed, send QR code to the smart contract
-                        addScannedKuwaId(scannedKuwaId, contractAddress, abi)
-                            .then(responseJson => {
-                                console.log(responseJson);
-                                dispatch({
-                                    type: 'QR_CODE_UPLOADED'
-                                })
+                        getKuwaNetworkList(abi, contractAddress, kuwaId)
+                            .then(kuwaNetwork => {
+                                if (kuwaNetwork.map(n => n.toUpperCase()).includes(scannedKuwaId.toUpperCase())) {
+                                    dispatch({
+                                        type: 'QR_CODE_UPLOADED'
+                                    })
+                                } else {
+                                    addScannedKuwaId(scannedKuwaId, contractAddress, abi, kuwaId)
+                                    .then(responseJson => {
+                                        console.log(responseJson);
+                                        dispatch({
+                                            type: 'QR_CODE_UPLOADED'
+                                        })
+                                    })
+                                }
                             })
                     }
                     setTimeout(function() { 
@@ -129,15 +146,20 @@ export function mobileStartScanner(contractAddress, abi) {
     }
 }
 
-function addScannedKuwaId(scannedKuwaId, contractAddress, abi) {
-    // loadContract(abi, contractAddress, 4300000, '22000000000', kuwaId).then(contract => {
-    //     contract.methods.getKuwaNetwork().call().then(kuwaNetwork => {
-    //         if (kuwaNetwork.includes(scannedKuwaId)) {
-    //             return Promise.resolve(false);
-    //         }
-    //     })
-    // })
+function checkIfDuplicate(scannedKuwaId, contractAddress, abi, kuwaId) {
+    loadContract(abi, contractAddress, 4300000, '22000000000', kuwaId).then(contract => {
+        contract.methods.getChallenge().call().then(kuwaNetwork => {
+            console.log("Kuwa Network", kuwaNetwork)
+            if (kuwaNetwork.includes(scannedKuwaId)) {
+                return Promise.resolve(true);
+            }
+            return Promise.resolve(false);
+        })
+    })
+    // return Promise.resolve(true);
+}
 
+function addScannedKuwaId(scannedKuwaId, contractAddress, abi, kuwaId) {
     let formData = new FormData();
     formData.append('scannedKuwaId', scannedKuwaId);
     formData.append('contractABI',JSON.stringify(abi));

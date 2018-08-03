@@ -162,7 +162,7 @@ const scannedKuwaId = (props) => {
 
 const handleScanAction = (props, state, setState) => {
     if(window.usingCordova) {
-        props.mobileStartScanner(props.contractAddress, props.abi);
+        props.mobileStartScanner(props.contractAddress, props.abi, props.kuwaId);
     } else {
         if (props.qrStatus === "Scanning") {
             props.stopScanner(state.scanner);
@@ -176,8 +176,8 @@ const handleScanAction = (props, state, setState) => {
             
                 let scanner = new Instascan.Scanner({ video: document.getElementById('qrScanner') });
                 setState({ scanner });
-                scanner.addListener('scan', function(kuwaId) {
-                    props.qrCodeFound(kuwaId, scanner, props.contractAddress, props.abi);
+                scanner.addListener('scan', function(scannedKuwaId) {
+                    props.qrCodeFound(scannedKuwaId, scanner, props.contractAddress, props.abi, props.kuwaId);
                     setState({ 
                         videoWidth: 0,
                         videoHeight: 0 })
@@ -213,11 +213,11 @@ const mapDispatchToProps = dispatch => {
         stopScanner: scanner => {
             dispatch(stopScanner(scanner))
         },
-        qrCodeFound: (kuwaId, scanner, contractAddress, abi) => {
-            dispatch(qrCodeFound(kuwaId, scanner, contractAddress, abi))
+        qrCodeFound: (scannedKuwaId, scanner, contractAddress, abi, kuwaId) => {
+            dispatch(qrCodeFound(scannedKuwaId, scanner, contractAddress, abi, kuwaId))
         },
-        mobileStartScanner: (contractAddress, abi) => {
-            dispatch(mobileStartScanner(contractAddress, abi))
+        mobileStartScanner: (contractAddress, abi, kuwaId) => {
+            dispatch(mobileStartScanner(contractAddress, abi, kuwaId))
         }
     }
 }

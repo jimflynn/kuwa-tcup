@@ -62,8 +62,9 @@ function requestSponsorship(keyObject, privateKey, passcode, dispatch) {
         fetch(config.requestUrl.requestSponsorshipUrl, {
             method: 'POST',
             body: formData
-        }).then(response => {
-            response.json().then(responseJson => {
+        })
+        .then(response => response.json())
+        .then(responseJson => {
                 if (responseJson.message === 'invalid Shared Secret') {
                     dispatch({
                         type: 'REQUEST_SPONSORSHIP_REJECTED',
@@ -90,7 +91,7 @@ function requestSponsorship(keyObject, privateKey, passcode, dispatch) {
                         })
                 }
             })
-        }).catch(e => {
+        .catch(e => {
             dispatch({
                 type: 'REQUEST_SPONSORSHIP_REJECTED',
                 payload: { error: "Sorry, we are experiencing internal problems." }
@@ -239,16 +240,19 @@ export function getRegistrationStatus(abi, contractAddress, kuwaId) {
 
 export function getKuwaNetwork(abi, contractAddress, kuwaId) {
     return dispatch => {
-        // loadWallet(privateKey);
-        loadContract(abi, contractAddress, 4300000, '22000000000', kuwaId).then(contract => {
-            contract.methods.getKuwaNetwork().call().then(kuwaNetwork => {
-                dispatch({
-                    type: 'GET_KUWA_NETWORK',
-                    payload: { kuwaNetwork }
-                })
+        getKuwaNetworkList(abi, contractAddress, kuwaId).then(kuwaNetwork => {
+            dispatch({
+                type: 'GET_KUWA_NETWORK',
+                payload: { kuwaNetwork }
             })
         })
     }
+}
+
+export function getKuwaNetworkList(abi, contractAddress, kuwaId) {
+    return loadContract(abi, contractAddress, 4300000, '22000000000', kuwaId)
+        .then(contract => contract.methods.getKuwaNetwork().call())
+        .then(kuwaNetwork => Promise.resolve(kuwaNetwork))
 }
 
 /**
