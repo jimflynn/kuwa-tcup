@@ -51,6 +51,10 @@
             {
               "xml": "<feature name=\"QRScanner\"><param name=\"android-package\" value=\"com.bitpay.cordova.qrscanner.QRScanner\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"CDVOrientation\"><param name=\"android-package\" value=\"cordova.plugins.screenorientation.CDVOrientation\" /></feature>",
+              "count": 1
             }
           ]
         }
@@ -126,6 +130,12 @@
       "PACKAGE_NAME": "org.kuwa.client"
     },
     "cordova-plugin-qrscanner": {
+      "PACKAGE_NAME": "org.kuwa.client"
+    },
+    "es6-promise-plugin": {
+      "PACKAGE_NAME": "org.kuwa.client"
+    },
+    "cordova-plugin-screen-orientation": {
       "PACKAGE_NAME": "org.kuwa.client"
     }
   },
@@ -467,6 +477,20 @@
       "clobbers": [
         "QRScanner"
       ]
+    },
+    {
+      "id": "es6-promise-plugin.Promise",
+      "file": "plugins/es6-promise-plugin/www/promise.js",
+      "pluginId": "es6-promise-plugin",
+      "runs": true
+    },
+    {
+      "id": "cordova-plugin-screen-orientation.screenorientation",
+      "file": "plugins/cordova-plugin-screen-orientation/www/screenorientation.js",
+      "pluginId": "cordova-plugin-screen-orientation",
+      "clobbers": [
+        "cordova.plugins.screenorientation"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -479,6 +503,8 @@
     "cordova-plugin-dialogs": "2.0.1",
     "cordova-plugin-camera": "4.0.3",
     "cordova-plugin-splashscreen": "5.0.2",
-    "cordova-plugin-qrscanner": "2.6.0"
+    "cordova-plugin-qrscanner": "2.6.0",
+    "es6-promise-plugin": "4.2.2",
+    "cordova-plugin-screen-orientation": "3.0.1"
   }
 }

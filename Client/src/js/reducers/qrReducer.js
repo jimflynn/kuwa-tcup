@@ -1,6 +1,6 @@
 const initialState = {
-    kuwaNetwork: [],
-    qrStatus: "",
+    lastScannedKuwaId: "",
+    qrStatus: "Waiting",
     scanner: {}
 }
 
@@ -15,12 +15,17 @@ const qrReducer = (state = initialState, action) => {
                 qrStatus: action.payload.qrError
             })
         case 'QR_CODE_FOUND':
-            if (state.kuwaNetwork.find(kuwaId => kuwaId === action.payload.kuwaId)) {
-                return state;
-            }
             return Object.assign({}, state, {
-                kuwaNetwork: state.kuwaNetwork.concat([action.payload.kuwaId]),
+                lastScannedKuwaId: action.payload.kuwaId,
                 qrStatus: "Found"
+            })
+        case 'QR_CODE_STOP_SCAN':
+            return Object.assign({}, state, {
+                qrStatus: "Waiting"
+            })
+        case 'QR_CODE_INVALID':
+            return Object.assign({}, state, {
+                qrStatus: "Invalid"
             })
         default:
             return state;

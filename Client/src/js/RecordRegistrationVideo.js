@@ -75,11 +75,9 @@ const renderRecordRegistrationVideo = props => (
         <Typography variant="title" align="center" style={{margin: "1em"}}>
             <strong>{props.challenge}</strong>
         </Typography>
-        <Grid container justify="center" style={{margin: "1em"}}>
-            <Provider store={store}>
-                <Video />
-            </Provider>
-        </Grid>
+        <Provider store={store}>
+            <Video />
+        </Provider>
         {renderButton(props)}
     </div>
 )

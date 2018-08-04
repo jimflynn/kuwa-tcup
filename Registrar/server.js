@@ -2,8 +2,8 @@ var fs = require('fs');
 var https = require('https');
 const mysql = require('mysql');
 const express = require('express');
+var moment = require('moment-timezone');
 const port = process.env.PORT || 3006;
-
 
 const app = express();
 
@@ -11,6 +11,7 @@ var pool = mysql.createPool({
     connectionLimit : 100,
     host     : 'localhost',
     user     : 'root',
+    // password: "sqlpassword",
     password : String.raw`(-h(3~8u"_ZE{lV%m(2SWze$F-7K<$,ej:2+@=-O\43**|>j6!2~uPmeJko[ASo=`,
     database : 'alpha_kuwa_registrar_moe',
     timezone : 'local',
@@ -22,6 +23,11 @@ var credentials = {
     cert: fs.readFileSync('/etc/httpd/conf/ssl.crt/alpha_kuwa_org.pem')
 }
 
+// var credentials = {
+//     key : fs.readFileSync('server.key'),
+//     cert: fs.readFileSync('server.cert')
+// }
+
 app.get('/registration', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     pool.getConnection((error,connection) => {
@@ -29,11 +35,17 @@ app.get('/registration', (req, res) => {
             return res.json({"code" : 100, "status" : "Error in connecting to database"});
             return;
         }
-        console.log('UI backend has connected to Kuwa database!');
+        // console.log('UI backend has connected to Kuwa database!');
         connection.query("SELECT * FROM registration", (err,rows) => {
             if (!err) {
                 connection.release();
                 rows = JSON.parse(JSON.stringify(rows));
+                // convert time to EDT
+                let numRows = rows.length;
+                for(let i=0; i < numRows; i++) {
+                    rows[i].timestamp = moment(rows[i].timestamp).tz("America/New_York").format('YYYY-MM-DD HH:mm:ss');
+                }
+                //console.log(rows);
                 return res.json(rows);
             }
             else {
