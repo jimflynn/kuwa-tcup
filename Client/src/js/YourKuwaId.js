@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Loading } from './Load';
 
 import { startScanner, stopScanner, qrCodeFound, mobileStartScanner } from './actions/qrActions';
 import Instascan from 'instascan';
@@ -32,7 +33,7 @@ class YourKuwaId extends Component {
     }
 
     render() {
-        if (this.props.qrStatus === "Scanning") {
+        if (this.props.qrStatus === "Scanning" && window.usingCordova) {
             return (
                 <QRSquare />
             )
@@ -53,7 +54,6 @@ class QRSquare extends Component {
         } else if (orientation.includes("landscape")) {
             window.screen.orientation.lock("landscape");
         }
-
         let bottomNav = document.getElementById("bottomNav");
         let navigation = document.getElementById("mobileNavbar");
 
@@ -108,21 +108,30 @@ const renderYourKuwaId = (props, state, setState) => (
             <Grid align="center">
                 <img src={ props.qrCodeSrc } alt="Here will lie a QR code" />
             </Grid>
-            <Typography variant="subheading" align="left" style={{margin: "1em"}}>
-                <strong>Step 3 –</strong> Please ask other people that you know to scan your QR code.
-            </Typography>
-            <Grid container spacing={24} justify="center">
-                <Grid item xs={6} align="center">
-                    <Button variant="contained" style={{backgroundColor: buttonColor}} onClick={() => handleScanAction(props, state, setState)}>
-                        { props.qrStatus === "Scanning" ? "Stop scan" : "Scan an ID"}
-                    </Button>
+
+            {
+                props.registrationStatus === "Video Uploaded" ?
+                <Typography variant="subheading" align="left" style={{margin: "1em"}}>
+                    <strong>Step 3 –</strong> Please ask other people that you know to scan your QR code.
+                </Typography>
+                : null
+            }
+
+            { 
+                props.qrStatus === "Found" ? null : 
+                <Grid container spacing={24} justify="center">
+                    <Grid item xs={6} align="center">
+                        <Button variant="contained" style={{backgroundColor: buttonColor}} onClick={() => handleScanAction(props, state, setState)}>
+                            { props.qrStatus === "Scanning" ? "Stop scan" : "Scan an ID"}
+                        </Button>
+                    </Grid>
+                    <Grid item xs={6} align="center">
+                        <Button variant="contained" style={{backgroundColor: buttonColor}} onClick={() => alert("JAJAJAJAJAJA")}>
+                            Export your ID
+                        </Button>
+                    </Grid>
                 </Grid>
-                <Grid item xs={6} align="center">
-                    <Button variant="contained" style={{backgroundColor: buttonColor}} onClick={() => alert("JAJAJAJAJAJA")}>
-                        Export your ID
-                    </Button>
-                </Grid>
-            </Grid>
+            }
 
             <Grid container justify="center" style={{margin: "1em"}}>
                 <Grid item xs={12} align="center">
@@ -130,7 +139,9 @@ const renderYourKuwaId = (props, state, setState) => (
                 </Grid>
             </Grid>
 
-            <Typography variant="title" align="center" style={{margin: "1em"}}>
+            { props.qrStatus === "Found" ? <Loading loadingMessage="We are adding the scanned ID to your network" /> : null }
+
+            <Typography variant="title" align="center" style={{wordWrap: "break-word", margin: "1em"}}>
                 { scannedKuwaId(props) }
             </Typography>
 
@@ -140,8 +151,8 @@ const renderYourKuwaId = (props, state, setState) => (
 
 const scannedKuwaId = (props) => {
     switch(props.qrStatus) {
-        case "Found":
-            return props.lastScannedKuwaId + " is now part of your network.";
+        case "Uploaded":
+            return props.scannedKuwaId + " is now part of your network.";
         case "Invalid":
             return "The scanned QR code is not a Kuwa ID.";
         default:
@@ -151,7 +162,7 @@ const scannedKuwaId = (props) => {
 
 const handleScanAction = (props, state, setState) => {
     if(window.usingCordova) {
-        props.mobileStartScanner();
+        props.mobileStartScanner(props.contractAddress, props.abi, props.kuwaId);
     } else {
         if (props.qrStatus === "Scanning") {
             props.stopScanner(state.scanner);
@@ -165,8 +176,8 @@ const handleScanAction = (props, state, setState) => {
             
                 let scanner = new Instascan.Scanner({ video: document.getElementById('qrScanner') });
                 setState({ scanner });
-                scanner.addListener('scan', function(kuwaId) {
-                    props.qrCodeFound(kuwaId, scanner);
+                scanner.addListener('scan', function(scannedKuwaId) {
+                    props.qrCodeFound(scannedKuwaId, scanner, props.contractAddress, props.abi, props.kuwaId);
                     setState({ 
                         videoWidth: 0,
                         videoHeight: 0 })
@@ -185,7 +196,12 @@ const mapStateToProps = state => {
         kuwaId: state.kuwaReducer.kuwaId.address,
         scanner: state.qrReducer.scanner,
         qrStatus: state.qrReducer.qrStatus,
-        lastScannedKuwaId: state.qrReducer.lastScannedKuwaId
+        scannedKuwaId: state.qrReducer.scannedKuwaId,
+
+        registrationStatus: state.kuwaReducer.kuwaId.registrationStatus,
+
+        abi: state.kuwaReducer.kuwaId.abi,
+        contractAddress: state.kuwaReducer.kuwaId.contractAddress,
     }
 }
 
@@ -197,11 +213,11 @@ const mapDispatchToProps = dispatch => {
         stopScanner: scanner => {
             dispatch(stopScanner(scanner))
         },
-        qrCodeFound: (kuwaId, scanner) => {
-            dispatch(qrCodeFound(kuwaId, scanner))
+        qrCodeFound: (scannedKuwaId, scanner, contractAddress, abi, kuwaId) => {
+            dispatch(qrCodeFound(scannedKuwaId, scanner, contractAddress, abi, kuwaId))
         },
-        mobileStartScanner: () => {
-            dispatch(mobileStartScanner())
+        mobileStartScanner: (contractAddress, abi, kuwaId) => {
+            dispatch(mobileStartScanner(contractAddress, abi, kuwaId))
         }
     }
 }

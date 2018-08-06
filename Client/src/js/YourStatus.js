@@ -9,6 +9,8 @@ import Grid from '@material-ui/core/Grid';
 
 import { paperHeader } from './paperHeader';
 
+import { getRegistrationStatus } from './actions/kuwaActions';
+
 const styles = theme => ({
     root: Object.assign({}, theme.mixins.gutters(), {
         paddingTop: theme.spacing.unit * 2,
@@ -17,6 +19,10 @@ const styles = theme => ({
 });
 
 class YourStatus extends Component {
+    componentDidMount() {
+        this.props.getRegistrationStatus(this.props.abi, this.props.contractAddress, this.props.kuwaId)
+    }
+
     render() {
         const { classes } = this.props;
         return (
@@ -27,7 +33,7 @@ class YourStatus extends Component {
                         { paperHeader("Your Status") }
 
                         <Typography variant="title" align="center" style={{margin: "1em"}}>
-                            <strong>{"Status: " + ""}</strong>
+                            <strong>{ "Status: " + this.props.registrationStatus }</strong>
                         </Typography>
                         
                         <Grid align="center">
@@ -47,7 +53,10 @@ class YourStatus extends Component {
 
 const mapStateToProps = state => {
     return {
-
+        registrationStatus: state.kuwaReducer.kuwaId.registrationStatus,
+        kuwaId: state.kuwaReducer.kuwaId.address,
+        abi: state.kuwaReducer.kuwaId.abi,
+        contractAddress: state.kuwaReducer.kuwaId.contractAddress,
     }
 }
 
@@ -55,6 +64,9 @@ const mapDispatchToProps = dispatch => {
     return {
         navigateTo: link => {
             dispatch(push(link))
+        },
+        getRegistrationStatus: (abi, contractAddress, kuwaId) => {
+            dispatch(getRegistrationStatus(abi, contractAddress, kuwaId))
         }
     }
 }

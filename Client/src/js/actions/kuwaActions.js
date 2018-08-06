@@ -62,38 +62,46 @@ function requestSponsorship(keyObject, privateKey, passcode, dispatch) {
         fetch(config.requestUrl.requestSponsorshipUrl, {
             method: 'POST',
             body: formData
-        }).then(response => {
-            response.json().then(responseJson => {
+        })
+        .then(response => response.json())
+        .then(responseJson => {
                 if (responseJson.message === 'invalid Shared Secret') {
                     dispatch({
                         type: 'REQUEST_SPONSORSHIP_REJECTED',
-                        payload: {error: "Invalid Shared Secret."}
+                        payload: { error: "Invalid Shared Secret." }
                     })
                     dispatch(push('/Error'))
                 } else {
                     loadWallet(privateKey);
-                    loadContract(responseJson.abi, responseJson.contractAddress, 4300000, '22000000000', keyObject.address).then(contract => {
-                        contract.methods.getChallenge().call().then(challenge => {
+                    loadContract(responseJson.abi, responseJson.contractAddress, 4300000, '22000000000', keyObject.address)
+                        .then(contract => Promise.all([
+                            contract.methods.getChallenge().call(),
+                            contract.methods.getRegistrationStatus().call()
+                        ]))
+                        .then(payload => {
                             dispatch({
                                 type: 'REQUEST_SPONSORSHIP_FULFILLED',
-                                payload: {challenge, responseJson}
+                                payload: { 
+                                    challenge: payload[0],
+                                    registrationStatus: web3.utils.hexToUtf8(payload[1]), 
+                                    responseJson 
+                                }
                             })
                             dispatch(push('/RecordRegistrationVideo'))
                         })
-                    })
                 }
             })
-        }).catch(e => {
+        .catch(e => {
             dispatch({
                 type: 'REQUEST_SPONSORSHIP_REJECTED',
-                payload: {error: "Sorry, we are experiencing internal problems."}
+                payload: { error: "Sorry, we are experiencing internal problems." }
             })
             dispatch(push('/Error'))
         })
     //}
 }
 
-export function uploadToStorage(videoFilePath, ethereumAddress, abi, contractAddress) {
+export function uploadToStorage(videoFilePath, kuwaId, abi, contractAddress) {
     return dispatch => {
         dispatch({
             type: 'UPLOAD_TO_STORAGE_PENDING'
@@ -113,7 +121,7 @@ export function uploadToStorage(videoFilePath, ethereumAddress, abi, contractAdd
                     resolve(videoBlob);
                 }
             }).then(videoFile => {
-                formData.append('ClientAddress',ethereumAddress);
+                formData.append('ClientAddress',kuwaId);
                 formData.append('ChallengeVideo',videoFile);
                 formData.append('ContractABI',JSON.stringify(abi));
                 formData.append('ContractAddress',contractAddress);
@@ -121,15 +129,22 @@ export function uploadToStorage(videoFilePath, ethereumAddress, abi, contractAdd
                     method: 'POST',
                     body: formData
                 }).then(response => {
-                    dispatch({
-                        type: 'UPLOAD_TO_STORAGE_FULFILLED',
-                        payload: {response}
-                    })
-                    dispatch(push('/YourKuwaId'))
+                    setRegistrationStatusTo("Video Uploaded", contractAddress, abi, kuwaId)
+                        .then(({ registrationStatus }) => {
+                            dispatch({
+                                type: 'UPLOAD_TO_STORAGE_FULFILLED',
+                                payload: {
+                                    response,
+                                    registrationStatus
+                                }
+                            })
+                            dispatch(push('/YourKuwaId'))
+                        })
                 }).catch(e => {
+                    console.log(e)
                     dispatch({
                         type: 'UPLOAD_TO_STORAGE_REJECTED',
-                        payload: {error: "Seems like the Information was not uploaded"}
+                        payload: { error: "Seems like the Information was not uploaded" }
                     })
                     dispatch(push('/Error'))
                 })
@@ -138,13 +153,13 @@ export function uploadToStorage(videoFilePath, ethereumAddress, abi, contractAdd
     }
 }
 
-export function webUploadToStorage(videoBlob, ethereumAddress, abi, contractAddress) {
+export function webUploadToStorage(videoBlob, kuwaId, abi, contractAddress) {
     return dispatch => {
         dispatch({
             type: 'WEB_UPLOAD_TO_STORAGE_PENDING'
         })
         let formData = new FormData();
-        formData.append('ClientAddress',ethereumAddress);
+        formData.append('ClientAddress',kuwaId);
         formData.append('ChallengeVideo',videoBlob);
         formData.append('ContractABI',JSON.stringify(abi));
         formData.append('ContractAddress',contractAddress);
@@ -152,22 +167,29 @@ export function webUploadToStorage(videoBlob, ethereumAddress, abi, contractAddr
             method: 'POST',
             body: formData
         }).then(response => {
-            dispatch({
-                type: 'WEB_UPLOAD_TO_STORAGE_FULFILLED',
-                payload: {response}
-            })
-            dispatch(push('/YourKuwaId'))
+            setRegistrationStatusTo("Video Uploaded", contractAddress, abi, kuwaId)
+                .then(({ registrationStatus }) => {
+                    dispatch({
+                        type: 'WEB_UPLOAD_TO_STORAGE_FULFILLED',
+                        payload: {
+                            response,
+                            registrationStatus
+                        }
+                    })
+                    dispatch(push('/YourKuwaId'))
+                })
         }).catch(e => {
+            console.log(e)
             dispatch({
                 type: 'WEB_UPLOAD_TO_STORAGE_REJECTED',
-                payload: {error: "Seems like the Information was not uploaded"}
+                payload: { error: "Seems like the Information was not uploaded" }
             })
             dispatch(push('/Error'))
         })
     }
 }
 
-function generateQrCode(ethereumAddress) {
+function generateQrCode(kuwaId) {
     let opts = {
         errorCorrectionLevel: 'H',
         type: 'image/jpeg',
@@ -177,11 +199,69 @@ function generateQrCode(ethereumAddress) {
     }
 
     return new Promise((resolve, reject) => {
-        qrcode.toDataURL(ethereumAddress, opts, function (err, url) {
+        qrcode.toDataURL(kuwaId, opts, function (err, url) {
             if (err) throw reject(err);
             resolve(url);
         })
     })
+}
+
+export function setRegistrationStatusTo(registrationStatus, contractAddress, abi, kuwaId) {
+    return getRegistrationStatusString(abi, contractAddress, kuwaId)
+        .then(currentRegistrationStatus => {
+            if (currentRegistrationStatus === "Valid" || currentRegistrationStatus === "Invalid") {
+                return Promise.resolve({ responseJson:null, currentRegistrationStatus })
+            } 
+            let formData = new FormData();
+            formData.append('registrationStatus', registrationStatus);
+            formData.append('contractABI',JSON.stringify(abi));
+            formData.append('contractAddress',contractAddress);
+
+            return new Promise((resolve, reject) => {
+                fetch(config.requestUrl.setRegistrationStatusToUrl, { method: 'POST', body: formData })
+                    .then(response => response.json())
+                    .then(responseJson => {
+                        resolve({ responseJson, registrationStatus });
+                    })
+                    .catch(e => {
+                        reject(JSON.stringify(e));
+                    })
+            })
+        })
+}
+
+export function getRegistrationStatus(abi, contractAddress, kuwaId) {
+    return dispatch => {
+        getRegistrationStatusString(abi, contractAddress, kuwaId).then(registrationStatus => {
+            dispatch({
+                type: 'GET_REGISTRATION_STATUS',
+                payload: { registrationStatus }
+            })
+        })
+    }
+}
+
+export function getKuwaNetwork(abi, contractAddress, kuwaId) {
+    return dispatch => {
+        getKuwaNetworkList(abi, contractAddress, kuwaId).then(kuwaNetwork => {
+            dispatch({
+                type: 'GET_KUWA_NETWORK',
+                payload: { kuwaNetwork }
+            })
+        })
+    }
+}
+
+export function getKuwaNetworkList(abi, contractAddress, kuwaId) {
+    return loadContract(abi, contractAddress, 4300000, '22000000000', kuwaId)
+        .then(contract => contract.methods.getKuwaNetwork().call())
+        .then(kuwaNetwork => Promise.resolve(kuwaNetwork))
+}
+
+export function getRegistrationStatusString(abi, contractAddress, kuwaId) {
+    return loadContract(abi, contractAddress, 4300000, '22000000000', kuwaId)
+        .then(contract => contract.methods.getRegistrationStatus().call())
+        .then(registrationStatus => Promise.resolve(web3.utils.hexToUtf8(registrationStatus)))
 }
 
 /**
@@ -189,7 +269,7 @@ function generateQrCode(ethereumAddress) {
  * @param  {string} privateKey 
  * @return {void}
  */
-const loadWallet = function(privateKey) {
+export const loadWallet = function(privateKey) {
     web3.eth.accounts.wallet.clear();
     web3.eth.accounts.wallet.add(privateKey);
 }
@@ -203,7 +283,7 @@ const loadWallet = function(privateKey) {
  * @param  {string} from 
  * @return 
  */
-const loadContract = async function(abi, contractAddress, gas, gasPrice, from) {
+export const loadContract = async function(abi, contractAddress, gas, gasPrice, from) {
     let contract = new web3.eth.Contract(abi);
     contract.options.address = contractAddress;
     contract.options.from = from;
