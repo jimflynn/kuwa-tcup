@@ -129,19 +129,19 @@ export function uploadToStorage(videoFilePath, kuwaId, abi, contractAddress) {
                     method: 'POST',
                     body: formData
                 }).then(response => {
-                    setRegistrationStatusTo("Video Uploaded", contractAddress, abi)
-                        .then(responseJson => {
-                            console.log(responseJson);
+                    setRegistrationStatusTo("Video Uploaded", contractAddress, abi, kuwaId)
+                        .then(({ registrationStatus }) => {
                             dispatch({
                                 type: 'UPLOAD_TO_STORAGE_FULFILLED',
                                 payload: {
                                     response,
-                                    registrationStatus: "Video Uploaded"
+                                    registrationStatus
                                 }
                             })
                             dispatch(push('/YourKuwaId'))
                         })
                 }).catch(e => {
+                    console.log(e)
                     dispatch({
                         type: 'UPLOAD_TO_STORAGE_REJECTED',
                         payload: { error: "Seems like the Information was not uploaded" }
@@ -167,19 +167,19 @@ export function webUploadToStorage(videoBlob, kuwaId, abi, contractAddress) {
             method: 'POST',
             body: formData
         }).then(response => {
-            setRegistrationStatusTo("Video Uploaded", contractAddress, abi)
-                .then(responseJson => {
-                    console.log(responseJson);
+            setRegistrationStatusTo("Video Uploaded", contractAddress, abi, kuwaId)
+                .then(({ registrationStatus }) => {
                     dispatch({
                         type: 'WEB_UPLOAD_TO_STORAGE_FULFILLED',
                         payload: {
                             response,
-                            registrationStatus: "Video Uploaded"
+                            registrationStatus
                         }
                     })
                     dispatch(push('/YourKuwaId'))
                 })
         }).catch(e => {
+            console.log(e)
             dispatch({
                 type: 'WEB_UPLOAD_TO_STORAGE_REJECTED',
                 payload: { error: "Seems like the Information was not uploaded" }
@@ -206,33 +206,36 @@ function generateQrCode(kuwaId) {
     })
 }
 
-function setRegistrationStatusTo(registrationStatus, contractAddress, abi) {
-    let formData = new FormData();
-    formData.append('registrationStatus', registrationStatus);
-    formData.append('contractABI',JSON.stringify(abi));
-    formData.append('contractAddress',contractAddress);
+export function setRegistrationStatusTo(registrationStatus, contractAddress, abi, kuwaId) {
+    return getRegistrationStatusString(abi, contractAddress, kuwaId)
+        .then(currentRegistrationStatus => {
+            if (currentRegistrationStatus === "Valid" || currentRegistrationStatus === "Invalid") {
+                return Promise.resolve({ responseJson:null, currentRegistrationStatus })
+            } 
+            let formData = new FormData();
+            formData.append('registrationStatus', registrationStatus);
+            formData.append('contractABI',JSON.stringify(abi));
+            formData.append('contractAddress',contractAddress);
 
-    return new Promise((resolve, reject) => {
-        fetch(config.requestUrl.setRegistrationStatusToUrl, { method: 'POST', body: formData })
-            .then(response => response.json())
-            .then(responseJson => {
-                resolve(responseJson);
+            return new Promise((resolve, reject) => {
+                fetch(config.requestUrl.setRegistrationStatusToUrl, { method: 'POST', body: formData })
+                    .then(response => response.json())
+                    .then(responseJson => {
+                        resolve({ responseJson, registrationStatus });
+                    })
+                    .catch(e => {
+                        reject(JSON.stringify(e));
+                    })
             })
-            .catch(e => {
-                reject(JSON.stringify(e));
-            })
-    })
+        })
 }
 
 export function getRegistrationStatus(abi, contractAddress, kuwaId) {
     return dispatch => {
-        // loadWallet(privateKey);
-        loadContract(abi, contractAddress, 4300000, '22000000000', kuwaId).then(contract => {
-            contract.methods.getRegistrationStatus().call().then(registrationStatus => {
-                dispatch({
-                    type: 'GET_REGISTRATION_STATUS',
-                    payload: { registrationStatus: web3.utils.hexToUtf8(registrationStatus) }
-                })
+        getRegistrationStatusString(abi, contractAddress, kuwaId).then(registrationStatus => {
+            dispatch({
+                type: 'GET_REGISTRATION_STATUS',
+                payload: { registrationStatus }
             })
         })
     }
@@ -253,6 +256,12 @@ export function getKuwaNetworkList(abi, contractAddress, kuwaId) {
     return loadContract(abi, contractAddress, 4300000, '22000000000', kuwaId)
         .then(contract => contract.methods.getKuwaNetwork().call())
         .then(kuwaNetwork => Promise.resolve(kuwaNetwork))
+}
+
+export function getRegistrationStatusString(abi, contractAddress, kuwaId) {
+    return loadContract(abi, contractAddress, 4300000, '22000000000', kuwaId)
+        .then(contract => contract.methods.getRegistrationStatus().call())
+        .then(registrationStatus => Promise.resolve(web3.utils.hexToUtf8(registrationStatus)))
 }
 
 /**

@@ -29,7 +29,7 @@ class SimpleBottomNavigation extends React.Component {
         }
     }
     render() {
-        if (this.props.registrationStatus !== "Video Uploaded") return null;
+        if (this.props.registrationStatus === "New" || this.props.registrationStatus === "Credentials Provided") return null;
         const { classes } = this.props;
         return (
             <div>

@@ -2,7 +2,7 @@ import Instascan from 'instascan';
 let QRScanner = window.QRScanner;
 
 import config from 'config';
-import { loadContract, getKuwaNetworkList } from './kuwaActions';
+import { getKuwaNetworkList, setRegistrationStatusTo } from './kuwaActions';
 
 export function startScanner(scanner) {
     return dispatch => {
@@ -42,10 +42,7 @@ export function qrCodeFound(scannedKuwaId, scanner, contractAddress, abi, kuwaId
                         } else {
                             addScannedKuwaId(scannedKuwaId, contractAddress, abi, kuwaId)
                             .then(responseJson => {
-                                console.log(responseJson);
-                                dispatch({
-                                    type: 'QR_CODE_UPLOADED'
-                                })
+                                setRegistrationStatusTo("QR Code Scanned", contractAddress, abi, kuwaId).then(() => { dispatch({ type: 'QR_CODE_UPLOADED' }) })
                             })
                         }
                     })
@@ -127,10 +124,7 @@ export function mobileStartScanner(contractAddress, abi, kuwaId) {
                                 } else {
                                     addScannedKuwaId(scannedKuwaId, contractAddress, abi, kuwaId)
                                     .then(responseJson => {
-                                        console.log(responseJson);
-                                        dispatch({
-                                            type: 'QR_CODE_UPLOADED'
-                                        })
+                                        setRegistrationStatusTo("QR Code Scanned", contractAddress, abi, kuwaId).then(() => { dispatch({ type: 'QR_CODE_UPLOADED' }) })
                                     })
                                 }
                             })
@@ -144,19 +138,6 @@ export function mobileStartScanner(contractAddress, abi, kuwaId) {
             })
         }
     }
-}
-
-function checkIfDuplicate(scannedKuwaId, contractAddress, abi, kuwaId) {
-    loadContract(abi, contractAddress, 4300000, '22000000000', kuwaId).then(contract => {
-        contract.methods.getChallenge().call().then(kuwaNetwork => {
-            console.log("Kuwa Network", kuwaNetwork)
-            if (kuwaNetwork.includes(scannedKuwaId)) {
-                return Promise.resolve(true);
-            }
-            return Promise.resolve(false);
-        })
-    })
-    // return Promise.resolve(true);
 }
 
 function addScannedKuwaId(scannedKuwaId, contractAddress, abi, kuwaId) {
