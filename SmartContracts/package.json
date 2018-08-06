@@ -1,0 +1,21 @@
+{
+  "name": "SmartContracts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "keythereum": "^1.0.4",
+    "md5": "^2.2.1",
+    "solc": "^0.4.24",
+    "web3": "^1.0.0-beta.35"
+  }
+}

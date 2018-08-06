@@ -8,22 +8,33 @@ var web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider("https://rinkeby.infura.io/8Dx9RdhjqIl1y3EQzQpl"));
 
 // This function compiles the solidity file. Similar to truffle compile, but it is done here.
-var compileSolFile = async function(solFilePath, contractName) {
+var compileSolFile = async function() {
     var output;
     try {
-        let readFile = util.promisify(fs.readFile);
-        let solidityCode = await readFile(solFilePath, "utf8");
-        let input = solidityCode.toString();
-        output = solc.compile(input, 1);
+        let kuwaRegistrationInput = {
+            'ERC20Interface.sol': fs.readFileSync('../contracts/ERC20Interface.sol', 'utf8'),
+            'SafeMath.sol': fs.readFileSync('../contracts/SafeMath.sol', 'utf8'),
+            'Owned.sol': fs.readFileSync('../contracts/Owned.sol', 'utf8'),
+            'KuwaToken.sol': fs.readFileSync('../contracts/KuwaToken.sol', 'utf8'),
+            'KuwaRegistration.sol': fs.readFileSync('../contracts/KuwaRegistration.sol', 'utf8')
+        };
+        output = solc.compile({sources: kuwaRegistrationInput}, 1);
     }
     catch (err) {
         console.log(err);
     }
 
-    let compilation = {}
+    // console.log(output);
+
+    let compilation = {
+        kuwaRegistration: {},
+        kuwaToken: {}
+    }
     if (output) {
-        compilation.bc = output.contracts[':' + contractName].bytecode;
-        compilation.abi = JSON.parse(output.contracts[':' + contractName].interface);
+        compilation.kuwaRegistration.bc = output.contracts['KuwaRegistration.sol:KuwaRegistration'].bytecode;
+        compilation.kuwaRegistration.abi = JSON.parse(output.contracts['KuwaRegistration.sol:KuwaRegistration'].interface);
+        compilation.kuwaToken.bc = output.contracts['KuwaToken.sol:KuwaToken'].bytecode;
+        compilation.kuwaToken.abi = JSON.parse(output.contracts['KuwaToken.sol:KuwaToken'].interface);
     }
 
     return compilation;
@@ -78,28 +89,30 @@ var loadContract = async function(abi, contractAddress, gas, gasPrice, from) {
 }
 
 var run = async function() {
-    let wallet = await loadWallet('/home/jun/.ethereum', '0xde89471e94ffaaf346090abe1ccd4b448818dcbf', 'tcup').catch(
-        function(error) {
-            console.log(error);
-            throw new Error("failed to load wallet");
-        }
-    );
+    let wallet = await loadWallet('/home/clankster99/.ethereum/rinkeby', '0xf9f83aaa322ab613db21229be6ca9e2df8a1a149', 'tcupManush')
 
-    let compilation = await compileSolFile("KuwaRegistration.sol", "KuwaRegistration");
-    if (Object.keys(compilation).length === 0) {
-        throw new Error("failed to compile solidity contract");
-    }
+    let compilation = await compileSolFile();
 
-    let contractInstance =  await deployContract(compilation.abi, compilation.bc, 4300000, '22000000000', "0xde89471e94ffaaf346090abe1ccd4b448818dcbf", [1000, "clientPubKey"]);
-    if (contractInstance == null) {
-        throw new Error("failed to deploy contract");
-    }
+    let contractInstance =  await deployContract(compilation.kuwaRegistration.abi, compilation.kuwaRegistration.bc, 4300000, '22000000000', "0xf9f83aaa322ab613db21229be6ca9e2df8a1a149", ["0xf9f83aaa322ab613db21229be6ca9e2df8a1a149", "0xb324c068Bf7C89E51C8A5E54e7D6b45F380a2Daa"]);
+
+    // let kuwaTokenInstance = await deployContract(compilation.kuwaToken.abi, compilation.kuwaToken.bc, 4300000, '22000000000', "0xf9f83aaa322ab613db21229be6ca9e2df8a1a149", []);
 
     // let contractInstance = await loadContract(compilation.abi, "0x30768510F1A57B12817CDC2a723C8AE21de071b5", 4300000, "22000000000", "0xF9F83AaA322aB613Db21229BE6ca9E2dF8a1A149");
 
-    await contractInstance.methods.generateChallenge().send();
-    let challenge = await contractInstance.methods.getChallenge().call();
-    console.log(challenge);
+    // await kuwaTokenInstance.methods.transfer("0x5a9e7bc667433ef82626de8e0d8576dbccb10683", 9).send({ from:"0xf9f83aaa322ab613db21229be6ca9e2df8a1a149" })
+
+    // let balance = await kuwaTokenInstance.methods.balanceOf("0xf9f83aaa322ab613db21229be6ca9e2df8a1a149").call({ from:"0xf9f83aaa322ab613db21229be6ca9e2df8a1a149" })
+    // console.log(balance);
+
+    // let challenge = await contractInstance.methods.getChallenge().call();
+    // console.log(challenge);
+    // await contractInstance.methods.addScannedKuwaId("0xF9F83AaA322aB613Db21229BE6ca9E2dF8a1A149").send()
+    // let kuwaNetwork = await contractInstance.methods.getKuwaNetwork().call();
+    // console.log(kuwaNetwork);
+
+    // await contractInstance.methods.setRegistrationStatusTo(web3.utils.utf8ToHex('Valid')).send();
+    let registrationStatus = await contractInstance.methods.getRegistrationStatus().call();
+    console.log(web3.utils.hexToUtf8(registrationStatus));
 }
 
 run().catch(err => console.log(err));
