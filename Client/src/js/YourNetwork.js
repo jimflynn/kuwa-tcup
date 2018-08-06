@@ -57,7 +57,7 @@ const renderNetwork = (props) => {
     });
 
     return (
-        <Table>
+        <Table style={{ tableLayout: "fixed" }}>
             <TableHead>
             <TableRow>
                 <TableCell>Kuwa ID</TableCell>

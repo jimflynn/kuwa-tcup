@@ -141,7 +141,7 @@ const renderYourKuwaId = (props, state, setState) => (
 
             { props.qrStatus === "Found" ? <Loading loadingMessage="We are adding the scanned ID to your network" /> : null }
 
-            <Typography variant="title" align="center" style={{margin: "1em"}}>
+            <Typography variant="title" align="center" style={{wordWrap: "break-word", margin: "1em"}}>
                 { scannedKuwaId(props) }
             </Typography>
 
