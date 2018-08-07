@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
+import config from 'config';
 
 import { Loading } from './Load';
 import { paperHeader } from './paperHeader';
@@ -70,14 +71,14 @@ class ProvideCredentials extends Component {
 
 const renderContent = (props, state, setState) =>  (
     <div>
-        { props.sponsored ? renderDone(props) : renderProvideCredentials(props, state, setState) }
+        { props.registrationStatus === "New" ? renderProvideCredentials(props, state, setState) : renderDone(props) }
     </div>
 )
 
 const renderProvideCredentials = (props, state, setState) =>  (
     <div>
-    <Typography variant="title" align="left" style={{margin: "1em"}}>
-        Kuwa registrations must have a sponsor. <strong>The Kuwa Foundation</strong> is the sponsor of your Kuwa registration. For credentials, we only require that you enter a passcode. If you do not have a passcode, please go to <a href="http://kuwa.org" target="_blank">http://kuwa.org</a> to request one.
+    <Typography variant="title" align="left" style={{ margin: "1em" }}>
+        Kuwa registrations must have a sponsor. <strong>The Kuwa Foundation</strong> is the sponsor of your Kuwa registration. For credentials, we only require that you enter a passcode. If you do not have a passcode, please go to <a href={ config.requestPasscodeUrl } target="_blank">http://kuwa.org</a> to request one.
     </Typography>
 
     <Grid>
@@ -160,7 +161,7 @@ const renderDone = props => (
 
 const mapStateToProps = state => {
     return {
-        sponsored: state.kuwaReducer.kuwaId.sponsored,
+        registrationStatus: state.kuwaReducer.kuwaId.registrationStatus,
         showKuwaPassword: state.screenReducer.provideCredentials.showKuwaPassword,
         showPasscode: state.screenReducer.provideCredentials.showPasscode,
         loading: state.kuwaReducer.screen.provideCredentials.loading

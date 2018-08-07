@@ -1,6 +1,9 @@
 import Instascan from 'instascan';
 let QRScanner = window.QRScanner;
 
+import config from 'config';
+import { getKuwaNetworkList, setRegistrationStatusTo } from './kuwaActions';
+
 export function startScanner(scanner) {
     return dispatch => {
         Instascan.Camera.getCameras().then(function (cameras) {
@@ -22,14 +25,27 @@ export function startScanner(scanner) {
     }
 }
 
-export function qrCodeFound(kuwaId, scanner) {
+export function qrCodeFound(scannedKuwaId, scanner, contractAddress, abi, kuwaId) {
     return dispatch => {
         scanner.stop().then(() => {
-            if (isValidKuwaId(kuwaId)) {
+            if (isValidKuwaId(scannedKuwaId)) {
                 dispatch({
                     type: 'QR_CODE_FOUND',
-                    payload: { kuwaId }
+                    payload: { scannedKuwaId }
                 })
+                getKuwaNetworkList(abi, contractAddress, kuwaId)
+                    .then(kuwaNetwork => {
+                        if (kuwaNetwork.map(n => n.toUpperCase()).includes(scannedKuwaId.toUpperCase())) {
+                            dispatch({
+                                type: 'QR_CODE_UPLOADED'
+                            })
+                        } else {
+                            addScannedKuwaId(scannedKuwaId, contractAddress, abi, kuwaId)
+                            .then(responseJson => {
+                                setRegistrationStatusTo("QR Code Scanned", contractAddress, abi, kuwaId).then(() => { dispatch({ type: 'QR_CODE_UPLOADED' }) })
+                            })
+                        }
+                    })
             } else {
                 dispatch({
                     type: 'QR_CODE_INVALID'
@@ -39,9 +55,9 @@ export function qrCodeFound(kuwaId, scanner) {
     }
 }
 
-function isValidKuwaId(kuwaId) {
-    if (typeof kuwaId === 'string' || kuwaId instanceof String) {
-        if(kuwaId.length === 42 && kuwaId.startsWith("0x")) return true;
+function isValidKuwaId(scannedKuwaId) {
+    if (typeof scannedKuwaId === 'string' || scannedKuwaId instanceof String) {
+        if(scannedKuwaId.length === 42 && scannedKuwaId.startsWith("0x")) return true;
     }
     return false;
 }
@@ -73,7 +89,7 @@ function stopScan(dispatch) {
     }
 }
 
-export function mobileStartScanner() {
+export function mobileStartScanner(contractAddress, abi, kuwaId) {
     return dispatch => {
         document.addEventListener("backbutton", stopScan(dispatch), true);
         // Make the webview transparent so the video preview is visible behind it.
@@ -84,7 +100,7 @@ export function mobileStartScanner() {
         })
         QRScanner.scan(displayContents);
         
-        function displayContents(err, kuwaId){
+        function displayContents(err, scannedKuwaId){
             QRScanner.hide(function() {
                 QRScanner.destroy(function() {
                     if(err){
@@ -95,11 +111,23 @@ export function mobileStartScanner() {
                             }
                         })
                     } else {
-                        // The scan completed, display the contents of the QR code:
                         dispatch({
                             type: 'QR_CODE_FOUND',
-                            payload: { kuwaId }
+                            payload: { scannedKuwaId }
                         })
+                        getKuwaNetworkList(abi, contractAddress, kuwaId)
+                            .then(kuwaNetwork => {
+                                if (kuwaNetwork.map(n => n.toUpperCase()).includes(scannedKuwaId.toUpperCase())) {
+                                    dispatch({
+                                        type: 'QR_CODE_UPLOADED'
+                                    })
+                                } else {
+                                    addScannedKuwaId(scannedKuwaId, contractAddress, abi, kuwaId)
+                                    .then(responseJson => {
+                                        setRegistrationStatusTo("QR Code Scanned", contractAddress, abi, kuwaId).then(() => { dispatch({ type: 'QR_CODE_UPLOADED' }) })
+                                    })
+                                }
+                            })
                     }
                     setTimeout(function() { 
                         document.body.style.backgroundColor = 'white';
@@ -110,4 +138,22 @@ export function mobileStartScanner() {
             })
         }
     }
+}
+
+function addScannedKuwaId(scannedKuwaId, contractAddress, abi, kuwaId) {
+    let formData = new FormData();
+    formData.append('scannedKuwaId', scannedKuwaId);
+    formData.append('contractABI',JSON.stringify(abi));
+    formData.append('contractAddress',contractAddress);
+
+    return new Promise((resolve, reject) => {
+        fetch(config.requestUrl.addScannedKuwaIdUrl, { method: 'POST', body: formData })
+            .then(response => response.json())
+            .then(responseJson => {
+                resolve(responseJson);
+            })
+            .catch(e => {
+                reject(JSON.stringify(e));
+            })
+    })
 }

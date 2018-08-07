@@ -44,7 +44,7 @@ class RecordRegistrationVideo extends Component {
 
 const renderContent = props => (
     <div>
-        { props.infoUploaded ? renderDone(props) : renderRecordRegistrationVideo(props) }
+        { props.registrationStatus === "Credentials Provided" ? renderRecordRegistrationVideo(props) : renderDone(props) }
     </div>
 )
 
@@ -54,9 +54,9 @@ const renderButton = props => {
             <Grid container justify="center" style={{margin: "1em"}}> 
                 <Button variant="contained" style={{backgroundColor: buttonColor}} onClick={() => {
                     if (window.usingCordova) {
-                        props.uploadToStorage(props.videoFilePath, props.ethereumAddress, props.abi, props.contractAddress)
+                        props.uploadToStorage(props.videoFilePath, props.kuwaId, props.abi, props.contractAddress)
                     } else {
-                        props.webUploadToStorage(props.videoBlob, props.ethereumAddress, props.abi, props.contractAddress)
+                        props.webUploadToStorage(props.videoBlob, props.kuwaId, props.abi, props.contractAddress)
                     }
                 }}>
                     Upload Video
@@ -97,7 +97,7 @@ const renderDone = props => (
 
 const mapStateToProps = state => {
     return {
-        ethereumAddress: state.kuwaReducer.kuwaId.address,
+        kuwaId: state.kuwaReducer.kuwaId.address,
         challenge: state.kuwaReducer.kuwaId.challenge,
         abi: state.kuwaReducer.kuwaId.abi,
         contractAddress: state.kuwaReducer.kuwaId.contractAddress,
@@ -105,7 +105,7 @@ const mapStateToProps = state => {
         videoStatus: state.videoReducer.videoStatus,
         videoFilePath: state.videoReducer.videoFilePath,
         videoBlob: state.videoReducer.videoBlob,
-        infoUploaded: state.kuwaReducer.kuwaId.infoUploaded,
+        registrationStatus: state.kuwaReducer.kuwaId.registrationStatus,
 
         loading: state.kuwaReducer.screen.uploadToStorage.loading
     }
@@ -113,11 +113,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        uploadToStorage: (videoFilePath, ethereumAddress, abi, contractAddress) => {
-            dispatch(uploadToStorage(videoFilePath, ethereumAddress, abi, contractAddress))
+        uploadToStorage: (videoFilePath, kuwaId, abi, contractAddress) => {
+            dispatch(uploadToStorage(videoFilePath, kuwaId, abi, contractAddress))
         },
-        webUploadToStorage: (videoBlob, ethereumAddress, abi, contractAddress) => {
-            dispatch(webUploadToStorage(videoBlob, ethereumAddress, abi, contractAddress))
+        webUploadToStorage: (videoBlob, kuwaId, abi, contractAddress) => {
+            dispatch(webUploadToStorage(videoBlob, kuwaId, abi, contractAddress))
         },
         navigateTo: link => {
             dispatch(push(link))

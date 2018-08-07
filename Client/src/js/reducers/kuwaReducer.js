@@ -9,8 +9,10 @@ import {
 const initialState = {
     usingCordova: window.usingCordova,
     kuwaId: {
+        registrationStatus: "New",
         address: "Your Kuwa ID has not been generated.",
-        challenge: "You need to be sponsored to get a challenge number."
+        challenge: "You need to be sponsored to get a challenge number.",
+        kuwaNetwork: []
     },
     screen: {
         provideCredentials: {loading: false},
@@ -52,7 +54,8 @@ const kuwaReducer = (state = initialState, action) => {
                     unlocked: true,
                     contractAddress: action.payload.responseJson.contractAddress,
                     abi: action.payload.responseJson.abi,
-                    challenge: action.payload.challenge
+                    challenge: action.payload.challenge,
+                    registrationStatus: action.payload.registrationStatus
                 }),
                 screen: Object.assign({}, state.screen, {
                     provideCredentials: {
@@ -85,7 +88,8 @@ const kuwaReducer = (state = initialState, action) => {
         case 'WEB_UPLOAD_TO_STORAGE_FULFILLED':
             return Object.assign({}, state, {
                 kuwaId: Object.assign({}, state.kuwaId, {
-                    infoUploaded: true
+                    infoUploaded: true,
+                    registrationStatus: action.payload.registrationStatus
                 }),
                 screen: Object.assign({}, state.screen, {
                     uploadToStorage: {
@@ -106,6 +110,18 @@ const kuwaReducer = (state = initialState, action) => {
                     error: {
                         helpText: action.payload.error
                     }
+                })
+            })
+        case 'GET_REGISTRATION_STATUS':
+            return Object.assign({}, state, {
+                kuwaId: Object.assign({}, state.kuwaId, {
+                    registrationStatus: action.payload.registrationStatus
+                })
+            })
+        case 'GET_KUWA_NETWORK':
+            return Object.assign({}, state, {
+                kuwaId: Object.assign({}, state.kuwaId, {
+                    kuwaNetwork: action.payload.kuwaNetwork
                 })
             })
         default:
