@@ -44,15 +44,32 @@ function blockLinks(cell, row){
   return `<a href="https://rinkeby.etherscan.io/address/${cell}" target="_blank">${cell}</a>`;
 }
 
-function amountFormatter(cell,row){
-  return `<div>2</div>`;
-}
+
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+function onAfterSaveCell(row, cellName, cellValue) {
+  
+  let rowStr = '';
+  for (const prop in row) {
+    rowStr += prop + ': ' + row[prop] + '\n';
+  }
+}
 
+function onBeforeSaveCell(row, cellName, cellValue) {
+  // You can do any validation on here for editing value,
+  // return false for reject the editing
+  return true;
+}
+
+const cellEditProp = {
+  mode: 'click',
+  blurToSave: true,
+  // beforeSaveCell: onBeforeSaveCell, // a hook for before saving cell
+  // afterSaveCell: onAfterSaveCell  // a hook for after saving cell
+};
 
 
 class KuwaFaucet extends Component {
@@ -62,7 +79,8 @@ class KuwaFaucet extends Component {
 
     this.options = {
       defaultSortName: 'timestamp',  // default sort column name
-      defaultSortOrder: 'desc'  // default sort order
+      defaultSortOrder: 'desc',  // default sort order
+      noDataText: '0.02'
     };
 
     this.state = {
@@ -74,7 +92,9 @@ class KuwaFaucet extends Component {
       amountBox: null,
       fadeIn: true,
       payButtonDisabled: true,
-      defaultAmount: '0.02'
+      defaultAmount: '0.02',
+      checkBoxTicked: false,
+      payBtnClicked: false
     }
 
     this.toggle = this.toggle.bind(this);
@@ -87,9 +107,76 @@ class KuwaFaucet extends Component {
 
     this.handleChange = this.handleChange.bind(this);
 
+    this.amountFormatter = this.amountFormatter.bind(this);
+
+    this.onCheckBoxClick = this.onCheckBoxClick.bind(this);
+
+    this.addrFormatter = this.addrFormatter.bind(this);
+
 
   }
 
+
+  addrFormatter(cell,row){
+
+    console.log('g1');
+    var val1 = `${cell}`;
+    if(this.state.payBtnClicked === true){
+
+
+      console.log('p1 ',val1 );
+      var val1 = `${cell}`;
+      
+      return val1;
+
+      
+      
+    }
+    else{
+      
+      return val1;
+    }
+  }
+
+  amountFormatter(cell,row){
+    var amt = this.state.amountBox;
+    var val = `${cell}`;
+    console.log('f1 ',amt);
+    console.log(val);
+
+    if(this.state.checkBoxTicked === true){
+      var amt = this.state.amountBox
+      console.log('f1 ',amt);
+      if(amt === null){
+        return 0;
+      }
+      else{
+        return amt;
+      }
+      
+    }
+
+    else{
+      if(val === 'undefined'){
+      return 0;
+    }
+    else{
+      return `${cell}`;
+    }
+    }
+
+    
+  
+    if(val === 'undefined' && amt === null){
+        console.log('g3');
+        return 0;
+      }
+
+    
+
+    
+    
+  }
 
   toggle() {
     this.setState({
@@ -109,17 +196,14 @@ class KuwaFaucet extends Component {
 
   onPayBtnClick(){
     this.setState({
-      visible: true
+      visible: true,
+      payBtnClicked: true
 
     });
-    console.log('h12');
-
-    var amt = this.state.amountBox
-    console.log(amt);
-
     
 
-
+    var amt = this.state.checkbox2;
+    console.log(amt);
 
   }
 
@@ -127,23 +211,39 @@ class KuwaFaucet extends Component {
     this.setState({ visible: false });
   }
 
+  onCheckBoxClick() {
+    
+    this.setState({
+      checkBoxTicked: !this.state.checkBoxTicked
+    });
+    console.log(this.state.checkBoxTicked);
+    
+
+  }
+
   handleChange({ target }) {
     this.setState({
       [target.name]: target.value
     });
-
-    
+ 
   }
 
 
   componentDidMount(){
     
-     this.interval = setInterval(() => {
-        axios.get('/sponsorship_requests/Test')
+     // this.interval = setInterval(() => {
+     //    axios.get('/sponsorship_requests/Test')
+     //     .then(res => {
+     //      this.setState({sponsorship_requests : res.data.sponsorship_requests});
+     //      this.setState({isLoading : false});
+     //    })}, 10000);
+
+
+     axios.get('/sponsorship_requests/Test')
          .then(res => {
           this.setState({sponsorship_requests : res.data.sponsorship_requests});
           this.setState({isLoading : false});
-        })}, 1000);
+        })
 
     //example get request to verify ajax is working
 
@@ -165,9 +265,6 @@ class KuwaFaucet extends Component {
 
    }
 
-  componentWillUnmount() {
-  clearInterval(this.interval);
-  }
 
   render() {
 
@@ -205,7 +302,7 @@ class KuwaFaucet extends Component {
           <Col>
           <InputGroupAddon>
           <Label check>
-                <Input type="checkbox" id="checkbox2" defaultChecked />{'Use Standard Payment Amount for All'}
+                <Input type="checkbox" name="checkbox2" id="checkbox2" onChange={this.onCheckBoxClick} />{'Use Standard Payment Amount for All'}
                 
               </Label>
           </InputGroupAddon>
@@ -225,9 +322,9 @@ class KuwaFaucet extends Component {
           <BootstrapTable data={this.state.sponsorship_requests} options={this.options} cellEdit={ cellEditProp } pagination>
             
               <TableHeaderColumn dataField="timestamp" filter={ { type: 'TextFilter', delay: 200 }} isKey dataSort editable={ false } hidden={ true }> Time </TableHeaderColumn>
-              <TableHeaderColumn dataField="client_address" dataSort editable={ false }> Valid Kuwa IDs (Ethereum Addresses)</TableHeaderColumn>
+              <TableHeaderColumn dataField="client_address" dataSort dataFormat={this.addrFormatter} editable={ false }> Valid Kuwa IDs (Ethereum Addresses)</TableHeaderColumn>
               <TableHeaderColumn dataField="contract_address" dataSort dataFormat={blockLinks} editable={ false }> Registration Contract Address</TableHeaderColumn>
-              <TableHeaderColumn dataField="amount" dataSort dataFormat={amountFormatter} > Amount in ({this.state.dropdownValue}) </TableHeaderColumn>
+              <TableHeaderColumn dataField="amount" dataSort dataFormat={this.amountFormatter} > Amount in ({this.state.dropdownValue}) </TableHeaderColumn>
 
         </BootstrapTable>
       </div>
