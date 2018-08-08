@@ -33,3 +33,9 @@ export function toggleDrawer() {
         type: 'TOGGLE_DRAWER'
     }
 }
+
+export function toggleRestoreState() {
+    return {
+        type: 'TOGGLE_RESTORE_STATE'
+    }
+}

@@ -1,7 +1,11 @@
 import keythereum from 'keythereum';
 import Web3 from 'web3';
 import qrcode from 'qrcode';
-import { push } from 'connected-react-router'
+import { push } from 'connected-react-router';
+
+import { store } from '../store';
+
+import { saveAs } from 'file-saver';
 
 import config from 'config';
 
@@ -72,23 +76,21 @@ function requestSponsorship(keyObject, privateKey, passcode, dispatch) {
                     })
                     dispatch(push('/Error'))
                 } else {
-                    loadWallet(privateKey);
-                    loadContract(responseJson.abi, responseJson.contractAddress, 4300000, '22000000000', keyObject.address)
-                        .then(contract => Promise.all([
-                            contract.methods.getChallenge().call(),
-                            contract.methods.getRegistrationStatus().call()
-                        ]))
-                        .then(payload => {
-                            dispatch({
-                                type: 'REQUEST_SPONSORSHIP_FULFILLED',
-                                payload: { 
-                                    challenge: payload[0],
-                                    registrationStatus: web3.utils.hexToUtf8(payload[1]), 
-                                    responseJson 
-                                }
-                            })
-                            dispatch(push('/RecordRegistrationVideo'))
+                    Promise.all([
+                        getChallenge(responseJson.abi, responseJson.contractAddress, keyObject.address),
+                        getRegistrationStatusString(responseJson.abi, responseJson.contractAddress, keyObject.address)
+                    ])
+                    .then(payload => {
+                        dispatch({
+                            type: 'REQUEST_SPONSORSHIP_FULFILLED',
+                            payload: { 
+                                challenge: payload[0],
+                                registrationStatus: payload[1], 
+                                responseJson 
+                            }
                         })
+                        dispatch(push('/RecordRegistrationVideo'))
+                    })
                 }
             })
         .catch(e => {
@@ -230,6 +232,112 @@ export function setRegistrationStatusTo(registrationStatus, contractAddress, abi
         })
 }
 
+export function loadState(jsonFile) {
+    return {
+        type: 'LOAD_STATE',
+        payload: { loadedState: jsonFile }
+    }
+}
+
+export function restoreState(jsonFile, kuwaPassword) {
+    return dispatch => {
+        dispatch({
+            type: 'RESTORE_STATE_PENDING'
+        })
+
+        let stateToRestore;
+        getStateFromFile(jsonFile)
+            .then(state => {
+                stateToRestore = state;
+                let keyObject = {
+                    address: state.address,
+                    crypto: state.crypto,
+                    id: state.id,
+                    version: state.version
+                }
+                return keyObject;
+            })
+            .then(keyObject => getPrivateKey(keyObject, kuwaPassword))
+            .then(privateKeyInHex => Promise.all([
+                    getRegistrationStatusString(stateToRestore.abi, stateToRestore.contractAddress, '0x' + stateToRestore.address),
+                    getKuwaNetworkList(stateToRestore.abi, stateToRestore.contractAddress, '0x' + stateToRestore.address),
+                    Promise.resolve(privateKeyInHex),
+                    generateQrCode('0x' + stateToRestore.address),
+                    Promise.resolve({
+                        address: stateToRestore.address,
+                        crypto: stateToRestore.crypto,
+                        id: stateToRestore.id,
+                        version: stateToRestore.version
+                    }),
+                    getChallenge(stateToRestore.abi, stateToRestore.contractAddress, '0x' + stateToRestore.address)
+                ]))
+            .then(payload => {
+                dispatch({
+                    type: 'RESTORE_STATE_FULFILLED',
+                    payload: {
+                        registrationStatus: payload[0],
+                        kuwaNetwork: payload[1],
+                        privateKey: payload[2],
+                        qrCodeSrc: payload[3],
+                        keyObject: payload[4],
+                        address: stateToRestore.address,
+                        abi: stateToRestore.abi,
+                        contractAddress: stateToRestore.contractAddress,
+                        challenge: payload[5]
+                    }
+                })
+                dispatch(push('/YourKuwaId'))
+            })
+            .catch(error => alert("Your Kuwa password was wrong, please try again"))
+    }
+}
+
+function getStateFromFile(jsonFile) {
+    let reader = new FileReader();
+    reader.readAsText(jsonFile);
+    return new Promise((resolve, reject) => {
+        reader.onloadend = e => {
+            resolve(JSON.parse(reader.result))
+        }
+    });
+}
+
+function getPrivateKey(keyObject, kuwaPassword) {
+    return new Promise((resolve, reject) => {
+        keythereum.recover(kuwaPassword, keyObject, privateKey => {
+            let privateKeyInHex = privateKey.toString('hex');
+            if (privateKeyInHex === "Error: message authentication code mismatch") {
+                reject(privateKeyInHex);
+            } else {
+                resolve(privateKeyInHex);
+            }
+        })
+    })
+}
+
+export function persistState() {
+    return dispatch => {
+        let stateToPersist = JSON.stringify(getStateToPersist());
+        let blob = new Blob([stateToPersist], {type : 'application/json'});
+        saveAs(blob, "myWallet.json");
+        dispatch({
+            type: 'PERSIST_STATE'
+        })
+    }
+}
+
+function getStateToPersist() {
+    let state = store.getState();
+    return {
+        address: state.kuwaReducer.kuwaId.keyObject.address,
+        crypto: state.kuwaReducer.kuwaId.keyObject.crypto,
+        id: state.kuwaReducer.kuwaId.keyObject.id,
+        version: state.kuwaReducer.kuwaId.keyObject.version,
+        contractAddress: state.kuwaReducer.kuwaId.contractAddress,
+        abi: state.kuwaReducer.kuwaId.abi
+    }
+}
+
 export function getRegistrationStatus(abi, contractAddress, kuwaId) {
     return dispatch => {
         getRegistrationStatusString(abi, contractAddress, kuwaId).then(registrationStatus => {
@@ -262,6 +370,19 @@ export function getRegistrationStatusString(abi, contractAddress, kuwaId) {
     return loadContract(abi, contractAddress, 4300000, '22000000000', kuwaId)
         .then(contract => contract.methods.getRegistrationStatus().call())
         .then(registrationStatus => Promise.resolve(web3.utils.hexToUtf8(registrationStatus)))
+}
+
+export function getChallenge(abi, contractAddress, kuwaId) {
+    return loadContract(abi, contractAddress, 4300000, '22000000000', kuwaId)
+        .then(contract => contract.methods.getChallenge().call())
+        .then(challenge => {
+            if (challenge === 0) {
+                setRegistrationStatusTo("Challenge Expired", contractAddress, abi, kuwaId)
+                    .then(() => Promise.resolve(challenge))
+            } else {
+                Promise.resolve(challenge)
+            }
+        })
 }
 
 /**

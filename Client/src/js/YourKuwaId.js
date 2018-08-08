@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Loading } from './Load';
 
 import { startScanner, stopScanner, qrCodeFound, mobileStartScanner } from './actions/qrActions';
+import { persistState } from './actions/kuwaActions';
 import Instascan from 'instascan';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -126,7 +127,7 @@ const renderYourKuwaId = (props, state, setState) => (
                         </Button>
                     </Grid>
                     <Grid item xs={6} align="center">
-                        <Button variant="contained" style={{backgroundColor: buttonColor}} onClick={() => alert("JAJAJAJAJAJA")}>
+                        <Button variant="contained" style={{backgroundColor: buttonColor}} onClick={props.persistState}>
                             Export your ID
                         </Button>
                     </Grid>
@@ -218,6 +219,9 @@ const mapDispatchToProps = dispatch => {
         },
         mobileStartScanner: (contractAddress, abi, kuwaId) => {
             dispatch(mobileStartScanner(contractAddress, abi, kuwaId))
+        },
+        persistState: () => {
+            dispatch(persistState())
         }
     }
 }
