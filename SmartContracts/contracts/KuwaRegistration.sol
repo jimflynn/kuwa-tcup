@@ -90,19 +90,19 @@ contract KuwaRegistration {
         bool validInputA = newStatus == "Credentials Provided" || newStatus == "Challenge Expired";
         bool validInputB = newStatus == "Video Uploaded" || newStatus == "QR Code Scanned";
         bool validInputC = newStatus == "Valid" || newStatus == "Invalid";
-        require(validInputA || validInputB || validInputC);
+        require(validInputA || validInputB || validInputC); // Validate input
+        /* If `newStatus` is "Valid" or "Invalid", always update
+         * If `registrationStatus` is "Valid" or "Invalid" and `newStatus` is not "Valid"
+         * or "Invalid", revert the transaction (do not update!)*/
         require( (newStatus == "Valid" || newStatus == "Invalid")
                  || !((registrationStatus == "Valid" || registrationStatus == "Invalid")
                  && (newStatus != "Valid" && newStatus != "Invalid")) );
         registrationStatus = newStatus;
     }
 
-/*if newStatus is valid or invalid, update
-if currStatus is valid or invalid and (newStatus is not (valid or invalid)) do not update*/
-
 
     /** ---------------------- Poker Protocol ------------------------- */
-    struct Vote {
+    struct Voter {
         bytes32 commit;
         bool voted;
         uint vote;
@@ -112,14 +112,14 @@ if currStatus is valid or invalid and (newStatus is not (valid or invalid)) do n
     }
 
     uint public timeOfFirstVote = 0;
-    mapping(address => Vote) public votes;
-    address[] public voters;
+    mapping(address => Voter) public votersMap;
+    address[] public votersList;
     function vote(bytes32 _commit) public returns(bool) {
         require(kt.allowance(sponsorAddress, this) == 1);   // Sponsor must provide ante before voting round for incentive
         //require(timeOfFirstVote == 0 || block.timestamp - timeOfFirstVote <= 3600); // Registrars have one hour to vote after the first vote is cast
         require(kt.balanceOf(msg.sender) >= 100001);   // Qualified registrars must possess at least 100,000 Kuwa tokens 
         require(kt.allowance(msg.sender, this) == 1);   // Registrars must provide the required ante to vote
-        require(!votes[msg.sender].voted);    // Registrars cannot vote more than once
+        require(!votersMap[msg.sender].voted);    // Registrars cannot vote more than once
 
         if (timeOfFirstVote == 0) {
             timeOfFirstVote = block.timestamp;
@@ -127,8 +127,8 @@ if currStatus is valid or invalid and (newStatus is not (valid or invalid)) do n
         
         if (!kt.transferFrom(msg.sender, this, 1))
             return false;
-        voters.push(msg.sender);
-        votes[msg.sender] = Vote({commit: _commit, voted: true, vote: 2, salt: 0x0, valid: false, isPaid: false});
+        votersList.push(msg.sender);
+        votersMap[msg.sender] = Voter({commit: _commit, voted: true, vote: 2, salt: 0x0, valid: false, isPaid: false});
         return true;
     }
     
@@ -160,12 +160,12 @@ if currStatus is valid or invalid and (newStatus is not (valid or invalid)) do n
     function reveal(uint _vote, bytes32 _salt) public {
         uint timestamp = block.timestamp;
         //require(timestamp - timeOfFirstVote > 3600 && timestamp - timeOfFirstVote <= 7200);
-        require(votes[msg.sender].voted);
+        require(votersMap[msg.sender].voted);
         require(_vote == 0 || _vote == 1);
         
-        votes[msg.sender].vote = _vote;
-        votes[msg.sender].salt = _salt;
-        votes[msg.sender].valid = keccak256(_vote, _salt) == votes[msg.sender].commit ? true : false;
+        votersMap[msg.sender].vote = _vote;
+        votersMap[msg.sender].salt = _salt;
+        votersMap[msg.sender].valid = keccak256(_vote, _salt) == votersMap[msg.sender].commit ? true : false;
     }
     
     address public owner;
@@ -184,10 +184,10 @@ if currStatus is valid or invalid and (newStatus is not (valid or invalid)) do n
             return 0;
         bp = 1;
         finalPot = kt.balanceOf(this);
-        for (uint i = 0; i < voters.length; i++) {
-            Vote storage vote = votes[voters[i]];
-            if (vote.valid) {
-                if (vote.vote == 1) {
+        for (uint i = 0; i < votersList.length; i++) {
+            Voter storage voter = votersMap[votersList[i]];
+            if (voter.valid) {
+                if (voter.vote == 1) {
                     valid++;
                 }
                 else {
@@ -203,12 +203,12 @@ if currStatus is valid or invalid and (newStatus is not (valid or invalid)) do n
         else if (invalid > valid) {
             finalStatus = 0;
             dividend = finalPot / valid;
-            setRegistrationStatusTo("invalid");
+            setRegistrationStatusTo("Invalid");
         }
         else if (valid > invalid) {
             finalStatus = 1;
             dividend = finalPot / invalid;
-            setRegistrationStatusTo("valid");
+            setRegistrationStatusTo("Valid");
         }
         else {
             finalStatus = 2;
@@ -223,13 +223,13 @@ if currStatus is valid or invalid and (newStatus is not (valid or invalid)) do n
         require(finalStatus != 3);
         require(msg.sender == sponsorAddress);
 
-        for (uint j = 0; j < voters.length; j++) {
-            Vote storage vote = votes[voters[j]];
-            if (!vote.isPaid && vote.valid && (finalStatus == 2 || vote.vote == finalStatus)) {
-                if (!kt.transfer(voters[j], dividend)) {
+        for (uint j = 0; j < votersList.length; j++) {
+            Voter storage voter = votersMap[votersList[j]];
+            if (!voter.isPaid && voter.valid && (finalStatus == 2 || voter.vote == finalStatus)) {
+                if (!kt.transfer(votersList[j], dividend)) {
                     return false;
                 }
-                vote.isPaid = true;
+                voter.isPaid = true;
             }
         }
         return true;
