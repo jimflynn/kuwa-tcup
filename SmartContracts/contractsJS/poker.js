@@ -79,8 +79,6 @@ var loadContract = async function(abi, contractAddress, gas, gasPrice, from) {
 }
 
 
-
-
 var run = async function() {
     
     web3.eth.accounts.wallet.clear();
@@ -136,7 +134,6 @@ var run = async function() {
 
     let gas = 5000000;
     let gasPrice = '20000000000'; //await web3.eth.getGasPrice();
-    //console.log(gasPrice);
     let kuwaToken;
     kuwaToken = await deployContract(newCompilations['KuwaToken'].abi, newCompilations['KuwaToken'].bytecode,
                                      gas, gasPrice, wallets.kuwa_foundation, []);
@@ -145,31 +142,31 @@ var run = async function() {
     let kuwaRegistration;
     if (md5(newCompilations['KuwaRegistration'].abi) !== md5(oldCompilations['KuwaRegistration'].abi)) {
         kuwaRegistration = await deployContract(newCompilations['KuwaRegistration'].abi, newCompilations['KuwaRegistration'].bytecode,
-                                                gas, gasPrice, wallets.kuwa_foundation, [wallets.client, kuwaToken.options.address]);
+                                                gas, gasPrice, wallets.sponsor, [wallets.client, kuwaToken.options.address]);
         newCompilations['KuwaRegistration'].address = kuwaRegistration.options.address;
     }
     else {
         kuwaRegistration = await loadContract(oldCompilations['KuwaRegistration'].abi, oldCompilations['KuwaRegistration']['address'],
-                                              gas, gasPrice, wallets.kuwa_foundation);
+                                              gas, gasPrice, wallets.sponsor);
     }
     console.log("Deployed/loaded Kuwa Registration contract");
 
     let aliceQKR, bobQKR, carlosQKR;
     if (md5(newCompilations['QualifiedKuwaRegistrar'].abi) !== md5(oldCompilations['QualifiedKuwaRegistrar'].abi)) {
         aliceQKR = await deployContract(newCompilations['QualifiedKuwaRegistrar'].abi, newCompilations['QualifiedKuwaRegistrar'].bytecode,
-                                        gas, gasPrice, wallets.kuwa_foundation, [kuwaToken.options.address]);
+                                        gas, gasPrice, wallets.alice, [kuwaToken.options.address]);
         bobQKR = await deployContract(newCompilations['QualifiedKuwaRegistrar'].abi, newCompilations['QualifiedKuwaRegistrar'].bytecode,
-                                      gas, gasPrice, wallets.kuwa_foundation, [kuwaToken.options.address]);
+                                      gas, gasPrice, wallets.bob, [kuwaToken.options.address]);
         carlosQKR = await deployContract(newCompilations['QualifiedKuwaRegistrar'].abi, newCompilations['QualifiedKuwaRegistrar'].bytecode,
-                                         gas, gasPrice, wallets.kuwa_foundation, [kuwaToken.options.address]);
+                                         gas, gasPrice, wallets.carlos, [kuwaToken.options.address]);
     }
     else {
         aliceQKR = await loadContract(oldCompilations['QualifiedKuwaRegistrar'].abi, oldCompilations['QualifiedKuwaRegistrar'].alice_address,
-                                      gas, gasPrice, wallets.kuwa_foundation);
+                                      gas, gasPrice, wallets.alice);
         bobQKR = await loadContract(oldCompilations['QualifiedKuwaRegistrar'].abi, oldCompilations['QualifiedKuwaRegistrar'].bob_address,
-                                    gas, gasPrice, wallets.kuwa_foundation);
+                                    gas, gasPrice, wallets.bob);
         carlosQKR = await loadContract(oldCompilations['QualifiedKuwaRegistrar'].abi, oldCompilations['QualifiedKuwaRegistrar'].carlos_address,
-                                       gas, gasPrice, wallets.kuwa_foundation);
+                                       gas, gasPrice, wallets.carlos);
     }
     newCompilations['QualifiedKuwaRegistrar'].alice_address = aliceQKR.options.address;
     newCompilations['QualifiedKuwaRegistrar'].bob_address = bobQKR.options.address;
@@ -184,57 +181,24 @@ var run = async function() {
     }); 
     
 
-    console.log("Transfer Kuwa Tokens to Registrars and Sponsor");
+    console.log("Transfer initial Kuwa tokens to registrars and sponsor");
+    await kuwaToken.methods.transfer(wallets.sponsor, 2000010).send({from: wallets.kuwa_foundation});
+    await kuwaToken.methods.transfer(aliceQKR.options.address, 100010).send({from: wallets.kuwa_foundation});
+    await kuwaToken.methods.transfer(bobQKR.options.address, 100010).send({from: wallets.kuwa_foundation});
+    await kuwaToken.methods.transfer(carlosQKR.options.address, 100010).send({from: wallets.kuwa_foundation});
+
+    console.log("Token balances for each participant");
+    console.log(`Kuwa Foundation: ${await kuwaToken.methods.balanceOf(wallets.kuwa_foundation).call({from: wallets.kuwa_foundation})}`);
+    console.log(`Sponsor: ${await kuwaToken.methods.balanceOf(wallets.sponsor).call({from: wallets.sponsor})}`);
+    console.log(`Alice QKR: ${await kuwaToken.methods.balanceOf(aliceQKR.options.address).call({from: wallets.alice})}`);
+    console.log(`Bob QKR: ${await kuwaToken.methods.balanceOf(bobQKR.options.address).call({from: wallets.bob})}`);
+    console.log(`Carlos QKR: ${await kuwaToken.methods.balanceOf(carlosQKR.options.address).call({from: wallets.carlos})}`);
     
-/*
-    // How many tokens do I have before sending?
-    var balance = await contract.methods.balanceOf(wallets.kuwa_foundation).call();
-    console.log(`Balance before send: ${balance}`);
-    // I chose gas price and gas limit based on what ethereum wallet was recommending for a similar transaction. You may need to change the gas price!
-    // Use Gwei for the unit of gas price
-    var gasPriceGwei = 3;
-    var gasLimit = 3000000;
-    // Chain ID of Ropsten Test Net is 3, replace it to 1 for Main Net
-    var chainId = 3;
-    var rawTransaction = {
-        "from": wallets.kuwa_foundation,
-        "nonce": "0x" + count.toString(16),
-        "gasPrice": web3.utils.toHex(gasPriceGwei * 1e9),
-        "gasLimit": web3.utils.toHex(gasLimit),
-        "to": contractAddress,
-        "value": "0x0",
-        "data": contract.methods.transfer(wallets.sponsor, 9).encodeABI(),
-        "chainId": chainId
-    };
-    console.log(`Raw of Transaction: \n${JSON.stringify(rawTransaction, null, '\t')}\n------------------------`);
-    // The private key for myAddress in .env
-    var privKey = new Buffer(process.env["PRIVATE_KEY"], 'hex');
-    var tx = new Tx(rawTransaction);
-    tx.sign(privKey);
-    var serializedTx = tx.serialize();
-    // Comment out these four lines if you don't really want to send the TX right now
-    console.log(`Attempting to send signed tx:  ${serializedTx.toString('hex')}\n------------------------`);
-    var receipt = await web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'));
-    // The receipt info of transaction, Uncomment for debug
-    console.log(`Receipt info: \n${JSON.stringify(receipt, null, '\t')}\n------------------------`);
-    // The balance may not be updated yet, but let's check
-    balance = await contract.methods.balanceOf(myAddress).call();
-    console.log(`Balance after send: ${financialMfil(balance)} MFIL`);
-}*/
+    console.log("--------------------------------------------------------------------------------------------");
+    console.log("Begin Poker protocol...");
 
     
-    await kuwaToken.methods.transfer(wallets.sponsor, 200001).send({from: wallets.kuwa_foundation});
 
-    console.log("Token balance of Sponsor");
-
-    kuwaToken.methods.balanceOf(wallets.sponsor).call({from: wallets.kuwa_foundation})
-            .then(function(balance) {
-                    console.log(balance);
-                }
-            )
-            .catch(
-                console.error
-            );
 }
 
 run().catch(err => console.log(err));
