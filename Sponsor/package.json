@@ -6,6 +6,8 @@
   "dependencies": {
     "async": "^2.6.1",
     "body-parser": "^1.18.3",
+    "crypto": "^1.0.1",
+    "email-templates": "^4.0.3",
     "express": "^4.16.3",
     "express-formidable": "^1.0.0",
     "forever": "^0.15.3",
@@ -15,7 +17,10 @@
     "keythereum": "^1.0.4",
     "morgan": "^1.9.0",
     "mysql": "^2.15.0",
+    "nodemailer": "^4.6.7",
     "nodemon": "^1.17.5",
+    "pug": "^2.0.3",
+    "sendmail": "^1.4.1",
     "solc": "^0.4.24",
     "web3": "^1.0.0-beta.34"
   },
