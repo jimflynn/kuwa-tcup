@@ -2,13 +2,14 @@ pragma solidity ^0.4.24;
 
 
 import "./KuwaToken.sol";
+import "./Owned.sol";
 
 /**
  * The Kuwa Registration contract does this and that...
  */
-contract KuwaRegistration {
+contract KuwaRegistration is Owned {
     address private clientAddress;
-    address private sponsorAddress;
+    address public sponsorAddress;
 
     uint256 private challenge;
     uint256 private challengeCreationTime;
@@ -20,7 +21,7 @@ contract KuwaRegistration {
     // For Poker Protocol 
     // ---------------------
     KuwaToken kt;
-    address kuwaTokenContract;  //"0x2140eFD7Ba31169c69dfff6CDC66C542f0211825"
+    address kuwaTokenContract;
     //----------------------
 
 	//constructor
@@ -29,7 +30,6 @@ contract KuwaRegistration {
     constructor (address _clientAddress, address _kuwaTokenContract) public payable {
         clientAddress = _clientAddress;
         sponsorAddress = msg.sender;
-        owner = msg.sender;
         kuwaTokenContract = _kuwaTokenContract;
         kt = KuwaToken(_kuwaTokenContract);
         generateChallenge();
@@ -84,16 +84,20 @@ contract KuwaRegistration {
         return registrationStatus;
     }
 
-    // Possible values for newStatus are:
-    // Credentials Provided, Challenge Expired, Video Uploaded, QR Code Scanned, Valid, Invalid
+    /** 
+     * Possible values for newStatus are:
+     * Credentials Provided, Challenge Expired, Video Uploaded, QR Code Scanned, Valid, Invalid
+     */
     function setRegistrationStatusTo(bytes32 newStatus) public {
         bool validInputA = newStatus == "Credentials Provided" || newStatus == "Challenge Expired";
         bool validInputB = newStatus == "Video Uploaded" || newStatus == "QR Code Scanned";
         bool validInputC = newStatus == "Valid" || newStatus == "Invalid";
         require(validInputA || validInputB || validInputC); // Validate input
-        /* If `newStatus` is "Valid" or "Invalid", always update
+        /* 
+         * If `newStatus` is "Valid" or "Invalid", always update
          * If `registrationStatus` is "Valid" or "Invalid" and `newStatus` is not "Valid"
-         * or "Invalid", revert the transaction (do not update!)*/
+         * or "Invalid", revert the transaction (do not update!) 
+         */
         require( (newStatus == "Valid" || newStatus == "Invalid")
                  || !((registrationStatus == "Valid" || registrationStatus == "Invalid")
                  && (newStatus != "Valid" && newStatus != "Invalid")) );
@@ -114,6 +118,8 @@ contract KuwaRegistration {
     uint public timeOfFirstVote = 0;
     mapping(address => Voter) public votersMap;
     address[] public votersList;
+    // Dummy client address for testing: "0x2140eFD7Ba31169c69dfff6CDC66C542f0211825"
+    
     function vote(bytes32 _commit) public returns(bool) {
         require(kt.allowance(sponsorAddress, this) == 1);   // Sponsor must provide ante before voting round for incentive
         //require(timeOfFirstVote == 0 || block.timestamp - timeOfFirstVote <= 3600); // Registrars have one hour to vote after the first vote is cast
@@ -131,27 +137,6 @@ contract KuwaRegistration {
         votersMap[msg.sender] = Voter({commit: _commit, voted: true, vote: 2, salt: 0x0, valid: false, isPaid: false});
         return true;
     }
-    
-    /*unction getVote(address voter) public view returns(bytes32, bool) {
-        return (votes[voter].commit, votes[voter].voted);
-    }*/
-
-    function transferTokens(uint _value) public {
-        kt.transfer(address(this), _value);
-    }
-    
-    function transferFromTokens(uint _value) public {
-        kt.transferFrom(msg.sender, this, _value);
-    }
-    
-    
-    function dummy(uint _value) public returns(address, address, uint) {
-        return (msg.sender, this, _value);
-    }
-    
-    function dummy2() public {
-        kt.dummy();
-    }
 
     function remainingTime() public view returns(uint) {
         return block.timestamp - timeOfFirstVote;
@@ -168,22 +153,18 @@ contract KuwaRegistration {
         votersMap[msg.sender].valid = keccak256(_vote, _salt) == votersMap[msg.sender].commit ? true : false;
     }
     
-    address public owner;
+
     uint public finalStatus = 3;
     uint public dividend = 0;
-    uint public bp = 0;
-    uint public finalPot;
-    uint public valid = 0;
-    uint public invalid = 0;
-    function decide() public returns(uint) {
-        require(msg.sender == sponsorAddress);
+    function decide() public onlyOwner returns(bool) {
         //require(block.timestamp - timeOfFirstVote > 7200);
         
-        
         if (!kt.transferFrom(msg.sender, this, 1))
-            return 0;
-        bp = 1;
-        finalPot = kt.balanceOf(this);
+            return false;
+        uint finalPot = kt.balanceOf(this);
+        uint valid = 0;
+        uint invalid = 0;
+        
         for (uint i = 0; i < votersList.length; i++) {
             Voter storage voter = votersMap[votersList[i]];
             if (voter.valid) {
@@ -195,33 +176,30 @@ contract KuwaRegistration {
                 }
             }
         }
-        bp = 2;
 
-        if (invalid + valid == 0) {
+        if ((invalid + valid) == 0) {
             dividend = finalPot;
         }
         else if (invalid > valid) {
             finalStatus = 0;
-            dividend = finalPot / valid;
+            dividend = finalPot / invalid;
             setRegistrationStatusTo("Invalid");
         }
         else if (valid > invalid) {
             finalStatus = 1;
-            dividend = finalPot / invalid;
+            dividend = finalPot / valid;
             setRegistrationStatusTo("Valid");
         }
         else {
             finalStatus = 2;
             dividend = finalPot / (valid + invalid);
         }
-        bp = 3;
-        return 1;
-        //return true;
+
+        return true;
     }
 
-    function payout() public returns(bool) {
+    function payout() public onlyOwner returns(bool) {
         require(finalStatus != 3);
-        require(msg.sender == sponsorAddress);
 
         for (uint j = 0; j < votersList.length; j++) {
             Voter storage voter = votersMap[votersList[j]];
@@ -233,6 +211,28 @@ contract KuwaRegistration {
             }
         }
         return true;
+    }
+    
+    
+    /* For debugging and testing*/
+    function transferTokens(uint _value) public {
+        kt.transfer(address(this), _value);
+    }
+    
+    function transferFromTokens(uint _value) public {
+        kt.transferFrom(msg.sender, this, _value);
+    }
+    
+    function balanceOf(address addr) public view returns(uint) {
+        return kt.balanceOf(addr);
+    }
+    
+    function dummy(uint _value) public returns(address, address, uint) {
+        return (msg.sender, this, _value);
+    }
+    
+    function dummy2() public {
+        kt.dummy();
     }
 
     /*function sponsorAnte() public payable returns(bool) {
