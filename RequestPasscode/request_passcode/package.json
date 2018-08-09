@@ -1,0 +1,23 @@
+{
+  "name": "request_passcode",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^1.4.1",
+    "@material-ui/icons": "^2.0.0",
+    "axios": "^0.18.0",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-material-ui-form-validator": "^2.0.1",
+    "react-scripts": "1.1.4",
+    "react-validation-framework": "^5.0.0",
+    "validator": "^10.5.0"
+  },
+  "scripts": {
+    "start": "PORT=3007 react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "proxy": "https://alpha.kuwa.org:3000"
+}
