@@ -79,7 +79,7 @@ class KuwaFaucet extends Component {
 
     this.options = {
       defaultSortName: 'timestamp',  // default sort column name
-      defaultSortOrder: 'desc',  // default sort order
+      defaultSortOrder: 'asc',  // default sort order
       noDataText: '0.02'
     };
 
@@ -94,7 +94,8 @@ class KuwaFaucet extends Component {
       payButtonDisabled: true,
       defaultAmount: '0.02',
       checkBoxTicked: false,
-      payBtnClicked: false
+      payBtnClicked: false,
+      visible2: false
     }
 
     this.toggle = this.toggle.bind(this);
@@ -104,6 +105,7 @@ class KuwaFaucet extends Component {
     this.onPayBtnClick = this.onPayBtnClick.bind(this);
 
     this.onDismiss = this.onDismiss.bind(this);
+    this.onDismiss2 = this.onDismiss2.bind(this);
 
     this.handleChange = this.handleChange.bind(this);
 
@@ -113,18 +115,22 @@ class KuwaFaucet extends Component {
 
     this.addrFormatter = this.addrFormatter.bind(this);
 
+    this.statusFormatter = this.statusFormatter.bind(this);
+
+    this.timeoutFunc = this.timeoutFunc.bind(this);
+
 
   }
 
 
   addrFormatter(cell,row){
 
-    console.log('g1');
+    
     var val1 = `${cell}`;
     if(this.state.payBtnClicked === true){
 
 
-      console.log('p1 ',val1 );
+      //console.log('p1 ',val1 );
       var val1 = `${cell}`;
       
       return val1;
@@ -138,15 +144,34 @@ class KuwaFaucet extends Component {
     }
   }
 
+  statusFormatter(cell,row){
+    //console.log('p1');
+    var val1 = `${cell}`;
+    var d = new Date().toLocaleTimeString();
+    
+    //return `${cell}`;
+
+    if(`${cell}` === 'undefined'){
+      //console.log('k1');
+      return 0;
+    }
+    else{
+      //console.log('k2');
+      return `${cell}`;
+    }
+
+
+  }
+
   amountFormatter(cell,row){
     var amt = this.state.amountBox;
     var val = `${cell}`;
-    console.log('f1 ',amt);
-    console.log(val);
+    
+    //console.log(val);
 
     if(this.state.checkBoxTicked === true){
       var amt = this.state.amountBox
-      console.log('f1 ',amt);
+      
       if(amt === null){
         return 0;
       }
@@ -200,10 +225,45 @@ class KuwaFaucet extends Component {
       payBtnClicked: true
 
     });
-    
+    console.log('pay clicked');
 
     var amt = this.state.checkbox2;
     console.log(amt);
+
+    var p =0;
+    this.interval = setInterval(() => {
+          if(p>5){
+            console.log('r1');
+
+            const tempRequests = this.state.sponsorship_requests;
+          
+          //tempRequests[p].status = 'Transfer successful';
+          p++;
+          this.setState({
+            isLoading : false,
+            sponsorship_requests : tempRequests,
+            visible2 : true
+
+          });
+          }
+
+          
+
+          else{
+
+            //console.log('k1'+p);
+          const tempRequests = this.state.sponsorship_requests;
+          
+          tempRequests[p].status = 'Transfer successful';
+          p++;
+          this.setState({
+            isLoading : false,
+            sponsorship_requests : tempRequests
+          });
+          }
+          
+        }, 2000);
+    
 
   }
 
@@ -211,15 +271,60 @@ class KuwaFaucet extends Component {
     this.setState({ visible: false });
   }
 
+  onDismiss2() {
+    this.setState({ visible2: false });
+  }
+
+  timeoutFunc(j) {
+
+    console.log( "hi2" );
+
+        const tempRequests = this.state.sponsorship_requests.slice()
+        console.log(tempRequests[j].contract_address);
+
+        tempRequests[j].contract_address = '1';
+        this.setState({
+        sponsorship_requests: this.state.tempRequests
+      });
+
+        console.log(tempRequests[j].contract_address);
+
+        this.setState({isLoading : false});
+        this.forceUpdate();
+
+    }
+
+  
+  
   onCheckBoxClick() {
     
     this.setState({
-      checkBoxTicked: !this.state.checkBoxTicked
+      checkBoxTicked: !this.state.checkBoxTicked,
+
     });
     console.log(this.state.checkBoxTicked);
+
+
+    const tempRequests = this.state.sponsorship_requests.slice()
+
+    console.log(this.state.sponsorship_requests);
+    
+    var j = 0, howManyTimes = tempRequests.length;
+    
+    this.interval = setInterval(() => {
+          j++;
+          //console.log('e1'+j);
+          this.setState({isLoading : false});
+          
+        }, 1000);
+    
     
 
-  }
+    }
+
+    
+
+  
 
   handleChange({ target }) {
     this.setState({
@@ -244,6 +349,14 @@ class KuwaFaucet extends Component {
           this.setState({sponsorship_requests : res.data.sponsorship_requests});
           this.setState({isLoading : false});
         })
+    var p = 0;
+    this.interval = setInterval(() => {
+
+          this.setState({isLoading : false});
+          
+        }, 1000);
+
+
 
     //example get request to verify ajax is working
 
@@ -278,10 +391,10 @@ class KuwaFaucet extends Component {
         <Container>
           <Row>  
           
-          <InputGroup>
+          <InputGroup className="text-right">
           
           <Col>
-          <Input placeholder="Enter Standard Payment Amount" maxLength="10" name="amountBox" value={ this.state.amountBox } onChange={ this.handleChange }/>
+          <Input placeholder="Enter Standard Payment Amount" className="text-left" maxLength="10" name="amountBox" value={ this.state.amountBox } onChange={ this.handleChange }/>
           </Col>
           
           <Col>
@@ -316,15 +429,21 @@ class KuwaFaucet extends Component {
           <Alert color="info" isOpen={this.state.visible} toggle={this.onDismiss} fade={this.state.fadeIn} >
         { this.state.amountBox } KuwaCoins are being sent to each of the valid Kuwa IDs
       </Alert>
-          <br />
+          
+          <Alert color="info" isOpen={this.state.visible2} toggle={this.onDismiss2} fade={this.state.fadeIn} >
+        KuwaCoin transfers completed successfully
+      </Alert>
           <br />
           
           <BootstrapTable data={this.state.sponsorship_requests} options={this.options} cellEdit={ cellEditProp } pagination>
             
               <TableHeaderColumn dataField="timestamp" filter={ { type: 'TextFilter', delay: 200 }} isKey dataSort editable={ false } hidden={ true }> Time </TableHeaderColumn>
+              <TableHeaderColumn dataField="sponsorship_request_id"  dataSort editable={ false } > No. </TableHeaderColumn>
+
               <TableHeaderColumn dataField="client_address" dataSort dataFormat={this.addrFormatter} editable={ false }> Valid Kuwa IDs (Ethereum Addresses)</TableHeaderColumn>
               <TableHeaderColumn dataField="contract_address" dataSort dataFormat={blockLinks} editable={ false }> Registration Contract Address</TableHeaderColumn>
               <TableHeaderColumn dataField="amount" dataSort dataFormat={this.amountFormatter} > Amount in ({this.state.dropdownValue}) </TableHeaderColumn>
+              <TableHeaderColumn dataField="status" dataSort dataFormat={this.statusFormatter} > Status </TableHeaderColumn>
 
         </BootstrapTable>
       </div>
