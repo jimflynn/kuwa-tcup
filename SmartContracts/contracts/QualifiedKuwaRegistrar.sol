@@ -18,6 +18,8 @@ contract QualifiedKuwaRegistrar is Owned {
         //kuwaFoundation = _kuwaFoundation;
     }
 
+    /**
+     * Registrars vote by sending a
     function vote(address _registrantContract, bytes32 commit, uint _value) public onlyOwner returns(bool) {
         require(_value == 1);
 

@@ -1,11 +1,11 @@
 pragma solidity ^0.4.24;
 
-
 import "./KuwaToken.sol";
 import "./Owned.sol";
 
 /**
- * The Kuwa Registration contract does this and that...
+ * The Kuwa Registration contract is deployed when a person registers for a Kuwa identity.
+ * It contains state and functions for verifying the identity of the Kuwa client.
  */
 contract KuwaRegistration is Owned {
     address private clientAddress;
@@ -24,9 +24,6 @@ contract KuwaRegistration is Owned {
     address kuwaTokenContract;
     //----------------------
 
-	//constructor
-	//set the total number of tokens
-	//read total number of tokens
     constructor (address _clientAddress, address _kuwaTokenContract) public payable {
         clientAddress = _clientAddress;
         sponsorAddress = msg.sender;
@@ -106,6 +103,12 @@ contract KuwaRegistration is Owned {
 
 
     /** ---------------------- Poker Protocol ------------------------- */
+    // Concerns:
+    // - is 1 hour of vote duration enough? how do registrars know if voting has started? What if registrars
+    // are validating millions of clients at once?
+    // - how do registrars dispute a status? how to introduce an incentive?
+
+    // Information about a voter's actions
     struct Voter {
         bytes32 commit;
         bool voted;
@@ -115,15 +118,22 @@ contract KuwaRegistration is Owned {
         bool isPaid;
     }
 
-    uint public timeOfFirstVote = 0;
-    mapping(address => Voter) public votersMap;
-    address[] public votersList;
-    // Dummy client address for testing: "0x2140eFD7Ba31169c69dfff6CDC66C542f0211825"
+    uint public timeOfFirstVote = 0;    // Record the time of the first vote, to serve as a yardstick
+    mapping(address => Voter) public votersMap; // Maintain a mapping of a voter's address to its voting information
+    address[] public votersList;    // Maintain a list of a voters for iteration
+    //Dummy client address for testing: "0x2140eFD7Ba31169c69dfff6CDC66C542f0211825"
     
+    /**
+        This function will record a Registrar's commited vote in the contract.
+        Registrars vote through their deployed QualifiedKuwaRegistrar contract.
+
+        @param _commit A voter's commited vote (a hash of the vote and a salt)
+        @return Whether the vote was successful or not
+     */
     function vote(bytes32 _commit) public returns(bool) {
-        require(kt.allowance(sponsorAddress, this) == 1);   // Sponsor must provide ante before voting round for incentive
+        require(kt.allowance(sponsorAddress, this) == 1);   // Sponsor must provide ante before the voting round as an incentive for the registrars
         //require(timeOfFirstVote == 0 || block.timestamp - timeOfFirstVote <= 3600); // Registrars have one hour to vote after the first vote is cast
-        require(kt.balanceOf(msg.sender) >= 100001);   // Qualified registrars must possess at least 100,000 Kuwa tokens 
+        require(kt.balanceOf(msg.sender) >= 100001);   // Qualified registrars must possess at least 100,001 Kuwa tokens 
         require(kt.allowance(msg.sender, this) == 1);   // Registrars must provide the required ante to vote
         require(!votersMap[msg.sender].voted);    // Registrars cannot vote more than once
 
@@ -138,33 +148,59 @@ contract KuwaRegistration is Owned {
         return true;
     }
 
+    /**
+        @return The remaining time for the voting process
+     */
     function remainingTime() public view returns(uint) {
         return block.timestamp - timeOfFirstVote;
     }
 
+    /**
+        Registrars will reveal their votes by providing the original vote and salt.
+        This function should be called through the deployed QualifiedKuwaRegistrar contract.
+        It should only be called after the anonymous voting process has ended.
+        If the provided vote and salt matches the previously commited vote, the voter is marked
+        as valid.
+
+        @param _vote The original vote
+        @param _salt The original salt
+     */
     function reveal(uint _vote, bytes32 _salt) public {
         uint timestamp = block.timestamp;
-        //require(timestamp - timeOfFirstVote > 3600 && timestamp - timeOfFirstVote <= 7200);
-        require(votersMap[msg.sender].voted);
-        require(_vote == 0 || _vote == 1);
+        //require(timestamp - timeOfFirstVote > 3600 && timestamp - timeOfFirstVote <= 7200);   // Voters are given 1 hour to reveal after the anonymous voting process has ended
+        require(votersMap[msg.sender].voted);   // Registrars must have voted
+        require(_vote == 0 || _vote == 1);      // The vote must be a valid one: 0 or 1
         
         votersMap[msg.sender].vote = _vote;
         votersMap[msg.sender].salt = _salt;
         votersMap[msg.sender].valid = keccak256(_vote, _salt) == votersMap[msg.sender].commit ? true : false;
     }
     
+    /**
+        This function counts the votes after the reveal process has ended and determines
+        the final status of the Kuwa client (registrant) by majority vote.
+        It then splits the final pot among those who casted the majority vote (the winners)
+        and distributes an equal dividend to each of the winners as a reward. 
+        As of now, the minority automatically "fold" and lose their Kuwa Token ante.
+        In the case of a tie, 
 
-    uint public finalStatus = 3;
-    uint public dividend = 0;
+        This function should only be called by the Sponsor.
+
+        @return Whether the decision has successfully been made
+     */
+    uint public finalStatus = 3;    // The final status after tallying the votes
+                                    // 0 = Invalid, 1 = Valid, 2 = Tie, 3 = No status decided yet
+    uint public dividend = 0;   // The number of tokens awarded to each winner
     function decide() public onlyOwner returns(bool) {
-        //require(block.timestamp - timeOfFirstVote > 7200);
+        //require(block.timestamp - timeOfFirstVote > 7200);    // The decision can only be made after the reveal process has ended
         
+        /* Transfer the Sponsor's ante to this Kuwa Registration contract's token balance */
         if (!kt.transferFrom(msg.sender, this, 1))
             return false;
+            
         uint finalPot = kt.balanceOf(this);
         uint valid = 0;
         uint invalid = 0;
-        
         for (uint i = 0; i < votersList.length; i++) {
             Voter storage voter = votersMap[votersList[i]];
             if (voter.valid) {
@@ -198,17 +234,21 @@ contract KuwaRegistration is Owned {
         return true;
     }
 
-    function payout() public onlyOwner returns(bool) {
-        require(finalStatus != 3);
+    /**
+        This function will allow those who voted in the majority (winners) to
+        receive their reward in Kuwa Tokens.
 
-        for (uint j = 0; j < votersList.length; j++) {
-            Voter storage voter = votersMap[votersList[j]];
-            if (!voter.isPaid && voter.valid && (finalStatus == 2 || voter.vote == finalStatus)) {
-                if (!kt.transfer(votersList[j], dividend)) {
-                    return false;
-                }
-                voter.isPaid = true;
+        @returns Whether or not the payout was successful
+     */
+    function payout() public returns(bool) {
+        require(finalStatus != 3);  // The final status must have been decided for tokens to be rewarded correctly to voters
+
+        Voter storage voter = votersMap[msg.sender];
+        if (!voter.isPaid && voter.valid && (finalStatus == 2 || voter.vote == finalStatus)) {
+            if (!kt.transfer(votersList[j], dividend)) {
+                return false;
             }
+            voter.isPaid = true;
         }
         return true;
     }
