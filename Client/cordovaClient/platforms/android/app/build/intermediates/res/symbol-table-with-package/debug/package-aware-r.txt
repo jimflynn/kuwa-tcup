@@ -1280,3 +1280,4 @@ int[] styleable zxing_view { 0x7f0200d3 }
 int styleable zxing_view_zxing_scanner_layout 0
 int xml camera_provider_paths 0x7f0f0000
 int xml config 0x7f0f0001
+int xml emailcomposer_provider_paths 0x7f0f0002

@@ -39,7 +39,7 @@ export function provideCredentials(kuwaPassword, passcode) {
                             type: 'CREATE_KEYS_FULFILLED',
                             payload: {keyObject, privateKeyInHex, qrCodeSrc}
                         })
-                        requestSponsorship(keyObject, privateKeyInHex, passcode, dispatch)
+                        requestSponsorship(keyObject, passcode, dispatch)
                     })
                 })
             });
@@ -55,7 +55,7 @@ export function provideCredentials(kuwaPassword, passcode) {
     }
 }
 
-function requestSponsorship(keyObject, privateKey, passcode, dispatch) {
+function requestSponsorship(keyObject, passcode, dispatch) {
     //return dispatch => {
         dispatch({
             type: 'REQUEST_SPONSORSHIP_PENDING',
@@ -69,13 +69,7 @@ function requestSponsorship(keyObject, privateKey, passcode, dispatch) {
         })
         .then(response => response.json())
         .then(responseJson => {
-                if (responseJson.message === 'invalid Shared Secret') {
-                    dispatch({
-                        type: 'REQUEST_SPONSORSHIP_REJECTED',
-                        payload: { error: "Invalid Shared Secret." }
-                    })
-                    dispatch(push('/Error'))
-                } else {
+                if (responseJson.abi) {
                     Promise.all([
                         getChallenge(responseJson.abi, responseJson.contractAddress, keyObject.address),
                         getRegistrationStatusString(responseJson.abi, responseJson.contractAddress, keyObject.address)
@@ -91,6 +85,12 @@ function requestSponsorship(keyObject, privateKey, passcode, dispatch) {
                         })
                         dispatch(push('/RecordRegistrationVideo'))
                     })
+                } else {
+                    dispatch({
+                        type: 'REQUEST_SPONSORSHIP_REJECTED',
+                        payload: { error: responseJson.message }
+                    })
+                    dispatch(push('/Error'))
                 }
             })
         .catch(e => {
@@ -239,7 +239,7 @@ export function loadState(jsonFile) {
     }
 }
 
-export function restoreState(jsonFile, kuwaPassword) {
+export function restoreState(jsonFile, kuwaPassword, onSuccess) {
     return dispatch => {
         dispatch({
             type: 'RESTORE_STATE_PENDING'
@@ -286,9 +286,10 @@ export function restoreState(jsonFile, kuwaPassword) {
                         challenge: payload[5]
                     }
                 })
+                onSuccess();
                 dispatch(push('/YourKuwaId'))
             })
-            .catch(error => alert("Your Kuwa password was wrong, please try again"))
+            .catch(error => alert("Your Kuwa Password was wrong, please try again"))
     }
 }
 
@@ -322,6 +323,61 @@ export function persistState() {
         saveAs(blob, "myWallet.json");
         dispatch({
             type: 'PERSIST_STATE'
+        })
+    }
+}
+
+export function persistStateToMobile() {
+    return dispatch => {
+        let stateToPersist = JSON.stringify(getStateToPersist());
+        let fileBlob = new Blob([stateToPersist], {type : 'application/json'});
+        let fileName = "myWallet.json";
+        new Promise((resolve, reject) => {
+            window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, successOnFile, null)
+            function successOnFile(directoryEntry) {
+                directoryEntry.getFile(fileName, {create:true}, file => resolve(file));
+            }
+        })
+        .then(file => {
+            file.createWriter(fileWriter => {
+                fileWriter.onwriteend = e => {
+                    dispatch({
+                        type: 'PERSIST_STATE'
+                    })
+                    alert("Success!")
+                }
+                fileWriter.write(fileBlob);
+            });
+        })
+    }
+}
+
+export function restoreStateOnMobile(onSuccess) {
+    return dispatch => {
+        let fileName = "myWallet.json";
+        new Promise((resolve, reject) => {
+            window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory + fileName, successOnFile, failOnFile)
+            function successOnFile(fileEntry) {
+                fileEntry.file(file => resolve(file));
+            }
+            function failOnFile() {
+                reject(false);
+            }
+        })
+        .then(jsonFile => {
+            dispatch({
+                type: 'WALLET_FOUND'
+            })
+            dispatch({
+                type: 'LOAD_STATE',
+                payload: { loadedState: jsonFile }
+            })
+            onSuccess();
+        })
+        .catch(bool => {
+            dispatch({
+                type: 'WALLET_NOT_FOUND'
+            })
         })
     }
 }

@@ -10,18 +10,29 @@ INJECTED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platfor
 		ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:12:67-91
 	android:name
 		ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:12:127-180
+provider#de.appplant.cordova.emailcomposer.Provider
+INJECTED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:15:9-17:20
+	android:grantUriPermissions
+		ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:15:92-126
+	android:authorities
+		INJECTED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml
+		ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:15:19-66
+	android:exported
+		ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:15:67-91
+	android:name
+		ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:15:127-184
 manifest
-ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:2:1-24:12
-INJECTED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:2:1-24:12
-INJECTED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:2:1-24:12
-INJECTED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:2:1-24:12
+ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:2:1-28:12
+INJECTED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:2:1-28:12
+INJECTED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:2:1-28:12
+INJECTED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:2:1-28:12
 MERGED from [com.journeyapps:zxing-android-embedded:3.3.0] /home/clankster99/.gradle/caches/transforms-1/files-1.1/zxing-android-embedded-3.3.0.aar/51d9a8a33d5156d7884c6664efb03ab6/AndroidManifest.xml:17:1-55:12
 MERGED from [com.android.support:appcompat-v7:23.1.0] /home/clankster99/.gradle/caches/transforms-1/files-1.1/appcompat-v7-23.1.0.aar/478c1de88eaa520a886ffec14c1b9787/AndroidManifest.xml:17:1-24:12
 MERGED from [com.android.support:support-v4:24.1.1] /home/clankster99/.gradle/caches/transforms-1/files-1.1/support-v4-24.1.1.aar/fb9bea04fd39da3a10072a6d52c92a98/AndroidManifest.xml:17:1-27:12
 MERGED from [:CordovaLib] /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/CordovaLib/build/intermediates/manifests/full/debug/AndroidManifest.xml:20:1-27:12
-INJECTED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:2:1-24:12
-INJECTED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:2:1-24:12
-INJECTED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:2:1-24:12
+INJECTED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:2:1-28:12
+INJECTED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:2:1-28:12
+INJECTED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:2:1-28:12
 	package
 		ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:2:102-127
 		INJECTED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml
@@ -57,7 +68,7 @@ ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/
 	android:name
 		ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:4:22-64
 application
-ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:5:5-15:19
+ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:5:5-18:19
 MERGED from [com.journeyapps:zxing-android-embedded:3.3.0] /home/clankster99/.gradle/caches/transforms-1/files-1.1/zxing-android-embedded-3.3.0.aar/51d9a8a33d5156d7884c6664efb03ab6/AndroidManifest.xml:45:5-53:19
 MERGED from [com.journeyapps:zxing-android-embedded:3.3.0] /home/clankster99/.gradle/caches/transforms-1/files-1.1/zxing-android-embedded-3.3.0.aar/51d9a8a33d5156d7884c6664efb03ab6/AndroidManifest.xml:45:5-53:19
 MERGED from [com.android.support:appcompat-v7:23.1.0] /home/clankster99/.gradle/caches/transforms-1/files-1.1/appcompat-v7-23.1.0.aar/478c1de88eaa520a886ffec14c1b9787/AndroidManifest.xml:22:5-20
@@ -99,7 +110,7 @@ ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/
 	android:name
 		ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:9:27-74
 uses-sdk
-ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:16:5-74
+ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:19:5-74
 MERGED from [com.journeyapps:zxing-android-embedded:3.3.0] /home/clankster99/.gradle/caches/transforms-1/files-1.1/zxing-android-embedded-3.3.0.aar/51d9a8a33d5156d7884c6664efb03ab6/AndroidManifest.xml:19:5-43
 MERGED from [com.journeyapps:zxing-android-embedded:3.3.0] /home/clankster99/.gradle/caches/transforms-1/files-1.1/zxing-android-embedded-3.3.0.aar/51d9a8a33d5156d7884c6664efb03ab6/AndroidManifest.xml:19:5-43
 MERGED from [com.android.support:appcompat-v7:23.1.0] /home/clankster99/.gradle/caches/transforms-1/files-1.1/appcompat-v7-23.1.0.aar/478c1de88eaa520a886ffec14c1b9787/AndroidManifest.xml:20:5-43
@@ -111,49 +122,53 @@ MERGED from [:CordovaLib] /home/clankster99/Documents/TCUP/tcup/Client/cordovaCl
 	tools:overrideLibrary
 		ADDED from [com.android.support:support-v4:24.1.1] /home/clankster99/.gradle/caches/transforms-1/files-1.1/support-v4-24.1.1.aar/fb9bea04fd39da3a10072a6d52c92a98/AndroidManifest.xml:23:9-51
 	android:targetSdkVersion
-		ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:16:42-71
+		ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:19:42-71
 	android:minSdkVersion
-		ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:16:15-41
+		ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:19:15-41
 uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
-ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:17:5-81
+ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:20:5-81
 	android:name
-		ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:17:22-78
+		ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:20:22-78
 uses-permission#android.permission.RECORD_AUDIO
-ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:18:5-71
+ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:21:5-71
 	android:name
-		ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:18:22-68
+		ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:21:22-68
 uses-permission#android.permission.RECORD_VIDEO
-ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:19:5-71
+ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:22:5-71
 	android:name
-		ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:19:22-68
+		ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:22:22-68
 uses-permission#android.permission.READ_EXTERNAL_STORAGE
-ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:20:5-80
+ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:23:5-80
 	android:name
-		ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:20:22-77
+		ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:23:22-77
 uses-permission#android.permission.CAMERA
-ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:21:5-90
+ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:24:5-90
 MERGED from [com.journeyapps:zxing-android-embedded:3.3.0] /home/clankster99/.gradle/caches/transforms-1/files-1.1/zxing-android-embedded-3.3.0.aar/51d9a8a33d5156d7884c6664efb03ab6/AndroidManifest.xml:21:5-65
 MERGED from [com.journeyapps:zxing-android-embedded:3.3.0] /home/clankster99/.gradle/caches/transforms-1/files-1.1/zxing-android-embedded-3.3.0.aar/51d9a8a33d5156d7884c6664efb03ab6/AndroidManifest.xml:21:5-65
 	android:required
-		ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:21:63-87
+		ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:24:63-87
 	android:name
-		ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:21:22-62
+		ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:24:22-62
 uses-feature#android.hardware.camera
-ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:22:5-85
+ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:25:5-85
 MERGED from [com.journeyapps:zxing-android-embedded:3.3.0] /home/clankster99/.gradle/caches/transforms-1/files-1.1/zxing-android-embedded-3.3.0.aar/51d9a8a33d5156d7884c6664efb03ab6/AndroidManifest.xml:24:5-26:36
 MERGED from [com.journeyapps:zxing-android-embedded:3.3.0] /home/clankster99/.gradle/caches/transforms-1/files-1.1/zxing-android-embedded-3.3.0.aar/51d9a8a33d5156d7884c6664efb03ab6/AndroidManifest.xml:24:5-26:36
 	android:required
-		ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:22:58-82
+		ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:25:58-82
 	android:name
-		ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:22:19-57
+		ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:25:19-57
 uses-feature#android.hardware.camera.front
-ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:23:5-91
+ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:26:5-91
 MERGED from [com.journeyapps:zxing-android-embedded:3.3.0] /home/clankster99/.gradle/caches/transforms-1/files-1.1/zxing-android-embedded-3.3.0.aar/51d9a8a33d5156d7884c6664efb03ab6/AndroidManifest.xml:27:5-29:36
 MERGED from [com.journeyapps:zxing-android-embedded:3.3.0] /home/clankster99/.gradle/caches/transforms-1/files-1.1/zxing-android-embedded-3.3.0.aar/51d9a8a33d5156d7884c6664efb03ab6/AndroidManifest.xml:27:5-29:36
 	android:required
-		ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:23:64-88
+		ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:26:64-88
 	android:name
-		ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:23:19-63
+		ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:26:19-63
+uses-permission#android.permission.GET_ACCOUNTS
+ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:27:5-71
+	android:name
+		ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:27:22-68
 meta-data#android.support.FILE_PROVIDER_PATHS
 ADDED from /home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/AndroidManifest.xml:13:13-123
 	android:resource

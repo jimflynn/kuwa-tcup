@@ -22,12 +22,18 @@ import { history } from './store';
 import { Route, Switch } from 'react-router';
 import { ConnectedRouter } from 'connected-react-router';
 
+import { toggleRestoreState } from './actions/screenActions';
+import { restoreStateOnMobile } from './actions/kuwaActions';
+
 /**
  * Loads different components depending on the state of the program
  * @class CreateKuwaId
  * @extends Component
  */
 class App extends Component {
+  componentDidMount() {
+    this.props.restoreStateOnMobile(this.props.toggleRestoreState.bind(this))
+  }
   render() {
     return (
       <div>
@@ -54,39 +60,6 @@ class App extends Component {
   }
 }
 
-const renderScreen = (props) => {
-  switch(props.screen.screenName) {
-    case 'SET_PASSWORD':
-      return(
-          <SetPassword />
-      )
-    case 'LOADING':
-      return (
-        <Loading loadingMessage={props.screen.helpText} />
-      )
-    case 'SUCCESS':
-      return (
-        <Success successMessage={props.screen.helpText} />
-      )
-    case 'ERROR':
-      return (
-        <Error errorMessage={props.screen.helpText} />
-      )
-    case 'REQUEST_SPONSORSHIP':
-      return (
-          <RequestSponsorship />
-      )
-    case 'UPLOAD_TO_STORAGE':
-      return (
-          <UploadToStorage />
-      )
-    default:
-      return (
-        <Error errorMessage="ERROR LOADING SCREEN" />
-      )
-  }
-}
-
 const mapStateToProps = state => {
   return {
     screen: state.kuwaReducer.screen,
@@ -100,4 +73,15 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = dispatch => {
+  return {
+    toggleRestoreState: () => {
+        dispatch(toggleRestoreState())
+    },
+    restoreStateOnMobile: (onSuccess) => {
+      dispatch(restoreStateOnMobile(onSuccess))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

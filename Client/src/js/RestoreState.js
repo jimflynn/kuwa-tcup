@@ -73,9 +73,8 @@ class ResponsiveDialog extends React.Component {
                 Cancel
                 </Button>
                 <Button onClick={() => {
-                    this.props.restoreState(this.props.jsonFile, this.state.kuwaPassword)
+                    this.props.restoreState(this.props.jsonFile, this.state.kuwaPassword, this.props.toggleRestoreState.bind(this))
                     this.setState({kuwaPassword: ""})
-                    this.props.toggleRestoreState()
                 }} color="primary" autoFocus>
                 OK
                 </Button>
@@ -102,8 +101,8 @@ const mapDispatchToProps = dispatch => {
         toggleRestoreState: () => {
             dispatch(toggleRestoreState())
         },
-        restoreState: (jsonFile, kuwaPassword) => {
-            dispatch(restoreState(jsonFile, kuwaPassword))
+        restoreState: (jsonFile, kuwaPassword, onSuccess) => {
+            dispatch(restoreState(jsonFile, kuwaPassword, onSuccess))
         }
     }
 }

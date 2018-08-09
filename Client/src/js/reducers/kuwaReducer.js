@@ -124,6 +124,8 @@ const kuwaReducer = (state = initialState, action) => {
                     kuwaNetwork: action.payload.kuwaNetwork
                 })
             })
+        case 'PERSIST_STATE':
+            return state;
         case 'LOAD_STATE':
             return Object.assign({}, state, {
                 loadedState: action.payload.loadedState
@@ -145,6 +147,8 @@ const kuwaReducer = (state = initialState, action) => {
                 })
             })
         case 'RESTORE_STATE_REJECTED':
+        case 'WALLET_NOT_FOUND':
+        case 'WALLET_FOUND':
             return state;
         default:
             return state;
