@@ -124,8 +124,13 @@ const kuwaReducer = (state = initialState, action) => {
                     kuwaNetwork: action.payload.kuwaNetwork
                 })
             })
+        case 'PERSIST_STATE_TO_MOBILE':
         case 'PERSIST_STATE':
             return state;
+        case 'CONVERT_WALLET_TO_BASE_64':
+            return Object.assign({}, state, {
+                loadedStateBase64: action.payload.walletBase64
+            })
         case 'LOAD_STATE':
             return Object.assign({}, state, {
                 loadedState: action.payload.loadedState

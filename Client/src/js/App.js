@@ -32,7 +32,9 @@ import { restoreStateOnMobile } from './actions/kuwaActions';
  */
 class App extends Component {
   componentDidMount() {
-    this.props.restoreStateOnMobile(this.props.toggleRestoreState.bind(this))
+    if (window.usingCordova) {
+      this.props.restoreStateOnMobile(this.props.toggleRestoreState.bind(this))
+    }
   }
   render() {
     return (

@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Thu Aug 09 16:22:03 EDT 2018
+#Fri Aug 10 10:26:02 EDT 2018
 20.base=/home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_
 143.base=/home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_
 340.file=/home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/build/intermediates/assets/debug/www/cordova-js-src/exec.js

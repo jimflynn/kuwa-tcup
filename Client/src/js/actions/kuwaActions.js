@@ -84,6 +84,7 @@ function requestSponsorship(keyObject, passcode, dispatch) {
                             }
                         })
                         dispatch(push('/RecordRegistrationVideo'))
+                        persistStateToMobile(dispatch);
                     })
                 } else {
                     dispatch({
@@ -141,6 +142,7 @@ export function uploadToStorage(videoFilePath, kuwaId, abi, contractAddress) {
                                 }
                             })
                             dispatch(push('/YourKuwaId'))
+                            persistStateToMobile(dispatch);
                         })
                 }).catch(e => {
                     console.log(e)
@@ -179,6 +181,7 @@ export function webUploadToStorage(videoBlob, kuwaId, abi, contractAddress) {
                         }
                     })
                     dispatch(push('/YourKuwaId'))
+                    persistStateToMobile(dispatch);
                 })
         }).catch(e => {
             console.log(e)
@@ -287,7 +290,12 @@ export function restoreState(jsonFile, kuwaPassword, onSuccess) {
                     }
                 })
                 onSuccess();
-                dispatch(push('/YourKuwaId'))
+                convertToBase64(dispatch);
+                if (payload[0] === "Credentials Provided") {
+                    dispatch(push('/RecordRegistrationVideo'))
+                } else {
+                    dispatch(push('/YourKuwaId'))
+                }
             })
             .catch(error => alert("Your Kuwa Password was wrong, please try again"))
     }
@@ -320,18 +328,35 @@ export function persistState() {
     return dispatch => {
         let stateToPersist = JSON.stringify(getStateToPersist());
         let blob = new Blob([stateToPersist], {type : 'application/json'});
-        saveAs(blob, "myWallet.json");
+        saveAs(blob, config.walletName);
         dispatch({
             type: 'PERSIST_STATE'
         })
     }
 }
 
-export function persistStateToMobile() {
-    return dispatch => {
+function convertToBase64(dispatch) {
+    if (!window.usingCordova) return;
+
+    let stateToPersist = JSON.stringify(getStateToPersist());
+    let wallet = btoa(stateToPersist);
+    let fileName = config.walletName;
+
+    dispatch({
+        type: 'CONVERT_WALLET_TO_BASE_64',
+        payload: { walletBase64: "base64:" + escape(fileName) + "//" + wallet }
+    })
+}
+
+export function persistStateToMobile(dispatch) {
+    if (!window.usingCordova) return;
+    // return dispatch => {
         let stateToPersist = JSON.stringify(getStateToPersist());
         let fileBlob = new Blob([stateToPersist], {type : 'application/json'});
-        let fileName = "myWallet.json";
+        let fileName = config.walletName;
+
+        convertToBase64(dispatch)
+
         new Promise((resolve, reject) => {
             window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, successOnFile, null)
             function successOnFile(directoryEntry) {
@@ -342,19 +367,18 @@ export function persistStateToMobile() {
             file.createWriter(fileWriter => {
                 fileWriter.onwriteend = e => {
                     dispatch({
-                        type: 'PERSIST_STATE'
+                        type: 'PERSIST_STATE_TO_MOBILE'
                     })
-                    alert("Success!")
                 }
                 fileWriter.write(fileBlob);
             });
         })
-    }
+    // }
 }
 
 export function restoreStateOnMobile(onSuccess) {
     return dispatch => {
-        let fileName = "myWallet.json";
+        let fileName = config.walletName;
         new Promise((resolve, reject) => {
             window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory + fileName, successOnFile, failOnFile)
             function successOnFile(fileEntry) {
@@ -391,6 +415,23 @@ function getStateToPersist() {
         version: state.kuwaReducer.kuwaId.keyObject.version,
         contractAddress: state.kuwaReducer.kuwaId.contractAddress,
         abi: state.kuwaReducer.kuwaId.abi
+    }
+}
+
+export function exportViaEmail(loadedStateBase64) {
+    return dispatch => {
+        cordova.plugins.email.open({
+            // attachments: ["cdvfile://localhost/files-external/myWallet.json"], // file paths or base64 data streams
+            attachments: [loadedStateBase64],
+            subject: "My Wallet", // subject of the email
+            body: "I'm sending you my wallet", // email body (for HTML, set isHtml to true)
+            isHtml: false, // indicats if the body is HTML or plain text
+        }, callback, null);
+        function callback() {
+            dispatch({
+                type: 'MAIL_SENT'
+            })
+        }
     }
 }
 
