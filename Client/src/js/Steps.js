@@ -6,16 +6,27 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import Divider from '@material-ui/core/Divider';
 
 import { paperHeader } from './paperHeader';
+import RestoreState from './RestoreState';
 
 import Button from '@material-ui/core/Button';
 const buttonColor = "#11B73F";
+
+import { loadState } from './actions/kuwaActions';
+import { toggleRestoreState } from './actions/screenActions';
 
 const styles = theme => ({
     root: Object.assign({}, theme.mixins.gutters(), {
         paddingTop: theme.spacing.unit * 2,
         paddingBottom: theme.spacing.unit * 2,
+    }),
+    label: Object.assign({}, theme.typography.button, {
+        backgroundColor: buttonColor,
+        padding: theme.spacing.unit * 1.2
     })
 });
 
@@ -46,6 +57,23 @@ class Steps extends Component {
                                 Continue
                             </Button>
                         </div>
+
+                        <Divider style={{ margin: "1em" }} />
+
+                        <Typography variant="subheading" align="left" style={{margin: "1em"}}>
+                            If you already have a Kuwa ID, you can load your wallet:
+                        </Typography>
+                        <div align="center">
+                            <InputLabel htmlFor="fileinput" className={classes.label} style={{ borderRadius: "2px", boxShadow: "0 1px 4px rgba(0, 0, 0, .6)" }}>Load Wallet</InputLabel>
+                            <Input type='file' id='fileinput' style={{ display: "none" }} onInput={event => { 
+                                this.props.loadState(event.target.files[0]);
+                                this.props.toggleRestoreState()
+                            }}
+                            onClick={(event)=> { 
+                                event.target.value = null
+                            }} />
+                        </div>
+                        <RestoreState />
                     </Paper>
                 </Grid>
             </Grid>
@@ -64,6 +92,12 @@ const mapDispatchToProps = dispatch => {
     return {
         navigateTo: link => {
             dispatch(push(link))
+        },
+        toggleRestoreState: () => {
+            dispatch(toggleRestoreState())
+        },
+        loadState: jsonFile => {
+            dispatch(loadState(jsonFile))
         }
     }
 }

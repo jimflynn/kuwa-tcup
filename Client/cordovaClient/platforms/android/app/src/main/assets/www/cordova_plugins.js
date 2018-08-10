@@ -350,6 +350,15 @@ module.exports = [
     "clobbers": [
       "cordova.plugins.screenorientation"
     ]
+  },
+  {
+    "id": "cordova-plugin-email-composer.EmailComposer",
+    "file": "plugins/cordova-plugin-email-composer/www/email_composer.js",
+    "pluginId": "cordova-plugin-email-composer",
+    "clobbers": [
+      "cordova.plugins.email",
+      "plugin.email"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -366,7 +375,8 @@ module.exports.metadata =
   "cordova-plugin-splashscreen": "5.0.2",
   "cordova-plugin-qrscanner": "2.6.0",
   "es6-promise-plugin": "4.2.2",
-  "cordova-plugin-screen-orientation": "3.0.1"
+  "cordova-plugin-screen-orientation": "3.0.1",
+  "cordova-plugin-email-composer": "0.8.15"
 };
 // BOTTOM OF METADATA
 });
