@@ -30,6 +30,8 @@ if [ ! -d cordovaClient ]; then
     wait
     cordova plugin add cordova-plugin-email-composer
     wait
+    cordova plugin add cordova-plugin-customurlscheme --variable URL_SCHEME=kuwaregistration
+    wait
     cd ..
 fi
 
