@@ -42,6 +42,13 @@
     },
     "cordova-plugin-email-composer": {
       "PACKAGE_NAME": "org.kuwa.client"
+    },
+    "cordova-plugin-customurlscheme": {
+      "URL_SCHEME": "kuwaregistration",
+      "ANDROID_SCHEME": " ",
+      "ANDROID_HOST": " ",
+      "ANDROID_PATHPREFIX": "/",
+      "PACKAGE_NAME": "org.kuwa.client"
     }
   },
   "dependent_plugins": {
