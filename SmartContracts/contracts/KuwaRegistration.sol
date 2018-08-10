@@ -104,9 +104,9 @@ contract KuwaRegistration is Owned {
 
     /** ---------------------- Poker Protocol ------------------------- */
     // Concerns:
-    // - is 1 hour of vote duration enough? how do registrars know if voting has started? What if registrars
-    // are validating millions of clients at once?
-    // - how do registrars dispute a status? how to introduce an incentive?
+    // - Is the 1-hour voting process long enough? How do registrars know if voting has started? What if registrars are validating millions of clients at once?
+    // - How do registrars dispute a status? How to introduce an incentive for this scenario?
+    // - When splitting the pot, will tokens be equally divisible to a float value? Test this...
 
     // Information about a voter's actions
     struct Voter {
@@ -114,7 +114,7 @@ contract KuwaRegistration is Owned {
         bool voted;
         uint vote;
         bytes32 salt;
-        bool valid;
+        bool honest;
         bool isPaid;
     }
 
@@ -144,7 +144,7 @@ contract KuwaRegistration is Owned {
         if (!kt.transferFrom(msg.sender, this, 1))
             return false;
         votersList.push(msg.sender);
-        votersMap[msg.sender] = Voter({commit: _commit, voted: true, vote: 2, salt: 0x0, valid: false, isPaid: false});
+        votersMap[msg.sender] = Voter({commit: _commit, voted: true, vote: 2, salt: 0x0, honest: false, isPaid: false});
         return true;
     }
 
@@ -173,7 +173,7 @@ contract KuwaRegistration is Owned {
         
         votersMap[msg.sender].vote = _vote;
         votersMap[msg.sender].salt = _salt;
-        votersMap[msg.sender].valid = keccak256(_vote, _salt) == votersMap[msg.sender].commit ? true : false;
+        votersMap[msg.sender].honest = keccak256(_vote, _salt) == votersMap[msg.sender].commit ? true : false;
     }
     
     /**
@@ -182,9 +182,11 @@ contract KuwaRegistration is Owned {
         It then splits the final pot among those who casted the majority vote (the winners)
         and distributes an equal dividend to each of the winners as a reward. 
         As of now, the minority automatically "fold" and lose their Kuwa Token ante.
-        In the case of a tie, 
+        In the case of a tie, the pot is split equally among all the honest voters with
+        the Sponsor's ante providing the small reward.
 
-        This function should only be called by the Sponsor.
+        This function should only be called by the Sponsor. It also sets the registration status
+        of the Kuwa client based on the decision.
 
         @return Whether the decision has successfully been made
      */
@@ -203,7 +205,7 @@ contract KuwaRegistration is Owned {
         uint invalid = 0;
         for (uint i = 0; i < votersList.length; i++) {
             Voter storage voter = votersMap[votersList[i]];
-            if (voter.valid) {
+            if (voter.honest) {
                 if (voter.vote == 1) {
                     valid++;
                 }
@@ -236,20 +238,18 @@ contract KuwaRegistration is Owned {
 
     /**
         This function will allow those who voted in the majority (winners) to
-        receive their reward in Kuwa Tokens.
+        receive their reward from the voting process in Kuwa Tokens.
 
         @returns Whether or not the payout was successful
      */
     function payout() public returns(bool) {
         require(finalStatus != 3);  // The final status must have been decided for tokens to be rewarded correctly to voters
-
         Voter storage voter = votersMap[msg.sender];
-        if (!voter.isPaid && voter.valid && (finalStatus == 2 || voter.vote == finalStatus)) {
-            if (!kt.transfer(votersList[j], dividend)) {
-                return false;
-            }
-            voter.isPaid = true;
+        require(!voter.isPaid && voter.honest && (finalStatus == 2 || voter.vote == finalStatus));
+        if (!kt.transfer(msg.sender, dividend)) {
+            return false;
         }
+        voter.isPaid = true;
         return true;
     }
     
