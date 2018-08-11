@@ -474,10 +474,10 @@ export function getChallenge(abi, contractAddress, kuwaId) {
         .then(contract => contract.methods.getChallenge().call())
         .then(challenge => {
             if (challenge === 0) {
-                setRegistrationStatusTo("Challenge Expired", contractAddress, abi, kuwaId)
-                    .then(() => Promise.resolve(challenge))
+                return setRegistrationStatusTo("Challenge Expired", contractAddress, abi, kuwaId)
+                    .then(() => Promise.resolve("Challenge Expired"))
             } else {
-                Promise.resolve(challenge)
+                return Promise.resolve(challenge)
             }
         })
 }
