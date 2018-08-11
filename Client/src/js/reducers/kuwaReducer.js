@@ -124,6 +124,37 @@ const kuwaReducer = (state = initialState, action) => {
                     kuwaNetwork: action.payload.kuwaNetwork
                 })
             })
+        case 'PERSIST_STATE_TO_MOBILE':
+        case 'PERSIST_STATE':
+            return state;
+        case 'CONVERT_WALLET_TO_BASE_64':
+            return Object.assign({}, state, {
+                loadedStateBase64: action.payload.walletBase64
+            })
+        case 'LOAD_STATE':
+            return Object.assign({}, state, {
+                loadedState: action.payload.loadedState
+            })
+        case 'RESTORE_STATE_PENDING':
+            return state;
+        case 'RESTORE_STATE_FULFILLED':
+            return Object.assign({}, state, {
+                kuwaId: Object.assign({}, state.kuwaId, {
+                    registrationStatus: action.payload.registrationStatus,
+                    kuwaNetwork: action.payload.kuwaNetwork,
+                    privateKey: '0x' + action.payload.privateKey,
+                    qrCodeSrc: action.payload.qrCodeSrc,
+                    keyObject: action.payload.keyObject,
+                    address:  '0x' + action.payload.address,
+                    abi: action.payload.abi,
+                    contractAddress: action.payload.contractAddress,
+                    challenge: action.payload.challenge
+                })
+            })
+        case 'RESTORE_STATE_REJECTED':
+        case 'WALLET_NOT_FOUND':
+        case 'WALLET_FOUND':
+            return state;
         default:
             return state;
     }

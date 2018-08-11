@@ -10,6 +10,8 @@ const formidable = require("formidable");
 
 const sponsorship_requests_routes = require("./api/routes/sponsorship_requests");
 
+const request_passcode = require("./api/routes/request_passcode");
+
 app.use(morgan('dev'));
 
 app.use(bodyParser.urlencoded({extended: false}));
@@ -41,6 +43,8 @@ app.use((req, res, next) => {
 })
 
 app.use('/sponsorship_requests', sponsorship_requests_routes);
+
+app.use('/request_passcode', request_passcode);
 
 app.use((req, res, next) => {
 

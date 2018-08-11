@@ -32,6 +32,8 @@
     <uses-feature
         android:name="android.hardware.camera.front"
         android:required="false" />
+
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <!-- TODO replace above two with next line after Android 4.2 -->
     <!-- <uses-feature android:name="android.hardware.camera.any"/> -->
     <uses-feature
@@ -65,6 +67,25 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="kuwaregistration" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host=" "
+                    android:pathPrefix="/"
+                    android:scheme=" " />
+            </intent-filter>
         </activity>
 
         <provider
@@ -75,6 +96,15 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/camera_provider_paths" />
+        </provider>
+        <provider
+            android:name="de.appplant.cordova.emailcomposer.Provider"
+            android:authorities="org.kuwa.client.provider"
+            android:exported="false"
+            android:grantUriPermissions="true" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/emailcomposer_provider_paths" />
         </provider>
 
         <activity
