@@ -1,11 +1,3 @@
-import { 
-    CREATE_KEYS,
-    CREATE_KUWA_ID,
-    REQUEST_SPONSORSHIP, 
-    UPLOAD_INFO, 
-    UNLOCK_KUWA_ID, 
-    BACK } from '../actions/types';
-    
 const initialState = {
     usingCordova: window.usingCordova,
     kuwaId: {
