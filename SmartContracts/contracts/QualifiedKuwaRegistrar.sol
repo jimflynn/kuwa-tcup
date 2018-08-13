@@ -64,6 +64,18 @@ contract QualifiedKuwaRegistrar is Owned {
         kr.reveal(_vote, _salt);
     }
     
+    /**
+        Registrars call this function to receive their reward, if any, from the voting process
+        in Kuwa Tokens.
+
+        @return Whether or not the payout was successful
+     */
+    function payout(address _registrantContract) public returns(bool) {
+        KuwaRegistration kr = KuwaRegistration(_registrantContract);
+        if (!kr.payout())
+            return false;
+        return true;
+    }
     
     /* For debugging and testing */
     function approve(address _registrantContract, uint _value) public payable {

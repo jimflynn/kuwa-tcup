@@ -194,6 +194,7 @@ contract KuwaRegistration is Owned {
                                     // 0 = Invalid, 1 = Valid, 2 = Tie, 3 = No status decided yet
     uint public dividend = 0;   // The number of tokens awarded to each winner
     function decide() public onlyOwner returns(bool) {
+        require(finalStatus == 3);
         //require(block.timestamp - timeOfFirstVote > 7200);    // The decision can only be made after the reveal process has ended
         
         /* Transfer the Sponsor's ante to this Kuwa Registration contract's token balance */
@@ -240,7 +241,7 @@ contract KuwaRegistration is Owned {
         This function will allow those who voted in the majority (winners) to
         receive their reward from the voting process in Kuwa Tokens.
 
-        @returns Whether or not the payout was successful
+        @return Whether or not the payout was successful
      */
     function payout() public returns(bool) {
         require(finalStatus != 3);  // The final status must have been decided for tokens to be rewarded correctly to voters
