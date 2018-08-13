@@ -57,7 +57,7 @@ function getAllWithStatus(status) {
     status = status.replace("-", " ");
     command = sprintf(`SELECT
                         %s FROM registration
-                        WHERE status = %s`, cols, status);   //TODO: Update last_checked
+                        WHERE status = '%s'`, cols, status);   //TODO: Update last_checked
     return new Promise((resolve, reject) => {
         pool.query(command,
             function(err, rows, fields) {
