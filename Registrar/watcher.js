@@ -1,128 +1,178 @@
 /*
-Registrar implementation in Node JS.
+Watcher implementation in Node JS.
 */
 
-/*
-TODO:
-1. For now, the client address, contract address and contract ABI is hard-coded, later needs to be obtained from the storage manager.
-2. Web UI needs to be set up using ReactJS.
-*/
-
+var fs = require('fs');
+var mysql = require('mysql');
+var crypto = require('crypto');
+var chokidar = require('chokidar');
+var sprintf = require("sprintf-js").sprintf;
+var path = require('path');
 var Web3 = require('web3');
 var web3 = new Web3('https://rinkeby.infura.io/8Dx9RdhjqIl1y3EQzQpl');
+var keythereum = require('keythereum');
 
-// wrapper over 'fs' module in NodeJS, provides some improvement in watching files
-var chokidar = require('chokidar');
+var properties = fs.readFileSync("./properties.json", "utf-8");
+properties = JSON.parse(properties);
 
-// module to read file data
-var fs = require('fs');
+var walletPath = properties.walletPath;
+var walletAddress = "0x" + properties.accountAddress.toString("hex");
+var walletPassword = properties.password;
+var walletNonce = 0;
 
-// module for hashing files
-var crypto = require('crypto');
-
-// mysql
-var mysql = require('mysql');
-
-// Dictionary for storing mappings from files to their hash values
 var dict = {};
+var queue = [];
 
-var abi = JSON.parse('[{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"markAsInvalid","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"killContract","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_amount","type":"uint256"}],"name":"withdraw","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"standard","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getChallenge","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"withdrawals","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"markAsValid","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"generateChallenge","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"address"}],"name":"allowance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getRegistrationStatus","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"_initialSupply","type":"uint256"},{"name":"_clientPubKey","type":"string"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"payable":true,"stateMutability":"payable","type":"fallback"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_owner","type":"address"},{"indexed":true,"name":"_spender","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"_challenge","type":"uint256"},{"indexed":false,"name":"_registrationStatus","type":"uint8"}],"name":"ChallengeValue","type":"event"}]');
 
-// // TODO: when abi can be stored in storage manager
-// var abi = '';
-// var stream = fs.ReadStream('abi.txt', 'utf8');
-// readStream.on('data', function(chunk) {
-// 	abi += chunk;
-// }).on('end', function() {
-// 	abi = JSON.parse(abi);
-//     console.log(abi);
-// });
-
-// TODO: obtain this from storage manager
-var client_address = "0xAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-
-// TODO: obtain this from storage manager
-var contractAddress = '0x74A7647557A38328D58E1cE70D51b5566CAC3668';
-
-var loadContract = async function(abi, contractAddress) { //, gas, gasPrice, from) {
-    let contract = new web3.eth.Contract(abi);
-    contract.options.address = contractAddress;
-    // contract.options.from = from;
-    // contract.options.gasPrice = gasPrice;
-    // contract.options.gas = gas;
-    return contract;
+var loadContract = async function(ContractABI, ContractAddress, from, gasPrice, gas) {
+	let contract = new web3.eth.Contract(ContractABI);
+	contract.options.address = ContractAddress;
+	contract.options.from = from;
+	contract.options.gasPrice = gasPrice;
+	contract.options.gas = gas;
+	// console.log(contract);
+	return contract;
 }
 
+var loadWallet = async function (walletPath, accountAddress, password) {
+	web3.eth.accounts.wallet.clear();
+	var keyObject = keythereum.importFromFile(accountAddress, walletPath);
+	var privateKey = keythereum.recover(properties.password, keyObject);
+	privateKey = "0x" + privateKey.toString("hex");
+	web3.eth.accounts.wallet.add(privateKey);
+}
+
+var getChallengePhrase = async function(smartContract) {
+    console.log('Getting Phrase...');
+	let phrase = await smartContract.methods.getChallenge().call();
+	return phrase;
+}
+
+var validateKuwaID = async function(senderAddress, ContractAddress, smartContract, gasLimit, gasPrice) {
+    console.log('Sending Transaction...');
+	// await smartContract.methods.markAsValid().send({from: senderAddress, gas: gasLimit, gasPrice: gasPrice});
+	let receipt = smartContract.methods.markAsValid().send({from: senderAddress, 
+                                                            gas: gasLimit, 
+                                                            gasPrice: gasPrice, nonce: walletNonce});
+    walletNonce = walletNonce + 1;
+    return receipt;
+}
+
+var inValidateKuwaID = async function(senderAddress, ContractAddress, smartContract, gasLimit, gasPrice) {
+    console.log('Sending Transaction...');
+	// await smartContract.methods.markAsInvalid().send({from: senderAddress, gas: gasLimit, gasPrice: gasPrice});
+	let receipt = smartContract.methods.markAsInvalid().send({from: senderAddress, 
+                                                              gas: gasLimit, 
+                                                              gasPrice: gasPrice, nonce: walletNonce});
+    walletNonce = walletNonce + 1;
+    return receipt;
+}
+
+var getStatus = async function(smartContract) {
+    console.log('Getting Status...');
+    return smartContract.methods.getRegistrationStatus().call();
+}
+
+var findDuplicate = function(mapping, hashval) {
+	for (var key in mapping) {
+		if (mapping[key] === hashval)
+			return true;
+	}
+	return false;
+}
+
+let pool = mysql.createPool({
+	host: "localhost",
+	user: "root",
+	// password: "sqlpassword",
+	password: String.raw`(-h(3~8u"_ZE{lV%m(2SWze$F-7K<$,ej:2+@=-O\43**|>j6!2~uPmeJko[ASo=`,
+	database: "alpha_kuwa_registrar_moe",
+	timezone : '-04:00',
+	dateStrings : true
+});
+
+var insertRow = function(ClientAddress, ContractAddress, regStatus) {
+	let command = sprintf(
+		`INSERT INTO registration (client_address, contract_address, status) VALUES ('%s', '%s', %d) ON DUPLICATE KEY UPDATE client_address='%s', contract_address='%s', status=%d;`,
+		ClientAddress, ContractAddress, regStatus, ClientAddress, ContractAddress, regStatus);
+
+    pool.getConnection((err, connection) => {
+            if(err) {
+            console.log("Error in Client - " + ClientAddress);
+            console.log(err);
+            }
+            connection.query(command, (err, result) => {
+                    console.log("Watcher connected to DB.");
+                    if(!err) {
+                    console.log("Record inserted - " + ClientAddress);
+                    }
+                    });
+            connection.release();
+            });
+}
+
+// get wallet Nonce
+web3.eth.getTransactionCount(walletAddress).then((nonce) => {
+    walletNonce = nonce;
+    console.log("Nonce = ", walletNonce);
+});
+
 // Start watching desired directory
-dir = './storage/';
+dir = '/home/darshi/registrations';
 chokidar.watch(dir, {persistent: true}).on('all', registerFile);
 
-// main function of the registrar
-function registerFile(event, path) {
-	console.log(event, path);
+function addFileToQueue(event, filePath) {
+    console.log(event, filePath);
+    // when new file detected, store it in a queue.
+    queue.push(filePath);
+}
 
-	// when new file detected, hash it and store in a Map. Note that this function checks
-	// for the 'add' event, not the 'addDir' event.
-	if(event == 'add') {
-		let sha = crypto.createHash('sha256');
-		let file = fs.ReadStream(path);
-		let hash = '';
+async function registerFile(event, filePath) {
+    if(event == 'add' && (path.basename(filePath) == 'info.json')) {
+        try {
+            let info = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+            let ContractABI = JSON.parse(info.ContractABI);
+            let ClientAddress = info.ClientAddress;
+            let ContractAddress = info.ContractAddress;
 
-		file.on('data', function(data) {
-			sha.update(data);
-		})
-
-		file.on('end', function() {
-			hash = sha.digest('hex');
-
-			if(!(hash in dict)) {
-				dict[hash] = path;
-				console.log(path + ' => ' + hash + ': Valid');
-				console.log('Current Hash Table: \n', dict);
-
-				// TODO: for now, only display the smart contract challenge phrase
-				// later while setting up the complete system, get `contractAddress` from storage manager
-				loadContract(abi, contractAddress)
-					.then(smartContract => {
-						smartContract.methods.getChallenge().call()
-						.then(challengePhrase => {
-							// challengePhrase will show up as 0, because contract has (probably) expired
-							console.log('challengePhrase =', challengePhrase);
-						});
-					});
-
-				// add entry to DB
-				let con = mysql.createConnection({
-					host: "localhost",
-					user: "root",
-					password: "sqlpassword",
-					database: "Kuwa"});
-				con.connect(function(err) {
-					if (err) {
-						throw err;
-					}
-					console.log("Connected to Kuwa Database!");
-					let date = new Date();
-					var sql = "INSERT INTO Regs (client_address, client_contract_address, timestamp, status)"
-								+ " VALUES (" 
-								+ "'" + client_address + "',"	// enclosing the values in single quotes is necessary because SQL
-																// expects data in that format
-								+ "'" + contractAddress + "'," 
-								+ "'" + date.toString() + "'," 
-								+ "'" + "1" + "'" + ")";
-					console.log(sql);
-					con.query(sql, function (err, result) {
-						if (err) {
-							throw err;
-						}
-						console.log("1 record inserted");
-					});
-				});
-			}
-			else {
-				console.log(path + ' => ' + hash + ': Invalid; Hash already exists');
-				console.log('Current Hash Table: \n', dict);
-			}
-		})
-	}
+            let hash = '';
+            let sha = crypto.createHash('sha256');
+            let file = fs.readFileSync(path.dirname(filePath) + '/' + 'ChallengeVideo.mp4');
+            sha.update(file);
+            hash = sha.digest('hex');
+            let duplicate = findDuplicate(dict, hash);
+            console.log('Duplicate File? :', duplicate);
+            if(!duplicate) {
+                dict[filePath] = hash;
+                await loadWallet(walletPath, walletAddress, walletPassword);
+                console.log("Wallet loaded.");
+                let smartContract = await loadContract(ContractABI, ContractAddress, walletAddress, "50000000000", "60000");
+                console.log("Smart Contract generated.");
+                let challengePhrase = await getChallengePhrase(smartContract);
+                console.log("challengePhrase = ", challengePhrase);
+                let receipt = await validateKuwaID(walletAddress, ContractAddress, smartContract, "60000", "50000000000");
+                console.log(receipt);
+                let regStatus = await getStatus(smartContract, ContractAddress);
+                console.log("Registration Status of " + ClientAddress + "= " + regStatus);
+                insertRow(ClientAddress, ContractAddress, regStatus);
+            }
+            else {
+                await loadWallet(walletPath, walletAddress, walletPassword);
+                console.log("Wallet loaded.");
+                let smartContract = await loadContract(ContractABI, ContractAddress, walletAddress, "50000000000", "60000");
+                console.log("Smart Contract generated.");
+                let challengePhrase = await getChallengePhrase(smartContract);
+                console.log("challengePhrase = ", challengePhrase);
+                let receipt = await inValidateKuwaID(walletAddress, ContractAddress, smartContract, "60000", "50000000000");
+                console.log(receipt);
+                let regStatus = await getStatus(smartContract, ContractAddress);
+                console.log("Registration Status of " + ClientAddress + "= " + regStatus);
+                insertRow(ClientAddress, ContractAddress, regStatus);
+            }
+            queue.shift();
+        }
+        catch(err) {
+            console.log("ERROR: " + err.message);
+        }
+    }
 }

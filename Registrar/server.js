@@ -1,43 +1,65 @@
+var fs = require('fs');
+var https = require('https');
 const mysql = require('mysql');
-
 const express = require('express');
+var moment = require('moment-timezone');
+const port = process.env.PORT || 3006;
+
 const app = express();
 
-const port = process.env.PORT || 5000;
-
-var pool      =    mysql.createPool({
-    connectionLimit : 10,
+var pool = mysql.createPool({
+    connectionLimit : 100,
     host     : 'localhost',
     user     : 'root',
-    password : 'sqlpassword',
-    database : 'Kuwa',
-    debug    :  false
+    // password: "sqlpassword",
+    password : String.raw`(-h(3~8u"_ZE{lV%m(2SWze$F-7K<$,ej:2+@=-O\43**|>j6!2~uPmeJko[ASo=`,
+    database : 'alpha_kuwa_registrar_moe',
+    timezone : 'local',
+    dateStrings : true
 });
 
-app.get('/registrations', (req, res) => {
+var credentials = {
+    key : fs.readFileSync('/etc/httpd/conf/ssl.key/server.key'),
+    cert: fs.readFileSync('/etc/httpd/conf/ssl.crt/alpha_kuwa_org.pem')
+}
 
-	pool.getConnection((err,connection) => {
+// var credentials = {
+//     key : fs.readFileSync('server.key'),
+//     cert: fs.readFileSync('server.cert')
+// }
 
-		if (err) {
-			res.json({"code" : 100, "status" : "Error in connection database"});
-			return;
+app.get('/registration', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    pool.getConnection((error,connection) => {
+        if (error) {
+            return res.json({"code" : 100, "status" : "Error in connecting to database"});
+            return;
         }
-
-        console.log('connected as id ' + connection.threadId);
-
-        connection.query("select * from Regs", (err,rows) => {
-            connection.release();
-            if(!err) {
-                res.json(rows);
-                console.log(res);
+        // console.log('UI backend has connected to Kuwa database!');
+        connection.query("SELECT * FROM registration", (err,rows) => {
+            if (!err) {
+                connection.release();
+                rows = JSON.parse(JSON.stringify(rows));
+                // convert time to EDT
+                let numRows = rows.length;
+                for(let i=0; i < numRows; i++) {
+                    rows[i].timestamp = moment(rows[i].timestamp).tz("America/New_York").format('YYYY-MM-DD HH:mm:ss');
+                }
+                //console.log(rows);
+                return res.json(rows);
+            }
+            else {
+                return res.json({"code" : 100, "status" : "Error in querying database"});
+                return;
             }
         });
-
-        connection.on('error', function(err) {      
-              res.json({"code" : 100, "status" : "Error in connection database"});
-              return;    
-        });
+        connection.on('error', (err) => {
+            return res.json({"code" : 100, "status" : "Error in connecting to database"});
+            return;
+        })
     });
 });
 
-app.listen(port, () => console.log(`Listening on port ${port}`));
+https.createServer(credentials, app).listen(port, function () {
+    console.log('Server listening on port ' + port);
+});

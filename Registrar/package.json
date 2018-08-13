@@ -1,18 +1,36 @@
 {
   "name": "registrar",
   "version": "1.0.0",
-  "scripts": {
-    "start": "concurrently --kill-others-on-fail \"nodemon watcher.js\" \"nodemon server.js\" \"cd client && npm start\""
-  },
+  "description": "Kuwa Registrar",
+  "proxy": "https://localhost:3006",
+  "homepage": "https://alpha.kuwa.org/registrar/moe",
   "dependencies": {
-    "express": "^4.16.2",
-    "mysql": "^2.15.0",
-    "react-json-table": "^0.1.1",
+    "@material-ui/core": "^1.4.1",
+    "@material-ui/icons": "^2.0.0",
     "chokidar": "^2.0.3",
+    "express": "^4.16.2",
+    "face-recognition": "^0.9.3",
     "hash-files": "^1.1.1",
+    "keythereum": "^1.0.4",
+    "moment-timezone": "^0.5.21",
+    "mysql": "^2.15.0",
+    "react": "^16.4.0",
+    "react-bootstrap-table": "^4.3.1",
+    "react-dom": "^16.4.0",
+    "react-json-table": "^0.1.1",
+    "react-scripts": "^1.1.4",
+    "sprintf-js": "^1.1.1",
     "web3": "^1.0.0-beta.34"
   },
   "devDependencies": {
     "concurrently": "^3.5.0"
-  }
+  },
+  "scripts": {
+    "test": "react-scripts test --env=jsdom",
+    "start": "concurrently --kill-others-on-fail \"nodemon watcher.js\" \"nodemon server.js\" \"PORT=3005 react-scripts start\"",
+    "build": "react-scripts build",
+    "eject": "react-scripts eject"
+  },
+  "author": "Priyadarshi Rath",
+  "license": "ISC"
 }

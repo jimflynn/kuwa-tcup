@@ -1,158 +1,175 @@
-pragma solidity ^0.4.2;
+// ----------------------------------------------------------------------------
+// 'Kuwa Token' token contract
+//
+// Symbol      : KUWA
+// Name        : Kuwa Token
+// Total supply: 1,000,000.000000000000000000
+// Decimals    : 18
+//
+//
+// Template originally by: (c) BokkyPooBah / Bok Consulting Pty Ltd 2018. The MIT License.
+// ERC20 Standard reference: https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md
+// Modified by Deh-Jun Tzou
+// ----------------------------------------------------------------------------
+pragma solidity ^0.4.24;
 
-/**
- * The KuwaToken contract does this and that...
- */
-contract KuwaToken {
-    //name
-    string public name = "KuwaToken";
+import "./ERC20Interface.sol";
+import "./SafeMath.sol";
+import "./Owned.sol";
 
-    //symbol
-    string public symbol = "Kuwa";
+// ----------------------------------------------------------------------------
+// Contract function to receive approval and execute function in one call
+//
+// Borrowed from MiniMeToken
+// ----------------------------------------------------------------------------
+contract ApproveAndCallFallBack {
+    function receiveApproval(address from, uint256 tokens, address token, bytes data) public;
+}
 
-    //standard
-    string public standard = "KuwaToken v1.0";//not ERC20
 
-    uint256 public totalSupply; //making public eliminates use of the function returning total supply for ERC20
+// ----------------------------------------------------------------------------
+// ERC20 Token, with the addition of symbol, name and decimals and a
+// fixed supply
+// ----------------------------------------------------------------------------
+contract KuwaToken is ERC20Interface, Owned {
+    using SafeMath for uint;
 
-    // Challenges are stored here in an array. In the index 0 of the array the timestamp is
-    // recorded of the moment in which the challenge is generated in order to check for
-    // expiration. Index 1 contains the challenge.
-    // Challenges can be found with the publicKey
-    mapping(string => uint256[2]) private challenges;
-    mapping(address => uint256) public withdrawals;
-    // Unknown is set first as the default value. We do this in case a key is looked for and
-    // it is not found in the mapping
-    enum RegistrationStatus { Unknown, Funded, Waiting, Valid, Invalid }
-    mapping(string => RegistrationStatus) private registrationStatus;
+    string public symbol;
+    string public  name;
+    uint8 public decimals;
+    uint _totalSupply;
+    //uint _minStake;
 
-    mapping (address => uint256) public balanceOf; //ERC 20 balanceOf
-    mapping(address => mapping(address => uint256)) public allowance;
+    mapping(address => uint) balances;
+    mapping(address => mapping(address => uint)) allowed;
 
-	//Transfer event
-    event Transfer(
-        address indexed _from,
-        address indexed _to,
-        uint256 _value
-    );
 
-	// Approve event 
-    event Approval(
-        address indexed _owner,
-        address indexed _spender,
-        uint256 _value
-    );
-
-	//constructor
-	//set the total number of tokens
-	//read total number of tokens
-    constructor (uint256 _initialSupply) public{
-        // allocate the initial supply
-        balanceOf[msg.sender] = _initialSupply;
-        totalSupply = _initialSupply;
-
+    // ------------------------------------------------------------------------
+    // Constructor
+    // ------------------------------------------------------------------------
+    constructor() public {
+        symbol = "KWA";
+        name = "Kuwa Token";
+        decimals = 18;
+        _totalSupply = 1000000 * 10**uint(decimals);
+        balances[owner] = _totalSupply;
+        emit Transfer(address(0), owner, _totalSupply);
+        //_minStake = 100000 * 10**uint(decimals);
     }
-    
-	// Transfer
-    function transfer(address _to, uint256 _value) public returns(bool success){
-        // Exception if account doesnt have enough balance
-        require(balanceOf[msg.sender] >= _value, "Revert balance to Sender");
-        
-        //Transfer the balance
-        balanceOf[msg.sender] -= _value;
-        balanceOf[_to] += _value;
 
-        //fire Transfer event according to ERC20
+
+    // ------------------------------------------------------------------------
+    // Total supply
+    // ------------------------------------------------------------------------
+    function totalSupply() public view returns (uint) {
+        return _totalSupply.sub(balances[address(0)]);
+    }
+
+
+    // ------------------------------------------------------------------------
+    // Get the token balance for account `_owner`
+    // ------------------------------------------------------------------------
+    function balanceOf(address _owner) public view returns (uint balance) {
+        return balances[_owner];
+    }
+
+
+    // ------------------------------------------------------------------------
+    // Transfer the balance from token owner's account to `_to` account
+    // - Owner's account must have sufficient balance to transfer
+    // - 0 value transfers are allowed
+    // ------------------------------------------------------------------------
+    function transfer(address _to, uint _value) public returns (bool success) {
+        require(_value <= balances[msg.sender]);
+        require(_to != address(0));
+
+        balances[msg.sender] = balances[msg.sender].sub(_value);
+        balances[_to] = balances[_to].add(_value);
         emit Transfer(msg.sender, _to, _value);
-        
         return true;
     }
 
-	//delegated transfers
-	//approve
-    function approve(address _spender, uint256 _value) public returns (bool success) {
-        allowance[msg.sender][_spender] = _value;
+
+    // ------------------------------------------------------------------------
+    // Transfer `_value` tokens from the `_from` account to the `_to` account
+    // 
+    // The calling account must already have sufficient _value approve(...)-d
+    // for spending from the `_from` account and
+    // - `_from` account must have sufficient balance to transfer
+    // - Spender must have sufficient allowance to transfer
+    // - 0 value transfers are allowed
+    // ------------------------------------------------------------------------
+    function transferFrom(address _from, address _to, uint _value) public returns (bool success) {
+        require(_value <= balances[_from]);
+        require(_value <= allowed[_from][msg.sender]);
+        require(_to != address(0));
+
+        balances[_from] = balances[_from].sub(_value);
+        allowed[_from][msg.sender] = allowed[_from][msg.sender].sub(_value);
+        balances[_to] = balances[_to].add(_value);
+        emit Transfer(_from, _to, _value);
+        return true;
+    }
+
+
+    // ------------------------------------------------------------------------
+    // Token owner can approve for `_spender` to transferFrom(...) `_value` 
+    // tokens from the token owner's account
+    //
+    // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
+    // recommends that there are no checks for the approval double-spend attack
+    // as this should be implemented in user interfaces 
+    // ------------------------------------------------------------------------
+    function approve(address _spender, uint _value) public returns (bool success) {
+        allowed[msg.sender][_spender] = _value;
         emit Approval(msg.sender, _spender, _value);
         return true;
     }
-	
-	//transferfrom
-    function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {
-        require(_value <= balanceOf[_from], "Revert balance to sender");
-        require(_value <= allowance[_from][msg.sender], "Revert balance to sender because he doesnt have enough allowance");
 
-        balanceOf[_from] -= _value;
-        balanceOf[_to] += _value;
 
-        allowance[_from][msg.sender] -= _value;
+    // ------------------------------------------------------------------------
+    // Returns the amount of tokens approved by the owner that can be
+    // transferred to the spender's account
+    // ------------------------------------------------------------------------
+    function allowance(address _owner, address _spender) public view returns (uint remaining) {
+        return allowed[_owner][_spender];
+    }
 
-        emit Transfer(_from, _to, _value);
 
+    // ------------------------------------------------------------------------
+    // Token owner can approve for `_spender` to transferFrom(...) `_value`
+    // tokens from the token owner's account. The `_spender` contract function
+    // `receiveApproval(...)` is then executed
+    // TODO: Understand this!
+    // ------------------------------------------------------------------------
+    function approveAndCall(address _spender, uint _value, bytes _data) public returns (bool success) {
+        allowed[msg.sender][_spender] = _value;
+        emit Approval(msg.sender, _spender, _value);
+        ApproveAndCallFallBack(_spender).receiveApproval(msg.sender, _value, this, _data);
         return true;
     }
 
-    // fallback function for contract to receive ether
-    function() payable public {
-        withdrawals[msg.sender] = msg.value;
-        require(withdrawals[msg.sender] == msg.value);
+
+    // ------------------------------------------------------------------------
+    // Don't accept ETH
+    // ------------------------------------------------------------------------
+    function () public payable {
+        revert();
     }
 
-    function withdraw(uint256 _amount) public {
-        require(_amount <= withdrawals[msg.sender], "Amount is exceeded");
-        //require(msg.sender.send(_amount), "Revert withdrawal");
-        msg.sender.transfer(_amount);
-    }
 
-    // Generates a 5-digit pseudorandom number
-    function rand(string _publicKey) private view returns (uint256){
-        // Generates random number
-        uint256 lastBlockNumber = block.number - 1;
-        uint256 hashVal = uint256(blockhash(lastBlockNumber));
-        // This turns the input data into a 100-sided die
-        // by dividing by ceil(2 ^ 256 / 100000).
-        uint256 FACTOR = 1157920892373161954235709850086879078532699846656405640394575840079131296;
-        uint256 randNum = uint256(uint256(keccak256(abi.encodePacked(hashVal, _publicKey))) / FACTOR) + 1;
-        // Sometimes the leading value is 0, so because we want the number always to
-        // be 5 digits long, we just need to place it at the end of the challenge.
-        if (randNum < 10000) {
-            randNum = randNum * 10;
-        }
-        return randNum;
+    // ------------------------------------------------------------------------
+    // Owner can transfer out any accidentally sent ERC20 tokens
+    // TODO: Understand this!
+    // ------------------------------------------------------------------------
+    function transferAnyERC20Token(address _tokenAddress, uint _tokens) public onlyOwner returns (bool success) {
+        return ERC20Interface(_tokenAddress).transfer(owner, _tokens);
     }
-	
-    // Generates a challenge using the rand method and stores it in challenges
-    function generateChallenge(string _publicKey) public {
-        uint256 challenge = rand(_publicKey);
-        challenges[_publicKey][0] = block.timestamp;
-        challenges[_publicKey][1] = challenge;
-        // TODO: change registration status
-        // registrationStatus[_publicKey] = RegistrationStatus.Waiting; <- Not sure
-    }
-
-    // This was not part of the specification of the week but it makes sense to add it
-    function getChallenge(string _publicKey) public view returns(uint256) {
-        uint256 timeElapsed = block.timestamp - challenges[_publicKey][0];
-        // timestamp is in seconds, therefore, 36000s == 10min.
-        // We may need to change this later.
-        if (timeElapsed < 36000) {
-            return challenges[_publicKey][1];
-        }
-        // TODO: Maybe change the Registration Status here as well? Like RegistrationStatus.Expired
-        return 0;
-    }
-
-    function getRegistrationStatus(string _publicKey) public view returns(RegistrationStatus) {
-        return registrationStatus[_publicKey];
-    }
-
-    function markAsValid(string _publicKey) public returns(bool) {
-        registrationStatus[_publicKey] = RegistrationStatus.Valid;
-        return true;
-    }
-
-    function markAsInvalid(string _publicKey) public returns(bool) {
-        registrationStatus[_publicKey] = RegistrationStatus.Invalid;
-        return true;
+    
+    
+    /* For debugging and testing */
+    address public sender;
+    function dummy() public {
+        sender = msg.sender;
     }
 }
-

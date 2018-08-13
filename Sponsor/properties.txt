@@ -1,6 +1,6 @@
-{"SS" : "MySharedSecretKey",
-"walletPath" : "/home/manush/.ethereum/rinkeby/",
-"accountAddress" : "1fb14617a7db23633daf8e84f8bae2a91a323928", 
-"password" : "manush",
+{"SS" : "Test",
+"walletPath" : "/.ethereum/",
+"accountAddress" : "08e44c26153914577c819904e3fd3c58d8cf106b", 
+"password" : "password",
 "solFilePath" : "./KuwaRegistration.sol"
 }
