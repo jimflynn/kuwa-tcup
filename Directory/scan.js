@@ -40,7 +40,7 @@ class DirScanner {
                                     JSON.parse(data.ContractABI), data.ContractAddress,
                                     4300000, '22000000000', this.ethClient.myAddress
                                 );
-                data.status = parseInt(await contract.methods.getRegistrationStatus().call());
+                data.status = await contract.methods.getRegistrationStatus().call();
             }
             catch (err) {
                 console.error(err);
@@ -116,9 +116,9 @@ class DBClient {
                          (registration_id, kuwa_address, contract_address, \
                          application_binary_interface_id, status, created, \
                          updated, last_checked) \
-                         VALUES (%d, '%s', '%s', %d, %d, '%s', '%s', '%s') \
+                         VALUES (%d, '%s', '%s', %d, %s, '%s', '%s', '%s') \
                          ON DUPLICATE KEY UPDATE
-                         application_binary_interface_id = %d, status = %d, updated = '%s';
+                         application_binary_interface_id = %d, status = %s, updated = '%s';
                          `,
                          tableName,
                          0, data.ClientAddress, data.ContractAddress, 1, data.status, date, date, date,

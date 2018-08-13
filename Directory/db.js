@@ -36,14 +36,7 @@ let cols = (function getCols() {
 });
 
 function getAll() {
-    command = sprintf(`SELECT
-                        CASE status
-                          WHEN 0 THEN 'INVALID'
-                          WHEN 1 THEN 'VALID'
-                          WHEN 2 THEN 'WAITING'
-                          ELSE 'PRELIMINARY'
-                        END AS Status,
-                        %s FROM registration`, cols);  //TODO: Update last_checked
+    command = sprintf(`SELECT %s FROM registration`, cols);  //TODO: Update last_checked
     return new Promise((resolve, reject) => {
         pool.query(command,
              function(err, rows, fields) {
@@ -61,15 +54,10 @@ We can put status mappings in the "config.json" but that doesn't look right and 
 See https://stackoverflow.com/questions/16753122/sql-how-to-replace-values-of-select-return
 */
 function getAllWithStatus(status) {
+    status = status.replace("-", " ");
     command = sprintf(`SELECT
-                        CASE status
-                          WHEN 0 THEN 'INVALID'
-                          WHEN 1 THEN 'VALID'
-                          WHEN 2 THEN 'WAITING'
-                          ELSE 'PRELIMINARY'
-                        END AS Status,
                         %s FROM registration
-                        WHERE status = %d`, cols, parseInt(status));   //TODO: Update last_checked
+                        WHERE status = %s`, cols, status);   //TODO: Update last_checked
     return new Promise((resolve, reject) => {
         pool.query(command,
             function(err, rows, fields) {

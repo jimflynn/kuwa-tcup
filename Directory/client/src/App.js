@@ -91,10 +91,12 @@ class App extends Component {
         <select id="select-box" value="select-status" onChange={this.handleStatusChange}>
           <option value="select-status">Select status:</option>
           <option value="">All</option>
-          <option value="0">Invalid</option>
-          <option value="1">Valid</option>
-          <option value="2">Waiting</option>
-          <option value="3">Preliminary</option>
+          <option value="Invalid">Invalid</option>
+          <option value="Valid">Valid</option>
+          <option value="Credentials-Provided">Credentials Provided</option>
+          <option value="Challenge-Expired">Challenge Expired</option>
+          <option value="Video-Uploaded">Video Uploaded</option>
+          <option value="QR-Code-Scanned">QR Code Scanned</option>
         </select>
       </div>
       );
