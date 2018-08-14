@@ -48,7 +48,7 @@ class App extends Component {
 					</TableHeaderColumn>
 
 					<TableHeaderColumn 
-						width='35%' 
+						width='30%' 
 						dataSort={ true } 
 						dataAlign='center' 
 						dataField='client_address'> 
@@ -56,7 +56,7 @@ class App extends Component {
 					</TableHeaderColumn>
 
 					<TableHeaderColumn 
-						width='35%' 
+						width='30%' 
 						dataSort={ true } 
 						dataAlign='center' 
 						dataField='contract_address'>
@@ -72,7 +72,7 @@ class App extends Component {
 					</TableHeaderColumn>
 
 					<TableHeaderColumn 
-						width='7%' 
+						width='17%' 
 						dataSort={ true } 
 						dataAlign='center' 
 						dataField='status' >
