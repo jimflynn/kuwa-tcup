@@ -1,2 +1,3 @@
 node_modules/
-Sybil_detection/
+server.key
+server.cert
