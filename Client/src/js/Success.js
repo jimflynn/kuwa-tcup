@@ -14,6 +14,14 @@ const styles = theme => ({
     })
 });
 
+/**
+ * This component is rendered if the user wants to give feedback of success to the user. Whenever this
+ * component is rendered a success message is passed. The help message can be found in the Redux store.
+ * The Success component uses the generalOutcome component as a template. Please refer to it
+ * for more details.
+ * @class Success
+ * @extends Component
+ */
 class Success extends Component {
     render() {
         const { classes } = this.props;

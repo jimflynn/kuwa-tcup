@@ -6,6 +6,13 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
+/**
+ * generalOutcome is a dumb component where error and success messages can be rendered.
+ * @param {String} header is the title of the screen
+ * @param {String} message to show the user for feedback
+ * @param {String} image url of the image to show to the user for feedback
+ * @param {Object} classes used to give styling to the component
+ */
 export const generalOutcome = (header, message, image, classes) => (
     <Grid container justify="center" style={{flexGrow: 1}}>
         <Grid item xs={12} sm={10} md={8} lg={6} xl={6}>

@@ -11,7 +11,6 @@ import YourNetwork from './YourNetwork';
 
 import Success from './Success';
 import Error from './Error';
-// import QRCodeGen from './QRCodeGen';
 import '../css/App.css';
 
 import { connect } from 'react-redux';
@@ -26,8 +25,17 @@ import { toggleRestoreState } from './actions/screenActions';
 import { restoreStateOnMobile } from './actions/kuwaActions';
 
 /**
- * Loads different components depending on the state of the program
- * @class CreateKuwaId
+ * This is where the magic begins. As soon as the application loads, if the Client is using
+ * cordova, it will check if it has previously created a Kuwa ID by checking if there are
+ * any persisted wallets in his phone. If so, a screen will pop asking the user to input
+ * the Kuwa password. Otherwise, the Steps component will be rendered.
+ * The entire application uses redux and connected router. Therefore, there is a store
+ * that is passed down to the components using the Provider tag. Connected Router is used
+ * to make navigation in the app possible (back and forth). Refer to the online documentation
+ * of this packages (Redux and Connected Router) to learn more about them.
+ * All of the components use the material-ui (https://material-ui.com/getting-started/installation/)
+ * for React. Refer to the documenation to understand the rest of the componenets.
+ * @class App
  * @extends Component
  */
 class App extends Component {
@@ -64,14 +72,7 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    screen: state.kuwaReducer.screen,
-    pathname: state.router.location.pathname,
-    search: state.router.location.search,
-    hash: state.router.location.hash,
-    helpText: {
-      success: state.kuwaReducer.screen.success.helpText,
-      error: state.kuwaReducer.screen.error.helpText
-    }
+    
   }
 }
 

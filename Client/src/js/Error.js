@@ -14,6 +14,15 @@ const styles = theme => ({
     })
 });
 
+/**
+ * This component is rendered every time an Exception occurs and is caught. Whenever this
+ * component is rendered an error message should be passed to let the user know what went
+ * wrong. The help message can be found in the Redux store.
+ * The Error component uses the generalOutcome component as a template. Please refer to it
+ * for more details.
+ * @class Error
+ * @extends Component
+ */
 class Error extends Component {
     render() {
         const { classes } = this.props;

@@ -8,5 +8,7 @@
     "requestPasscodeUrl": "http://alpha.kuwa.org:3007/",
     "baseUrl": "/client/",
     "web3Provider": "https://rinkeby.infura.io/8Dx9RdhjqIl1y3EQzQpl",
-    "walletName": "kuwaWallet.json"
+    "walletName": "kuwaWallet.json",
+    "enablePasscode": false,
+    "enableRegistrationCongrats": true
 }

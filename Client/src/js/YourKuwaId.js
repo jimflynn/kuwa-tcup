@@ -23,6 +23,16 @@ const styles = theme => ({
     })
 });
 
+/**
+ * Displays the generated Kuwa ID of the Client and its corresponding QR code. In this component
+ * the Client can scan other QR codes that contain Kuwa IDs or can let other users scan
+ * his Kuwa ID. In either case, this component controls whether to use the Cordova plugin for
+ * QR codes or the Instascan package for the Web Client. Please refer to the online documentation
+ * for more details. This component also renders a green box in the cordova application to help
+ * the user know where to scan a QR code.
+ * @class YourKuwaId
+ * @extends Component
+ */
 class YourKuwaId extends Component {
     constructor(props) {
         super(props);

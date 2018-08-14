@@ -41,11 +41,24 @@ const styles = theme => ({
     }
 });
 
+/**
+ * The user provides the credentials. The Kuwa Password is created by the user and is used to
+ * create his wallet and encrypt it. It's very important for the user NOT to forget this
+ * password. The passcode is provided by the Sponsor via email and can be requested by the
+ * Client. In the config file, the passcode field can be disabled and the "Test" string will
+ * be automatically placed as the default passcode. If so, the Client only needs to provide
+ * a Kuwa Password.
+ * Also the current component checks that the Kuwa Password and the Passcode fields are not
+ * empty. In the future a better check can be implemented and the logic can be moved to the
+ * actions folder in order to keep the business logic separate from the View.
+ * @class ProvideCredentials
+ * @extends Component
+ */
 class ProvideCredentials extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            passcode: "",
+            passcode: config.enablePasscode ? "" : "Test",
             kuwaPassword: ""
         }
     }
@@ -78,9 +91,10 @@ const renderContent = (props, state, setState) =>  (
 const renderProvideCredentials = (props, state, setState) =>  (
     <div>
     <Typography variant="title" align="left" style={{ margin: "1em" }}>
-        Kuwa registrations must have a sponsor. <strong>The Kuwa Foundation</strong> is the sponsor of your Kuwa registration. For credentials, we only require that you enter a passcode. If you do not have a passcode, please go to <a href={ config.requestPasscodeUrl } target="_blank">http://kuwa.org</a> to request one.
+        Kuwa registrations must have a sponsor. <strong>The Kuwa Foundation</strong> is the sponsor of your Kuwa Basic Income Registration. For credentials, we only require that you enter a passcode. If you do not have a passcode, please go to <a href={ config.requestPasscodeUrl } target="_blank">http://kuwa.org</a> to request one.
     </Typography>
 
+    { config.enablePasscode ? 
     <Grid>
         <FormControl style={{width: "100%"}} className={classNames(props.classes.margin, props.classes.textField)}>
             <InputLabel htmlFor="adornment-passcode">Enter the passcode we emailed you</InputLabel>
@@ -103,6 +117,7 @@ const renderProvideCredentials = (props, state, setState) =>  (
             />
         </FormControl>
     </Grid>
+    : null }
     
     <Grid>
         <FormControl style={{width: "100%"}} className={classNames(props.classes.margin, props.classes.textField)}>
