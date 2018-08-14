@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
-import config from 'config';
 
 import { Loading } from './Load';
 import { paperHeader } from './paperHeader';
@@ -55,10 +54,15 @@ const styles = theme => ({
  * @extends Component
  */
 class ProvideCredentials extends Component {
+    async componentDidMount() {
+        await fetch('/.config.json').then(a => a.json()).then(json => window.config = json)
+        this.forceUpdate()
+    }
+
     constructor(props) {
         super(props);
         this.state = {
-            passcode: config.enablePasscode ? "" : "Test",
+            passcode: window.config.enablePasscode ? "" : "Test",
             kuwaPassword: ""
         }
     }
@@ -91,10 +95,10 @@ const renderContent = (props, state, setState) =>  (
 const renderProvideCredentials = (props, state, setState) =>  (
     <div>
     <Typography variant="title" align="left" style={{ margin: "1em" }}>
-        Kuwa registrations must have a sponsor. <strong>The Kuwa Foundation</strong> is the sponsor of your Kuwa Basic Income Registration. For credentials, we only require that you enter a passcode. If you do not have a passcode, please go to <a href={ config.requestPasscodeUrl } target="_blank">http://kuwa.org</a> to request one.
+        Kuwa registrations must have a sponsor. <strong>The Kuwa Foundation</strong> is the sponsor of your Kuwa Basic Income Registration. For credentials, we only require that you enter a passcode. If you do not have a passcode, please go to <a href={ window.config.requestPasscodeUrl } target="_blank">http://kuwa.org</a> to request one.
     </Typography>
 
-    { config.enablePasscode ? 
+    { window.config.enablePasscode ? 
     <Grid>
         <FormControl style={{width: "100%"}} className={classNames(props.classes.margin, props.classes.textField)}>
             <InputLabel htmlFor="adornment-passcode">Enter the passcode we emailed you</InputLabel>
