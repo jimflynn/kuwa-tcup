@@ -94,8 +94,7 @@ class DirScanner {
             try {
                 let contract = await this.ethClient.loadContract(
                                     JSON.parse(data.ContractABI), data.ContractAddress,
-                                    4300000, '22000000000', this.ethClient.myAddress
-                                );
+                                    4300000, '22000000000');
                 data.status = Web3.utils.hexToUtf8(await contract.methods.getRegistrationStatus().call());
             }
             catch (err) {

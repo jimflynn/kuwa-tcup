@@ -1,3 +1,12 @@
+/**
+ * This file represents the React UI App for displaying the directory of Kuwa IDs.
+ * in tabular form.
+ * 
+ * The Kuwa client ID (Ethereum address), the client's contract address, 
+ * the creation time, and the last status update time are displayed.
+ * 
+ * Users can select to only display Kuwa IDs with a certain status using the select box.
+ */
 import React, { Component } from 'react';
 import './App.css';
 import logo from './Kuwa.png';
