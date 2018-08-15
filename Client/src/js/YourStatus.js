@@ -18,6 +18,12 @@ const styles = theme => ({
     })
 });
 
+/**
+ * Gets the Registration Status of the Client from his Smart Contract and shows it on the screen
+ * along with a short explanation.
+ * @class YourStatus
+ * @extends Component
+ */
 class YourStatus extends Component {
     componentDidMount() {
         this.props.getRegistrationStatus(this.props.abi, this.props.contractAddress, this.props.kuwaId)
@@ -35,10 +41,6 @@ class YourStatus extends Component {
                         <Typography variant="title" align="center" style={{margin: "1em"}}>
                             <strong>{ "Status: " + this.props.registrationStatus }</strong>
                         </Typography>
-                        
-                        <Grid align="center">
-                            <i className="material-icons">warning</i>
-                        </Grid>
                         
                         <Typography variant="subheading" align="left" style={{margin: "1em"}}>
                             Here there will be an explanation of your status.

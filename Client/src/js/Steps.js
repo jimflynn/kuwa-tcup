@@ -30,6 +30,12 @@ const styles = theme => ({
     })
 });
 
+/**
+ * This component simply renders the steps that user will need to follow to obtain a valid 
+ * Kuwa ID and how to register it.
+ * @class Steps
+ * @extends Component
+ */
 class Steps extends Component {
     render() {
         const { classes } = this.props;
