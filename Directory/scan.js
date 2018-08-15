@@ -1,3 +1,29 @@
+/**
+    This program scans the directory in the Kuwa Storage Manager registrations repository
+    containing the Kuwa client directories with the client address as the name of the directory.
+    The directory hierarchy is as follows:
+
+    rootDir/
+        0x6dc989e6d3582f5c3da1fd510a5b0ad950d67f3a/
+            - info.json
+                {
+                    "ClientAddress": "0x6dc989e6d3582f5c3da1fd510a5b0ad950d67f3a",
+                    "ContractAddress": "0x066335f8A852A6A0C2761e82829524eb8C950515",
+                    "ContractABI": "[{\"constant\":true,\"inputs\":[],..."
+                }
+            - video.mp4
+
+    Each Kuwa client directory will contain an 'info.json', which will contain the client address,
+    the client's contract address, and the contract JSON ABI. It will also contain the video
+    recording of the client speaking the challenge phrase.
+
+    The program will read the information necessary to load the Kuwa client's smart contract in
+    order to call the getRegistrationStatus() function to obtain the status of the client.
+
+    It will then store this information into the 'registration' table of the MySQL DB so that
+    one can quickly retrieve Kuwa client addresses with a certain status.
+ */
+
 const fs = require('fs');
 const mysql = require('mysql');
 const path = require('path');
@@ -9,12 +35,42 @@ const util = require('util');
 const SqlString = require('sqlstring');
 
 
+/**
+ * This class contains functions to scan the Kuwa client directories uploaded to
+ * the raw registrations repository by the Kuwa Storage Manager whenever a new user registers to
+ * become a Kuwa client.
+ */
 class DirScanner {
+    /**
+     * Creates a new Directory Scanner object.
+     * 
+     * @class
+     * @param {string} dirToScanPath - The absolute path to the root directory containing all the 
+     *                                 Kuwa client directories.
+     * @param {EthClient} ethClient - An object containing functions and variables to interact with the 
+     *                                Ethereum blockchain.
+     */
     constructor(dirToScanPath, ethClient) {
         this.dirToScanPath = dirToScanPath;
         this.ethClient = ethClient;
     }
 
+
+    /**
+     * @typedef {Object} ClientInfo
+     * @property {string} status The current status of the Kuwa client
+     * @property {string} videoFilePath Absolute path to the video file of the user speaking the challenge phrase
+     * @property {string} ContractAddress The Ethereum address of the Kuwa client ("0x123abc...")
+     * @property {string} ContractABI The application binary interface (in JSON) of the Kuwa client's deployed contract
+     */
+
+    /**
+     * Returns information about a Kuwa client based on the files in its directory.
+     * 
+     * @param {string} clientDir - The absolute path to a Kuwa client directory
+     * @param {Array} files - An array of filenames (should be static) inside the client directory
+     * @returns {ClientInfo} Information about a Kuwa client
+     */
     async getClientInfo(clientDir, files) {
         let data, videoFilePath;
 
@@ -52,6 +108,12 @@ class DirScanner {
         return data;
     }
 
+    /**
+     * Retrieves the contents of a directory.
+     * 
+     * @param {string} rootDir - The absolute path to the target directory
+     * @returns {Array} - An array of filenames inside the target directory
+     */
     getDirListing(rootDir) {
         let dirs;
         try {
@@ -65,6 +127,13 @@ class DirScanner {
         return dirs;
     }
 
+    /**
+     * Processes a Kuwa client directory by retrieving the necessary information
+     * to store into the database.
+     * 
+     * @param {string} clientDir - The absolute path of a Kuwa client directory
+     * @returns {ClientInfo} Information about a Kuwa client
+     */
     async processClientDir(clientDir) {
         let clientAddr = '0x' + clientDir;
         clientDir = this.dirToScanPath + "/" + clientDir;
@@ -93,10 +162,24 @@ class DirScanner {
 }
 
 class DBClient {
+    /**
+     * Creates a new MySQL database client.
+     * 
+     * @class
+     */
     constructor(host, user, password, database) {
         this.conn = this.createConnection(host, user, password, database);
     }
 
+    /**
+     * Creates a new connection to the MySQL database.
+     * 
+     * @param {string} host - The hostname of the database to connect to
+     * @param {string} user - The user to authenticate as
+     * @param {string} password - The password of the user
+     * @param {string} database - The name of the database for the connection
+     * @returns {Object} The connection object
+     */
     createConnection(host, user, password, database) {
         let conn = mysql.createConnection({
           host     : host,
@@ -108,12 +191,18 @@ class DBClient {
         return conn;
     }
 
+    /**
+     * Insert or update a single row in the table corresponding to a Kuwa client.
+     * 
+     * @param {string} tableName - Name of the table
+     * @param {ClientInfo} data - Information about a Kuwa client
+     */
     insertOrUpdateSingle(tableName, data) {
         let date = getCurrentDateTime();
 
         let command = sprintf(
                         `INSERT INTO %s \
-                         (registration_id, kuwa_address, contract_address, \
+                         (registrationB_id, kuwa_address, contract_address, \
                          application_binary_interface_id, status, created, \
                          updated, last_checked) \
                          VALUES (%d, '%s', '%s', %d, '%s', '%s', '%s', '%s') \
@@ -161,12 +250,29 @@ class DBClient {
         /* TODO */
     }
 
+    /**
+     * Create a database client using a configuration object from a configuration file.
+     * 
+     * @param {Object} The configuration object
+     * @returns {DBClient} The DBClient object created from a configuration object
+     *                     using destructuring assignment
+     */
     static createFromConfig({host, user, password, database}) {
         return new DBClient(host, user, password, database);
     }
 }
 
 class EthClient {
+    /**
+     * Create a new client for interacting with the Ethereum blockchain.
+     * 
+     * @class
+     * @param {string} myAddress - The address transactions should be sent from (the origin EOA or wallet address)
+     * @param {string} keyStoreDir - The Ethereum keystore directory containing the JSON file that contains the
+     *                               public/private key pair for the wallet
+     * @param {string} password - The password for recovering the private key from the JSON file
+     * @param {string} ethNetworkUrl - The URL to access the Ethereum network over HTTP
+     */
     constructor(myAddress, keyStoreDir, password, ethNetworkUrl) {
         this.myAddress = myAddress;
         this.keyStoreDir = keyStoreDir;
@@ -175,6 +281,9 @@ class EthClient {
         this.web3.setProvider(new this.web3.providers.HttpProvider(ethNetworkUrl));
     }
 
+    /**
+     * Loads an Ethereum wallet.
+     */
     loadWallet(/*walletPath, password*/) {
         //if (arguments.length == 2)
         this.web3.eth.accounts.wallet.clear();
@@ -184,6 +293,14 @@ class EthClient {
         this.web3.eth.accounts.wallet.add(privateKey);
     }
 
+    /**
+     * Loads an already deployed contract in the Ethereum blockchain.
+     * 
+     * @param {string} abi - The application binary interface (in JSON) of the Kuwa client's deployed contract
+     * @param {string} contractAddress - The address of the contract
+     * @param {number} gas - The maximum gas provided for this transaction (gas limit)
+     * @param {string} gasPrice - Amount of ether you're willing to pay for every unit of gas
+     */
     async loadContract(abi, contractAddress, gas, gasPrice) {
         let contract = new this.web3.eth.Contract(abi);
         contract.options.address = contractAddress;
@@ -193,11 +310,21 @@ class EthClient {
         return contract;
     }
 
+    /**
+     * Create an Ethereum client using a configuration object from a configuration file.
+     * 
+     * @param {Object} The configuration object
+     * @returns {EthClient} An EthClient object created from a configuration object
+     *                      using destructuring assignment
+     */
     static createFromConfig({my_address, key_store_dir, password, eth_network_url}) {
         return new EthClient(my_address, key_store_dir, password, eth_network_url);
     }
 }
 
+/**
+ * @returns {string} The current datetime (UTC) in 'yyyy-MM-dd HH:mm:ss' format.
+ */
 function getCurrentDateTime() {
     let date;
     date = new Date();

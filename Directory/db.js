@@ -1,11 +1,16 @@
+/**
+ * This file contains functions to query the `registrations` table in the 
+ * `alpha_kuwa_directory` database to support the API in `./routes/api.js`.
+ */
+
 const fs = require('fs');
 const mysql = require('mysql');
 const sprintf = require('sprintf-js').sprintf;
 
-// Create pool of DB connections
 let configFilePath = "config.json";
-let config = JSON.parse(fs.readFileSync(configFilePath));
+let config = JSON.parse(fs.readFileSync(configFilePath));   // Read from config file
 
+// Create a pool of DB connections
 const pool = mysql.createPool({
     host: config['db_client'].host,
     user: config['db_client'].user,
@@ -15,9 +20,10 @@ const pool = mysql.createPool({
 });
 
 
-/* Get the selected columns from "config.json" converted to display format,
-We can perhaps put the column mappings as another table in the DB?
-*/
+/**
+ * Get the selected columns from "config.json" converted to proper display format for the UI.
+ * We can perhaps have the column mappings as another table in the registration DB?
+ */
 let cols = (function getCols() {
   let columns = config['db_client']['columns'];
   let selectedCols = columns['selected'];
@@ -35,6 +41,12 @@ let cols = (function getCols() {
     return cols;
 });
 
+
+/**
+ * Get all Kuwa clients regardless of their status.
+ * 
+ * @returns {Promise} A Promise object containing the rows of the query
+ */
 function getAll() {
     command = sprintf(`SELECT %s FROM registration`, cols);  //TODO: Update last_checked
     return new Promise((resolve, reject) => {
@@ -47,12 +59,16 @@ function getAll() {
     })
 };
 
-/*
-Join with another SQL table? Yes, much more elegant solution. Right now, we have to take out "status"
-from "selected" in "config.json" or else there would be two "status" columns. You  also can't order columns.
-We can put status mappings in the "config.json" but that doesn't look right and is a bit hacky.
-See https://stackoverflow.com/questions/16753122/sql-how-to-replace-values-of-select-return
-*/
+/**
+ * Get Kuwa clients with a certain status ("Valid", "Invalid", "Credentials-Provided", "Challenge-Expired", "Video-Uploaded", "QR-Code-Scanned").
+ * 
+ * Join with another SQL table? We can put status mappings in the "config.json" 
+ * but that doesn't look right and is a bit hacky.
+ * See https://stackoverflow.com/questions/16753122/sql-how-to-replace-values-of-select-return
+ * 
+ * @param {string} status - The status of the Kuwa client
+ * @returns {Promise} A Promise object containing the rows of the query
+ */
 function getAllWithStatus(status) {
     status = status.replace("-", " ");
     command = sprintf(`SELECT
@@ -68,7 +84,7 @@ function getAllWithStatus(status) {
     });
 };
 
-/* Non promise-based by passing Express' response object to function*/
+/* Non promise-based by passing Express' response object to function */
 /*function getAll(res) {
     command = sprintf(`SELECT %s from registration`, cols);    //TODO: Update last_checked
     pool.query(command,
