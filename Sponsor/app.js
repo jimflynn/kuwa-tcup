@@ -8,6 +8,8 @@ const bodyParser = require('body-parser');
 
 const formidable = require("formidable");
 
+const getConfig = require("./api/routes/getConfig");
+
 const sponsorship_requests_routes = require("./api/routes/sponsorship_requests");
 
 const request_passcode = require("./api/routes/request_passcode");
@@ -20,7 +22,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 //app.use(formidable());
 app.use(function (req, res, next) {
-var form = new formidable.IncomingForm({
+let form = new formidable.IncomingForm({
 encoding: 'utf-8',
 multiples: true,
 keepExtensions: true
@@ -41,6 +43,7 @@ app.use((req, res, next) => {
 	}
 	next();
 })
+app.use('/getConfig', getConfig);
 
 app.use('/sponsorship_requests', sponsorship_requests_routes);
 
