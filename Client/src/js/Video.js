@@ -9,9 +9,15 @@ import { connect } from 'react-redux';
 import videojs from 'video.js';
 import 'webrtc-adapter';
 
-// var record = require('videojs-record')
 import record from 'videojs-record/dist/videojs.record.js';
 
+/**
+ * This component controls whether to launch the Android camera or the Webcam depending on
+ * what the user is using. In case it is the Web Client, the video.js package is used. In case
+ * it is the Cordova application the media capture plugin is used.
+ * @class Video
+ * @extends Component
+ */
 class Video extends Component {
     componentDidMount() {
         if (!window.usingCordova) {
@@ -50,6 +56,9 @@ class Video extends Component {
             let player = this.player;
             this.player.on('finishRecord', function() {
                 let videoBlob = player.recordedData.video;
+                if (!videoBlob) {
+                    videoBlob = player.recordedData;
+                }
                 props.webFinishedVideo(videoBlob);
             });
         }

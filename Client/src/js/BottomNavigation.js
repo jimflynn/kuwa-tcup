@@ -21,6 +21,14 @@ const styles = {
     selected: {}
 }
 
+/**
+ * Bottom Navigation appears at the bottom of the page once the video has been uploaded to the
+ * Storage Manager. If the registration status is either "New" or "Credentials Provided", the
+ * Bottom Navigation will not be rendered.
+ * The available links are YourKuwaId, YourStatus, and YourNetwork.
+ * @class SimpleBottomNavigation
+ * @extends React.Component
+ */
 class SimpleBottomNavigation extends React.Component {
     constructor(props) {
         super(props);
@@ -29,7 +37,7 @@ class SimpleBottomNavigation extends React.Component {
         }
     }
     render() {
-        if (!this.props.infoUploaded) return null;
+        if (this.props.registrationStatus === "New" || this.props.registrationStatus === "Credentials Provided") return null;
         const { classes } = this.props;
         return (
             <div>
@@ -61,7 +69,7 @@ class SimpleBottomNavigation extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        infoUploaded: state.kuwaReducer.kuwaId.infoUploaded
+        registrationStatus: state.kuwaReducer.kuwaId.registrationStatus
     }
 }
 

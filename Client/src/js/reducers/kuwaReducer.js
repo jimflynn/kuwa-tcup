@@ -1,16 +1,10 @@
-import { 
-    CREATE_KEYS,
-    CREATE_KUWA_ID,
-    REQUEST_SPONSORSHIP, 
-    UPLOAD_INFO, 
-    UNLOCK_KUWA_ID, 
-    BACK } from '../actions/types';
-    
 const initialState = {
     usingCordova: window.usingCordova,
     kuwaId: {
+        registrationStatus: "New",
         address: "Your Kuwa ID has not been generated.",
-        challenge: "You need to be sponsored to get a challenge number."
+        challenge: "You need to be sponsored to get a challenge number.",
+        kuwaNetwork: []
     },
     screen: {
         provideCredentials: {loading: false},
@@ -52,7 +46,8 @@ const kuwaReducer = (state = initialState, action) => {
                     unlocked: true,
                     contractAddress: action.payload.responseJson.contractAddress,
                     abi: action.payload.responseJson.abi,
-                    challenge: action.payload.challenge
+                    challenge: action.payload.challenge,
+                    registrationStatus: action.payload.registrationStatus
                 }),
                 screen: Object.assign({}, state.screen, {
                     provideCredentials: {
@@ -85,7 +80,8 @@ const kuwaReducer = (state = initialState, action) => {
         case 'WEB_UPLOAD_TO_STORAGE_FULFILLED':
             return Object.assign({}, state, {
                 kuwaId: Object.assign({}, state.kuwaId, {
-                    infoUploaded: true
+                    infoUploaded: true,
+                    registrationStatus: action.payload.registrationStatus
                 }),
                 screen: Object.assign({}, state.screen, {
                     uploadToStorage: {
@@ -108,6 +104,49 @@ const kuwaReducer = (state = initialState, action) => {
                     }
                 })
             })
+        case 'GET_REGISTRATION_STATUS':
+            return Object.assign({}, state, {
+                kuwaId: Object.assign({}, state.kuwaId, {
+                    registrationStatus: action.payload.registrationStatus
+                })
+            })
+        case 'GET_KUWA_NETWORK':
+            return Object.assign({}, state, {
+                kuwaId: Object.assign({}, state.kuwaId, {
+                    kuwaNetwork: action.payload.kuwaNetwork
+                })
+            })
+        case 'PERSIST_STATE_TO_MOBILE':
+        case 'PERSIST_STATE':
+            return state;
+        case 'CONVERT_WALLET_TO_BASE_64':
+            return Object.assign({}, state, {
+                loadedStateBase64: action.payload.walletBase64
+            })
+        case 'LOAD_STATE':
+            return Object.assign({}, state, {
+                loadedState: action.payload.loadedState
+            })
+        case 'RESTORE_STATE_PENDING':
+            return state;
+        case 'RESTORE_STATE_FULFILLED':
+            return Object.assign({}, state, {
+                kuwaId: Object.assign({}, state.kuwaId, {
+                    registrationStatus: action.payload.registrationStatus,
+                    kuwaNetwork: action.payload.kuwaNetwork,
+                    privateKey: '0x' + action.payload.privateKey,
+                    qrCodeSrc: action.payload.qrCodeSrc,
+                    keyObject: action.payload.keyObject,
+                    address:  '0x' + action.payload.address,
+                    abi: action.payload.abi,
+                    contractAddress: action.payload.contractAddress,
+                    challenge: action.payload.challenge
+                })
+            })
+        case 'RESTORE_STATE_REJECTED':
+        case 'WALLET_NOT_FOUND':
+        case 'WALLET_FOUND':
+            return state;
         default:
             return state;
     }

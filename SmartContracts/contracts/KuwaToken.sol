@@ -165,4 +165,11 @@ contract KuwaToken is ERC20Interface, Owned {
     function transferAnyERC20Token(address _tokenAddress, uint _tokens) public onlyOwner returns (bool success) {
         return ERC20Interface(_tokenAddress).transfer(owner, _tokens);
     }
+    
+    
+    /* For debugging and testing */
+    address public sender;
+    function dummy() public {
+        sender = msg.sender;
+    }
 }

@@ -37,9 +37,15 @@
     <feature name="CDVOrientation">
         <param name="android-package" value="cordova.plugins.screenorientation.CDVOrientation" />
     </feature>
-    <name>Kuwa Registration</name>
+    <feature name="EmailComposer">
+        <param name="android-package" value="de.appplant.cordova.emailcomposer.EmailComposer" />
+    </feature>
+    <feature name="LaunchMyApp">
+        <param name="android-package" value="nl.xservices.plugins.LaunchMyApp" />
+    </feature>
+    <name>Kuwa Basic Income Registration</name>
     <description>
-        A reference implementation of a Kuwa Registration app.
+        A reference implementation of a Kuwa Basic Income Registration app.
     </description>
     <author email="dev@cordova.apache.org" href="http://cordova.io">
         The Kuwa Foundation

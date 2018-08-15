@@ -79,8 +79,6 @@ var loadContract = async function(abi, contractAddress, gas, gasPrice, from) {
 }
 
 
-
-
 var run = async function() {
     
     web3.eth.accounts.wallet.clear();
@@ -92,6 +90,7 @@ var run = async function() {
     let bobWallet = await loadWallet(wallets.keystore_dir, wallets.bob, wallets.password);
     let carlosWallet = await loadWallet(wallets.keystore_dir, wallets.carlos, wallets.password);
     
+    console.log("Loaded all wallets");
 
     oldCompilations = JSON.parse(fs.readFileSync('compilations.json'));
     newCompilations = {};
@@ -133,45 +132,47 @@ var run = async function() {
 
     console.log("Compiled all contracts");
 
+    let gas = 5000000;
+    let gasPrice = '20000000000'; //await web3.eth.getGasPrice();
     let kuwaToken;
     kuwaToken = await deployContract(newCompilations['KuwaToken'].abi, newCompilations['KuwaToken'].bytecode,
-                                     5000000, '22000000000', wallets.kuwa_foundation, []);
+                                     gas, gasPrice, wallets.kuwa_foundation, []);
     console.log("Deployed Kuwa Token contract");
 
     let kuwaRegistration;
     if (md5(newCompilations['KuwaRegistration'].abi) !== md5(oldCompilations['KuwaRegistration'].abi)) {
         kuwaRegistration = await deployContract(newCompilations['KuwaRegistration'].abi, newCompilations['KuwaRegistration'].bytecode,
-                                                5000000, '22000000000', wallets.kuwa_foundation, [wallets.client, kuwaToken.options.address]);
+                                                gas, gasPrice, wallets.sponsor, [wallets.client, kuwaToken.options.address]);
         newCompilations['KuwaRegistration'].address = kuwaRegistration.options.address;
     }
     else {
         kuwaRegistration = await loadContract(oldCompilations['KuwaRegistration'].abi, oldCompilations['KuwaRegistration']['address'],
-                                              5000000, "22000000000", wallets.kuwa_foundation);
+                                              gas, gasPrice, wallets.sponsor);
     }
-    console.log("Deployed Kuwa Registration contract");
+    console.log("Deployed/loaded Kuwa Registration contract");
 
     let aliceQKR, bobQKR, carlosQKR;
     if (md5(newCompilations['QualifiedKuwaRegistrar'].abi) !== md5(oldCompilations['QualifiedKuwaRegistrar'].abi)) {
         aliceQKR = await deployContract(newCompilations['QualifiedKuwaRegistrar'].abi, newCompilations['QualifiedKuwaRegistrar'].bytecode,
-                                        5000000, '22000000000', wallets.kuwa_foundation, [kuwaToken.options.address]);
+                                        gas, gasPrice, wallets.alice, [kuwaToken.options.address]);
         bobQKR = await deployContract(newCompilations['QualifiedKuwaRegistrar'].abi, newCompilations['QualifiedKuwaRegistrar'].bytecode,
-                                      5000000, '22000000000', wallets.kuwa_foundation, [kuwaToken.options.address]);
+                                      gas, gasPrice, wallets.bob, [kuwaToken.options.address]);
         carlosQKR = await deployContract(newCompilations['QualifiedKuwaRegistrar'].abi, newCompilations['QualifiedKuwaRegistrar'].bytecode,
-                                         5000000, '22000000000', wallets.kuwa_foundation, [kuwaToken.options.address]);
+                                         gas, gasPrice, wallets.carlos, [kuwaToken.options.address]);
     }
     else {
         aliceQKR = await loadContract(oldCompilations['QualifiedKuwaRegistrar'].abi, oldCompilations['QualifiedKuwaRegistrar'].alice_address,
-                                      5000000, "22000000000", wallets.kuwa_foundation);
+                                      gas, gasPrice, wallets.alice);
         bobQKR = await loadContract(oldCompilations['QualifiedKuwaRegistrar'].abi, oldCompilations['QualifiedKuwaRegistrar'].bob_address,
-                                    5000000, "22000000000", wallets.kuwa_foundation);
+                                    gas, gasPrice, wallets.bob);
         carlosQKR = await loadContract(oldCompilations['QualifiedKuwaRegistrar'].abi, oldCompilations['QualifiedKuwaRegistrar'].carlos_address,
-                                       5000000, "22000000000", wallets.kuwa_foundation);
+                                       gas, gasPrice, wallets.carlos);
     }
     newCompilations['QualifiedKuwaRegistrar'].alice_address = aliceQKR.options.address;
     newCompilations['QualifiedKuwaRegistrar'].bob_address = bobQKR.options.address;
     newCompilations['QualifiedKuwaRegistrar'].carlos_address = carlosQKR.options.address;
     
-    console.log("Deployed all Qualified Kuwa Registrar contracts");
+    console.log("Deployed/loaded all Qualified Kuwa Registrar contracts");
 
     fs.writeFile("compilations.json", JSON.stringify(newCompilations), function(err) {
         if(err) {
@@ -179,12 +180,25 @@ var run = async function() {
         }
     }); 
     
-    /*
-    // let contractInstance = await loadContract(compilation.abi, "0x30768510F1A57B12817CDC2a723C8AE21de071b5", 4300000, "22000000000", "0xF9F83AaA322aB613Db21229BE6ca9E2dF8a1A149");
-    await contractInstance.methods.generateChallenge().send();
-    let challenge = await contractInstance.methods.getChallenge().call();
-    console.log(challenge);
-    */
+
+    console.log("Transfer initial Kuwa tokens to registrars and sponsor");
+    await kuwaToken.methods.transfer(wallets.sponsor, 2000010).send({from: wallets.kuwa_foundation});
+    await kuwaToken.methods.transfer(aliceQKR.options.address, 100010).send({from: wallets.kuwa_foundation});
+    await kuwaToken.methods.transfer(bobQKR.options.address, 100010).send({from: wallets.kuwa_foundation});
+    await kuwaToken.methods.transfer(carlosQKR.options.address, 100010).send({from: wallets.kuwa_foundation});
+
+    console.log("Token balances for each participant");
+    console.log(`Kuwa Foundation: ${await kuwaToken.methods.balanceOf(wallets.kuwa_foundation).call({from: wallets.kuwa_foundation})}`);
+    console.log(`Sponsor: ${await kuwaToken.methods.balanceOf(wallets.sponsor).call({from: wallets.sponsor})}`);
+    console.log(`Alice QKR: ${await kuwaToken.methods.balanceOf(aliceQKR.options.address).call({from: wallets.alice})}`);
+    console.log(`Bob QKR: ${await kuwaToken.methods.balanceOf(bobQKR.options.address).call({from: wallets.bob})}`);
+    console.log(`Carlos QKR: ${await kuwaToken.methods.balanceOf(carlosQKR.options.address).call({from: wallets.carlos})}`);
+    
+    console.log("--------------------------------------------------------------------------------------------");
+    console.log("Begin Poker protocol...");
+
+    
+
 }
 
 run().catch(err => console.log(err));
