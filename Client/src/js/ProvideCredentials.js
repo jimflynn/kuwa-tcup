@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 
+import config from 'config';
+
 import { Loading } from './Load';
 import { paperHeader } from './paperHeader';
 
@@ -55,14 +57,20 @@ const styles = theme => ({
  */
 class ProvideCredentials extends Component {
     async componentDidMount() {
-        await fetch('/.config.json').then(a => a.json()).then(json => window.config = json)
+        await fetch('https://alpha.kuwa.org:3000/getConfig/')
+            .then(a => a.json())
+            .then(json => window.config = json)
+        this.setState({ passcode: window.config.message.Client.enablePasscode ? "" : "Test" })
         this.forceUpdate()
     }
 
     constructor(props) {
         super(props);
+        window.config = window.config || {}
+        window.config.message = window.config.message || {}
+        window.config.message.Client = window.config.message.Client || {}
         this.state = {
-            passcode: window.config.enablePasscode ? "" : "Test",
+            passcode: window.config.message.Client.enablePasscode ? "" : "Test",
             kuwaPassword: ""
         }
     }
@@ -95,10 +103,10 @@ const renderContent = (props, state, setState) =>  (
 const renderProvideCredentials = (props, state, setState) =>  (
     <div>
     <Typography variant="title" align="left" style={{ margin: "1em" }}>
-        Kuwa registrations must have a sponsor. <strong>The Kuwa Foundation</strong> is the sponsor of your Kuwa Basic Income Registration. For credentials, we only require that you enter a passcode. If you do not have a passcode, please go to <a href={ window.config.requestPasscodeUrl } target="_blank">http://kuwa.org</a> to request one.
+        Kuwa registrations must have a sponsor. <strong>The Kuwa Foundation</strong> is the sponsor of your Kuwa Basic Income Registration. For credentials, we only require that you enter a passcode. If you do not have a passcode, please go to <a href={ config.requestPasscodeUrl } target="_blank">http://kuwa.org</a> to request one.
     </Typography>
 
-    { window.config.enablePasscode ? 
+    { window.config.message.Client.enablePasscode ? 
     <Grid>
         <FormControl style={{width: "100%"}} className={classNames(props.classes.margin, props.classes.textField)}>
             <InputLabel htmlFor="adornment-passcode">Enter the passcode we emailed you</InputLabel>

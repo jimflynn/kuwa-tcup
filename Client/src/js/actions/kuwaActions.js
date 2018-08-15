@@ -251,8 +251,16 @@ export function webUploadToStorage(videoBlob, kuwaId, abi, contractAddress) {
                             response,
                             registrationStatus
                         }
-                    })
-                    dispatch(push('/YourKuwaId'))
+                    })                    
+                    fetch('https://alpha.kuwa.org:3000/getConfig/')
+                        .then(a => a.json())
+                        .then(json => {
+                            if (json.message.Client.enableRegistrationCongrats) {
+                                dispatch(push('/Success'))
+                            } else {
+                                dispatch(push('/YourKuwaId'))
+                            }
+                        })
                 })
         }).catch(e => {
             console.log(e)

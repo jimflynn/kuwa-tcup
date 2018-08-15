@@ -9,6 +9,8 @@ import { connect } from 'react-redux';
 import videojs from 'video.js';
 import 'webrtc-adapter';
 
+import record from 'videojs-record/dist/videojs.record.js';
+
 /**
  * This component controls whether to launch the Android camera or the Webcam depending on
  * what the user is using. In case it is the Web Client, the video.js package is used. In case

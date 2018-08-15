@@ -10,5 +10,6 @@
     "web3Provider": "https://rinkeby.infura.io/8Dx9RdhjqIl1y3EQzQpl",
     "walletName": "kuwaWallet.json",
     "enablePasscode": false,
-    "enableRegistrationCongrats": true
+    "enableRegistrationCongrats": true,
+    "kuwaCoinMetamaskLink": "http://alpha.kuwa.org/instructions/adding-kuwacoin-to-metamask.html"
 }

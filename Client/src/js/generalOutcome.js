@@ -12,8 +12,9 @@ import Grid from '@material-ui/core/Grid';
  * @param {String} message to show the user for feedback
  * @param {String} image url of the image to show to the user for feedback
  * @param {Object} classes used to give styling to the component
+ * @param {Component} additionalContent is a component that can be rendered
  */
-export const generalOutcome = (header, message, image, classes) => (
+export const generalOutcome = (header, message, image, classes, additionalContent) => (
     <Grid container justify="center" style={{flexGrow: 1}}>
         <Grid item xs={12} sm={10} md={8} lg={6} xl={6}>
             <Paper className={classes.root} elevation={1} style={{margin: 20}}>
@@ -24,11 +25,15 @@ export const generalOutcome = (header, message, image, classes) => (
                     { message }
                 </Typography>
 
+                { image ? 
                 <Grid container justify="center">
                     <Grid item>
                     <img className="responsive-kuwa-img" style={{maxWidth: "100%", height: "auto"}} src={ image } alt="image" />
                     </Grid>
                 </Grid>
+                : null }
+
+                { additionalContent ? additionalContent : null }
             </Paper>
         </Grid>
     </Grid>

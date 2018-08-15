@@ -1,5 +1,10 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { push } from 'connected-react-router';
+import config from 'config';
+
+import Button from '@material-ui/core/Button';
+const buttonColor = "#11B73F";
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -25,11 +30,26 @@ const styles = theme => ({
 class Success extends Component {
     render() {
         const { classes } = this.props;
+        
         return (
-            generalOutcome("Success!", this.props.successMessage, success, classes)
+            generalOutcome("Success!", successMessage(), null, classes, addiationalContent(this.props))
         );
     }
 }
+
+const successMessage = () => (
+    <div>
+        Congratulations! You are now registered to receive a basic income of one KuwaCoin per day. Click <a href={ config.kuwaCoinMetamaskLink } target="_blank">here</a> to see how to add a KuwaCoin wallet to the MetaMask browser plug-in. 
+    </div>
+)
+
+const addiationalContent = (props) => (
+    <div align="center">
+        <Button variant="contained" style={{backgroundColor: buttonColor, marginTop: "1em"}} onClick={() => props.navigateTo('/YourKuwaId')}>
+            Continue
+        </Button>
+    </div>
+)
 
 const mapStateToProps = state => {
     return {
@@ -39,7 +59,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-
+        navigateTo: link => {
+            dispatch(push(link))
+        }
     }
 }
 

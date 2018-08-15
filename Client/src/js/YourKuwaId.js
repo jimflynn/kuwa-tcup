@@ -4,6 +4,7 @@ import { Loading } from './Load';
 
 import { startScanner, stopScanner, qrCodeFound, mobileStartScanner } from './actions/qrActions';
 import { persistState, exportViaEmail } from './actions/kuwaActions';
+import { toggleCongrats } from './actions/screenActions';
 import Instascan from 'instascan';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -220,7 +221,9 @@ const mapStateToProps = state => {
         abi: state.kuwaReducer.kuwaId.abi,
         contractAddress: state.kuwaReducer.kuwaId.contractAddress,
 
-        loadedStateBase64: state.kuwaReducer.loadedStateBase64
+        loadedStateBase64: state.kuwaReducer.loadedStateBase64,
+
+        congratsWasShown: state.screenReducer.congratsWasShown
     }
 }
 
@@ -243,6 +246,9 @@ const mapDispatchToProps = dispatch => {
         },
         exportViaEmail: (loadedStateBase64) => {
             dispatch(exportViaEmail(loadedStateBase64))
+        },
+        toggleCongrats: () => {
+            dispatch(toggleCongrats())
         }
     }
 }
