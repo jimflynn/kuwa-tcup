@@ -56,6 +56,9 @@ class Video extends Component {
             let player = this.player;
             this.player.on('finishRecord', function() {
                 let videoBlob = player.recordedData.video;
+                if (!videoBlob) {
+                    videoBlob = player.recordedData;
+                }
                 props.webFinishedVideo(videoBlob);
             });
         }
