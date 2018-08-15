@@ -13,7 +13,7 @@
 .App-title {
   font-size: 1.5em;
   text-align: center;
-}
+} 
 
 .App-intro {
   font-size: large;
@@ -23,6 +23,11 @@
 	position: absolute;
     top: 0; right: 0; bottom: 0; left: 0;
     background-color: rgba(0,0,0,0.7)
+}
+
+.body {
+  margin: auto;
+  width: 80%; 
 }
 
 .isLoading {
