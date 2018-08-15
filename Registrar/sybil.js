@@ -23,8 +23,8 @@ const allPeopleDir   = "/home/darshi/Kuwa/people/";
  * @async
  * @function getRotation
  * @description Reads video metadata to find the angle by which the video frames have been rotated by a video capture device.
- * @param  {String} filePath
- * @return {number} theta - The angle by which the video was rotated by the device.
+ * @param  {String} filePath - The path to the video file.
+ * @return {number} theta    - The angle by which the video was rotated by the device.
  */
 var getRotation = async function(filePath) {
 	let theta = 0;
@@ -39,6 +39,14 @@ var getRotation = async function(filePath) {
 	return theta;
 }
 
+/**
+ * @function getFaceImages
+ * @description Reads a video file and saves frames into a path determined by allPeopleDir/{clientAddress}.
+ * @param  {String} videoPath     - The path to the video file that the client uploaded.
+ * @param  {String} clientAddress - The ethereum address of the client.
+ * @param  {number} theta         - The angle by which the client's device rotated the video while saving it.
+ * @return {void}
+ */
 var getFaceImages = function(videoPath, clientAddress, theta) {
 	console.log("Reading video...");
 	let f = 0;
@@ -76,6 +84,13 @@ var getFaceImages = function(videoPath, clientAddress, theta) {
 	}
 }
 
+/**
+ * @function compareFaces
+ * @description Compares the face embeddings of two people.
+ * @param  {String}  imgDir1    - The directory containing the face image of the first person.
+ * @param  {String}  imgDir2    - The directory containing the face image of the second person.
+ * @return {Boolean} isSameFace - Either 0 (representing the same person) or 1 (representing different people).
+ */
 var compareFaces = function (imgDir1, imgDir2) {
 	let isSameFace = 0;
 	if(imgDir1 === imgDir2)
@@ -97,6 +112,12 @@ var compareFaces = function (imgDir1, imgDir2) {
 	}
 }
 
+/**
+ * @function getImageDescriptors
+ * @description Reads the image files in a directory and gets the face embeddings in the image files.
+ * @param  {String} imgDir        - The directory containing the face images.
+ * @return {Array}  faceEmbedding - A vector representing the face embedding of the person in the image.
+ */
 var getImageDescriptors = function (imgDir) {
 	imgFile = fs.readdirSync(imgDir);
 	img = fr.loadImage(imgDir + "/" + imgFile);
@@ -104,6 +125,13 @@ var getImageDescriptors = function (imgDir) {
 	return faceEmbedding;
 }
 
+/**
+ * @function getEuclideanDistance
+ * @description Computes the Euclidean Distance between two vectors.
+ * @param  {Array}   faceEmbedding1    - The face embedding of the first person.
+ * @param  {Array}   faceEmbedding2    - The face embedding of the second person.
+ * @return {number}  euclideanDistance - The Eudlidean distance between the face embeddings.
+ */
 var getEuclideanDistance = function(faceEmbedding1, faceEmbedding2) {
 	if (faceEmbedding1.length !== faceEmbedding2.length) {
 		console.log("Lengths of the vectors are not same! Cannot continue");
@@ -118,40 +146,9 @@ var getEuclideanDistance = function(faceEmbedding1, faceEmbedding2) {
 }
 
 module.exports = {
-	/**
-	 * @function getFaceImages
-	 * @description Reads a video file and saves frames into a path determined by allPeopleDir/{clientAddress}.
-	 * @param  {String} videoPath
-	 * @param  {String} clientAddress
-	 * @param  {number} theta
-	 * @return {void}
-	 */
 	getFaceImages        : getFaceImages,
-
-	/**
-	 * @function compareFaces
-	 * @description Compares the face embeddings of two people.
-	 * @param  {String}  imgDir1
-	 * @param  {String}  imgDir2
-	 * @return {Boolean} isSameFace - Either 0 (representing the same person) or 1 (representing different people).
-	 */
 	compareFaces         : compareFaces,
-
-	/**
-	 * @function getImageDescriptors
-	 * @description Reads the image files in a directory and gets the face embeddings in the image files.
-	 * @param  {String} imgDir
-	 * @return {Array}  faceEmbedding - A vector representing the face embedding of the person in the image.
-	 */
 	getImageDescriptors  : getImageDescriptors,
-
-	/**
-	 * @function getEuclideanDistance
-	 * @description Computes the Euclidean Distance between two vectors.
-	 * @param  {Array}    faceEmbedding1
-	 * @param  {Array}    faceEmbedding2
-	 * @return {number}  euclideanDistance
-	 */
 	getEuclideanDistance : getEuclideanDistance
 };
 

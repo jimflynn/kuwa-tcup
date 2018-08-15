@@ -27,9 +27,9 @@ var dict = {};
  * @async
  * @function loadWallet 
  * @description Loads an Ethereum wallet file using a specified path, address and password.
- * @param  {String} walletPath
- * @param  {String} accountAddress
- * @param  {String} password
+ * @param   {String} walletPath     - The path to the registrar's wallet JSON file.
+ * @param   {String} accountAddress - Ethereum address of the registrar's wallet.
+ * @param   {String} password       - Password to the registrar's wallet.
  * @returns {void}
  */
 var loadWallet = async function (walletPath, accountAddress, password) {
@@ -44,12 +44,12 @@ var loadWallet = async function (walletPath, accountAddress, password) {
  * @async
  * @function loadContract 
  * @description Loads a Kuwa Registration Smart Contract.
- * @param  {Object} ContractABI
- * @param  {String} ContractAddress
- * @param  {String} from
- * @param  {String} gasPrice
- * @param  {String} gas
- * @returns {Promise} contract - Promise object representing the smart contract.
+ * @param   {Object}  ContractABI     - Application Binary Interface obtained after deploying the Kuwa Registration Smart Contract.
+ * @param   {String}  ContractAddress - Address of the Kuwa Registration Smart Contract.
+ * @param   {String}  from            - Ethereum address of the registrar's wallet.
+ * @param   {String}  gasPrice        - The amount of ether the registrar is willing to spend per unit of gas.
+ * @param   {String}  gas             - The maximum amount of gas the registrar wants to spend on this transaction.
+ * @returns {Promise} contract        - Promise object representing the smart contract.
  */
 var loadContract = async function(ContractABI, ContractAddress, from, gasPrice, gas) {
 	let contract = new web3.eth.Contract(ContractABI);
@@ -64,8 +64,8 @@ var loadContract = async function(ContractABI, ContractAddress, from, gasPrice, 
  * @async
  * @function getChallengePhrase
  * @description Gets the challenge phrase for a Kuwa Registration Smart Contract.
- * @param  {Object} smartContract
- * @returns {Promise} phrase - Promise object representing the challenge phrase.
+ * @param   {Object}  smartContract - Object representing Kuwa Registration Smart Contract.
+ * @returns {Promise} phrase        - Promise object representing the challenge phrase.
  */
 var getChallengePhrase = async function(smartContract) {
 	console.log('Getting Phrase...');
@@ -82,12 +82,12 @@ var getChallengePhrase = async function(smartContract) {
  * @async
  * @function validateKuwaID 
  * @description Marks a Kuwa ID as Valid.
- * @param  {String} senderAddress
- * @param  {String} ContractAddress
- * @param  {Object} smartContract
- * @param  {String} gasLimit
- * @param  {String} gasPrice
- * @returns {Promise} receipt - Promise object representing the transaction receipt.
+ * @param   {String}   senderAddress    - Ethereum address of the registrar's wallet.
+ * @param   {String}   ContractAddress  - Address of the Kuwa Registration Smart Contract.
+ * @param   {Object}   smartContract    - Object representing Kuwa Registration Smart Contract.
+ * @param   {String}   gasLimit         - The maximum amount of gas the registrar wants to spend on this transaction.
+ * @param   {String}   gasPrice         - The amount of ether the registrar is willing to spend per unit of gas.
+ * @returns {Promise}  receipt          - Promise object representing the transaction receipt.
  */
 var validateKuwaID = async function(senderAddress, ContractAddress, smartContract, gasLimit, gasPrice) {
 	console.log('Sending Transaction...');
@@ -112,12 +112,12 @@ var validateKuwaID = async function(senderAddress, ContractAddress, smartContrac
  * @async
  * @function inValidateKuwaID 
  * @description Marks a Kuwa ID as Invalid.
- * @param  {String} senderAddress
- * @param  {String} ContractAddress
- * @param  {Object} smartContract
- * @param  {String} gasLimit
- * @param  {String} gasPrice
- * @returns {Promise} receipt - Promise object representing the transaction receipt.
+ * @param   {String}  senderAddress   - Ethereum address of the registrar's wallet.
+ * @param   {String}  ContractAddress - Address of the Kuwa Registration Smart Contract.
+ * @param   {Object}  smartContract   - Object representing Kuwa Registration Smart Contract.
+ * @param   {String}  gasLimit        - The maximum amount of gas the registrar wants to spend on this transaction.
+ * @param   {String}  gasPrice        - The amount of ether the registrar is willing to spend per unit of gas.
+ * @returns {Promise} receipt         - Promise object representing the transaction receipt.
  */
 var inValidateKuwaID = async function(senderAddress, ContractAddress, smartContract, gasLimit, gasPrice) {
 	console.log('Sending Transaction...');
@@ -141,7 +141,7 @@ var inValidateKuwaID = async function(senderAddress, ContractAddress, smartContr
  * @async
  * @function getStatus 
  * @description Gets the registration status for a Kuwa Registration Smart Contract.
- * @param  {Object} smartContract
+ * @param   {Object}  smartContract      - Object representing Kuwa Registration Smart Contract.
  * @returns {Promise} registrationStatus - Promise object representing the registration status of the smart contract.
  */
 var getStatus = async function(smartContract) {
@@ -159,8 +159,8 @@ var getStatus = async function(smartContract) {
 /**
  * @function findDuplicate
  * @description Finds if a new candidate for registration is a valid person.
- * @param  {Object} mapping
- * @param  {String} hashval
+ * @param   {Object}  mapping     - A dictionary containing all valid registrations.
+ * @param   {String}  hashval     - The hash value obtained by hashing the new video file.
  * @returns {Boolean} isDuplicate - Value indicating whether the new person is valid (new).
  */
 var findDuplicate = function(mapping, hashval) {
@@ -175,9 +175,9 @@ var findDuplicate = function(mapping, hashval) {
 /**
  * @function insertRow
  * @description Inserts a row into the registrar database.
- * @param  {String} ClientAddress
- * @param  {String} ContractAddress
- * @param  {String} regStatus
+ * @param   {String} ClientAddress   - Ethereum address of the Client.
+ * @param   {String} ContractAddress - Ethereum address of the Kuwa Registration Smart Contract.
+ * @param   {String} regStatus       - The status of the Kuwa Registration Smart Contract corresponding to the Client.
  * @returns {void}
  */
 var insertRow = function(ClientAddress, ContractAddress, regStatus) {
@@ -226,8 +226,8 @@ chokidar.watch(dir, {persistent: true}).on('all', registerFile);
  * @async
  * @function registerFile 
  * @description The main execution function of the watcher.
- * @param  {Event}  event
- * @param  {String} filePath
+ * @param   {Event}  event    - Any change/update to the directory being watched.
+ * @param   {String} filePath - Absolute path to the new file added.
  * @returns {void}
  */
 async function registerFile(event, filePath) {
