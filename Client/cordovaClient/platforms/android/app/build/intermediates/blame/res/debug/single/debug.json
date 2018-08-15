@@ -1120,6 +1120,10 @@
         "source": "/home/jflynn/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/res/mipmap-mdpi/icon.png"
     },
     {
+        "merged": "/home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/build/intermediates/res/merged/debug/xml_emailcomposer_provider_paths.xml.flat",
+        "source": "/home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/src/main/res/xml/emailcomposer_provider_paths.xml"
+    },
+    {
         "merged": "/home/clankster99/Documents/TCUP/tcup/Client/cordovaClient/platforms/android/app/build/intermediates/res/merged/debug/drawable-xhdpi_abc_ic_voice_search_api_mtrl_alpha.png.flat",
         "source": "/home/clankster99/.gradle/caches/transforms-1/files-1.1/appcompat-v7-23.1.0.aar/478c1de88eaa520a886ffec14c1b9787/res/drawable-xhdpi/abc_ic_voice_search_api_mtrl_alpha.png"
     },

@@ -94,5 +94,21 @@
     },
     "is_top_level": false,
     "variables": {}
+  },
+  "cordova-plugin-email-composer": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-email-composer"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-customurlscheme": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-customurlscheme@^4.3.0"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }

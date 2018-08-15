@@ -5,15 +5,15 @@
  * @param {function=} cb Callback function (optional).
  * @return {string} JSON filename (Node.js) or JSON string (browser).
  */
-var exportToFile = async function (keyObject, keystore) {
-    var outfile, outpath, json;
+const exportToFile = async function (keyObject, keystore) {
+    let outfile, outpath, json;
     json = JSON.stringify(keyObject);
     let blob = new Blob([json], {type : 'application/json'});
     
     await saveFile(keystore, keyObject.address, blob);
 }
 
-var saveFile = async function(filePath, fileName, fileBlob) {
+const saveFile = async function(filePath, fileName, fileBlob) {
     let resolveLocalFileSystemUtil = new Promise((resolve, reject) => {
         window.resolveLocalFileSystemURL(filePath, successOnFile, null)
         function successOnFile(directoryEntry) {
@@ -38,7 +38,7 @@ var saveFile = async function(filePath, fileName, fileBlob) {
 
 // }
 
-var loadFile = async function(filePath, fileName) {
+const loadFile = async function(filePath, fileName) {
     let resolveLocalFileSystemUtil = new Promise((resolve, reject) => {
         window.resolveLocalFileSystemURL(filePath + fileName, successOnFile, failOnFile)
         function successOnFile(fileEntry) {

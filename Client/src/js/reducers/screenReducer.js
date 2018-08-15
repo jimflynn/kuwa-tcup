@@ -1,4 +1,5 @@
 const initialState = {
+    showRestoreState: false,
     provideCredentials: {
         showKuwaPassword: false,
         showPasscode: false
@@ -48,6 +49,10 @@ const screenReducer = (state = initialState, action) => {
                 navigation: Object.assign({}, state.navigation, {
                     collapsed: !state.navigation.collapsed
                 })
+            })
+        case 'TOGGLE_RESTORE_STATE':
+            return Object.assign({}, state, {
+                showRestoreState: !state.showRestoreState
             })
         default:
             return state
