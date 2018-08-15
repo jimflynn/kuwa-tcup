@@ -1,5 +1,6 @@
-/*
- * @file Implementation of face recognition in NodeJS.
+/**
+ * @module Sybil
+ * @description Implementation of face recognition in NodeJS.
  * @author The Kuwa Foundation / Priyadarshi Rath
  */
 
@@ -16,6 +17,7 @@ const faceDetector   = fr.FaceDetector();
 const faceRecognizer = fr.FaceRecognizer();
 
 const allPeopleDir   = "/home/darshi/Kuwa/people/";
+
 
 /**
  * @async
@@ -37,14 +39,6 @@ var getRotation = async function(filePath) {
 	return theta;
 }
 
-/**
- * @function getFaceImages
- * @description Reads a video file and saves frames into a path determined by allPeopleDir/{clientAddress}.
- * @param  {String} videoPath
- * @param  {String} clientAddress
- * @param  {number} theta
- * @return {void}
- */
 var getFaceImages = function(videoPath, clientAddress, theta) {
 	console.log("Reading video...");
 	let f = 0;
@@ -82,13 +76,6 @@ var getFaceImages = function(videoPath, clientAddress, theta) {
 	}
 }
 
-/**
- * @function compareFaces
- * @description Compares the face embeddings of two people.
- * @param  {String}  imgDir1
- * @param  {String}  imgDir2
- * @return {Boolean} isSameFace - Either 0 (representing the same person) or 1 (representing different people).
- */
 var compareFaces = function (imgDir1, imgDir2) {
 	let isSameFace = 0;
 	if(imgDir1 === imgDir2)
@@ -110,12 +97,6 @@ var compareFaces = function (imgDir1, imgDir2) {
 	}
 }
 
-/**
- * @function getImageDescriptors
- * @description Reads the image files in a directory and gets the face embeddings in the image files.
- * @param  {String} imgDir
- * @return {Array}  faceEmbedding - A vector representing the face embedding of the person in the image.
- */
 var getImageDescriptors = function (imgDir) {
 	imgFile = fs.readdirSync(imgDir);
 	img = fr.loadImage(imgDir + "/" + imgFile);
@@ -123,13 +104,6 @@ var getImageDescriptors = function (imgDir) {
 	return faceEmbedding;
 }
 
-/**
- * @function getEuclideanDistance
- * @description Computes the Euclidean Distance between two vectors.
- * @param  {Array}    faceEmbedding1
- * @param  {Array}    faceEmbedding2
- * @return {number}  euclideanDistance
- */
 var getEuclideanDistance = function(faceEmbedding1, faceEmbedding2) {
 	if (faceEmbedding1.length !== faceEmbedding2.length) {
 		console.log("Lengths of the vectors are not same! Cannot continue");
@@ -144,9 +118,40 @@ var getEuclideanDistance = function(faceEmbedding1, faceEmbedding2) {
 }
 
 module.exports = {
+	/**
+	 * @function getFaceImages
+	 * @description Reads a video file and saves frames into a path determined by allPeopleDir/{clientAddress}.
+	 * @param  {String} videoPath
+	 * @param  {String} clientAddress
+	 * @param  {number} theta
+	 * @return {void}
+	 */
 	getFaceImages        : getFaceImages,
+
+	/**
+	 * @function compareFaces
+	 * @description Compares the face embeddings of two people.
+	 * @param  {String}  imgDir1
+	 * @param  {String}  imgDir2
+	 * @return {Boolean} isSameFace - Either 0 (representing the same person) or 1 (representing different people).
+	 */
 	compareFaces         : compareFaces,
+
+	/**
+	 * @function getImageDescriptors
+	 * @description Reads the image files in a directory and gets the face embeddings in the image files.
+	 * @param  {String} imgDir
+	 * @return {Array}  faceEmbedding - A vector representing the face embedding of the person in the image.
+	 */
 	getImageDescriptors  : getImageDescriptors,
+
+	/**
+	 * @function getEuclideanDistance
+	 * @description Computes the Euclidean Distance between two vectors.
+	 * @param  {Array}    faceEmbedding1
+	 * @param  {Array}    faceEmbedding2
+	 * @return {number}  euclideanDistance
+	 */
 	getEuclideanDistance : getEuclideanDistance
 };
 

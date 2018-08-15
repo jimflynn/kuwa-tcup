@@ -1,5 +1,6 @@
 /*
- * @file Backend server for the Moe Registrar User Interface.
+ * @module React Server
+ * @description Backend server for the Moe Registrar User Interface.
  * @author The Kuwa Foundation / Priyadarshi Rath
  */
 

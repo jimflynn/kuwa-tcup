@@ -1,5 +1,6 @@
-/*
- * @file Implementation of watcher service in Node JS.
+/**
+ * @module Watcher
+ * @description Implementation of watcher service in Node JS.
  * @author The Kuwa Foundation / Priyadarshi Rath
  */
 
@@ -242,36 +243,34 @@ async function registerFile(event, filePath) {
 			let initialStatus = await getStatus(smartContract, ContractAddress);
 			initialStatus = web3.utils.hexToUtf8(initialStatus);
 
-			if(initialStatus === "Video Uploaded") {
-				let hash = '';
-				let sha = crypto.createHash('sha256');
-				let file = fs.readFileSync(path.dirname(filePath) + '/' + 'ChallengeVideo.mp4');
-				sha.update(file);
-				hash = sha.digest('hex');
-				let duplicate = findDuplicate(dict, hash);
-				console.log('Duplicate File? :', duplicate);
+			let hash = '';
+			let sha = crypto.createHash('sha256');
+			let file = fs.readFileSync(path.dirname(filePath) + '/' + 'ChallengeVideo.mp4');
+			sha.update(file);
+			hash = sha.digest('hex');
+			let duplicate = findDuplicate(dict, hash);
+			console.log('Duplicate File? :', duplicate);
 
-				if(!duplicate) {
-					dict[filePath] = hash;
-					let challengePhrase = await getChallengePhrase(smartContract);
-					console.log("challengePhrase = ", challengePhrase);
-					let receipt = await validateKuwaID(walletAddress, ContractAddress, smartContract, "60000", "50000000000");
-					console.log("Receipt = ", receipt);
-					let regStatus = await getStatus(smartContract, ContractAddress);
-					regStatus = web3.utils.hexToUtf8(regStatus);
-					console.log("Registration Status of " + ClientAddress + " = " + regStatus);
-					insertRow(ClientAddress, ContractAddress, regStatus);
-				}
-				else {
-					let challengePhrase = await getChallengePhrase(smartContract);
-					console.log("challengePhrase = ", challengePhrase);
-					let receipt = await inValidateKuwaID(walletAddress, ContractAddress, smartContract, "60000", "50000000000");
-					console.log(receipt);
-					let regStatus = await getStatus(smartContract, ContractAddress);
-					regStatus = web3.utils.hexToUtf8(regStatus);
-					console.log("Registration Status of " + ClientAddress + " = " + regStatus);
-					insertRow(ClientAddress, ContractAddress, regStatus);
-				}
+			if(!duplicate) {
+				dict[filePath] = hash;
+				let challengePhrase = await getChallengePhrase(smartContract);
+				console.log("challengePhrase = ", challengePhrase);
+				let receipt = await validateKuwaID(walletAddress, ContractAddress, smartContract, "60000", "50000000000");
+				console.log("Receipt = ", receipt);
+				let regStatus = await getStatus(smartContract, ContractAddress);
+				regStatus = web3.utils.hexToUtf8(regStatus);
+				console.log("Registration Status of " + ClientAddress + " = " + regStatus);
+				insertRow(ClientAddress, ContractAddress, regStatus);
+			}
+			else {
+				let challengePhrase = await getChallengePhrase(smartContract);
+				console.log("challengePhrase = ", challengePhrase);
+				let receipt = await inValidateKuwaID(walletAddress, ContractAddress, smartContract, "60000", "50000000000");
+				console.log(receipt);
+				let regStatus = await getStatus(smartContract, ContractAddress);
+				regStatus = web3.utils.hexToUtf8(regStatus);
+				console.log("Registration Status of " + ClientAddress + " = " + regStatus);
+				insertRow(ClientAddress, ContractAddress, regStatus);
 			}
 		}
 		catch(error) {
