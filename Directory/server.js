@@ -1,3 +1,14 @@
+/**
+ * This file contains the configurations for running the Express server that
+ * will serve API requests for the API specified in `./routes/api.js`.
+ * 
+ * To run:
+ * $ node server.js
+ * 
+ * To run using forever:
+ * $ forever start server.js
+ */
+
 const express = require('express');
 const fs = require('fs');
 const mysql = require('mysql');
@@ -20,11 +31,12 @@ app.use(function(req, res, next) {
   next();
 });
 
-// Set routes
+// Set default routes
 app.get('/', function(req, res) {
   res.json("Welcome");
 });
 
+// Set the API route
 let api = require('./routes/api');
 app.use('/api', api);
 

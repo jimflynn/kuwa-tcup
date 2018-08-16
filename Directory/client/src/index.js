@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-import fs from 'fs';
+//import fs from 'fs';
 
 //let baseUrl = JSON.parse(fs.readFileSync("../../config.json"))['api_base_url'];
 let baseApiUrl = "http://alpha.kuwa.org:3010/api";
