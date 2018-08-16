@@ -12,6 +12,8 @@ contract QualifiedKuwaRegistrar is Owned {
     
     uint public _totalStake;
     address public kuwaTokenContract;
+    KuwaRegistration public kr;
+    KuwaToken public kt;
     //address public kuwaFoundation;
 
     constructor(address _kuwaTokenContract/*, address _kuwaFoundation*/) public {
@@ -31,21 +33,23 @@ contract QualifiedKuwaRegistrar is Owned {
         @return Whether the vote was successful or not
     **/
     function vote(address _registrantContract, bytes32 _commit, uint _value) public onlyOwner returns(bool) {
-        require(_value == 1);
+        // require(_value == 1, "Value is not 1");
 
         /* The Registrar must approve the Kuwa Registration contract to spend 1 Kuwa Token from its QKR contract
             balance in the Kuwa Token contract as required by the initial ante process. */
-        KuwaToken kt = KuwaToken(kuwaTokenContract);
-        if (kt.allowance(this, _registrantContract) < 1) {
-            if (!kt.approve(_registrantContract, _value))
-                return false;
-        }
+        kt = KuwaToken(kuwaTokenContract);
+        // if (kt.allowance(this, _registrantContract) < 1) {
+        //     if (!kt.approve(_registrantContract, _value))
+        //         return false;
+        // }
+        kt.approve(_registrantContract, _value);
 
-        KuwaRegistration kr = KuwaRegistration(_registrantContract);
-        if (!kr.vote(_commit)) {
-            if (!kt.approve(_registrantContract, 0))
-                return false;
-        }
+        kr = KuwaRegistration(_registrantContract);
+        // if (!kr.vote(_commit)) {
+        //     if (!kt.approve(_registrantContract, 0))
+        //         return false;
+        // }
+        kr.vote(_commit);
 
         return true;
     }
@@ -60,8 +64,13 @@ contract QualifiedKuwaRegistrar is Owned {
         @return Whether the reveal was successful or not
      */
     function reveal(address _registrantContract, uint _vote, bytes32 _salt) public onlyOwner returns(bool) {
-        KuwaRegistration kr = KuwaRegistration(_registrantContract);
+        kr = KuwaRegistration(_registrantContract);
         kr.reveal(_vote, _salt);
+    }
+
+    function getVoterHonest(address _registrantContract) public returns(bool) {
+        kr = KuwaRegistration(_registrantContract);
+        return kr.getVoterHonest();
     }
     
     /**

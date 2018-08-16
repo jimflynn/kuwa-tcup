@@ -95,9 +95,7 @@ contract KuwaRegistration is Owned {
          * If `registrationStatus` is "Valid" or "Invalid" and `newStatus` is not "Valid"
          * or "Invalid", revert the transaction (do not update!) 
          */
-        require( (newStatus == "Valid" || newStatus == "Invalid")
-                 || !((registrationStatus == "Valid" || registrationStatus == "Invalid")
-                 && (newStatus != "Valid" && newStatus != "Invalid")) );
+        require( (newStatus == "Valid" || newStatus == "Invalid") || !((registrationStatus == "Valid" || registrationStatus == "Invalid") && (newStatus != "Valid" && newStatus != "Invalid")) );
         registrationStatus = newStatus;
     }
 
@@ -131,21 +129,31 @@ contract KuwaRegistration is Owned {
         @return Whether the vote was successful or not
      */
     function vote(bytes32 _commit) public returns(bool) {
-        require(kt.allowance(sponsorAddress, this) == 1);   // Sponsor must provide ante before the voting round as an incentive for the registrars
-        //require(timeOfFirstVote == 0 || block.timestamp - timeOfFirstVote <= 3600); // Registrars have one hour to vote after the first vote is cast
-        require(kt.balanceOf(msg.sender) >= 100001);   // Qualified registrars must possess at least 100,001 Kuwa tokens 
-        require(kt.allowance(msg.sender, this) == 1);   // Registrars must provide the required ante to vote
-        require(!votersMap[msg.sender].voted);    // Registrars cannot vote more than once
+        // require(kt.allowance(sponsorAddress, this) == 1);   // Sponsor must provide ante before the voting round as an incentive for the registrars
+        // //require(timeOfFirstVote == 0 || block.timestamp - timeOfFirstVote <= 3600); // Registrars have one hour to vote after the first vote is cast
+        // require(kt.balanceOf(msg.sender) >= 100001);   // Qualified registrars must possess at least 100,001 Kuwa tokens 
+        // require(kt.allowance(msg.sender, this) == 1);   // Registrars must provide the required ante to vote
+        // require(!votersMap[msg.sender].voted);    // Registrars cannot vote more than once
 
         if (timeOfFirstVote == 0) {
             timeOfFirstVote = block.timestamp;
         }
         
-        if (!kt.transferFrom(msg.sender, this, 1))
-            return false;
+        // if (!kt.transferFrom(msg.sender, this, 1))
+        //     return false;
+
+        kt.transferFrom(msg.sender, this, 1);
         votersList.push(msg.sender);
         votersMap[msg.sender] = Voter({commit: _commit, voted: true, vote: 2, salt: 0x0, honest: false, isPaid: false});
         return true;
+    }
+
+    function getVoter() public view returns(bytes32, bool) {
+        return (votersMap[msg.sender].commit, votersMap[msg.sender].voted);
+    }
+
+    function getVotersList() public view returns(address[]) {
+        return votersList;
     }
 
     /**
@@ -165,15 +173,25 @@ contract KuwaRegistration is Owned {
         @param _vote The original vote
         @param _salt The original salt
      */
+    bytes32 public hashDigest;
     function reveal(uint _vote, bytes32 _salt) public {
         uint timestamp = block.timestamp;
         //require(timestamp - timeOfFirstVote > 3600 && timestamp - timeOfFirstVote <= 7200);   // Voters are given 1 hour to reveal after the anonymous voting process has ended
         require(votersMap[msg.sender].voted);   // Registrars must have voted
         require(_vote == 0 || _vote == 1);      // The vote must be a valid one: 0 or 1
         
+        hashDigest = keccak256(_vote, _salt);
         votersMap[msg.sender].vote = _vote;
         votersMap[msg.sender].salt = _salt;
-        votersMap[msg.sender].honest = keccak256(_vote, _salt) == votersMap[msg.sender].commit ? true : false;
+        votersMap[msg.sender].honest = keccak256(_vote, _salt) == votersMap[msg.sender].commit;
+    }
+    
+    function getHashDigest() public returns(bytes32) {
+        return hashDigest;
+    }
+
+    function getVoterHonest() public view returns(bool) {
+        return votersMap[msg.sender].honest;
     }
     
     /**
