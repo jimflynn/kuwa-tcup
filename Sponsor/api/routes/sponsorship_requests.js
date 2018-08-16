@@ -1,3 +1,5 @@
+var axios= require('axios');
+
 var Web3 = require('web3');
 var solc = require('solc');
 //var fs = require("fs");
@@ -13,12 +15,17 @@ const fs = require("fs");
 
 var properties = fs.readFileSync("properties.txt", 'utf8'); 
 
+let config = fs.readFileSync("/var/www/html/.config.json");
+
 var db = require("../../mysql_query");
 
+const qs = require('qs');
 
 var web3 = new Web3();
 
 properties = JSON.parse(properties);
+
+//config = JSON.parse(config);
 
 //console.log('hello');
 //console.log(properties['SS']);
@@ -112,7 +119,7 @@ var run = async function(req, res, ip) {
       //console.log(fields);
 
       res.status(200).json({
-               message: 'valid Shared Secret',
+         message: 'Valid Passcode',
          contractAddress: contractInstance.options.address,
          abi: compilation.kuwaRegistration.abi
       });
@@ -196,6 +203,19 @@ router.get('/:SS', (req , res) => {
 
 });
 
+router.post('/verifyHuman', (req, res, next) => {
+  //console.log(req);
+  axios.post('https://www.google.com/recaptcha/api/siteverify', qs.stringify({
+    secret : '6LfcxWkUAAAAAAvU_pKltYMtXmh8naEekAaSFN2E',
+    response : req.fields.response,
+    remoteip: req.connection.remoteAddress
+  })).then((result) => {
+    console.log(result);
+    res.status('200').json({
+        message: result.data.success
+    }); 
+  })
+});
 
 router.post('/deployContract/', (req, res, next) => {
   //console.log(req);
@@ -204,19 +224,19 @@ router.post('/deployContract/', (req, res, next) => {
 
   db.getConnection(function(err, connection) {
       // Use the connection
-      var sql_query = "SELECT count(1) from passcode_request re WHERE re.passcode = "+ "'"+req.fields.SS+"'";
+      var sql_query = "SELECT a.cntr, re.status from passcode_request re,(SELECT COUNT(*) cntr from passcode_request re2 WHERE re2.passcode = "+ "'"+req.fields.SS+"') a WHERE re.passcode = "+ "'"+req.fields.SS+"'";
       connection.query(sql_query, function (error, rows, fields) {
       
       rows = JSON.stringify(rows);
       rows = JSON.parse(rows);
 
       console.log(rows);
-
-      if(rows[0]['count(1)'] == 1 || req.fields.SS == "Test"){
+      if(rows.length != 0 || req.fields.SS == "Test"){
+        if(req.fields.SS == "Test" || (rows[0]['cntr'] == 1 && rows[0]['status'] == 1)){
       
 
 
-      console.log("yes");
+      //console.log("yes");
     //Get clients ip Address
       var ip = req.headers['x-forwarded-for'] || 
        req.connection.remoteAddress || 
@@ -230,23 +250,22 @@ router.post('/deployContract/', (req, res, next) => {
 
     web3.setProvider(new web3.providers.HttpProvider("https://rinkeby.infura.io/8Dx9RdhjqIl1y3EQzQpl"));
 
-    run(req, res, ip);
+    run(req, res, ip).then(() => {
+      var sql_query_2 = "UPDATE passcode_request SET status = 0 WHERE passcode = "+"'"+req.fields.SS+"'"; 
 
-    var sql_query_2 = "UPDATE passcode_request SET status = 0 WHERE passcode = "+"'"+req.fields.SS+"'"; 
-
-    // connection.query(sql_query_2, function (err, row, field) {
+      connection.query(sql_query_2, function (err, row, field) {
       
-    //   row = JSON.stringify(row);
-    //   row = JSON.parse(row);
-    //   console.log(row);
-    //   // And done with the connection.
-    //   connection.release();
+      row = JSON.stringify(row);
+      row = JSON.parse(row);
+      console.log(row);
 
-    //   // Handle error after the release.
-    //   if (err) console.log(err);
+      // Handle error after the release.
+      if (err) console.log(err);
 
-    // // Don't use the connection here, it has been returned to the pool.
-    //   });
+      });  
+    });
+
+    
 
 
        //console.log(typeof ip);
@@ -268,12 +287,16 @@ router.post('/deployContract/', (req, res, next) => {
 
 
   }
+      
+
+      }
+      
 
   else{
-
+    //console.log("invalid");
     
     res.status('200').json({
-    message: 'invalid Shared Secret'
+    message: 'Your passcode is either invalid or has been used already.'
     }); 
   }
       

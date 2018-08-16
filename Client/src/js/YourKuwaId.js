@@ -4,6 +4,7 @@ import { Loading } from './Load';
 
 import { startScanner, stopScanner, qrCodeFound, mobileStartScanner } from './actions/qrActions';
 import { persistState, exportViaEmail } from './actions/kuwaActions';
+import { toggleCongrats } from './actions/screenActions';
 import Instascan from 'instascan';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -23,6 +24,16 @@ const styles = theme => ({
     })
 });
 
+/**
+ * Displays the generated Kuwa ID of the Client and its corresponding QR code. In this component
+ * the Client can scan other QR codes that contain Kuwa IDs or can let other users scan
+ * his Kuwa ID. In either case, this component controls whether to use the Cordova plugin for
+ * QR codes or the Instascan package for the Web Client. Please refer to the online documentation
+ * for more details. This component also renders a green box in the cordova application to help
+ * the user know where to scan a QR code.
+ * @class YourKuwaId
+ * @extends Component
+ */
 class YourKuwaId extends Component {
     constructor(props) {
         super(props);
@@ -210,7 +221,9 @@ const mapStateToProps = state => {
         abi: state.kuwaReducer.kuwaId.abi,
         contractAddress: state.kuwaReducer.kuwaId.contractAddress,
 
-        loadedStateBase64: state.kuwaReducer.loadedStateBase64
+        loadedStateBase64: state.kuwaReducer.loadedStateBase64,
+
+        congratsWasShown: state.screenReducer.congratsWasShown
     }
 }
 
@@ -233,6 +246,9 @@ const mapDispatchToProps = dispatch => {
         },
         exportViaEmail: (loadedStateBase64) => {
             dispatch(exportViaEmail(loadedStateBase64))
+        },
+        toggleCongrats: () => {
+            dispatch(toggleCongrats())
         }
     }
 }

@@ -43,9 +43,9 @@
     <feature name="LaunchMyApp">
         <param name="android-package" value="nl.xservices.plugins.LaunchMyApp" />
     </feature>
-    <name>Kuwa Registration</name>
+    <name>Kuwa Basic Income Registration</name>
     <description>
-        A reference implementation of a Kuwa Registration app.
+        A reference implementation of a Kuwa Basic Income Registration app.
     </description>
     <author email="dev@cordova.apache.org" href="http://cordova.io">
         The Kuwa Foundation

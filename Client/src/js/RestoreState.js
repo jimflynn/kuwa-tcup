@@ -20,6 +20,16 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import { toggleKuwaPasswordVisibility, toggleRestoreState } from './actions/screenActions';
 import { restoreState } from './actions/kuwaActions';
 
+/**
+ * This component appears in two different ways to load the private key of a Wallet: It can be
+ * rendered in the Cordova app when the application first loads and detects that there is a 
+ * Wallet in the filesystem. It can also be rendered if the user manually loads his Wallet in
+ * the application from either the Web Client or the Cordova App.
+ * In any case, the Client needs to introduce the Kuwa Password to unlock the Wallet and be able
+ * to use it.
+ * @class ResponsiveDialog
+ * @extends React.Component
+ */
 class ResponsiveDialog extends React.Component {
     constructor(props) {
         super(props);
