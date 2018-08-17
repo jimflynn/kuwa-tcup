@@ -4,26 +4,13 @@
  * @author The Kuwa Foundation / Priyadarshi Rath
  */
 
-/*
+const fs       = require('fs');
+const path     = require('path');
 
-Sample Usage:
-const sybil        = require('path/to/sybil.js');
-const allPeopleDir = "/home/darshi/Kuwa/people/";
-var ClientAddress1 = "0xabc...";
-var ClientAddress2 = "0xdef...";
-sybil.getFaceImages(videoPath1, allPeopleDir + ClientAddress1, theta1);
-sybil.getFaceImages(videoPath2, allPeopleDir + ClientAddress2, theta2);
-var isSameFace = sybil.compareFaces(saveDir1, saveDir2);
-
-*/
-
-const fs             = require('fs');
-const path           = require('path');
-
-const cv             = require('opencv4nodejs');
-const fr             = require('face-recognition').withCv(cv);
-const exiftool       = require('node-exiftool');
-const ep             = new exiftool.ExiftoolProcess();
+const cv       = require('opencv4nodejs');
+const fr       = require('face-recognition').withCv(cv);
+const exiftool = require('node-exiftool');
+const ep       = new exiftool.ExiftoolProcess();
 
 const targetSize     = 150;
 const faceDetector   = fr.FaceDetector();
@@ -160,6 +147,17 @@ module.exports = {
 	getImageDescriptors  : getImageDescriptors,
 	getEuclideanDistance : getEuclideanDistance
 };
+
+/* Sample Usage:
+const sybil        = require('path/to/sybil.js');
+const allPeopleDir = "/home/darshi/Kuwa/people/";
+var ClientAddress1 = "0xabc...";
+var ClientAddress2 = "0xdef...";
+sybil.getFaceImages(videoPath1, allPeopleDir + ClientAddress1, theta1);
+sybil.getFaceImages(videoPath2, allPeopleDir + ClientAddress2, theta2);
+var isSameFace = sybil.compareFaces(saveDir1, saveDir2);
+*/
+
 
 /*  Sample videos from Darshi - 
 	0x128c7e547231e2e163eb5565c14b4eb50b8b4fb1
