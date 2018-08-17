@@ -15,7 +15,7 @@ do
     rm -rf $component/docs
 done
 
-rm -f index.html
+rm -f documentation.html
 
 echo =================================================================
 echo Creatig package.json
@@ -25,8 +25,8 @@ echo Installing documentation\.js
 npm i --save-dev documentation
 
 echo =================================================================
-echo Creating index.html
-cat << _EOF_ > index.html
+echo Creating documentation.html
+cat << _EOF_ > documentation.html
 <!DOCTYPE html>
 <html>
 <head>
