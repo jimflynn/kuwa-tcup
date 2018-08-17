@@ -129,20 +129,20 @@ contract KuwaRegistration is Owned {
         @return Whether the vote was successful or not
      */
     function vote(bytes32 _commit) public returns(bool) {
-        // require(kt.allowance(sponsorAddress, this) == 1);   // Sponsor must provide ante before the voting round as an incentive for the registrars
-        // //require(timeOfFirstVote == 0 || block.timestamp - timeOfFirstVote <= 3600); // Registrars have one hour to vote after the first vote is cast
-        // require(kt.balanceOf(msg.sender) >= 100001);   // Qualified registrars must possess at least 100,001 Kuwa tokens 
-        // require(kt.allowance(msg.sender, this) == 1);   // Registrars must provide the required ante to vote
-        // require(!votersMap[msg.sender].voted);    // Registrars cannot vote more than once
+        require(kt.allowance(sponsorAddress, this) == 1);   // Sponsor must provide ante before the voting round as an incentive for the registrars
+        //require(timeOfFirstVote == 0 || block.timestamp - timeOfFirstVote <= 3600); // Registrars have one hour to vote after the first vote is cast
+        require(kt.balanceOf(msg.sender) >= 100001);   // Qualified registrars must possess at least 100,001 Kuwa tokens 
+        require(kt.allowance(msg.sender, this) == 1);   // Registrars must provide the required ante to vote
+        require(!votersMap[msg.sender].voted);    // Registrars cannot vote more than once
 
         if (timeOfFirstVote == 0) {
             timeOfFirstVote = block.timestamp;
         }
         
-        // if (!kt.transferFrom(msg.sender, this, 1))
-        //     return false;
+        if (!kt.transferFrom(msg.sender, this, 1))
+            return false;
 
-        kt.transferFrom(msg.sender, this, 1);
+        //kt.transferFrom(msg.sender, this, 1);
         votersList.push(msg.sender);
         votersMap[msg.sender] = Voter({commit: _commit, voted: true, vote: 2, salt: 0x0, honest: false, isPaid: false});
         return true;
@@ -253,6 +253,14 @@ contract KuwaRegistration is Owned {
         }
 
         return true;
+    }
+
+    function getFinalStatus() public view returns(uint) {
+        return finalStatus;
+    }
+
+    function getDividend() public view returns(uint) {
+        return dividend;
     }
 
     /**

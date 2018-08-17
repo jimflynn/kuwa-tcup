@@ -310,7 +310,7 @@ var run = async function() {
     console.log("Compiled all contracts");
 
     let gas = 4300000;
-    let gasPrice = '30000000000'; //await web3.eth.getGasPrice();
+    let gasPrice = '40000000000'; //await web3.eth.getGasPrice();
     let kuwaToken;
     kuwaToken = await deployContract(newCompilations['KuwaToken'].abi, newCompilations['KuwaToken'].bytecode,
                                      gas, gasPrice, wallets.kuwa_foundation, []);
@@ -357,23 +357,35 @@ var run = async function() {
     await bobQKR.methods.vote(kuwaRegistration.options.address, bobCommit, 1).send({from: wallets.bob})
     await carlosQKR.methods.vote(kuwaRegistration.options.address, carlosCommit, 1).send({from: wallets.carlos})
     
-    let balanceKr = await kuwaToken.methods.balanceOf(kuwaRegistration.options.address).call({from: wallets.sponsor})
+    let balanceKr = await kuwaToken.methods.balanceOf(kuwaRegistration.options.address).call()
     console.log(balanceKr)
 
-    let voter = await kuwaRegistration.methods.getVotersList().call()
-    console.log(voter)
+    let voters = await kuwaRegistration.methods.getVotersList().call()
+    console.log(voters)
 
-    await aliceQKR.methods.reveal(kuwaRegistration.options.address, 1, "0xfff23243").send()
+    await aliceQKR.methods.reveal(kuwaRegistration.options.address, 1, "0xfff23243").send({from: wallets.alice})
     console.log(await kuwaRegistration.methods.getHashDigest().call())
     console.log(await aliceQKR.methods.getVoterHonest(kuwaRegistration.options.address).call())
 
-    await bobQKR.methods.reveal(kuwaRegistration.options.address, 1, "0xfff23244").send()
+    await bobQKR.methods.reveal(kuwaRegistration.options.address, 1, "0xfff23244").send({from: wallets.bob})
     console.log(await kuwaRegistration.methods.getHashDigest().call())
     console.log(await bobQKR.methods.getVoterHonest(kuwaRegistration.options.address).call())
 
-    await carlosQKR.methods.reveal(kuwaRegistration.options.address, 0, "0xfff23245").send()
+    await carlosQKR.methods.reveal(kuwaRegistration.options.address, 0, "0xfff23245").send({from: wallets.carlos})
     console.log(await kuwaRegistration.methods.getHashDigest().call())
     console.log(await carlosQKR.methods.getVoterHonest(kuwaRegistration.options.address).call())
+
+    await kuwaRegistration.methods.decide().send({from: wallets.sponsor});
+    console.log(await kuwaRegistration.methods.getFinalStatus().call());
+    console.log(await kuwaRegistration.methods.getDividend().call());
+    
+    await aliceQKR.methods.payout(kuwaRegistration.options.address).send({from: wallets.alice});
+    console.log(await kuwaToken.methods.balanceOf(aliceQKR.options.address).call());
+    await bobQKR.methods.payout(kuwaRegistration.options.address).send({from: wallets.bob});
+    console.log(await kuwaToken.methods.balanceOf(bobQKR.options.address).call());
+    //await carlosQKR.methods.payout(kuwaRegistration.options.address).send({from: wallets.alice});
+    console.log(await kuwaToken.methods.balanceOf(carlosQKR.options.address).call());
+
 }
 
 run().catch(err => console.log(err));
