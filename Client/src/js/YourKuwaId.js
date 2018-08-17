@@ -122,7 +122,8 @@ const renderYourKuwaId = (props, state, setState) => (
             </Grid>
 
             {
-                props.registrationStatus === "Video Uploaded" ?
+                // This Valid should be Video Uploaded
+                props.registrationStatus === "Valid" ?
                 <Typography variant="subheading" align="left" style={{margin: "1em"}}>
                     <strong>Step 3 –</strong> Please ask other people that you know to scan your QR code.
                 </Typography>
