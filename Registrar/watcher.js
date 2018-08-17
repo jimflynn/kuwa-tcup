@@ -22,8 +22,8 @@ const walletPassword = properties.password;
 var   walletNonce    = 0;
 
 ///////////////////////////////////////////////////////
-// const sybil        = require('./sybil.js');       //
-// const allPeopleDir = "/home/darshi/Kuwa/people/"; //
+// const sybil        = require('./sybil.js');
+// const allPeopleDir = "/home/darshi/Kuwa/people/";
 ///////////////////////////////////////////////////////
 
 var dictionary = {};
@@ -275,11 +275,11 @@ async function registerFile(event, filePath) {
 			let duplicate = findDuplicate(hash);
 
 			//////////////////////////////////////////////////////////////////////////
-			// let videoPath = path.dirname(filePath) + '/' + 'ChallengeVideo.mp4'; //
-			// let imagePath = allPeopleDir + ClientAddress;                        //
-			// await sybil.getFaceImages(videoPath, imagePath);                     //
-			// let duplicate = findDuplicate(imagePath);                            //
-			// console.log('Duplicate Person? :', duplicate);                       //
+			// let videoPath = path.dirname(filePath) + '/' + 'ChallengeVideo.mp4';
+			// let imagePath = allPeopleDir + ClientAddress;
+			// await sybil.getFaceImages(videoPath, imagePath);
+			// let duplicate = findDuplicate(imagePath);
+			// console.log('Duplicate Person? :', duplicate);
 			//////////////////////////////////////////////////////////////////////////
 
 			if(!duplicate) {
