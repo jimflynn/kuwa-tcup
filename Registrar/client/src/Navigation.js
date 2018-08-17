@@ -45,10 +45,7 @@ class Navigation extends Component {
     }
 
     render() {
-        let extraLinks = [{
-            linkName: "REQUEST YOUR PASSCODE",
-            link: "http://alpha.kuwa.org:3007/"
-        }]; 
+        let extraLinks = null; 
         // Update props before rendering
         this.newProps = Object.assign({}, this.newProps, {
             toolbarTitle: this.state.toolbarTitle,
