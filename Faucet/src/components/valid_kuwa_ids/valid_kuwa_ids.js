@@ -78,14 +78,15 @@ class KuwaFaucet extends Component {
     super(props);
 
     this.options = {
-      defaultSortName: 'timestamp',  // default sort column name
+      defaultSortName: 'registration_id',  // default sort column name
       defaultSortOrder: 'asc',  // default sort order
-      noDataText: '0.02'
+      noDataText: 'Loading registration data'
     };
 
     this.state = {
       isLoading: true,
       sponsorship_requests: [],
+      registrations:[],
       dropdownOpen: false,
       dropdownValue: 'Choose currency',
       visible: false,
@@ -153,11 +154,11 @@ class KuwaFaucet extends Component {
 
     if(`${cell}` === 'undefined'){
       //console.log('k1');
-      return 0;
+      return `<div>-</div>`;
     }
     else{
       //console.log('k2');
-      return `${cell}`;
+      return `<div style = color:green>${cell}</div>`;
     }
 
 
@@ -231,17 +232,21 @@ class KuwaFaucet extends Component {
     console.log(amt);
 
     var p =0;
+
+
+
+
     this.interval = setInterval(() => {
-          if(p>5){
+          if(p>40){
             console.log('r1');
 
-            const tempRequests = this.state.sponsorship_requests;
+            const tempRequests = this.state.registrations;
           
           //tempRequests[p].status = 'Transfer successful';
           p++;
           this.setState({
             isLoading : false,
-            sponsorship_requests : tempRequests,
+            registrations : tempRequests,
             visible2 : true
 
           });
@@ -251,18 +256,19 @@ class KuwaFaucet extends Component {
 
           else{
 
-            //console.log('k1'+p);
-          const tempRequests = this.state.sponsorship_requests;
+
+            console.log('k1'+p);
+          const tempRequests = this.state.registrations;
           
-          tempRequests[p].status = 'Transfer successful';
+          tempRequests[p].payment_status = 'Transfer successful';
           p++;
           this.setState({
             isLoading : false,
-            sponsorship_requests : tempRequests
+            registrations : tempRequests
           });
           }
           
-        }, 2000);
+        }, 3000);
     
 
   }
@@ -344,12 +350,18 @@ class KuwaFaucet extends Component {
      //    })}, 10000);
 
 
-     axios.get('/sponsorship_requests/Test')
-         .then(res => {
-          this.setState({sponsorship_requests : res.data.sponsorship_requests});
-          this.setState({isLoading : false});
-        })
-    var p = 0;
+     // this.interval = setInterval(() => {
+     //        fetch('/get_valid_ids')
+     //          .then(response => response.json())
+     //          .then(table => this.setState({registrations: table}))
+     //          .then(console.log('DB =', this.state.registrations))
+     //    }, 3000);
+
+     fetch('/get_valid_ids')
+              .then(response => response.json())
+              .then(table => this.setState({registrations: table}))
+              .then(console.log('DB =', this.state.registrations))
+
     this.interval = setInterval(() => {
 
           this.setState({isLoading : false});
@@ -378,6 +390,9 @@ class KuwaFaucet extends Component {
 
    }
 
+   componentWillUnmount() {
+        clearInterval(this.interval);
+    }
 
   render() {
 
@@ -435,15 +450,15 @@ class KuwaFaucet extends Component {
       </Alert>
           <br />
           
-          <BootstrapTable data={this.state.sponsorship_requests} options={this.options} cellEdit={ cellEditProp } pagination>
+          <BootstrapTable data={this.state.registrations} options={this.options} cellEdit={ cellEditProp } pagination striped hover condensed>
             
               <TableHeaderColumn dataField="timestamp" filter={ { type: 'TextFilter', delay: 200 }} isKey dataSort editable={ false } hidden={ true }> Time </TableHeaderColumn>
-              <TableHeaderColumn dataField="sponsorship_request_id"  dataSort editable={ false } > No. </TableHeaderColumn>
+              <TableHeaderColumn dataField="registration_id"  dataSort editable={ false } width='70'> Registration ID </TableHeaderColumn>
 
-              <TableHeaderColumn dataField="client_address" dataSort dataFormat={this.addrFormatter} editable={ false }> Valid Kuwa IDs (Ethereum Addresses)</TableHeaderColumn>
-              <TableHeaderColumn dataField="contract_address" dataSort dataFormat={blockLinks} editable={ false }> Registration Contract Address</TableHeaderColumn>
-              <TableHeaderColumn dataField="amount" dataSort dataFormat={this.amountFormatter} > Amount in ({this.state.dropdownValue}) </TableHeaderColumn>
-              <TableHeaderColumn dataField="status" dataSort dataFormat={this.statusFormatter} > Status </TableHeaderColumn>
+              <TableHeaderColumn dataField="client_address" dataSort dataFormat={this.addrFormatter} editable={ false } width='150'> Valid Kuwa IDs (Ethereum Addresses)</TableHeaderColumn>
+              <TableHeaderColumn dataField="contract_address" dataSort dataFormat={blockLinks} editable={ false } hidden={ true }> Registration Contract Address</TableHeaderColumn>
+              <TableHeaderColumn dataField="amount" dataSort dataFormat={this.amountFormatter} width='100'> Amount in ({this.state.dropdownValue}) </TableHeaderColumn>
+              <TableHeaderColumn dataField="payment_status" dataSort dataFormat={this.statusFormatter} editable={ false } width='100'> Payment Status </TableHeaderColumn>
 
         </BootstrapTable>
       </div>

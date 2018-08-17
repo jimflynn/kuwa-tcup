@@ -16,7 +16,7 @@ class App extends Component {
           
   	<Navbar color="light" light expand="md">
           <NavbarBrand href="/"><img src={logo} alt="logo" /></NavbarBrand>
-          <Button id="back-button" color="success" href="https://alpha.kuwa.org/faucet" >Back</Button>{' '}
+          <Button id="back-button" color="success" href="https://alpha.kuwa.org" >Back</Button>{' '}
         </Navbar>
           
           <h1 className="App-title">Edina Basic Income Faucet</h1>

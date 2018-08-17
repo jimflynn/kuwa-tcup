@@ -307,7 +307,7 @@
 
  
   
-    <div class='pre p1 fill-light mt0'>getRotation(filePath: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></div>
+    <div class='pre p1 fill-light mt0'>getRotation(videoPath: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></div>
    
   
   
@@ -325,8 +325,9 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>filePath</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
-	    
+            <span class='code bold'>videoPath</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    The path to the video file.
+
           </div>
           
         </div>
@@ -340,7 +341,7 @@
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>:
-        theta - The angle by which the video was rotated by the device.
+        theta     - The angle by which the video was rotated by the device.
 
       
     
@@ -372,11 +373,19 @@
   </div>
   
 
+<<<<<<< HEAD
   <p>Loads an Ethereum wallet file using a specified path, address and password.</p>
 
  
   
     <div class='pre p1 fill-light mt0'>loadWallet(walletPath: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>, accountAddress: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>, password: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>): void</div>
+=======
+  <p>Reads a video file and saves frames into a path determined by saveDir.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>getFaceImages(videoPath: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>, clientAddress: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>): void</div>
+>>>>>>> develop
    
   
   
@@ -394,14 +403,21 @@
       
         <div class='space-bottom0'>
           <div>
+<<<<<<< HEAD
             <span class='code bold'>walletPath</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
 	    
+=======
+            <span class='code bold'>videoPath</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    The path to the video file that the client uploaded.
+
+>>>>>>> develop
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
+<<<<<<< HEAD
             <span class='code bold'>accountAddress</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
 	    
           </div>
@@ -412,6 +428,11 @@
           <div>
             <span class='code bold'>password</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
 	    
+=======
+            <span class='code bold'>clientAddress</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    The ethereum address of the client.
+
+>>>>>>> develop
           </div>
           
         </div>
@@ -479,14 +500,21 @@
       
         <div class='space-bottom0'>
           <div>
+<<<<<<< HEAD
             <span class='code bold'>ContractABI</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
 	    
+=======
+            <span class='code bold'>imgDir1</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    The directory containing the face image of the first person.
+
+>>>>>>> develop
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
+<<<<<<< HEAD
             <span class='code bold'>ContractAddress</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
 	    
           </div>
@@ -513,6 +541,11 @@
           <div>
             <span class='code bold'>gas</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
 	    
+=======
+            <span class='code bold'>imgDir2</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    The directory containing the face image of the second person.
+
+>>>>>>> develop
           </div>
           
         </div>
@@ -525,8 +558,13 @@
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
+<<<<<<< HEAD
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
         contract - Promise object representing the smart contract.
+=======
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></code>:
+        isSameFace - Either 1 (representing the same person) or 0 (representing different people).
+>>>>>>> develop
 
       
     
@@ -580,8 +618,14 @@
       
         <div class='space-bottom0'>
           <div>
+<<<<<<< HEAD
             <span class='code bold'>smartContract</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
 	    
+=======
+            <span class='code bold'>imgDir</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    The directory containing the face images.
+
+>>>>>>> develop
           </div>
           
         </div>
@@ -649,14 +693,21 @@
       
         <div class='space-bottom0'>
           <div>
+<<<<<<< HEAD
             <span class='code bold'>senderAddress</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
 	    
+=======
+            <span class='code bold'>faceEmbedding1</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</code>
+	    The face embedding of the first person.
+
+>>>>>>> develop
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
+<<<<<<< HEAD
             <span class='code bold'>ContractAddress</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
 	    
           </div>
@@ -683,6 +734,11 @@
           <div>
             <span class='code bold'>gasPrice</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
 	    
+=======
+            <span class='code bold'>faceEmbedding2</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</code>
+	    The face embedding of the second person.
+
+>>>>>>> develop
           </div>
           
         </div>
@@ -695,8 +751,13 @@
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
+<<<<<<< HEAD
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
         receipt - Promise object representing the transaction receipt.
+=======
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>:
+        euclideanDistance - The Eudlidean distance between the face embeddings.
+>>>>>>> develop
 
       
     
@@ -750,22 +811,35 @@
       
         <div class='space-bottom0'>
           <div>
+<<<<<<< HEAD
             <span class='code bold'>senderAddress</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
 	    
+=======
+            <span class='code bold'>walletPath</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    The path to the registrar's wallet JSON file.
+
+>>>>>>> develop
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
+<<<<<<< HEAD
             <span class='code bold'>ContractAddress</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
 	    
+=======
+            <span class='code bold'>accountAddress</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    Ethereum address of the registrar's wallet.
+
+>>>>>>> develop
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
+<<<<<<< HEAD
             <span class='code bold'>smartContract</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
 	    
           </div>
@@ -784,6 +858,11 @@
           <div>
             <span class='code bold'>gasPrice</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
 	    
+=======
+            <span class='code bold'>password</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    Password to the registrar's wallet.
+
+>>>>>>> develop
           </div>
           
         </div>
@@ -851,24 +930,60 @@
       
         <div class='space-bottom0'>
           <div>
+<<<<<<< HEAD
             <span class='code bold'>videoPath</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
 	    
+=======
+            <span class='code bold'>ContractABI</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    Application Binary Interface obtained after deploying the Kuwa Registration Smart Contract.
+
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
+            <span class='code bold'>ContractAddress</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    Address of the Kuwa Registration Smart Contract.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>from</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    Ethereum address of the registrar's wallet.
+
+>>>>>>> develop
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+<<<<<<< HEAD
             <span class='code bold'>clientAddress</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
 	    
+=======
+            <span class='code bold'>gasPrice</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    The amount of ether the registrar is willing to spend per unit of gas.
+
+>>>>>>> develop
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
+<<<<<<< HEAD
             <span class='code bold'>theta</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
 	    
+=======
+            <span class='code bold'>gas</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    The maximum amount of gas the registrar wants to spend on this transaction.
+
+>>>>>>> develop
           </div>
           
         </div>
@@ -881,8 +996,13 @@
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
+<<<<<<< HEAD
       <code>void</code>:
         
+=======
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
+        contract        - Promise object representing the smart contract.
+>>>>>>> develop
 
       
     
@@ -936,6 +1056,7 @@
       
         <div class='space-bottom0'>
           <div>
+<<<<<<< HEAD
             <span class='code bold'>imgDir1</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
 	    
           </div>
@@ -946,6 +1067,11 @@
           <div>
             <span class='code bold'>imgDir2</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
 	    
+=======
+            <span class='code bold'>smartContract</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    Object representing Kuwa Registration Smart Contract.
+
+>>>>>>> develop
           </div>
           
         </div>
@@ -958,8 +1084,13 @@
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
+<<<<<<< HEAD
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></code>:
         isSameFace - Either 0 (representing the same person) or 1 (representing different people).
+=======
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
+        phrase        - Promise object representing the challenge phrase.
+>>>>>>> develop
 
       
     
@@ -1013,8 +1144,50 @@
       
         <div class='space-bottom0'>
           <div>
+<<<<<<< HEAD
             <span class='code bold'>imgDir</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
 	    
+=======
+            <span class='code bold'>senderAddress</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    Ethereum address of the registrar's wallet.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>ContractAddress</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    Address of the Kuwa Registration Smart Contract.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>smartContract</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    Object representing Kuwa Registration Smart Contract.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>gasLimit</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    The maximum amount of gas the registrar wants to spend on this transaction.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>gasPrice</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    The amount of ether the registrar is willing to spend per unit of gas.
+
+>>>>>>> develop
           </div>
           
         </div>
@@ -1027,8 +1200,13 @@
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
+<<<<<<< HEAD
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>:
         faceEmbedding - A vector representing the face embedding of the person in the image.
+=======
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
+        receipt          - Promise object representing the transaction receipt.
+>>>>>>> develop
 
       
     
@@ -1082,12 +1260,55 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>smartContract</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    
+<<<<<<< HEAD
+=======
+            <span class='code bold'>senderAddress</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    Ethereum address of the registrar's wallet.
+
           </div>
           
         </div>
       
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>ContractAddress</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    Address of the Kuwa Registration Smart Contract.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+>>>>>>> develop
+            <span class='code bold'>smartContract</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    Object representing Kuwa Registration Smart Contract.
+
+          </div>
+          
+        </div>
+      
+<<<<<<< HEAD
+=======
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>gasLimit</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    The maximum amount of gas the registrar wants to spend on this transaction.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>gasPrice</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    The amount of ether the registrar is willing to spend per unit of gas.
+
+          </div>
+          
+        </div>
+      
+>>>>>>> develop
     </div>
   
 
@@ -1097,7 +1318,11 @@
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
+<<<<<<< HEAD
         registrationStatus - Promise object representing the registration status of the smart contract.
+=======
+        receipt         - Promise object representing the transaction receipt.
+>>>>>>> develop
 
       
     
@@ -1151,6 +1376,7 @@
       
         <div class='space-bottom0'>
           <div>
+<<<<<<< HEAD
             <span class='code bold'>faceEmbedding1</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</code>
 	    
           </div>
@@ -1161,6 +1387,11 @@
           <div>
             <span class='code bold'>faceEmbedding2</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</code>
 	    
+=======
+            <span class='code bold'>smartContract</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    Object representing Kuwa Registration Smart Contract.
+
+>>>>>>> develop
           </div>
           
         </div>
@@ -1210,7 +1441,7 @@
 
  
   
-    <div class='pre p1 fill-light mt0'>findDuplicate(mapping: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, hashval: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></div>
+    <div class='pre p1 fill-light mt0'>findDuplicate(dictionary: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, hashval: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></div>
    
   
   
@@ -1228,8 +1459,9 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>mapping</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    
+            <span class='code bold'>dictionary</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    A dictionary containing all valid registrations.
+
           </div>
           
         </div>
@@ -1237,7 +1469,8 @@
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>hashval</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
-	    
+	    The hash value obtained by hashing the new video file.
+
           </div>
           
         </div>
@@ -1306,7 +1539,8 @@
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>ClientAddress</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
-	    
+	    Ethereum address of the Client.
+
           </div>
           
         </div>
@@ -1314,7 +1548,8 @@
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>ContractAddress</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
-	    
+	    Ethereum address of the Kuwa Registration Smart Contract.
+
           </div>
           
         </div>
@@ -1322,7 +1557,8 @@
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>regStatus</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
-	    
+	    The status of the Kuwa Registration Smart Contract corresponding to the Client.
+
           </div>
           
         </div>
@@ -1391,7 +1627,8 @@
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>event</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/API/Event">Event</a>)</code>
-	    
+	    Any change/update to the directory being watched.
+
           </div>
           
         </div>
@@ -1399,7 +1636,8 @@
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>filePath</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
-	    
+	    Absolute path to the new file added.
+
           </div>
           
         </div>
