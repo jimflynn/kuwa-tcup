@@ -12,8 +12,6 @@ contract QualifiedKuwaRegistrar is Owned {
     
     uint public _totalStake;
     address public kuwaTokenContract;
-    //KuwaRegistration public kr;
-    //KuwaToken public kt;
     //address public kuwaFoundation;
 
     constructor(address _kuwaTokenContract/*, address _kuwaFoundation*/) public {
@@ -33,7 +31,7 @@ contract QualifiedKuwaRegistrar is Owned {
         @return Whether the vote was successful or not
     **/
     function vote(address _registrantContract, bytes32 _commit, uint _value) public onlyOwner returns(bool) {
-        require(_value == 1, "Value is not 1");
+        require(_value == 1, "Registrar must provide an ante of 1 Kuwa Token");
 
         /* The Registrar must approve the Kuwa Registration contract to spend 1 Kuwa Token from its QKR contract
             balance in the Kuwa Token contract as required by the initial ante process. */
@@ -42,14 +40,12 @@ contract QualifiedKuwaRegistrar is Owned {
             if (!kt.approve(_registrantContract, _value))
                 return false;
         }
-        //kt.approve(_registrantContract, _value);
 
         KuwaRegistration kr = KuwaRegistration(_registrantContract);
         if (!kr.vote(_commit)) {
             if (!kt.approve(_registrantContract, 0))
                 return false;
         }
-        //kr.vote(_commit);
 
         return true;
     }
@@ -67,15 +63,11 @@ contract QualifiedKuwaRegistrar is Owned {
         KuwaRegistration kr = KuwaRegistration(_registrantContract);
         kr.reveal(_vote, _salt);
     }
-
-    function getVoterHonest(address _registrantContract) public returns(bool) {
-        KuwaRegistration kr = KuwaRegistration(_registrantContract);
-        return kr.getVoterHonest();
-    }
     
     /**
         Registrars call this function to receive their reward, if any, from the voting process
-        in Kuwa Tokens.
+        in Kuwa Tokens. Tokens will be transferred to their QKR contract address which is `this`
+        contract.
 
         @return Whether or not the payout was successful
      */
@@ -87,6 +79,11 @@ contract QualifiedKuwaRegistrar is Owned {
     }
     
     /* For debugging and testing */
+    function isVoterHonest(address _registrantContract) public view returns(bool) {
+        KuwaRegistration kr = KuwaRegistration(_registrantContract);
+        return kr.isVoterHonest();
+    }
+
     function approve(address _registrantContract, uint _value) public payable {
         KuwaToken kt = KuwaToken(kuwaTokenContract);
         kt.approve(_registrantContract, _value);
