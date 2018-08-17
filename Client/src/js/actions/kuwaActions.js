@@ -185,8 +185,7 @@ export function uploadToStorage(videoFilePath, kuwaId, abi, contractAddress) {
                     method: 'POST',
                     body: formData
                 }).then(response => {
-                    // This Valid should be Video Uploaded
-                    setRegistrationStatusTo("Valid", contractAddress, abi, kuwaId)
+                    setRegistrationStatusTo("Video Uploaded", contractAddress, abi, kuwaId)
                         .then(({ registrationStatus }) => {
                             dispatch({
                                 type: 'UPLOAD_TO_STORAGE_FULFILLED',
@@ -244,8 +243,7 @@ export function webUploadToStorage(videoBlob, kuwaId, abi, contractAddress) {
             method: 'POST',
             body: formData
         }).then(response => {
-            // This Valid should be Video Uploaded
-            setRegistrationStatusTo("Valid", contractAddress, abi, kuwaId)
+            setRegistrationStatusTo("Video Uploaded", contractAddress, abi, kuwaId)
                 .then(({ registrationStatus }) => {
                     dispatch({
                         type: 'WEB_UPLOAD_TO_STORAGE_FULFILLED',
