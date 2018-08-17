@@ -1,5 +1,5 @@
 {"SS" : "Test",
-"walletPath" : "/home/mgupta/.ethereum/",
+"walletPath" : "/.ethereum/",
 "accountAddress" : "08e44c26153914577c819904e3fd3c58d8cf106b", 
 "password" : "password",
 "solFilePath" : "./KuwaRegistration.sol"

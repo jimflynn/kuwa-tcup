@@ -19,7 +19,7 @@ class App extends Component {
           <Button id="back-button" color="success" href="https://alpha.kuwa.org/faucet" >Back</Button>{' '}
         </Navbar>
           
-          <h1 className="App-title">Welcome to The Edina Faucet page</h1>
+          <h1 className="App-title">Edina Basic Income Faucet</h1>
           
 
         </header>

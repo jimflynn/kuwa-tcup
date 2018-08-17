@@ -28,6 +28,10 @@ if [ ! -d cordovaClient ]; then
     wait
     cordova plugin add cordova-plugin-screen-orientation
     wait
+    cordova plugin add cordova-plugin-email-composer
+    wait
+    cordova plugin add cordova-plugin-customurlscheme --variable URL_SCHEME=kuwaregistration
+    wait
     cd ..
 fi
 
@@ -44,5 +48,3 @@ cd ..
 mkdir apk
 cp cordovaClient/platforms/android/app/build/outputs/apk/debug/app-debug.apk apk/
 mv apk/app-debug.apk apk/client.apk
-
-echo The apk is in the apk folder. Cheers!

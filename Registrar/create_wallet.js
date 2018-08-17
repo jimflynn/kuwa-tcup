@@ -1,26 +1,28 @@
-var keythereum = require("keythereum");
-var params = { keyBytes: 32, ivBytes: 16 };// synchronous
-var dk = keythereum.create(params);
+////////////////////////////////////////
+// Create a wallet for the registrar. //
+////////////////////////////////////////
 
-// dk:
-// {
-//   privateKey: <Buffer ...>,
-//   iv: <Buffer ...>,
-//   salt: <Buffer ...>
-// }
+const keythereum = require("keythereum");
 
-var password = "wheethereum";
-var kdf = "pbkdf2";
+const params = {
+	keyBytes: 32,
+	ivBytes: 16
+};
 
-var options = {
-kdf: "pbkdf2",
-cipher: "aes-128-ctr",
-kdfparams: {
-  c: 262144,
-  dklen: 32,
-  prf: "hmac-sha256"
-  }
-};// synchronous
+const dk = keythereum.create(params);
 
-var keyObject = keythereum.dump(password, dk.privateKey, dk.salt, dk.iv, options);
+const password = "wheethereum";
+const kdf = "pbkdf2";
+
+const options = {
+	kdf: "pbkdf2",
+	cipher: "aes-128-ctr",
+	kdfparams: {
+		c: 262144,
+		dklen: 32,
+		prf: "hmac-sha256"
+	}
+};
+
+const keyObject = keythereum.dump(password, dk.privateKey, dk.salt, dk.iv, options);
 keythereum.exportToFile(keyObject);

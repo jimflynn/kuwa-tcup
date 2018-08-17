@@ -1,0 +1,27 @@
+{
+  "name": "registrar",
+  "version": "1.0.0",
+  "description": "Kuwa Registrar",
+  "proxy": "https://alpha.kuwa.org:3006",
+  "homepage": "https://alpha.kuwa.org/registrar/moe",
+  "dependencies": {
+    "@material-ui/core": "^1.4.1",
+    "@material-ui/icons": "^2.0.0",
+    "react": "^16.4.0",
+    "react-bootstrap-table": "^4.3.1",
+    "react-dom": "^16.4.0",
+    "react-json-table": "^0.1.1",
+    "react-scripts": "^1.1.4"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.0"
+  },
+  "scripts": {
+    "test": "react-scripts test --env=jsdom",
+    "start": "PORT=3005 react-scripts start",
+    "build": "react-scripts build",
+    "eject": "react-scripts eject"
+  },
+  "author": "Priyadarshi Rath",
+  "license": "ISC"
+}
