@@ -2,19 +2,18 @@
 <html>
 <head>
   <meta charset='utf-8' />
-  <title>tcup 1.0.0 | Documentation</title>
+  <title>client 1.0.0 | Documentation</title>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' type='text/css' rel='stylesheet' />
   <link href='assets/style.css' type='text/css' rel='stylesheet' />
   <link href='assets/github.css' type='text/css' rel='stylesheet' />
   <link href='assets/split.css' type='text/css' rel='stylesheet' />
-  <meta name='description' content='We are developing a cryptocurrency &quot;faucet&quot; to deliver a universal basic income (UBI). As part of the project, we will implement the Kuwa identity sytem. A high level description of the project can be found [here](http://www.kuwa.org/Kuwa-Driven_Basic_Income_Faucet.pdf).'>
 </head>
 <body class='documentation m0'>
     <div class='flex'>
       <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
         <div class='py1 px2'>
-          <h3 class='mb0 no-anchor'>tcup</h3>
+          <h3 class='mb0 no-anchor'>client</h3>
           <div class='mb1'><code>1.0.0</code></div>
           <input
             placeholder='Filter'
@@ -39,6 +38,16 @@
                   href='#paperheader'
                   class="">
                   paperHeader
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#renderdom'
+                  class="">
+                  renderDom
                   
                 </a>
                 
@@ -126,6 +135,16 @@
               
                 
                 <li><a
+                  href='#init'
+                  class="">
+                  init
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
                   href='#navigation'
                   class="">
                   Navigation
@@ -176,16 +195,6 @@
               
                 
                 <li><a
-                  href='#providecredentials'
-                  class="">
-                  provideCredentials
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
                   href='#responsivedialog'
                   class="">
                   ResponsiveDialog
@@ -199,6 +208,16 @@
                   href='#yournetwork'
                   class="">
                   YourNetwork
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#providecredentials'
+                  class="">
+                  provideCredentials
                   
                 </a>
                 
@@ -693,6 +712,54 @@
         </div>
       
     </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='renderdom'>
+      renderDom
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Renders the entire application and passes the store</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>renderDom</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
   
 
   
@@ -1224,6 +1291,55 @@ it is the Cordova application the media capture plugin is used.</p>
   
   <div class='clearfix'>
     
+    <h3 class='fl m0' id='init'>
+      init
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>This function is run only in the cordova app. Permissions to access functionalities in
+an Android device are requested.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>init</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
     <h3 class='fl m0' id='navigation'>
       Navigation
     </h3>
@@ -1521,92 +1637,6 @@ for more details.</p>
   
   <div class='clearfix'>
     
-    <h3 class='fl m0' id='providecredentials'>
-      provideCredentials
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>Provide Credentials to create a Kuwa ID. The Client is required to provide a password to
-encrypt his keypair (Kuwa ID and private key) and a passcode provided by the Sponsor.
-With the provided kuwaPassword a keypair is generated using Keythereum (npm package).
-First the CREATE_KEYS_PENDING actions is dispatched so that the Loading component is shown
-on the Client while the keypair is generated. In case the keypair creation fails, the
-Client will be taken to the Error screen and be asked to try again. Otherwise, the
-CREATE_KEYS_FULFILLED action will be dispatched and the requestSponsorship function will
-be called.</p>
-
- 
-  
-    <div class='pre p1 fill-light mt0'>provideCredentials(kuwaPassword: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, passcode: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): void</div>
-   
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>kuwaPassword</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-	    created by the Client
-
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>passcode</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-	    provided (via email) by the Sponsor to the Client
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code>void</code>:
-        
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
     <h3 class='fl m0' id='responsivedialog'>
       ResponsiveDialog
     </h3>
@@ -1703,6 +1733,92 @@ in a table.</p>
 
   
 
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='providecredentials'>
+      provideCredentials
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Provide Credentials to create a Kuwa ID. The Client is required to provide a password to
+encrypt his keypair (Kuwa ID and private key) and a passcode provided by the Sponsor.
+With the provided kuwaPassword a keypair is generated using Keythereum (npm package).
+First the CREATE_KEYS_PENDING actions is dispatched so that the Loading component is shown
+on the Client while the keypair is generated. In case the keypair creation fails, the
+Client will be taken to the Error screen and be asked to try again. Otherwise, the
+CREATE_KEYS_FULFILLED action will be dispatched and the requestSponsorship function will
+be called.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>provideCredentials(kuwaPassword: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, passcode: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): void</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>kuwaPassword</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    created by the Client
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>passcode</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    provided (via email) by the Sponsor to the Client
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+
+      
+    
   
 
   

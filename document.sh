@@ -6,15 +6,16 @@ echo
 echo =================================================================
 echo Removing previous documentation
 
+components='Client Directory Faucet Registrar RequestPasscode SmartContracts Sponsor StorageManager'
+# components='SmartContracts Sponsor'
+
+for component in $components
+do
+    echo $component
+    rm -rf $component/docs
+done
+
 rm -f index.html
-rm -rf Client/docs
-rm -rf Directory/docs
-rm -rf Faucet/docs
-rm -rf Registrar/docs
-rm -rf RequestPasscode/request_passcode/docs
-rm -rf SmartContracts/docs
-rm -rf Sponsor/docs
-rm -rf StorageManager/docs
 
 echo =================================================================
 echo Creatig package.json
@@ -39,7 +40,8 @@ cat << _EOF_ > index.html
         <li><a href="Directory/docs/index.html">Directory</a></li>
         <li><a href="Faucet/docs/index.html">Faucet</a></li>
         <li><a href="Registrar/docs/index.html">Registrar</a></li>
-        <li><a href="RequestPasscode/request_passcode/docs/index.html">Request Passcode</a></li>
+        <li><a href="RequestPasscode/docs/index.html">Request Passcode</a></li>
+        <li><a href="Sponsor/docs/index.html">Sponsor</a></li>
         <li><a href="SmartContracts/docs/index.html">Smart Contracts</a></li>
         <li><a href="StorageManager/docs/index.html">Storage Manager</a></li>
     </ul>
@@ -47,16 +49,20 @@ cat << _EOF_ > index.html
 </html>
 _EOF_
 
-echo =================================================================
-echo Creating Documentation!
-node_modules/documentation/bin/documentation.js build Client/src/js/** -f html -o Client/docs --shallow
-node_modules/documentation/bin/documentation.js build Directory/** -f html -o Directory/docs --shallow
-node_modules/documentation/bin/documentation.js build Faucet/** -f html -o Faucet/docs --shallow
-node_modules/documentation/bin/documentation.js build Registrar/** -f html -o Registrar/docs --shallow
-node_modules/documentation/bin/documentation.js build RequestPasscode/request_passcode/src/** -f html -o RequestPasscode/request_passcode/docs --shallow
-node_modules/documentation/bin/documentation.js build SmartContracts/** -f html -o SmartContracts/docs --shallow
-node_modules/documentation/bin/documentation.js build Sponsor/** -f html -o Sponsor/docs --shallow
-node_modules/documentation/bin/documentation.js build StorageManager/** -f html -o StorageManager/docs --shallow
+
+for component in $components
+do
+    echo =================================================================
+    echo Creating Documentation for $component
+    rm -rf $component/docs
+    cd $component
+    mkdir tempDocuments
+    find -name "*.js" -not -path "*/node_modules/*" -not -path "*/cordovaClient/*" -not -path "*/tempDocuments/*" -exec cp {} ./tempDocuments \;
+    # find -name "*.sol" -not -path "*/node_modules/*" -not -path "*/cordovaClient/*" -not -path "*/tempDocuments/*" -exec cp {} ./tempDocuments \;
+    ../node_modules/documentation/bin/documentation.js build tempDocuments/** -f html -o docs --shallow
+    rm -rf tempDocuments
+    cd ..
+done
 
 echo =================================================================
 echo Cleaning up!
