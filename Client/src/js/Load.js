@@ -3,7 +3,10 @@ import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 /**
- * Shows loading Gif component
+ * Shows the loading component. Usually rendered when doing GET and POST requests. It is also
+ * used when the keypair is being created. More generally it is used when a process is taking
+ * place and the user needs to wait for it to complete before he can proceed. This dumb component
+ * is rendered within a parent component.
  * @export
  * @class Loading
  * @extends Component

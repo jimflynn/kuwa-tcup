@@ -5,6 +5,9 @@ import App from './js/App';
 import { Provider } from 'react-redux';
 import { store } from './js/store';
 
+/**
+ * Renders the entire application and passes the store
+ */
 const renderDom = () => {
     ReactDOM.render(
         <Provider store={store}>
@@ -12,6 +15,10 @@ const renderDom = () => {
         </Provider>, document.getElementById('root'));
 }
 
+/**
+ * This function is run only in the cordova app. Permissions to access functionalities in
+ * an Android device are requested.
+ */
 const init = () => {
     let permissions = cordova.plugins.permissions;
     let list = [
@@ -31,15 +38,6 @@ const init = () => {
             }
         }
     })
-
-    // document.addEventListener("backbutton", onBackKeyDown, false);
-    // function onBackKeyDown() {
-    //     history.go(-1);
-    //     navigator.app.backHistory();
-    // }
-
-    
-
     renderDom();
 }
 

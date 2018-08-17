@@ -24,6 +24,12 @@ const styles = theme => ({
     })
 });
 
+/**
+ * This component checks the Kuwa Network of the Client in his Smart Contract and renders it
+ * in a table.
+ * @class YourNetwork
+ * @extends Component
+ */
 class YourNetwork extends Component {
     componentDidMount() {
         this.props.getKuwaNetwork(this.props.abi, this.props.contractAddress, this.props.kuwaId)

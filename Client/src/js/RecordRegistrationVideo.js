@@ -24,6 +24,17 @@ const styles = theme => ({
     })
 });
 
+/**
+ * This component shows the Challenge phrase to be recorded. Depending on the platform that
+ * the Client is using (cordova app or web client), different components will be rendered.
+ * If it is the cordova app it will use cordova plugins to use the camera of the phone. In the
+ * Web client the browser may ask for permission to use the webcam to record a video. As of now
+ * the web client recording seems to only work on Chrome.
+ * This component uses the Video component to render and record the Video. Please refer to it
+ * for more details.
+ * @class RecordRegistrationVideo
+ * @extends Component
+ */
 class RecordRegistrationVideo extends Component {
     render() {
         return (

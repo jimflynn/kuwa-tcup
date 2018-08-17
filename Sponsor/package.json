@@ -5,6 +5,7 @@
   "main": "server.js",
   "dependencies": {
     "async": "^2.6.1",
+    "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "crypto": "^1.0.1",
     "email-templates": "^4.0.3",

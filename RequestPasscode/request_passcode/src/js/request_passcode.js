@@ -17,6 +17,31 @@ import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Button from '@material-ui/core/Button';
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
+import {isMobile} from "react-device-detect";
+import Recaptcha from 'react-recaptcha';
+import {recaptcha} from "./recaptcha"
+import axios from 'axios';
+
+
+// site key
+const sitekey = '6LfcxWkUAAAAAJ5g4t2PO1_5K6Y1HS4eMfLoziHM';
+
+// specifying your onload callback function
+const callback = () => {
+  console.log('done');
+};
+
+const expiredCallback = () => {
+  console.log('Recaptcha expired');
+};
+
+// define a variable to store the recaptcha instance
+let recaptchaInstance;
+
+// handle reset
+const resetRecaptcha = () => {
+  recaptchaInstance.reset();
+};
 
 const buttonColor = "#11B73F";
 
@@ -33,6 +58,12 @@ const styles = theme => ({
     }
 });
 
+// const verifyCallback = (response) => {
+//         console.log(response);
+//         //this.setState({'g-recaptcha-response' : response});
+//     };
+
+
 class RequestPasscode extends Component{
     constructor(props){
         super(props);
@@ -42,7 +73,16 @@ class RequestPasscode extends Component{
             purpose : "",
             isRequested: false
         };
+
+    //this.verifyCallback = this.verifyCallback.bind(this);
+
     }
+
+    // verifyCallback = (response) => {
+    //     console.log(response);
+    //     //this.setState({'g-recaptcha-response' : response});
+    // };
+
 
 
     render() {
@@ -128,6 +168,26 @@ const renderContent = (props, state, setState) =>  (
     </Grid>
 
     <div align="center">
+        <Recaptcha
+          ref={e => recaptchaInstance = e}
+          sitekey={sitekey}
+          size="compact"
+          render="explicit"
+          verifyCallback={(response) => {setState({'g-recaptcha-response' : response}); axios.post('/sponsorship_requests/verifyHuman',{
+            response : response
+          }).then((result)=>{ setState({'verification' : result.data.message})});}}
+          onloadCallback={callback}
+          expiredCallback={expiredCallback}
+        />
+        <br/>
+        <button
+          onClick={resetRecaptcha}
+        >
+          Reset
+        </button>
+    </div>
+
+    <div align="center">
         <Button variant="contained" style={{backgroundColor: buttonColor, marginTop: "1em"}} onClick={() => {
             if (state.fullName === ""){
                 alert("Please provide your Full Name");
@@ -137,8 +197,17 @@ const renderContent = (props, state, setState) =>  (
                 alert("Please provide an Email Address");
                 return;
             }
-            requestPasscode(state.fullName, state.email);
-            setState({isRequested : true});
+            //alert(state.verification);
+
+            if(state.verification == true){
+                //console.log("hey");    
+                requestPasscode(state.fullName, state.email);
+                setState({isRequested : true});
+            }
+            else{
+                 alert("You've failed the verification test. Please try again later.");
+                 window.location.href = "http://alpha.kuwa.org:3007/"; 
+             }
             }
         }>
             Submit Request
@@ -152,8 +221,12 @@ const kuwaPasscodeRequested = (props, state, setState) =>  (
     Your Kuwa Passcode has been sent to the Email address you provided.
 
     <Button variant="contained" style={{backgroundColor: buttonColor, marginTop: "1em"}} onClick={() => {
-            
-            window.location.href = "https://alpha.kuwa.org/client/";
+            if(isMobile){
+                window.location.href = "kuwaregistration://"; 
+            }
+            else{
+                window.location.href = "https://alpha.kuwa.org/client/";   
+            }
             
             }
         }>

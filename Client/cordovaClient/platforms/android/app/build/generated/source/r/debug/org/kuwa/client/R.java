@@ -7245,5 +7245,6 @@ public final class R {
   public static final class xml {
     public static final int camera_provider_paths=0x7f0f0000;
     public static final int config=0x7f0f0001;
+    public static final int emailcomposer_provider_paths=0x7f0f0002;
   }
 }
