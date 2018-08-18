@@ -1,6 +1,5 @@
 /*
- * @module React Server
- * @description Backend server for the Moe Registrar User Interface.
+ * @file Backend server for the Moe Registrar User Interface.
  * @author The Kuwa Foundation / Priyadarshi Rath
  */
 
@@ -13,8 +12,8 @@ const port    = process.env.PORT || 3006;
 const app     = express();
 
 var credentials = {
-	key : fs.readFileSync('./server.key'),
-	cert: fs.readFileSync('./server.cert')
+	key : fs.readFileSync('/etc/httpd/conf/ssl.key/server.key'),
+	cert: fs.readFileSync('/etc/httpd/conf/ssl.crt/alpha_kuwa_org.pem')
 }
 
 /*

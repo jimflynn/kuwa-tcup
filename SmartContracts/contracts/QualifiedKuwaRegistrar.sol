@@ -31,7 +31,7 @@ contract QualifiedKuwaRegistrar is Owned {
         @return Whether the vote was successful or not
     **/
     function vote(address _registrantContract, bytes32 _commit, uint _value) public onlyOwner returns(bool) {
-        require(_value == 1);
+        require(_value == 1, "Registrar must provide an ante of 1 Kuwa Token");
 
         /* The Registrar must approve the Kuwa Registration contract to spend 1 Kuwa Token from its QKR contract
             balance in the Kuwa Token contract as required by the initial ante process. */
@@ -64,8 +64,26 @@ contract QualifiedKuwaRegistrar is Owned {
         kr.reveal(_vote, _salt);
     }
     
+    /**
+        Registrars call this function to receive their reward, if any, from the voting process
+        in Kuwa Tokens. Tokens will be transferred to their QKR contract address which is `this`
+        contract.
+
+        @return Whether or not the payout was successful
+     */
+    function payout(address _registrantContract) public returns(bool) {
+        KuwaRegistration kr = KuwaRegistration(_registrantContract);
+        if (!kr.payout())
+            return false;
+        return true;
+    }
     
     /* For debugging and testing */
+    function isVoterHonest(address _registrantContract) public view returns(bool) {
+        KuwaRegistration kr = KuwaRegistration(_registrantContract);
+        return kr.isVoterHonest();
+    }
+
     function approve(address _registrantContract, uint _value) public payable {
         KuwaToken kt = KuwaToken(kuwaTokenContract);
         kt.approve(_registrantContract, _value);
