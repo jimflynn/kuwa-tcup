@@ -1,8 +1,8 @@
-/**This is the storage manager service for handling incoming Kuwa registrations and 
-storing them in the repository. 
-Author - Hrishikesh Kashyap, Last Updated - 06/15/2018
-*/
-/**TODO: Make the port number and directory to save the file a config option*/
+/**
+ * @module StorageManager
+ * @description Implementation of the storage manager service in Node JS.
+ * @author The Kuwa Foundation / Hrishikesh Kashyap
+ */
 
 const port = process.env.PORT || 3003;
 
@@ -81,14 +81,10 @@ app.post('/KuwaRegistration', function (req, res){
 
 });
 
-//http.createServer(app).listen(port, function() {
-//    console.log('Storage manager Server Started On Port %d', port);
-//});
 
 https.createServer(options, app).listen(port, function() {
     console.log('Storage manager Server Started On Port %d', port);
 });
 
-//app.listen(port, () => console.log(`Server listening on port ${port}`));
 
 
