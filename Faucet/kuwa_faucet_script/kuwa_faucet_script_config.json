@@ -1,6 +1,6 @@
 {
-	"web3Connection": "https://rinkeby.infura.io/8Dx9RdhjqIl1y3EQzQpl",
-	"KuwaCoinWalletAddr": "0x0Ff6144CBc4e71C06C269b49bCB86ECf69c7C8F8",
-	"KuwaCoinContractAddr": "0x3b5C339aa3DEBad8A5b7C8e73f1D5E0B8B4Ea30E",
-	"KuwaCoinWalletPrivKey": "3ee85be537f134c218efc95f0a5ccc8645fa6b08375b334cf5c7734bb840f131"
+	"web3Connection": "https://rinkeby.infura.io/234HUkjk",
+	"KuwaCoinWalletAddr": "0x0as3233FR",
+	"KuwaCoinContractAddr": "0xHIUK56",
+	"KuwaCoinWalletPrivKey": "3e234234kHKjkh123"
 }
