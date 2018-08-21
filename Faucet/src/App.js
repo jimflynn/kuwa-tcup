@@ -1,3 +1,8 @@
+/**
+ * @module Faucet landing page
+ * @description Implementation of the Kuwa faucet, this is the landing page from which the valid kuwa IDs table component is rendered
+ * @author The Kuwa Foundation / Hrishikesh Kashyap
+ */
 import React, { Component } from 'react';
 import logo from './site-logo.png';
 import './App.css';
