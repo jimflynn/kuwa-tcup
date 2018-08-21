@@ -1,0 +1,4780 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8' />
+  <title>client 1.0.0 | Documentation</title>
+  <meta name='viewport' content='width=device-width,initial-scale=1'>
+  <link href='assets/bass.css' type='text/css' rel='stylesheet' />
+  <link href='assets/style.css' type='text/css' rel='stylesheet' />
+  <link href='assets/github.css' type='text/css' rel='stylesheet' />
+  <link href='assets/split.css' type='text/css' rel='stylesheet' />
+</head>
+<body class='documentation m0'>
+    <div class='flex'>
+      <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
+        <div class='py1 px2'>
+          <h3 class='mb0 no-anchor'>client</h3>
+          <div class='mb1'><code>1.0.0</code></div>
+          <input
+            placeholder='Filter'
+            id='filter-input'
+            class='col12 block input'
+            type='text' />
+          <div id='toc'>
+            <ul class='list-reset h5 py1-ul'>
+              
+                
+                <li><a
+                  href='#togglekuwapasswordvisibility'
+                  class="">
+                  toggleKuwaPasswordVisibility
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#paperheader'
+                  class="">
+                  paperHeader
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#renderdom'
+                  class="">
+                  renderDom
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#capturevideo'
+                  class="">
+                  captureVideo
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#startscanner'
+                  class="">
+                  startScanner
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#loading'
+                  class="">
+                  Loading
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#simplebottomnavigation'
+                  class="">
+                  SimpleBottomNavigation
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#web3'
+                  class="">
+                  web3
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#generaloutcome'
+                  class="">
+                  generalOutcome
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#togglepasscodevisibility'
+                  class="">
+                  togglePasscodeVisibility
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#video'
+                  class="">
+                  Video
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#init'
+                  class="">
+                  init
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#navigation'
+                  class="">
+                  Navigation
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#error'
+                  class="">
+                  Error
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#yourstatus'
+                  class="">
+                  YourStatus
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#toggledropdown'
+                  class="">
+                  toggleDropdown
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#success'
+                  class="">
+                  Success
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#responsivedialog'
+                  class="">
+                  ResponsiveDialog
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#yournetwork'
+                  class="">
+                  YourNetwork
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#providecredentials'
+                  class="">
+                  provideCredentials
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#yourkuwaid'
+                  class="">
+                  YourKuwaId
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#recordregistrationvideo'
+                  class="">
+                  RecordRegistrationVideo
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#steps'
+                  class="">
+                  Steps
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#app'
+                  class="">
+                  App
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#toggledrawer'
+                  class="">
+                  toggleDrawer
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#qrcodefound'
+                  class="">
+                  qrCodeFound
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#webstartvideo'
+                  class="">
+                  webStartVideo
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#togglerestorestate'
+                  class="">
+                  toggleRestoreState
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#providecredentials'
+                  class="">
+                  ProvideCredentials
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#webfinishedvideo'
+                  class="">
+                  webFinishedVideo
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#weberrorvideo'
+                  class="">
+                  webErrorVideo
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#isvalidkuwaid'
+                  class="">
+                  isValidKuwaId
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#requestsponsorship'
+                  class="">
+                  requestSponsorship
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#stopscanner'
+                  class="">
+                  stopScanner
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#stopscan'
+                  class="">
+                  stopScan
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#mobilestartscanner'
+                  class="">
+                  mobileStartScanner
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#uploadtostorage'
+                  class="">
+                  uploadToStorage
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#addscannedkuwaid'
+                  class="">
+                  addScannedKuwaId
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#webuploadtostorage'
+                  class="">
+                  webUploadToStorage
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#generateqrcode'
+                  class="">
+                  generateQrCode
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#setregistrationstatusto'
+                  class="">
+                  setRegistrationStatusTo
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#loadstate'
+                  class="">
+                  loadState
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#restorestate'
+                  class="">
+                  restoreState
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getstatefromfile'
+                  class="">
+                  getStateFromFile
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getprivatekey'
+                  class="">
+                  getPrivateKey
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#persiststate'
+                  class="">
+                  persistState
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#converttobase64'
+                  class="">
+                  convertToBase64
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#persiststatetomobile'
+                  class="">
+                  persistStateToMobile
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#restorestateonmobile'
+                  class="">
+                  restoreStateOnMobile
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getstatetopersist'
+                  class="">
+                  getStateToPersist
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#exportviaemail'
+                  class="">
+                  exportViaEmail
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getregistrationstatus'
+                  class="">
+                  getRegistrationStatus
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getkuwanetwork'
+                  class="">
+                  getKuwaNetwork
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getkuwanetworklist'
+                  class="">
+                  getKuwaNetworkList
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getregistrationstatusstring'
+                  class="">
+                  getRegistrationStatusString
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getchallenge'
+                  class="">
+                  getChallenge
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#loadwallet'
+                  class="">
+                  loadWallet
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#loadcontract'
+                  class="">
+                  loadContract
+                  
+                </a>
+                
+                </li>
+              
+            </ul>
+          </div>
+          <div class='mt1 h6 quiet'>
+            <a href='http://documentation.js.org/reading-documentation.html'>Need help reading this?</a>
+          </div>
+        </div>
+      </div>
+      <div id='split-right' class='relative overflow-auto height-viewport-100'>
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='togglekuwapasswordvisibility'>
+      toggleKuwaPasswordVisibility
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Toggles the visibility of the kuwa password in the Client</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>toggleKuwaPasswordVisibility(): void</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='paperheader'>
+      paperHeader
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>This dumb component renders the Kuwa Icon at the top of every page along with its title</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>paperHeader</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>header</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    title of the page
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='renderdom'>
+      renderDom
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Renders the entire application and passes the store</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>renderDom</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='capturevideo'>
+      captureVideo
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Captures the video in the cordova app using cordova-plugin-media-capture.
+It first dispatches the CAPTURE_VIDEO_PENDING action to the store while the Client
+records the Challenge phrase. Once the capture finishes the captureSucess method is
+called and the CAPTURE_VIDEO_FULFILLED action is dispatched along with the fullpath
+of the location of the video in the phone. In case the recording fails, the
+CAPTURE_VIDEO_REJECTED action will be dispatched with the error object as payload</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>captureVideo(): void</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='startscanner'>
+      startScanner
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Starts the scanner on the Web client using Instascan package.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>startScanner(scanner: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): void</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>scanner</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    object created to start the camera on the web client
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='loading'>
+      Loading
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Shows the loading component. Usually rendered when doing GET and POST requests. It is also
+used when the keypair is being created. More generally it is used when a process is taking
+place and the user needs to wait for it to complete before he can proceed. This dumb component
+is rendered within a parent component.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>new Loading()</div>
+   
+  
+  
+    <p>
+      Extends
+      
+        Component
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='simplebottomnavigation'>
+      SimpleBottomNavigation
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Bottom Navigation appears at the bottom of the page once the video has been uploaded to the
+Storage Manager. If the registration status is either "New" or "Credentials Provided", the
+Bottom Navigation will not be rendered.
+The available links are YourKuwaId, YourStatus, and YourNetwork.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>new SimpleBottomNavigation()</div>
+   
+  
+  
+    <p>
+      Extends
+      
+        React.Component
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='web3'>
+      web3
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Create a global variable for the web3
+The provider is set using the config value</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>web3</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='generaloutcome'>
+      generalOutcome
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>generalOutcome is a dumb component where error and success messages can be rendered.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>generalOutcome</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>header</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    is the title of the screen
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>message</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    to show the user for feedback
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>image</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    url of the image to show to the user for feedback
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>classes</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    used to give styling to the component
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>additionalContent</span> <code class='quiet'>(Component)</code>
+	    is a component that can be rendered
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='togglepasscodevisibility'>
+      togglePasscodeVisibility
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Toggles the visibility of the passcode provided by the Sponsor in the Client</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>togglePasscodeVisibility(): void</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='video'>
+      Video
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>This component controls whether to launch the Android camera or the Webcam depending on
+what the user is using. In case it is the Web Client, the video.js package is used. In case
+it is the Cordova application the media capture plugin is used.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>new Video()</div>
+   
+  
+  
+    <p>
+      Extends
+      
+        Component
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='init'>
+      init
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>This function is run only in the cordova app. Permissions to access functionalities in
+an Android device are requested.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>init</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='navigation'>
+      Navigation
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Shows the navigation bar of The Kuwa Foundation</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>new Navigation()</div>
+   
+  
+  
+    <p>
+      Extends
+      
+        React.Component
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='error'>
+      Error
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>This component is rendered every time an Exception occurs and is caught. Whenever this
+component is rendered an error message should be passed to let the user know what went
+wrong. The help message can be found in the Redux store.
+The Error component uses the generalOutcome component as a template. Please refer to it
+for more details.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>new Error()</div>
+   
+  
+  
+    <p>
+      Extends
+      
+        Component
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='yourstatus'>
+      YourStatus
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Gets the Registration Status of the Client from his Smart Contract and shows it on the screen
+along with a short explanation.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>new YourStatus()</div>
+   
+  
+  
+    <p>
+      Extends
+      
+        Component
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='toggledropdown'>
+      toggleDropdown
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Toggles any dropdown in the navigation bar that has the passed linkName</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>toggleDropdown(linkName: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>): void</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>linkName</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='success'>
+      Success
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>This component is rendered if the user wants to give feedback of success to the user. Whenever this
+component is rendered a success message is passed. The help message can be found in the Redux store.
+The Success component uses the generalOutcome component as a template. Please refer to it
+for more details.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>new Success()</div>
+   
+  
+  
+    <p>
+      Extends
+      
+        Component
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='responsivedialog'>
+      ResponsiveDialog
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>This component appears in two different ways to load the private key of a Wallet: It can be
+rendered in the Cordova app when the application first loads and detects that there is a
+Wallet in the filesystem. It can also be rendered if the user manually loads his Wallet in
+the application from either the Web Client or the Cordova App.
+In any case, the Client needs to introduce the Kuwa Password to unlock the Wallet and be able
+to use it.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>new ResponsiveDialog()</div>
+   
+  
+  
+    <p>
+      Extends
+      
+        React.Component
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='yournetwork'>
+      YourNetwork
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>This component checks the Kuwa Network of the Client in his Smart Contract and renders it
+in a table.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>new YourNetwork()</div>
+   
+  
+  
+    <p>
+      Extends
+      
+        Component
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='providecredentials'>
+      provideCredentials
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Provide Credentials to create a Kuwa ID. The Client is required to provide a password to
+encrypt his keypair (Kuwa ID and private key) and a passcode provided by the Sponsor.
+With the provided kuwaPassword a keypair is generated using Keythereum (npm package).
+First the CREATE_KEYS_PENDING actions is dispatched so that the Loading component is shown
+on the Client while the keypair is generated. In case the keypair creation fails, the
+Client will be taken to the Error screen and be asked to try again. Otherwise, the
+CREATE_KEYS_FULFILLED action will be dispatched and the requestSponsorship function will
+be called.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>provideCredentials(kuwaPassword: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, passcode: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): void</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>kuwaPassword</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    created by the Client
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>passcode</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    provided (via email) by the Sponsor to the Client
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='yourkuwaid'>
+      YourKuwaId
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Displays the generated Kuwa ID of the Client and its corresponding QR code. In this component
+the Client can scan other QR codes that contain Kuwa IDs or can let other users scan
+his Kuwa ID. In either case, this component controls whether to use the Cordova plugin for
+QR codes or the Instascan package for the Web Client. Please refer to the online documentation
+for more details. This component also renders a green box in the cordova application to help
+the user know where to scan a QR code.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>new YourKuwaId()</div>
+   
+  
+  
+    <p>
+      Extends
+      
+        Component
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='recordregistrationvideo'>
+      RecordRegistrationVideo
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>This component shows the Challenge phrase to be recorded. Depending on the platform that
+the Client is using (cordova app or web client), different components will be rendered.
+If it is the cordova app it will use cordova plugins to use the camera of the phone. In the
+Web client the browser may ask for permission to use the webcam to record a video. As of now
+the web client recording seems to only work on Chrome.
+This component uses the Video component to render and record the Video. Please refer to it
+for more details.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>new RecordRegistrationVideo()</div>
+   
+  
+  
+    <p>
+      Extends
+      
+        Component
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='steps'>
+      Steps
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>This component simply renders the steps that user will need to follow to obtain a valid
+Kuwa ID and how to register it.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>new Steps()</div>
+   
+  
+  
+    <p>
+      Extends
+      
+        Component
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='app'>
+      App
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>This is where the magic begins. As soon as the application loads, if the Client is using
+cordova, it will check if it has previously created a Kuwa ID by checking if there are
+any persisted wallets in his phone. If so, a screen will pop asking the user to input
+the Kuwa password. Otherwise, the Steps component will be rendered.
+The entire application uses redux and connected router. Therefore, there is a store
+that is passed down to the components using the Provider tag. Connected Router is used
+to make navigation in the app possible (back and forth). Refer to the online documentation
+of this packages (Redux and Connected Router) to learn more about them.
+All of the components use the material-ui (<a href="https://material-ui.com/getting-started/installation/">https://material-ui.com/getting-started/installation/</a>)
+for React. Refer to the documenation to understand the rest of the componenets.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>new App()</div>
+   
+  
+  
+    <p>
+      Extends
+      
+        Component
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='toggledrawer'>
+      toggleDrawer
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>When the web client is displayed in a small screen (i.e. mobile phone, not the cordova app)
+this function shows and hides the navigation bar as a drawer</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>toggleDrawer()</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='qrcodefound'>
+      qrCodeFound
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>This function is called once a valid QR code containing a Kuwa ID is found and adds the new
+Kuwa ID to the Kuwa Network. Before adding the QR code, the scanned code is checked to see
+if it is valid. If it's not valid the action QR_CODE_INVALID is dispatched, otherwise,
+QR_CODE_FOUND actions id dispatched. After that, it is checked if the scanned Kuwa ID
+is not already in the Kuwa Network. The scanned Kuwa ID is only added if it is not
+already in the Kuwa Network. In either case the QR_CODE_UPLOADED action is dispatched.
+However, in case it is a new Kuwa ID the QR Code Scanned registration status is also
+updated.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>qrCodeFound(scannedKuwaId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>, scanner: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, contractAddress: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>, abi: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>, kuwaId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>scannedKuwaId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    Scanned Kuwa ID
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>scanner</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    object created to start the camera on the web client
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>contractAddress</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    Address of the Smart Contract
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>abi</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    of the Smart Contract
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>kuwaId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    of the Client Address
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='webstartvideo'>
+      webStartVideo
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Starts video on the Web Client</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>webStartVideo(): void</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='togglerestorestate'>
+      toggleRestoreState
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Toggles the visibility of the screen that serves to restore the state when the user introduces
+his Kuwa Password when the application first loads and if there is a Custom Wallet in the
+phone. This action is also dispatched when a Wallet is loaded from the Client.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>toggleRestoreState(): void</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='providecredentials'>
+      ProvideCredentials
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>The user provides the credentials. The Kuwa Password is created by the user and is used to
+create his wallet and encrypt it. It's very important for the user NOT to forget this
+password. The passcode is provided by the Sponsor via email and can be requested by the
+Client. In the config file, the passcode field can be disabled and the "Test" string will
+be automatically placed as the default passcode. If so, the Client only needs to provide
+a Kuwa Password.
+Also the current component checks that the Kuwa Password and the Passcode fields are not
+empty. In the future a better check can be implemented and the logic can be moved to the
+actions folder in order to keep the business logic separate from the View.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>new ProvideCredentials()</div>
+   
+  
+  
+    <p>
+      Extends
+      
+        Component
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='webfinishedvideo'>
+      webFinishedVideo
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Dispathces the WEB_CAPTURE_VIDEO_FULFILLED action with the recorded videoBlob as parameter
+from the Web Client</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>webFinishedVideo(videoBlob: <a href="https://developer.mozilla.org/docs/Web/API/Blob">Blob</a>): void</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>videoBlob</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/API/Blob">Blob</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='weberrorvideo'>
+      webErrorVideo
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>In case the video in the web fails, the WEB_CAPTURE_VIDEO_REJECTED action will be dispatched
+with the video error as payload</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>webErrorVideo(videoError: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): void</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>videoError</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    containing the information of why the video failed
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='isvalidkuwaid'>
+      isValidKuwaId
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Check if the scanned QR code is a Kuwa ID. It first checks that it's a string. It has
+to be 42 characters long including the "0x" at the beginning.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>isValidKuwaId(scannedKuwaId: any): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>scannedKuwaId</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='requestsponsorship'>
+      requestSponsorship
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Request Sponsorship by sending the created keyObject that contains the kuwa ID (Etheruem
+Address) of the Client and the passcode provided by the Sponsor to the Client.
+It first dispatches the REQUEST_SPONSORSHIP_PENDING action so that the Loading component
+appears on the Client's screen. Meanwhile, a POST request is sent to the Sponsor.
+If an error occurs on the server (i.e. the server is down), the Error is caught and
+the Client is sent to the Error screen by dispatching REQUEST_SPONSORSHIP_REJECTED.
+If the passcode is wrong, the Client will be also be sent to the Error screen with a
+different error message and the sponsorship will also be rejected. In case the passcode
+is correct the Sponsor will deploy a Smart Contract for the Client. Once the Smart Contract
+is deployed the REQUEST_SPONSORSHIP_FULFILLED action will be dispatched and the Client
+will be taken to the RecordRegistrationVideo page. In case the Client is using the Cordova
+app the state will be automatically persisted as well.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>requestSponsorship(keyObject: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, passcode: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>, dispatch: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>): void</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>keyObject</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    containing the encrypted keypair of the Client
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>passcode</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    provided (via email) by the Sponsor to the Client
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>dispatch</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
+	    function used to dispatch actions to the store
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='stopscanner'>
+      stopScanner
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Stops the web QR scanner and dispatches QR_CODE_STOP_SCAN. This method is called in the
+callback once a QR code is found.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>stopScanner(scanner: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): void</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>scanner</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    object created to start the camera on the web client
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='stopscan'>
+      stopScan
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Stops the scan of the QR scanner on the cordova app and restores the background color.
+The removeEventListener is supposed to give back the original functionality to back
+button on the phone, but so far it does not work properly. Once the QR scanner is stopped
+the action QR_CODE_STOP_SCAN is dispatched.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>stopScan(dispatch: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a></div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>dispatch</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
+	    function to dispatch actions to the store
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a></code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='mobilestartscanner'>
+      mobileStartScanner
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Starts the Scanner on the cordova app. It first dispatches the action QR_CODE_SCAN_PENDING
+after adding the stopScan event listener to the back button of the phone. Therefore,
+if the Client clicks the back button on the phone the scan is stopped.
+Once a valid QR code containing a Kuwa ID is found and adds the new
+Kuwa ID to the Kuwa Network. Before adding the QR code, the scanned code is checked to see
+if it is valid. If it's not valid the action QR_CODE_INVALID is dispatched, otherwise,
+QR_CODE_FOUND actions id dispatched. After that, it is checked if the scanned Kuwa ID
+is not already in the Kuwa Network. The scanned Kuwa ID is only added if it is not
+already in the Kuwa Network. In either case the QR_CODE_UPLOADED action is dispatched.
+However, in case it is a new Kuwa ID the QR Code Scanned registration status is also
+updated.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>mobileStartScanner(contractAddress: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>, abi: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>, kuwaId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>): void</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>contractAddress</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    address of the Smart Contract
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>abi</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    of the Smart Contract
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>kuwaId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    of the Client
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='uploadtostorage'>
+      uploadToStorage
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Upload to storage the video with the recorded challenge phrase from the cordova app.
+The function creates a file using the cordova-plugin-file so that it access the filesystem.
+Then the file is used to create a blob which is apended to the formData object along
+with the Kuwa ID, the contract abi, and the contract address so that a POST request can
+be sent to the Storage Manager with this information. Before the blob is created and the
+information is sent to the Storage Manager, the UPLOAD_TO_STORAGE_PENDING action is
+dispatched so that the Loading component is shown on the Client. In case the information
+is not uploaded (i.e. the server is down), the UPLOAD_TO_STORAGE_REJECTED action will be
+dispatched and the Client will be taken to the Error screen. Otherwise, the Storage
+Manager will send a response and the UPLOAD_TO_STORAGE_FULFILLED action will be dispatched.
+This will also persist the state to the mobile filesystem</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>uploadToStorage(videoFilePath: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>, kuwaId: any, abi: any, contractAddress: any): void</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>videoFilePath</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    of the video recorded with the Challenge phrase
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>kuwaId</span> <code class='quiet'>(any)</code>
+	    of the Client
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>abi</span> <code class='quiet'>(any)</code>
+	    of the Contract
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>contractAddress</span> <code class='quiet'>(any)</code>
+	    address of the Contract created by the Sponsor for the Client
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='addscannedkuwaid'>
+      addScannedKuwaId
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>This method requests the Sponsor to add a scanned Kuwa ID to the Kuwa Network of the Client
+in the Smart Contract. Since the Sponsor needs to load the contract, the ABI and the
+Contract Address need to be sent along with the scanned Kuwa ID.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>addScannedKuwaId(scannedKuwaId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>, contractAddress: any, abi: any): void</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>scannedKuwaId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    Scanned Kuwa ID to be added in the Kuwa Network
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>contractAddress</span> <code class='quiet'>(any)</code>
+	    address of the Smart Contract
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>abi</span> <code class='quiet'>(any)</code>
+	    of the Smart Contract
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='webuploadtostorage'>
+      webUploadToStorage
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Upload to storage the video with the recorded challenge phrase from the web client.
+Using the video.js API a video is recorded on the Client which generates a blob.
+This blob is apended to the formData object along
+with the Kuwa ID, the contract abi, and the contract address so that a POST request can
+be sent to the Storage Manager with this information. Before the blob is created and the
+information is sent to the Storage Manager, the WEB_UPLOAD_TO_STORAGE_PENDING action is
+dispatched so that the Loading component is shown on the Client. In case the information
+is not uploaded (i.e. the server is down), the WEB_UPLOAD_TO_STORAGE_REJECTED action will be
+dispatched and the Client will be taken to the Error screen. Otherwise, the Storage
+Manager will send a response and the WEB_UPLOAD_TO_STORAGE_FULFILLED action will be dispatched.
+This will also persist the state to the mobile filesystem</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>webUploadToStorage(videoBlob: any, kuwaId: any, abi: any, contractAddress: any): void</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>videoBlob</span> <code class='quiet'>(any)</code>
+	    created using video.js on the Client
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>kuwaId</span> <code class='quiet'>(any)</code>
+	    of the Client
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>abi</span> <code class='quiet'>(any)</code>
+	    of the Contract
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>contractAddress</span> <code class='quiet'>(any)</code>
+	    address of the Contract created by the Sponsor for the Client
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='generateqrcode'>
+      generateQrCode
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Generate the QR code that contains the Kuwa ID of the client by passing a string that
+contains the Kuwa ID</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>generateQrCode(kuwaId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>kuwaId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    of the Client
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
+        that resolves to the url containing the URL of the image with the QR code. This URL can be used as src in an img tag.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='setregistrationstatusto'>
+      setRegistrationStatusTo
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Sets the registration status of the Client to whatever is passed in the registrationStatus
+parameter. Setting the registration status is done by the Sponsor as it requires Ether
+to update the smart contract. Therefore, the Client sends a request to the Sponsor so that
+the Sponsor can do it on his behalf. In case the current registration status in the
+Smart Contract is Valid or Invalid, no request is sent to the Sponsor. Otherwise,
+the request is sent along with the contract address, its abi, and the Kuwa Id of the Client,
+so that the Sponsor can load and update the registration status of the smart contract.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>setRegistrationStatusTo(registrationStatus: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, contractAddress: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, abi: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, kuwaId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): void</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>registrationStatus</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    new registration status to be set in the Smart Contract
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>contractAddress</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    address of the Smart Contract
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>abi</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    of the Smart Contract
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>kuwaId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    Kuwa ID of the Client
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='loadstate'>
+      loadState
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Loads the state of the application from a jsonFile which is the custom Wallet File.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>loadState(jsonFile: File): void</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>jsonFile</span> <code class='quiet'>(File)</code>
+	    that contains the Client's wallet information and the Smart Contract information
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='restorestate'>
+      restoreState
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Restores the state of the application using the wallet file contained in the jsonFile object.
+The Kuwa Password created by the Client needs to be provided to unlock the wallet, otherwise,
+the information will not be loaded. Before the information is loaded the RESTORE_STATE_PENDING
+action is dispatched. Then the information is extracted from the json file and used to load
+the Client's Smart Contract to get the current registration status.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>restoreState(jsonFile: File, kuwaPassword: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>, onSuccess: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>): void</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>jsonFile</span> <code class='quiet'>(File)</code>
+	    that contains the Client's wallet information and the Smart Contract information
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>kuwaPassword</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    created by the Client to encrypt the Wallet
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>onSuccess</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
+	    is called if the correct password and everything is loaded properly
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getstatefromfile'>
+      getStateFromFile
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Converts the jsonFile to json object</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>getStateFromFile(jsonFile: File): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>jsonFile</span> <code class='quiet'>(File)</code>
+	    that contains the Client's wallet information and the Smart Contract information
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
+        that resolves to a json object
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getprivatekey'>
+      getPrivateKey
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Recovers private key using the Kuwa Password from the Key Object</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>getPrivateKey(keyObject: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, kuwaPassword: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>keyObject</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    json containing the key pair information of the Client
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>kuwaPassword</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    used by the Client to encrypt his Wallet (key pair)
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
+        that resolves to the private key of the Client
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='persiststate'>
+      persistState
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Uses the file-saver package to save the custom Wallet in the Web Client to the computers'
+filesystem. It dispatches the PERSIST_STATE action</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>persistState(): void</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='converttobase64'>
+      convertToBase64
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Converts any object to base 64. This function is used in the cordova app, so that the
+Wallet can be sent via email, uploaded to the drive, sent via whatsapp, etc. This is
+easier than trying to get the file from the phones filesystem and can be easily stored
+in the store</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>convertToBase64(dispatch: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>): void</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>dispatch</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
+	    function to send actions to the Redux store.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='persiststatetomobile'>
+      persistStateToMobile
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Persist the state of the application to the phone. In this case, the state is the custom
+Wallet File. The function uses the cordova file plugin to access the filesystem of the
+phone after a blob is created from the json object. Once the state is persisted the
+action PERSIST_STATE_TO_MOBILE is dispatched</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>persistStateToMobile(dispatch: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>): void</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>dispatch</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
+	    function to dispatch actions to the store
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='restorestateonmobile'>
+      restoreStateOnMobile
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Restore state on mobile is a function that runs when the applications is first loaded to
+check if a state had been previously persisted in the phone. If no wallet is found the
+action WALLET_NOT_FOUND is dispatched, otherwise, the action WALLET_FOUND is dispatched
+and the LOAD_STATE action places the jsonFile in the store so that the state can be restored
+using the restoreState function</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>restoreStateOnMobile(onSuccess: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>): void</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>onSuccess</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
+	    Function called in case the Wallet is found
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getstatetopersist'>
+      getStateToPersist
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>There is a lot of information in the store, however, only part of it is needed to restore
+the application where the user last left it off. This function gets all the information
+that is needed to persist in form of a JSON file. It contains the Custom Wallet</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>getStateToPersist(): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a></div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a></code>:
+        Custom Wallet
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='exportviaemail'>
+      exportViaEmail
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Sends the wallet via email (or any other service available in the phone to share documents).
+The function uses the cordova-plugin-email-composer and once the wallet is exported
+the action MAIL_SENT is dispatched.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>exportViaEmail(loadedStateBase64: any): void</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>loadedStateBase64</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getregistrationstatus'>
+      getRegistrationStatus
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Gets the registration status from the getRegistrationStatusString function and dispatches
+the GET_REGISTRATION_STATUS action with the registration status as payload</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>getRegistrationStatus(abi: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>, contractAddress: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>, kuwaId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>): void</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>abi</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    of the Smart Contract
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>contractAddress</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    address of the Smart Contract
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>kuwaId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    of the Client
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getkuwanetwork'>
+      getKuwaNetwork
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Gets the Kuwa Network (the scanned Kuwa IDs of the client) from the getKuwaNetworkList
+function and dispatches the GET_KUWA_NETWORK action with the Kuwa Network as payload</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>getKuwaNetwork(abi: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>, contractAddress: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>, kuwaId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>): void</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>abi</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    of the Smart Contract
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>contractAddress</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    address of the Smart Contract
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>kuwaId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    of the Client
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getkuwanetworklist'>
+      getKuwaNetworkList
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Gets the Kuwa Network List from the Smart Contract. Since this operation does not
+require ether the values 4300000 and '22000000000' are not used and the Sponsor is not
+needed.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>getKuwaNetworkList(abi: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>, contractAddress: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>, kuwaId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>): void</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>abi</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    of the Smart Contract
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>contractAddress</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    address of the Smart Contract
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>kuwaId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    of the Client
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getregistrationstatusstring'>
+      getRegistrationStatusString
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Gets the Registration Status from the Smart Contract. Since this operation does not
+require ether the values 4300000 and '22000000000' are not used and the Sponsor is not
+needed.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>getRegistrationStatusString(abi: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>, contractAddress: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>, kuwaId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>): void</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>abi</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    of the Smart Contract
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>contractAddress</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    address of the Smart Contract
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>kuwaId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    of the Client
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getchallenge'>
+      getChallenge
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Gets the Challenge from the Smart Contract. Since this operation does not
+require ether the values 4300000 and '22000000000' are not used and the Sponsor is not
+needed. Also, in case the Smart Contract Challenge is expired the Client will ask the
+Sponsor to update the Registration Status</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>getChallenge(abi: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>, contractAddress: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>, kuwaId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>): void</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>abi</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    of the Smart Contract
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>contractAddress</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    address of the Smart Contract
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>kuwaId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    of the Client
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='loadwallet'>
+      loadWallet
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Creates a wallet with the provided private key</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>loadWallet</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>privateKey</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='loadcontract'>
+      loadContract
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Loads a smart contract</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>loadContract</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>abi</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>contractAddress</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>gas</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>gasPrice</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>from</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+      </div>
+    </div>
+  <script src='assets/anchor.js'></script>
+  <script src='assets/split.js'></script>
+  <script src='assets/site.js'></script>
+</body>
+</html>

@@ -26,7 +26,7 @@ $ forever start -c "npm start" ./
 
 
 
-*** To compile all source code into a tarball (must be run from tcup/Registrar) ***
+*** To zip all source code into a tarball (must be run from tcup/Registrar) ***
 $ tar --exclude="./node_modules/*" --exclude="./client/node_modules/*" -zcvf kuwa.tar.gz .
 
 
