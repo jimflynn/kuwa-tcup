@@ -115,7 +115,7 @@ var compareFaces = function (imgDir1, imgDir2) {
  */
 var getImageDescriptors = function (imgDir) {
 	imgFile = fs.readdirSync(imgDir);
-	console.log(imgDir + "/" + imgFile);
+	// console.log(imgDir + "/" + imgFile);
 	img = fr.loadImage(imgDir + "/" + imgFile);
 	let faceEmbedding = faceRecognizer.getFaceDescriptors(img);
 	return faceEmbedding;

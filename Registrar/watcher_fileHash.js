@@ -21,11 +21,6 @@ const walletAddress  = "0x" + properties.accountAddress.toString("hex");
 const walletPassword = properties.password;
 var   walletNonce    = 0;
 
-///////////////////////////////////////////////////////
-// const sybil        = require('./sybil.js');
-// const allPeopleDir = "/home/darshi/Kuwa/people/";
-///////////////////////////////////////////////////////
-
 var dictionary = {};
 
 /**
@@ -168,31 +163,16 @@ var getStatus = async function(smartContract) {
  * @param   {String}  hashval     - The hash value obtained by hashing the new video file.
  * @returns {Boolean} isDuplicate - Value indicating whether the new person is valid (new).
  */
-var findDuplicate = function(hashval) {
+var findDuplicate = function(imgDir) {
 	let isDuplicate = false;
+	
 	for (var key in dictionary) {
 		if (dictionary[key] === hashval) {
 			isDuplicate = true;
 			break;
 		}
 	}
-	///////////////////////////////////////////////////////////////////////////
-	// for(var key in dictionary) {
-	// 	let imgDir2 = allPeopleDir + key;
-	// 	if(dictionary[key] === 1) {
-	// 		console.log("imgDir =", imgDir);
-	// 		console.log("imgDir2 =", imgDir2);
-	// 		if (sybil.compareFaces(imgDir, imgDir2) === 1) {
-	// 			console.log(`${imgDir} and ${key} are the same person... :(`);
-	// 			isDuplicate = true;
-	// 			break;
-	// 		}
-	// 	}
-	// }
-	// if (isDuplicate === false) {
-	// 	console.log(`${imgDir} is a new and valid person! :)`);
-	// }
-	///////////////////////////////////////////////////////////////////////////
+
 	return isDuplicate;
 }
 
@@ -245,7 +225,7 @@ web3.eth.getTransactionCount(walletAddress)
 });
 
 // Start watching desired directory
-dir = '/registrations';
+dir = '/home/darshi/Kuwa/videos';
 chokidar.watch(dir, {persistent: true}).on('all', registerFile);
 
 /**
@@ -274,19 +254,8 @@ async function registerFile(event, filePath) {
 			hash = sha.digest('hex');
 			let duplicate = findDuplicate(hash);
 
-			//////////////////////////////////////////////////////////////////////////
-			// let videoPath = path.dirname(filePath) + '/' + 'ChallengeVideo.mp4';
-			// let imagePath = allPeopleDir + ClientAddress;
-			// await sybil.getFaceImages(videoPath, imagePath);
-			// let duplicate = findDuplicate(imagePath);
-			// console.log('Duplicate Person? :', duplicate);
-			//////////////////////////////////////////////////////////////////////////
-
 			if(!duplicate) {
 				dictionary[filePath] = hash;
-				////////////////////////////////////
-				// dictionary[ClientAddress] = 1; //
-				////////////////////////////////////
 				let challengePhrase = await getChallengePhrase(smartContract);
 				console.log("challengePhrase = ", challengePhrase);
 				let receipt = await validateKuwaID(walletAddress, ContractAddress, smartContract, "4300000", "22000000000");
@@ -297,9 +266,6 @@ async function registerFile(event, filePath) {
 				insertRow(ClientAddress, ContractAddress, regStatus);
 			}
 			else {
-				////////////////////////////////////
-				// dictionary[ClientAddress] = 0; //
-				////////////////////////////////////
 				let challengePhrase = await getChallengePhrase(smartContract);
 				console.log("challengePhrase = ", challengePhrase);
 				let receipt = await inValidateKuwaID(walletAddress, ContractAddress, smartContract, "4300000", "22000000000");
