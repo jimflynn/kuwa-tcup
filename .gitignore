@@ -12,11 +12,15 @@ hs_err_pid*
 .idea
 *.iml
 
+# Put private data (e.g. passwords) in "config_private.json" so Git will ignore them.
+# But also include a config.json with dummy info that developers can use as a template.
+*_private.json
+
+# Put private utilities, which may contain sensitive info, in files ending in "_private.sh" so Git will ignore them. 
+*_private.sh
 
 Client/node_modules/
-
 Client/react-client/client/node_modules/
-
 Client/react-client/client/platforms/
 
 \.DS_Store

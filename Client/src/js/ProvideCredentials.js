@@ -57,7 +57,7 @@ const styles = theme => ({
  */
 class ProvideCredentials extends Component {
     async componentDidMount() {
-        await fetch('https://alpha.kuwa.org:3000/getConfig/')
+        await fetch(config.enablePasscodeUrl)
             .then(a => a.json())
             .then(json => window.config = json)
         this.setState({ passcode: window.config.message.Client.enablePasscode ? "" : "Test" })
@@ -84,7 +84,7 @@ class ProvideCredentials extends Component {
 
                         { paperHeader("Step 1 – Provide credentials.") }
 
-                        { this.props.loading ? <Loading loadingMessage="We are creating your Kuwa ID and requesting your sponsorship. This may take a few minutes..." /> : renderContent(this.props, this.state, this.setState.bind(this)) }
+                        { this.props.loading ? <Loading loadingMessage="We are creating your Kuwa ID and requesting your sponsorship. This may take about a minute..." /> : renderContent(this.props, this.state, this.setState.bind(this)) }
                     
                     </Paper>
                 </Grid>
