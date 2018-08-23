@@ -70,7 +70,7 @@ var getFaceImages = async function(videoPath, saveDir) {
 				let saveName = saveDir + "/" + `face-${f}.png`;
 				faceImages.forEach((faceImage, i) => cv.imwrite(saveName, faceImage.resize(targetSize,targetSize)));
 			}
-			let key = cv.waitKey(30);
+			// let key = cv.waitKey(30);
 		}
 		console.log(`Done! ${f} frame extracted.`);
 	}

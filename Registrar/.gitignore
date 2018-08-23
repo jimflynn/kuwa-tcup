@@ -1,4 +1,2 @@
 node_modules/
-server.key
-server.cert
-kuwa.tar.gz
+.env.development

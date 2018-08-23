@@ -7,7 +7,6 @@
 const fs         = require('fs');
 const path       = require('path');
 const chokidar   = require('chokidar');
-const pool       = require("./mysql_pool.js");
 const sprintf    = require("sprintf-js").sprintf;
 
 const crypto     = require('crypto');
@@ -15,14 +14,12 @@ const Web3       = require('web3');
 const keythereum = require('keythereum');
 const web3       = new Web3('https://rinkeby.infura.io/8Dx9RdhjqIl1y3EQzQpl');
 
-const properties     = JSON.parse(fs.readFileSync("./properties.json", "utf-8"));
+const pool           = require("../mysql_pool.js");
+const properties     = JSON.parse(fs.readFileSync("../properties.json", "utf-8"));
 const walletPath     = properties.walletPath;
 const walletAddress  = "0x" + properties.accountAddress.toString("hex");
 const walletPassword = properties.password;
 var   walletNonce    = 0;
-
-const sybil        = require('./sybil.js');
-const allPeopleDir = "/home/darshi/Kuwa/people/";
 
 var dictionary = {};
 
@@ -166,25 +163,16 @@ var getStatus = async function(smartContract) {
  * @param   {String}  hashval     - The hash value obtained by hashing the new video file.
  * @returns {Boolean} isDuplicate - Value indicating whether the new person is valid (new).
  */
-var findDuplicate = function(imgDir) {
+var findDuplicate = function(hashval) {
 	let isDuplicate = false;
 	
-	for(var key in dictionary) {
-		let imgDir2 = allPeopleDir + key;
-		if(dictionary[key] === 1) {
-			console.log("imgDir =", imgDir);
-			console.log("imgDir2 =", imgDir2);
-			if (sybil.compareFaces(imgDir, imgDir2) === 1) {
-				console.log(`${imgDir} and ${key} are the same person... :(`);
-				isDuplicate = true;
-				break;
-			}
+	for (var key in dictionary) {
+		if (dictionary[key] === hashval) {
+			isDuplicate = true;
+			break;
 		}
 	}
-	if (isDuplicate === false) {
-		console.log(`${imgDir} is a new and valid person! :)`);
-	}
-	
+
 	return isDuplicate;
 }
 
@@ -259,32 +247,32 @@ async function registerFile(event, filePath) {
 			let smartContract = await loadContract(ContractABI, ContractAddress, walletAddress, "22000000000", "4300000");
 			console.log("Smart Contract generated.");
 
-			let videoPath = path.dirname(filePath) + '/' + 'ChallengeVideo.mp4';
-			let imagePath = allPeopleDir + ClientAddress;
-			await sybil.getFaceImages(videoPath, imagePath);
-			let duplicate = findDuplicate(imagePath);
-			console.log('Duplicate Person? :', duplicate);
+			let hash = '';
+			let sha = crypto.createHash('sha256');
+			let file = fs.readFileSync(path.dirname(filePath) + '/' + 'ChallengeVideo.mp4');
+			sha.update(file);
+			hash = sha.digest('hex');
+			let duplicate = findDuplicate(hash);
 
 			if(!duplicate) {
-				dictionary[ClientAddress] = 1;
-				// let challengePhrase = await getChallengePhrase(smartContract);
-				// console.log("challengePhrase = ", challengePhrase);
-				// let receipt = await validateKuwaID(walletAddress, ContractAddress, smartContract, "4300000", "22000000000");
-				// console.log("Receipt = ", receipt);
-				// let regStatus = await getStatus(smartContract, ContractAddress);
-				// regStatus = web3.utils.hexToUtf8(regStatus);
-				// console.log("Registration Status of " + ClientAddress + " = " + regStatus);
+				dictionary[filePath] = hash;
+				let challengePhrase = await getChallengePhrase(smartContract);
+				console.log("challengePhrase = ", challengePhrase);
+				let receipt = await validateKuwaID(walletAddress, ContractAddress, smartContract, "4300000", "22000000000");
+				console.log("Receipt = ", receipt);
+				let regStatus = await getStatus(smartContract, ContractAddress);
+				regStatus = web3.utils.hexToUtf8(regStatus);
+				console.log("Registration Status of " + ClientAddress + " = " + regStatus);
 				// insertRow(ClientAddress, ContractAddress, regStatus);
 			}
 			else {
-				dictionary[ClientAddress] = 0;
-				// let challengePhrase = await getChallengePhrase(smartContract);
-				// console.log("challengePhrase = ", challengePhrase);
-				// let receipt = await inValidateKuwaID(walletAddress, ContractAddress, smartContract, "4300000", "22000000000");
-				// console.log(receipt);
-				// let regStatus = await getStatus(smartContract, ContractAddress);
-				// regStatus = web3.utils.hexToUtf8(regStatus);
-				// console.log("Registration Status of " + ClientAddress + " = " + regStatus);
+				let challengePhrase = await getChallengePhrase(smartContract);
+				console.log("challengePhrase = ", challengePhrase);
+				let receipt = await inValidateKuwaID(walletAddress, ContractAddress, smartContract, "4300000", "22000000000");
+				console.log(receipt);
+				let regStatus = await getStatus(smartContract, ContractAddress);
+				regStatus = web3.utils.hexToUtf8(regStatus);
+				console.log("Registration Status of " + ClientAddress + " = " + regStatus);
 				// insertRow(ClientAddress, ContractAddress, regStatus);
 				
 			}
