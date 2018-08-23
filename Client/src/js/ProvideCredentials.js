@@ -57,7 +57,7 @@ const styles = theme => ({
  */
 class ProvideCredentials extends Component {
     async componentDidMount() {
-        await fetch('https://alpha.kuwa.org:3000/getConfig/')
+        await fetch(config.enablePasscodeUrl)
             .then(a => a.json())
             .then(json => window.config = json)
         this.setState({ passcode: window.config.message.Client.enablePasscode ? "" : "Test" })
