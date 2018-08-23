@@ -44,7 +44,7 @@ class RecordRegistrationVideo extends Component {
 
                     { paperHeader("Step 2 – Record your registration video.") }
 
-                    { this.props.loading ? <Loading loadingMessage="Uploading Information. This may take several minutes..." /> : renderContent(this.props) }
+                    { this.props.loading ? <Loading loadingMessage="Uploading Information. This may take about a minute..." /> : renderContent(this.props) }
 
                     </Paper>
                 </Grid>
