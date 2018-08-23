@@ -252,7 +252,7 @@ export function webUploadToStorage(videoBlob, kuwaId, abi, contractAddress) {
                             registrationStatus
                         }
                     })                    
-                    fetch('https://alpha.kuwa.org:3000/getConfig/')
+                    fetch(config.enablePasscodeUrl)
                         .then(a => a.json())
                         .then(json => {
                             if (json.message.Client.enableRegistrationCongrats) {
