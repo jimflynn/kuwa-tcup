@@ -6,7 +6,7 @@
 const fs      = require('fs');
 const https   = require('https');
 const express = require('express');
-const pool    = require("./mysql_pool.js");
+const pool    = require("../mysql_pool.js");
 const moment  = require('moment-timezone');
 const port    = process.env.PORT || 3006;
 const app     = express();

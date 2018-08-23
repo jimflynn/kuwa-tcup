@@ -1,5 +1,5 @@
 {
-	"walletPath" : ".",
+	"walletPath" : "/home/darshi/Kuwa/tcup/Registrar/",
 	"accountAddress" : "f8ab93792c669f30954c0f0b0e25df46bdb59136", 
 	"password" : "wheethereum"
 }
