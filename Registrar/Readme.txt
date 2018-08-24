@@ -1,52 +1,29 @@
-This is a simple readme for the Kuwa Registrar module.
+This is a simple readme for the entire Kuwa Registrar module.
 
-*** Commands for the watcher and User Interface server (must be run from tcup/Registrar) ***
+It consists of 3 parts:
 
-To install dependencies:
-$ npm install
+1. The Watcher module, which watches a specified folder and performs sybil detection on new additions.
+   It may use either of two methods, depending on which one is used for execution:
+   a. File Hashing using sha256 - see the readme in the subdirectory fileHash for more info.
+   b. Face recognition using face-recognition and opencv4nodejs - see the readme in the subdirectory faceRecognition for more info.
 
-=========
-NOTES:
-1. For Ubuntu-based distributions, face-recognition needs cmake, libpng, libx11. 
-   Please check equivalents for other platforms(if you are using them) and make sure they are installed first.
-2. opencv4nodejs needs cmake. Make sure it is installed first.
-=========
+2. The backend module, which fetches data from a MySQL Database.
 
-To launch the watcher and User Interface backend in development mode:
-$ npm start
+3. The frontend module, which takes the data served from the backend and displays it in a tabular fashion.
 
-To keep the registrar based on file hashing forever turned on:
-$ npm install -g forever
-$ forever start watcher_fileHash.js && forever start server.js
+===========
+How to run:
+===========
 
-To keep the registrar based on face recongition forever turned on:
-$ npm install -g forever
-$ forever start watcher_faceRecognition.js && forever start server.js
+First, select a the watcher you want to see in action and go to either `fileHash` or `faceRecognition` to run the respective watcher module.
 
-=========
-NOTE: You may need sudo privileges to run npm install with the global flag.
-=========
+Second, start the backend from the `backend` module.
 
+Finally, start the frontend react app from the frontend module.
 
-*** Commands for the registrar User Interface frontend (must be run from tcup/Registrar/client) ***
+===========
+Quickstart:
+===========
 
-To install dependencies:
-$ npm install
-
-To launch the User Interface:
-$ npm start
-
-To keep running forever:
-$ npm install -g forever
-$ forever start -c "npm start" ./
-
-
-
-*** To zip all source code into a tarball (must be run from tcup/Registrar) ***
-$ tar --exclude="./node_modules/*" --exclude="./client/node_modules/*" -zcvf kuwa.tar.gz .
-
-
-
-*** To generate documentation ***
-$ npm install documentation
-$ documentation build <file(s)_or_folder(s)> -f html -o docs
+For the registrar based on file hashing, run ./hashFile.sh.
+For the registrar based on face recognition, run ./faceRec.sh.

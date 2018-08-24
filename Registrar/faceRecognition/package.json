@@ -1,0 +1,22 @@
+{
+  "name": "registrar",
+  "version": "0.5.0",
+  "description": "Kuwa Registrar based on Face Recognition",
+  "dependencies": {
+    "chokidar": "^2.0.3",
+    "face-recognition": "^0.9.3",
+    "keythereum": "^1.0.4",
+    "node-exiftool": "^2.3.0",
+    "opencv4nodejs": "^4.7.2",
+    "sprintf-js": "^1.1.1",
+    "web3": "^1.0.0-beta.34"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.0"
+  },
+  "scripts": {
+    "start": "nodemon watcher_faceRecognition.js"
+  },
+  "author": "Priyadarshi Rath",
+  "license": "ISC"
+}

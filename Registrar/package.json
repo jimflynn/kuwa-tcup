@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Kuwa Registrar",
   "dependencies": {
+<<<<<<< HEAD
     "chokidar": "^2.0.3",
     "express": "^4.16.2",
     "hash-files": "^1.1.1",
@@ -16,12 +17,13 @@
   },
   "devDependencies": {
     "concurrently": "^3.5.0"
+=======
+    "keythereum": "^1.0.4",
+    "mysql": "^2.16.0"
+>>>>>>> 74ddc16757daeb97b1b1971cb749c6cd73c29550
   },
   "scripts": {
-    "test": "react-scripts test --env=jsdom",
-    "start": "concurrently --kill-others-on-fail \"nodemon watcher.js\" \"nodemon server.js\"",
-    "build": "react-scripts build",
-    "eject": "react-scripts eject"
+    "start": ""
   },
   "author": "Priyadarshi Rath",
   "license": "ISC"
