@@ -25,5 +25,5 @@ Finally, start the frontend react app from the frontend module.
 Quickstart:
 ===========
 
-For the registrar based on file hashing, run ./hashFile.sh.
-For the registrar based on face recognition, run ./faceRec.sh.
+For the registrar based on file hashing, run ./registrar_hash.sh.
+For the registrar based on face recognition, run ./registrar_face.sh.
