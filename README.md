@@ -21,8 +21,7 @@ The following software packages are prerequisites for running the software in th
   * MySQL (for some modules)
   * Apache Web Server 
   * [Apache Cordova](https://cordova.apache.org/) (For deploying JavaScript applications as Android and iOS apps)
-  *  XXXXX - Face recognition JavaScript toolkit
-  *  YYYYY - Voice recognition JavaScript toolkit
+  *  OpenCV - Face recognition toolkit
 
 ## Also Built With
 
