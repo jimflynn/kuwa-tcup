@@ -3,8 +3,24 @@
   "version": "1.0.0",
   "description": "Kuwa Registrar",
   "dependencies": {
+<<<<<<< HEAD
+    "chokidar": "^2.0.3",
+    "express": "^4.16.2",
+    "hash-files": "^1.1.1",
+    "jsdoc": "^3.5.5",
+    "keythereum": "^1.0.4",
+    "moment-timezone": "^0.5.21",
+    "mysql": "^2.15.0",
+    "node-exiftool": "^2.3.0",
+    "sprintf-js": "^1.1.1",
+    "web3": "^1.0.0-beta.34"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.0"
+=======
     "keythereum": "^1.0.4",
     "mysql": "^2.16.0"
+>>>>>>> 74ddc16757daeb97b1b1971cb749c6cd73c29550
   },
   "scripts": {
     "start": ""

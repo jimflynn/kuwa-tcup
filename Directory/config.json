@@ -1,16 +1,16 @@
 {
     "api_base_url": "http://localhost:3001/api",
     "eth_client" : {
-        "my_address": "0xde89471e94ffaaf346090abe1ccd4b448818dcbf",
-        "key_store_dir": "/home/jun/.ethereum",
+        "my_address": "[your ethereum address here]",
+        "key_store_dir": "[path to your keystore directory]",
         "password": "tcup",
-        "eth_network_url": "https://rinkeby.infura.io/8Dx9RdhjqIl1y3EQzQpl"
+        "eth_network_url": "https://rinkeby.infura.io/[get from Infura]"
     },
     "db_client": {
         "host": "localhost",
-        "user": "root",
-        "password": "root",
-        "database": "test",
+        "user": "[your db user]",
+        "password": "[your db user]",
+        "database": "[your db user]",
         "connection_limit": 10,
         "columns": {
           "mapping": {
@@ -31,5 +31,5 @@
           ]
         }
     },
-    "dir_to_scan": "/home/jun/Documents/tcup/Directory/test"
+    "dir_to_scan": "[Kuwa ID directory with registration data]"
 }
