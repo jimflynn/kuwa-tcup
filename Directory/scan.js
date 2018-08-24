@@ -341,7 +341,7 @@ function getCurrentDateTime() {
  * Driver function to run the scan process.
  */
 let run = async function() {
-    let configFilePath = "config.json";
+    let configFilePath = "config_private.json";
     let config = JSON.parse(fs.readFileSync(configFilePath));
     let ethClient = EthClient.createFromConfig(config["eth_client"]);
     ethClient.loadWallet();

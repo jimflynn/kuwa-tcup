@@ -163,7 +163,7 @@ var getStatus = async function(smartContract) {
  * @param   {String}  hashval     - The hash value obtained by hashing the new video file.
  * @returns {Boolean} isDuplicate - Value indicating whether the new person is valid (new).
  */
-var findDuplicate = function(imgDir) {
+var findDuplicate = function(hashval) {
 	let isDuplicate = false;
 	
 	for (var key in dictionary) {

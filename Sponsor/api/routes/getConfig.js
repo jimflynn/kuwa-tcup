@@ -6,8 +6,6 @@ const fs = require("fs");
 
 let config = fs.readFileSync("/var/www/html/.config.json");
 
-config = JSON.parse(config);
-
 router.get('/',(req, res, next) => {
 
   console.log(config);

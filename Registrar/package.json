@@ -5,14 +5,12 @@
   "dependencies": {
     "chokidar": "^2.0.3",
     "express": "^4.16.2",
-    "face-recognition": "^0.9.3",
     "hash-files": "^1.1.1",
     "jsdoc": "^3.5.5",
     "keythereum": "^1.0.4",
     "moment-timezone": "^0.5.21",
     "mysql": "^2.15.0",
     "node-exiftool": "^2.3.0",
-    "opencv4nodejs": "^4.7.2",
     "sprintf-js": "^1.1.1",
     "web3": "^1.0.0-beta.34"
   },

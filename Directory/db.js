@@ -7,7 +7,7 @@ const fs = require('fs');
 const mysql = require('mysql');
 const sprintf = require('sprintf-js').sprintf;
 
-let configFilePath = "config.json";
+let configFilePath = "config_private.json";
 let config = JSON.parse(fs.readFileSync(configFilePath));   // Read from config file
 
 // Create a pool of DB connections
