@@ -23,6 +23,16 @@
           <div id='toc'>
             <ul class='list-reset h5 py1-ul'>
               
+                
+                <li><a
+                  href='#web3'
+                  class="">
+                  Web3
+                  
+                </a>
+                
+                </li>
+              
             </ul>
           </div>
           <div class='mt1 h6 quiet'>
@@ -31,6 +41,76 @@
         </div>
       </div>
       <div id='split-right' class='relative overflow-auto height-viewport-100'>
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='web3'>
+      Web3
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>This file simulates the Poker protocol implemented via the KuwaRegistration.sol, QualifiedKuwaRegistrar.sol,
+and KuwaToken.sol smart contracts by using web3js to interact with the Ethereum blockchain.</p>
+<p>This simulation is very simple and only tests the beginning phase of the Poker protocol.
+Future implementations will give losing Registrars the ability to to challenge a majority vote:</p>
+<p>There are three Registrars.
+Each Registrar bets 1 Kuwa Token on a KR.
+The KR’s Sponsor also contributes 1 Kuwa Token (transaction fee or incentive ante).
+Pot = 4 Kuwa Tokens (3 from the Registrars, and 1 from the Sponsor)
+Registrars 	#1 and #2 vote that a KR is invalid.
+Registrar 	#3 votes that a KR is valid.
+Registrars 	#1 and #2 “win” since they are in the majority. Registrar #3 has lost.
+Registrars 	#1 and #2 split the pot They get 2 Kuwa Tokens each (net profit of 1 Kuwa Token each).
+Registrar 	#3 (the loser) gets nothing (net loss of 1 Kuwa Token).</p>
+<p> In this simulation, Registrars #1 and #2 are Alice and Bob, Registrar #3 is Carlos.
+Registrars vote by providing the keccak256 hash of their vote (0 or 1) and a salt (a random bytes32 value).
+After the first valid vote is cast, other Registrars have 1 hour to vote.
+After the voting process ends, Registrars are required to reveal their votes within 1 hour by providing the original vote and salt.
+The hash of these two values must match the committed vote provided during the voting process for the Registrar or voter to be deemed honest.
+After the reveal process ends, the Sponsor decides the majority vote which then becomes the final status of the Kuwa client.
+The winning Registrars are then responsible for claiming their reward.</p>
+<p> This file requires the 'wallet.json' configuration file and the './keystore' directory to run the simulation.
+'./wallets.json' contains the public Ethereum wallet addresses of all the participants in the simulation
+'./keystore' directory contains information to import the private keys of these participants (using keythereum)</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>Web3</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
         
       </div>
     </div>

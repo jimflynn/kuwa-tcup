@@ -28,63 +28,24 @@ const originalNavigationLinks = [
         link: "https://alpha.kuwa.org/index.html"
     },
     {
-        linkName: "SPONSORS",
-        children: [
-            {
-                linkName: "Thelma Sponsor",
-                link: "https://alpha.kuwa.org/sponsor/thelma/"
-            },
-            {
-                linkName: "Louise Sponsor",
-                link: "http://alpha.kuwa.org:3001/sponsorship_requests"
-            }
-        ]
+        linkName: "SPONSOR",
+        link: "http://alpha.kuwa.org:3001/sponsorship_requests"
     },
     {
         linkName: "CLIENT",
         link: "https://alpha.kuwa.org/client/"
     },
     {
-        linkName: "REGISTRARS",
-        children: [
-            {
-                linkName: "Moe Registrar",
-                link: "https://alpha.kuwa.org/registrar/moe/"
-            },
-            {
-                linkName: "Larry Registrar",
-                link: "https://alpha.kuwa.org/registrar/larry/"
-            },
-            {
-                linkName: "Curly Registrar",
-                link: "https://alpha.kuwa.org/registrar/curly/"
-            }
-        ]
+        linkName: "REGISTRAR",
+        link: "http://alpha.kuwa.org:3005/"
     },
     {
-        linkName: "FAUCETS",
-        children: [
-            {
-                linkName: "Patsy Faucet",
-                link: "https://alpha.kuwa.org/#"
-            },
-            {
-                linkName: "Edina Faucet",
-                link: "https://alpha.kuwa.org/#"
-            }
-        ]
+        linkName: "FAUCET",
+        link: "http://alpha.kuwa.org:3015/"
     },
     {
         linkName: "DIRECTORY",
         link: "http://alpha.kuwa.org:3011/"
-    },
-    {
-        linkName: "REPOSITORY",
-        link: "https://alpha.kuwa.org/registrations/"
-    },
-    {
-        linkName: "TEAM",
-        link: "https://alpha.kuwa.org/developers/"
     },
 ]
 

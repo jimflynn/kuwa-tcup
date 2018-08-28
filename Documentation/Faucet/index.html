@@ -23,6 +23,96 @@
           <div id='toc'>
             <ul class='list-reset h5 py1-ul'>
               
+                
+                <li><a
+                  href='#component'
+                  class="">
+                  Component
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#component'
+                  class="">
+                  Component
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#config'
+                  class="">
+                  CONFIG
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#transferkuwacoin'
+                  class="">
+                  transferKuwaCoin
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#blocklinks'
+                  class="">
+                  blockLinks
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getvalidregistrations'
+                  class="">
+                  getValidRegistrations
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#statusformatter'
+                  class="">
+                  statusFormatter
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#amountformatter'
+                  class="">
+                  amountFormatter
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#onpaybtnclick'
+                  class="">
+                  onPayBtnClick
+                  
+                </a>
+                
+                </li>
+              
             </ul>
           </div>
           <div class='mt1 h6 quiet'>
@@ -31,6 +121,554 @@
         </div>
       </div>
       <div id='split-right' class='relative overflow-auto height-viewport-100'>
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='component'>
+      Component
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Implementation of the Kuwa faucet, this is the landing page from which the valid kuwa IDs table component is rendered</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>Component</div>
+   
+  
+  
+
+  
+  
+  
+  <div>Author: The Kuwa Foundation / Hrishikesh Kashyap</div>
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='component'>
+      Component
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Implementation of the valid registrations table in the Kuwa Faucet page</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>Component</div>
+   
+  
+  
+
+  
+  
+  
+  <div>Author: The Kuwa Foundation / Hrishikesh Kashyap</div>
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='config'>
+      CONFIG
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Implementation of the faucet script which can be run to trigger payments to all valid Kuwa IDs</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>CONFIG</div>
+   
+  
+  
+
+  
+  
+  
+  <div>Author: The Kuwa Foundation / Hrishikesh Kashyap</div>
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='transferkuwacoin'>
+      transferKuwaCoin
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Transfers 1 KuwaCoin to the specified destination wallet address</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>transferKuwaCoin(destAddress: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>destAddress</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='blocklinks'>
+      blockLinks
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Formatter function for the contract address column (not displayed on the Faucet page)</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>blockLinks(cell: Int, row: Int): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>cell</span> <code class='quiet'>(Int)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>row</span> <code class='quiet'>(Int)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code>:
+        Contract address link of the kuwa ID in the row
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getvalidregistrations'>
+      getValidRegistrations
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Fetches all the valid Kuwa IDs and starts the payment process for each of them</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>getValidRegistrations(): void</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='statusformatter'>
+      statusFormatter
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Formatter function for the payment status column</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>statusFormatter(cell: Int, row: Int): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>cell</span> <code class='quiet'>(Int)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>row</span> <code class='quiet'>(Int)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code>:
+        Payment status for the kuwa ID in the row
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='amountformatter'>
+      amountFormatter
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Formatter function for the amount column</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>amountFormatter(cell: Int, row: Int): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>cell</span> <code class='quiet'>(Int)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>row</span> <code class='quiet'>(Int)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code>:
+        Amount to be paid to the kuwa ID in the row
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='onpaybtnclick'>
+      onPayBtnClick
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Function called on clicking the pay button, will loop through the valid kuwa IDs and make payments</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>onPayBtnClick()</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
         
       </div>
     </div>

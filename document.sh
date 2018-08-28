@@ -22,7 +22,7 @@ cat << _EOF_ > documentation.html
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Universal Basic Income Documentation</title>
+    <title>Kuwa-TCUP Project Documentation</title>
 </head>
 
 <body>
