@@ -3,8 +3,8 @@
  * @description Implementation of the faucet script which can be run to trigger payments to all valid Kuwa IDs
  * @author The Kuwa Foundation / Hrishikesh Kashyap
  */
-// Get private stuff from my kuwa_faucet_script_config.json file
-var CONFIG = require('./kuwa_faucet_script_config.json');
+// Get private stuff from my kuwa_faucet_script_config_private.json file
+var CONFIG = require('./kuwa_faucet_script_config_private.json');
 
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';

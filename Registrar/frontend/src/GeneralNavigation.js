@@ -66,7 +66,7 @@ class GeneralNavigation extends Component {
                             null
                         }
                         <Typography variant="title" color="inherit" style={{flexGrow: 1}}>
-                            {props.toolbarTitle ? props.toolbarTitle : "The Kuwa Foundation"}
+                            {props.toolbarTitle ? props.toolbarTitle : "Demo Site"}
                         </Typography>
 
                         {this.props.width === 'xs' || this.props.width === 'sm' || this.props.width === 'md' ? 

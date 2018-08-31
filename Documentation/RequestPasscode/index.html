@@ -26,6 +26,16 @@
               
                 
                 <li><a
+                  href='#requestpasscode'
+                  class="">
+                  requestPasscode
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
                   href='#createkuwaid'
                   class="">
                   CreateKuwaId
@@ -64,6 +74,56 @@
                 
                 </li>
               
+                
+                <li><a
+                  href='#callback'
+                  class="">
+                  callback
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#expiredcallback'
+                  class="">
+                  expiredCallback
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#resetrecaptcha'
+                  class="">
+                  resetRecaptcha
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#rendercontent'
+                  class="">
+                  renderContent
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#kuwapasscoderequested'
+                  class="">
+                  kuwaPasscodeRequested
+                  
+                </a>
+                
+                </li>
+              
             </ul>
           </div>
           <div class='mt1 h6 quiet'>
@@ -72,6 +132,75 @@
         </div>
       </div>
       <div id='split-right' class='relative overflow-auto height-viewport-100'>
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='requestpasscode'>
+      requestPasscode
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>the function that makes the Post request to the backend API at the sponsor for requesting a passcode.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>requestPasscode(fullName: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, email: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>fullName</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>email</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
         
           
           <section class='p2 mb2 clearfix bg-white minishadow'>
@@ -275,6 +404,305 @@
   
   
 
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='callback'>
+      callback
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>The onload Callback function for Recaptcha</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>callback</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='expiredcallback'>
+      expiredCallback
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>The callback function for Captcha expiration</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>expiredCallback</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='resetrecaptcha'>
+      resetRecaptcha
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>function for resetting reCaptcha once it expires</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>resetRecaptcha</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='rendercontent'>
+      renderContent
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Conditional rendering function for rendering the form for requesting passcode.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>renderContent</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>props</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>state</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>setState</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='kuwapasscoderequested'>
+      kuwaPasscodeRequested
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>The conditional rendering function for rendering the success page after requesting a passcode.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>kuwaPasscodeRequested</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>props</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>state</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>setState</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    )
+
+          </div>
+          
+        </div>
+      
+    </div>
   
 
   

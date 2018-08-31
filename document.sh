@@ -11,6 +11,7 @@ mkdir Documentation
 echo =================================================================
 echo Creating package.json
 npm init -y
+
 echo =================================================================
 echo Installing documentation\.js
 npm i --save-dev documentation

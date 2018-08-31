@@ -4,7 +4,7 @@
  * 
  * This simulation is very simple and only tests the beginning phase of the Poker protocol.
  * Future implementations will give losing Registrars the ability to to challenge a majority vote:
- * 
+  
     There are three Registrars.
 	Each Registrar bets 1 Kuwa Token on a KR.
 	The KR’s Sponsor also contributes 1 Kuwa Token (transaction fee or incentive ante).
@@ -125,7 +125,7 @@ var run = async function() {
     let aliceCommit = "0x37e9ace32975b54d672f5f5535943ad91657e8745e0a740f13ba638157f3b329";
     // Bob: keccak256(1, "0xfff23244") Bob votes "Valid" or 1 (type uint) with a salt of "0xfff23244" (type bytes32)
     let bobCommit = "0x5ba0e331251da5367c55afa3e15936307c2ff51552fed2d4678b1704f9bf46cf";
-    // Carlos: keccak256(0, "0xfff23245") Bob votes "Invalid" or 0 (type uint) with a salt of "0xfff23244" (type bytes32)
+    // Carlos: keccak256(0, "0xfff23245") Carlos votes "Invalid" or 0 (type uint) with a salt of "0xfff23245" (type bytes32)
     let carlosCommit = "0x7563dc86731c4d9242ca545a11171d0b710f9bf924444444ab015ff10d93603d";
 
     // Gas values. Feel free to modify these gas values if they are not sufficient...

@@ -7,6 +7,15 @@ This repository contains the Kuwa Identity Platform and The Crypto Universal Bas
 We are developing a cryptocurrency "faucet" to deliver a universal basic income (UBI). As part of the project, we will implement the Kuwa identity system.
 A high-level description of the project can be found [here](http://www.kuwa.org/Kuwa-Driven_Basic_Income_Faucet.pdf).
 
+## Version
+
+* 0.5.0
+
+## Release History
+
+* 0.5.0
+    * PRE-ALPHA: Working prototype
+
 ## Getting Started
 
 The purpose of these instructions is to help you get the modules in this project running.

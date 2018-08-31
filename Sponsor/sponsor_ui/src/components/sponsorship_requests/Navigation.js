@@ -10,7 +10,7 @@ class Navigation extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            toolbarTitle: "The Kuwa Foundation",
+            toolbarTitle: "Demo Site",
             dropdowns: {},
             drawerOpen: false
         }
@@ -56,9 +56,15 @@ class Navigation extends Component {
             dropdowns: this.state.dropdowns,
             drawerOpen: this.state.drawerOpen
         })
+	return (
+            <GeneralNavigation props={this.newProps}/>
+        );
+	// Only return the extra link for requesting a passcode if the implementation requires a passcode.
+	/*
         return (
             <GeneralNavigation props={this.newProps} extraNavigationLinks={requestYourPasscode} />
         );
+	*/
     }
 }
 

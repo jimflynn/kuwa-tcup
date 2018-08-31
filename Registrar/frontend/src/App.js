@@ -17,7 +17,7 @@ class App extends Component {
                     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" />
                     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
                     <img src={logo} className="App-logo" alt="logo"/>
-                    <h1 className="App-title">Kuwa Registrar Database (Moe)</h1>
+                    <h1 className="App-title">Kuwa Registrar</h1>
                 </header>
 
                 <div className="body">

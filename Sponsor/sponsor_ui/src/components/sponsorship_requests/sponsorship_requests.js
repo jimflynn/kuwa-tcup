@@ -58,25 +58,6 @@ class SponsorshipRequests extends Component {
           this.setState({sponsorship_requests : res.data.sponsorship_requests});
           this.setState({isLoading : false});
         })}, 1000);
-
-    //example get request to verify ajax is working
-
-    // axios.get('https://api.iextrading.com/1.0/ref-data/symbols')
-    //      .then(res => {
-    //       console.log(res.data);
-    //       this.setState({sponsorship_requests : res.data[0]});
-    //     })      
-
-    //update: it is working but ajax cant track changes in database without a page refresh.
-
-    // axios.get('/sponsorship_requests/MySharedSecretKey')
-    //      .then(res => {
-    //       console.log(res.data);
-    //       this.setState({sponsorship_requests : res.data.sponsorship_requests});
-    //     })      
-
-
-
    }
 
   componentWillUnmount() {
@@ -92,7 +73,7 @@ class SponsorshipRequests extends Component {
             
               <TableHeaderColumn dataField="timestamp" filter={ { type: 'TextFilter', delay: 200 }} isKey dataSort> Time </TableHeaderColumn>
               <TableHeaderColumn dataField="ip" filter={ { type: 'TextFilter', delay: 200 }} dataSort> IP Address </TableHeaderColumn>
-              <TableHeaderColumn dataField="client_address" filter={ { type: 'TextFilter', delay: 200 }} dataSort> Kuwa ID(Address)</TableHeaderColumn>
+              <TableHeaderColumn dataField="client_address" filter={ { type: 'TextFilter', delay: 200 }} dataSort> Kuwa ID (Ethereum Address)</TableHeaderColumn>
               <TableHeaderColumn dataField="contract_address" filter={ { type: 'TextFilter', delay: 200 }} dataSort dataFormat={blockLinks} > Registration Contract Address</TableHeaderColumn>
 
         </BootstrapTable>

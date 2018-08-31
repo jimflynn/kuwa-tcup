@@ -22,6 +22,8 @@
 
     It will then store this information into the 'registration' table of the MySQL DB so that
     one can quickly retrieve Kuwa client addresses with a certain status.
+
+    This program should be run as a cron job to get the most recent statuses of the clients.
  */
 
 const fs = require('fs');

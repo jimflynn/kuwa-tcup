@@ -21,16 +21,26 @@ import {isMobile} from "react-device-detect";
 import Recaptcha from 'react-recaptcha';
 import {recaptcha} from "./recaptcha"
 import axios from 'axios';
+// import fs from 'fs';
+
+// let properties = fs.readFileSync(".config.json"); 
+//properties = JSON.parse(properties);
 
 
 // site key
 const sitekey = '6LfcxWkUAAAAAJ5g4t2PO1_5K6Y1HS4eMfLoziHM';
 
-// specifying your onload callback function
+/**
+ * The onload Callback function for Recaptcha
+ */
+
 const callback = () => {
   console.log('done');
 };
 
+/**
+ * The callback function for Captcha expiration
+ */
 const expiredCallback = () => {
   console.log('Recaptcha expired');
 };
@@ -38,7 +48,9 @@ const expiredCallback = () => {
 // define a variable to store the recaptcha instance
 let recaptchaInstance;
 
-// handle reset
+/**
+ * function for resetting reCaptcha once it expires
+ */
 const resetRecaptcha = () => {
   recaptchaInstance.reset();
 };
@@ -58,12 +70,6 @@ const styles = theme => ({
     }
 });
 
-// const verifyCallback = (response) => {
-//         console.log(response);
-//         //this.setState({'g-recaptcha-response' : response});
-//     };
-
-
 class RequestPasscode extends Component{
     constructor(props){
         super(props);
@@ -73,17 +79,7 @@ class RequestPasscode extends Component{
             purpose : "",
             isRequested: false
         };
-
-    //this.verifyCallback = this.verifyCallback.bind(this);
-
     }
-
-    // verifyCallback = (response) => {
-    //     console.log(response);
-    //     //this.setState({'g-recaptcha-response' : response});
-    // };
-
-
 
     render() {
         const { classes } = this.props;
@@ -108,6 +104,12 @@ class RequestPasscode extends Component{
     }
 }
 
+/**
+ * Conditional rendering function for rendering the form for requesting passcode.
+ * @param  {object} props
+ * @param  {object} state
+ * @param  {object} setState
+ */
 const renderContent = (props, state, setState) =>  (
     <div>
     <Typography variant="title" align="left" style={{margin: "1em"}}>
@@ -216,6 +218,12 @@ const renderContent = (props, state, setState) =>  (
     </div>
 )
 
+/**
+ * The conditional rendering function for rendering the success page after requesting a passcode.
+ * @param  {object} props     
+ * @param  {object} state     
+ * @param  {object} setState)            
+ */
 const kuwaPasscodeRequested = (props, state, setState) =>  (
     <div align="center" style={{margin: "1em"}}>
     Your Kuwa Passcode has been sent to the Email address you provided.

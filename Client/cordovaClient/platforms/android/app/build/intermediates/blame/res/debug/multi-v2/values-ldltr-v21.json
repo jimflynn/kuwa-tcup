@@ -1,0 +1,26 @@
+{
+    "logs": [
+        {
+            "outputFile": "/var/deploy/tcup/Client/cordovaClient/platforms/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ldltr-v21/values-ldltr-v21.xml",
+            "map": [
+                {
+                    "source": "/home/carlos/.gradle/caches/transforms-1/files-1.1/appcompat-v7-23.1.0.aar/1b009d0fc2604b3bcbf6e9532386d2d9/res/values-ldltr-v21/values-ldltr-v21.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "4",
+                        "startOffsets": "298",
+                        "endColumns": "112",
+                        "endOffsets": "406"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "112",
+                        "endOffsets": "163"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,27 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /var/deploy/tcup/Client/cordovaClient/platforms/android/CordovaLib/AndroidManifest.xml:20:1-23:12
+INJECTED from /var/deploy/tcup/Client/cordovaClient/platforms/android/CordovaLib/AndroidManifest.xml:20:1-23:12
+INJECTED from /var/deploy/tcup/Client/cordovaClient/platforms/android/CordovaLib/AndroidManifest.xml:20:1-23:12
+INJECTED from /var/deploy/tcup/Client/cordovaClient/platforms/android/CordovaLib/AndroidManifest.xml:20:1-23:12
+INJECTED from /var/deploy/tcup/Client/cordovaClient/platforms/android/CordovaLib/AndroidManifest.xml:20:1-23:12
+INJECTED from /var/deploy/tcup/Client/cordovaClient/platforms/android/CordovaLib/AndroidManifest.xml:20:1-23:12
+INJECTED from /var/deploy/tcup/Client/cordovaClient/platforms/android/CordovaLib/AndroidManifest.xml:20:1-23:12
+	package
+		ADDED from /var/deploy/tcup/Client/cordovaClient/platforms/android/CordovaLib/AndroidManifest.xml:21:7-35
+		INJECTED from /var/deploy/tcup/Client/cordovaClient/platforms/android/CordovaLib/AndroidManifest.xml
+		INJECTED from /var/deploy/tcup/Client/cordovaClient/platforms/android/CordovaLib/AndroidManifest.xml
+	android:versionName
+		ADDED from /var/deploy/tcup/Client/cordovaClient/platforms/android/CordovaLib/AndroidManifest.xml:21:36-61
+		INJECTED from /var/deploy/tcup/Client/cordovaClient/platforms/android/CordovaLib/AndroidManifest.xml
+		INJECTED from /var/deploy/tcup/Client/cordovaClient/platforms/android/CordovaLib/AndroidManifest.xml
+	xmlns:android
+		ADDED from /var/deploy/tcup/Client/cordovaClient/platforms/android/CordovaLib/AndroidManifest.xml:20:11-69
+	android:versionCode
+		ADDED from /var/deploy/tcup/Client/cordovaClient/platforms/android/CordovaLib/AndroidManifest.xml:21:62-85
+		INJECTED from /var/deploy/tcup/Client/cordovaClient/platforms/android/CordovaLib/AndroidManifest.xml
+		INJECTED from /var/deploy/tcup/Client/cordovaClient/platforms/android/CordovaLib/AndroidManifest.xml
+uses-sdk
+ADDED from /var/deploy/tcup/Client/cordovaClient/platforms/android/CordovaLib/AndroidManifest.xml:22:5-44
+	android:minSdkVersion
+		ADDED from /var/deploy/tcup/Client/cordovaClient/platforms/android/CordovaLib/AndroidManifest.xml:22:15-41

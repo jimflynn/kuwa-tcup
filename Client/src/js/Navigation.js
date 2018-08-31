@@ -30,9 +30,15 @@ class Navigation extends React.Component {
                 </div>
             )
         } else {
+	    return (
+                <GeneralNavigation props={this.props} />
+            );
+	    // Only pass back the requestYourPasscode link when a passcode is required.
+	    /*
             return (
                 <GeneralNavigation props={this.props} extraNavigationLinks={requestYourPasscode} />
             );
+	    */
         }
     }
 }
@@ -42,7 +48,7 @@ const mobileAppToolbar = (props) => (
         <Toolbar>
 
             <Typography variant="title" color="inherit" style={{flexGrow: 1}}>
-                {props.toolbarTitle ? props.toolbarTitle : "The Kuwa Foundation"}
+                {props.toolbarTitle ? props.toolbarTitle : "Demo Site"}
             </Typography>
 
         </Toolbar>
@@ -51,7 +57,7 @@ const mobileAppToolbar = (props) => (
 
 const mapStateToProps = state => {
     return {
-        toolbarTitle: "The Kuwa Foundation",
+        toolbarTitle: "Demo Site",
         dropdowns: state.screenReducer.dropdowns,
         drawerOpen: state.screenReducer.drawerOpen
     }

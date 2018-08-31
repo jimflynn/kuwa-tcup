@@ -1,3 +1,9 @@
+NOTE:
+
+`scan.js`  should be run as a cron job to get the most recent statuses of the clients.
+The API server `server.js` must be running before the client/ React UI is started.
+
+
 TODO:
 
 - Figure out how to populate the 'application_binary_interface' table and store and retrieve the ABI.

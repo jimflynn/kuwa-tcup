@@ -6,7 +6,7 @@ class Navigation extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            toolbarTitle: "The Kuwa Foundation",
+            toolbarTitle: "Demo Site",
             dropdowns: {},
             drawerOpen: false
         }

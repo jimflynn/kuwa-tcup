@@ -1,6 +1,6 @@
 {
-	"web3Connection": "https://rinkeby.infura.io/234HUkjk",
-	"KuwaCoinWalletAddr": "0x0as3233FR",
+	"web3Connection": "https://rinkeby.infura.io/[GET FROM INFURA]",
+	"KuwaCoinWalletAddr": "[ETHEREUM ADDRESS HERE",
 	"KuwaCoinContractAddr": "0xHIUK56",
-	"KuwaCoinWalletPrivKey": "3e234234kHKjkh123"
+	"KuwaCoinWalletPrivKey": "[ETHEREUM PRIVATE KEY HERE]"
 }

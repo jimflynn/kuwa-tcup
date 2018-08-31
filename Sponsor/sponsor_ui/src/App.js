@@ -24,7 +24,7 @@ class App extends Component {
                 <Grid item xs={12} sm={10} md={8} lg={6} xl={6}>
                     <Paper elevation={1} style={{margin: 20}}>
 
-                        { paperHeader("Welcome to Louise Sponsor")}
+                        { paperHeader("Kuwa Sponsor")}
 
                         
                
