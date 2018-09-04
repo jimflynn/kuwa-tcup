@@ -1,11 +1,15 @@
+const fs = require('fs');
 const mysql   = require('mysql');
+
+var props = fs.readFileSync("/var/deploy/tcup/Registrar/private_properties.json", "utf-8");
+props = JSON.parse(props);
 
 let pool = mysql.createPool({
 	connectionLimit : 100,
-	host: "localhost",
-	user: "moe",
-	password: "Moe@Alpha123",
-	database: "alpha_kuwa_registrar_moe",
+	host: props["sqlhost"],
+	user: props["sqluser"],
+	password: props["sqlpassword"],
+	database: props["sqldatabase"],
 	timezone : 'local',
 	dateStrings : true
 });

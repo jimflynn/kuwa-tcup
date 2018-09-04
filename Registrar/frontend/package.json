@@ -1,7 +1,7 @@
 {
   "name": "registrar",
-  "version": "1.0.0",
-  "description": "Kuwa Registrar",
+  "version": "0.5.0",
+  "description": "Kuwa Registrar User Interface",
   "proxy": "https://alpha.kuwa.org:3006",
   "homepage": "https://alpha.kuwa.org/registrar/moe",
   "dependencies": {
