@@ -1,0 +1,1303 @@
+
+> sponsor_ui@0.1.0 start /var/deploy/tcup/Sponsor/sponsor_ui
+> PORT=3001 react-scripts start
+
+Starting the development server...
+
+Compiled with warnings.
+
+./src/App.js
+  Line 2:  'logo' is defined but never used         no-unused-vars
+  Line 5:  'Button' is defined but never used       no-unused-vars
+  Line 6:  'Navbar' is defined but never used       no-unused-vars
+  Line 7:  'NavbarBrand' is defined but never used  no-unused-vars
+
+./src/components/sponsorship_requests/sponsorship_requests.js
+  Line 4:   'Popup' is defined but never used                 no-unused-vars
+  Line 9:   'Collapse' is defined but never used              no-unused-vars
+  Line 10:  'Navbar' is defined but never used                no-unused-vars
+  Line 11:  'NavbarToggler' is defined but never used         no-unused-vars
+  Line 12:  'NavbarBrand' is defined but never used           no-unused-vars
+  Line 13:  'Nav' is defined but never used                   no-unused-vars
+  Line 14:  'NavItem' is defined but never used               no-unused-vars
+  Line 15:  'NavLink' is defined but never used               no-unused-vars
+  Line 16:  'UncontrolledDropdown' is defined but never used  no-unused-vars
+  Line 17:  'DropdownToggle' is defined but never used        no-unused-vars
+  Line 18:  'DropdownMenu' is defined but never used          no-unused-vars
+  Line 19:  'DropdownItem' is defined but never used          no-unused-vars
+  Line 19:  'Button' is defined but never used                no-unused-vars
+  Line 19:  'Modal' is defined but never used                 no-unused-vars
+  Line 19:  'ModalHeader' is defined but never used           no-unused-vars
+  Line 19:  'ModalBody' is defined but never used             no-unused-vars
+  Line 19:  'ModalFooter' is defined but never used           no-unused-vars
+
+./src/components/sponsorship_requests/Navigation.js
+  Line 4:   'requestYourPasscode' is assigned a value but never used  no-unused-vars
+  Line 52:  'extraLinks' is assigned a value but never used           no-unused-vars
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+The build failed because the process exited too early. This probably means the system ran out of memory or someone called `kill -9` on the process.
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! sponsor_ui@0.1.0 start: `PORT=3001 react-scripts start`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the sponsor_ui@0.1.0 start script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/jflynn/.npm/_logs/2018-08-31T13_21_10_521Z-debug.log
+
+> sponsor_ui@0.1.0 start /var/deploy/tcup/Sponsor/sponsor_ui
+> PORT=3001 react-scripts start
+
+Starting the development server...
+
+Compiled with warnings.
+
+./src/App.js
+  Line 2:  'logo' is defined but never used         no-unused-vars
+  Line 5:  'Button' is defined but never used       no-unused-vars
+  Line 6:  'Navbar' is defined but never used       no-unused-vars
+  Line 7:  'NavbarBrand' is defined but never used  no-unused-vars
+
+./src/components/sponsorship_requests/sponsorship_requests.js
+  Line 4:   'Popup' is defined but never used                 no-unused-vars
+  Line 9:   'Collapse' is defined but never used              no-unused-vars
+  Line 10:  'Navbar' is defined but never used                no-unused-vars
+  Line 11:  'NavbarToggler' is defined but never used         no-unused-vars
+  Line 12:  'NavbarBrand' is defined but never used           no-unused-vars
+  Line 13:  'Nav' is defined but never used                   no-unused-vars
+  Line 14:  'NavItem' is defined but never used               no-unused-vars
+  Line 15:  'NavLink' is defined but never used               no-unused-vars
+  Line 16:  'UncontrolledDropdown' is defined but never used  no-unused-vars
+  Line 17:  'DropdownToggle' is defined but never used        no-unused-vars
+  Line 18:  'DropdownMenu' is defined but never used          no-unused-vars
+  Line 19:  'DropdownItem' is defined but never used          no-unused-vars
+  Line 19:  'Button' is defined but never used                no-unused-vars
+  Line 19:  'Modal' is defined but never used                 no-unused-vars
+  Line 19:  'ModalHeader' is defined but never used           no-unused-vars
+  Line 19:  'ModalBody' is defined but never used             no-unused-vars
+  Line 19:  'ModalFooter' is defined but never used           no-unused-vars
+
+./src/components/sponsorship_requests/Navigation.js
+  Line 4:   'requestYourPasscode' is assigned a value but never used  no-unused-vars
+  Line 52:  'extraLinks' is assigned a value but never used           no-unused-vars
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+The build failed because the process exited too early. This probably means the system ran out of memory or someone called `kill -9` on the process.
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! sponsor_ui@0.1.0 start: `PORT=3001 react-scripts start`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the sponsor_ui@0.1.0 start script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/jflynn/.npm/_logs/2018-08-31T13_55_26_682Z-debug.log
+
+> sponsor_ui@0.1.0 start /var/deploy/tcup/Sponsor/sponsor_ui
+> PORT=3001 react-scripts start
+
+Starting the development server...
+
+Compiled with warnings.
+
+./src/App.js
+  Line 2:  'logo' is defined but never used         no-unused-vars
+  Line 5:  'Button' is defined but never used       no-unused-vars
+  Line 6:  'Navbar' is defined but never used       no-unused-vars
+  Line 7:  'NavbarBrand' is defined but never used  no-unused-vars
+
+./src/components/sponsorship_requests/sponsorship_requests.js
+  Line 4:   'Popup' is defined but never used                 no-unused-vars
+  Line 9:   'Collapse' is defined but never used              no-unused-vars
+  Line 10:  'Navbar' is defined but never used                no-unused-vars
+  Line 11:  'NavbarToggler' is defined but never used         no-unused-vars
+  Line 12:  'NavbarBrand' is defined but never used           no-unused-vars
+  Line 13:  'Nav' is defined but never used                   no-unused-vars
+  Line 14:  'NavItem' is defined but never used               no-unused-vars
+  Line 15:  'NavLink' is defined but never used               no-unused-vars
+  Line 16:  'UncontrolledDropdown' is defined but never used  no-unused-vars
+  Line 17:  'DropdownToggle' is defined but never used        no-unused-vars
+  Line 18:  'DropdownMenu' is defined but never used          no-unused-vars
+  Line 19:  'DropdownItem' is defined but never used          no-unused-vars
+  Line 19:  'Button' is defined but never used                no-unused-vars
+  Line 19:  'Modal' is defined but never used                 no-unused-vars
+  Line 19:  'ModalHeader' is defined but never used           no-unused-vars
+  Line 19:  'ModalBody' is defined but never used             no-unused-vars
+  Line 19:  'ModalFooter' is defined but never used           no-unused-vars
+
+./src/components/sponsorship_requests/Navigation.js
+  Line 4:   'requestYourPasscode' is assigned a value but never used  no-unused-vars
+  Line 52:  'extraLinks' is assigned a value but never used           no-unused-vars
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+

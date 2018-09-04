@@ -1,0 +1,24 @@
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+# User specific aliases and functions
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export PATH=$PATH:/var/deploy/tcup/Client/gradle-4.9/bin
+
+export ANDROID_HOME=/var/deploy/tcup/Client/android-sdk
+
+export PATH=$PATH:/var/deploy/tcup/Client/android-sdk/tools
+
+export PATH=$PATH:/var/deploy/tcup/Client/android-sdk/platform-tools
+
+export PATH=$PATH:/var/deploy/tcup/Cleint/android-sdk/build-tools
+
+export PATH=$PATH:/var/deploy/tcup/Client/android-sdk/tools/bin
