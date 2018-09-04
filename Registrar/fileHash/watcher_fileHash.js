@@ -15,9 +15,9 @@ const keythereum = require('keythereum');
 const web3       = new Web3('https://rinkeby.infura.io/8Dx9RdhjqIl1y3EQzQpl');
 
 const pool           = require("../mysql_pool.js");
-const properties     = JSON.parse(fs.readFileSync("../properties.json", "utf-8"));
+const properties     = JSON.parse(fs.readFileSync("../private_properties.json", "utf-8"));
 const walletPath     = properties.walletPath;
-const walletAddress  = "0x" + properties.accountAddress.toString("hex");
+const walletAddress  = "0x" + properties.walletAccountAddress.toString("hex");
 const walletPassword = properties.password;
 var   walletNonce    = 0;
 
@@ -28,13 +28,13 @@ var dictionary = {};
  * @function loadWallet 
  * @description Loads an Ethereum wallet file using a specified path, address and password.
  * @param   {String} walletPath     - The path to the registrar's wallet JSON file.
- * @param   {String} accountAddress - Ethereum address of the registrar's wallet.
+ * @param   {String} walletAccountAddress - Ethereum address of the registrar's wallet.
  * @param   {String} password       - Password to the registrar's wallet.
  * @returns {void}
  */
-var loadWallet = async function (walletPath, accountAddress, password) {
+var loadWallet = async function (walletPath, walletAccountAddress, password) {
 	web3.eth.accounts.wallet.clear();
-	var keyObject = keythereum.importFromFile(accountAddress, walletPath);
+	var keyObject = keythereum.importFromFile(walletAccountAddress, walletPath);
 	var privateKey = keythereum.recover(properties.password, keyObject);
 	privateKey = "0x" + privateKey.toString("hex");
 	web3.eth.accounts.wallet.add(privateKey);

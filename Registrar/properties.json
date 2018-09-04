@@ -1,5 +1,9 @@
 {
-	"walletPath" : "/var/deploy/tcup/Registrar",
-	"accountAddress" : "f8ab93792c669f30954c0f0b0e25df46bdb59136", 
-	"password" : "wheethereum"
+	"walletPath"     : "Your_walletPath_here",
+	"accountAddress" : "Your_accountAddress_here", 
+	"password"       : "Your_password_here",
+	"sqlhost"        : "Your_sqlhost_here",
+	"sqluser"        : "Your_sqluser_here",
+	"sqlpassword"    : "Your_sqlpassword_here",
+	"sqldatabase"    : "Your_sqldatabase_here"
 }
