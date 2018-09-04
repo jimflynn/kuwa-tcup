@@ -255,7 +255,11 @@ export function webUploadToStorage(videoBlob, kuwaId, abi, contractAddress) {
                     fetch(config.enablePasscodeUrl)
                         .then(a => a.json())
                         .then(json => {
-                            if (json.message.Client.enableRegistrationCongrats) {
+                            let enc = new TextDecoder("utf-8")
+                            let arr = new Uint8Array(json.message.data)
+                            let decodedMessage = JSON.parse(enc.decode(arr))
+
+                            if (decodedMessage.Client.enableRegistrationCongrats) {
                                 dispatch(push('/Success'))
                             } else {
                                 dispatch(push('/YourKuwaId'))

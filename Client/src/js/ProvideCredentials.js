@@ -59,18 +59,22 @@ class ProvideCredentials extends Component {
     async componentDidMount() {
         await fetch(config.enablePasscodeUrl)
             .then(a => a.json())
-            .then(json => window.config = json)
-        this.setState({ passcode: window.config.message.Client.enablePasscode ? "" : "Test" })
+            .then(json => {
+                let enc = new TextDecoder("utf-8")
+                let arr = new Uint8Array(json.message.data)
+                window.config = JSON.parse(enc.decode(arr))
+
+            })
+        this.setState({ passcode: window.config.Client.enablePasscode ? "" : "Test" })
         this.forceUpdate()
     }
 
     constructor(props) {
         super(props);
         window.config = window.config || {}
-        window.config.message = window.config.message || {}
-        window.config.message.Client = window.config.message.Client || {}
+        window.config.Client = window.config.Client || {}
         this.state = {
-            passcode: window.config.message.Client.enablePasscode ? "" : "Test",
+            passcode: window.config.Client.enablePasscode ? "" : "Test",
             kuwaPassword: ""
         }
     }
@@ -106,7 +110,7 @@ const renderProvideCredentials = (props, state, setState) =>  (
         Kuwa registrations must have a sponsor. <strong>The Kuwa Foundation</strong> is the sponsor of your Kuwa Basic Income Registration. For credentials, we only require that you enter a passcode. If you do not have a passcode, please go to <a href={ config.requestPasscodeUrl } target="_blank">http://kuwa.org</a> to request one.
     </Typography>
 
-    { window.config.message.Client.enablePasscode ? 
+    { window.config.Client.enablePasscode ? 
     <Grid>
         <FormControl style={{width: "100%"}} className={classNames(props.classes.margin, props.classes.textField)}>
             <InputLabel htmlFor="adornment-passcode">Enter the passcode we emailed you</InputLabel>
