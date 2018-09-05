@@ -1,9 +1,0 @@
-{
-	"walletPath"           : "/var/deploy/tcup/Registrar",
-	"walletAccountAddress" : "f8ab93792c669f30954c0f0b0e25df46bdb59136", 
-	"walletPassword"       : "wheethereum",
-	"sqlhost"        : "localhost",
-	"sqluser"        : "moe",
-	"sqlpassword"    : "Moe@Alpha123",
-	"sqldatabase"    : "alpha_kuwa_registrar_moe"
-}

@@ -1,7 +1,7 @@
 const fs = require('fs');
 const mysql   = require('mysql');
 
-var props = fs.readFileSync("/var/deploy/tcup/Registrar/private_properties.json", "utf-8");
+var props = fs.readFileSync("/var/deploy/tcup/Registrar/properties_private.json", "utf-8");
 props = JSON.parse(props);
 
 let pool = mysql.createPool({

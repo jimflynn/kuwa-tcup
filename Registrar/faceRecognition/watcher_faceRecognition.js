@@ -12,10 +12,10 @@ const sprintf    = require("sprintf-js").sprintf;
 const crypto     = require('crypto');
 const Web3       = require('web3');
 const keythereum = require('keythereum');
-const web3       = new Web3('https://rinkeby.infura.io/8Dx9RdhjqIl1y3EQzQpl');
 
 const pool           = require("../mysql_pool.js");
-const properties     = JSON.parse(fs.readFileSync("../private_properties.json", "utf-8"));
+const properties     = JSON.parse(fs.readFileSync("../properties_private.json", "utf-8"));
+const web3           = new Web3('https://rinkeby.infura.io/' + properties.infuraKey);
 const walletPath     = properties.walletPath;
 const walletAddress  = "0x" + properties.walletAccountAddress.toString("hex");
 const walletPassword = properties.walletPassword;
