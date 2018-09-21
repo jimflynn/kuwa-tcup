@@ -1,4 +1,7 @@
 #!/bin/bash
+
+# This scrips rebuilds the Web client. It will store the new version in the "webBuild" directory.
+
 rm -rf cordovaClient/www
 npm run build
 

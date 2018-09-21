@@ -1,6 +1,6 @@
 var mysql = require('mysql');
 var fs = require("fs");
-var properties = fs.readFileSync(".config.json"); 
+var properties = fs.readFileSync("config_private.json"); 
 properties = JSON.parse(properties);
 
 var pool = mysql.createPool({

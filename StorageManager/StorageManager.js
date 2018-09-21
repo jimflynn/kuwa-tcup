@@ -16,6 +16,12 @@ var app = express();
 var https = require('https');
 var http = require('http');
 
+var properties = fs.readFileSync("config_private.json"); 
+properties = JSON.parse(properties);
+
+console.log("sharedSecret="+properties['sharedSecret']);
+console.log("sslKeyFile="+properties['sslKeyFile']);
+console.log("sslCertFile="+properties['sslCertFile']);
 
 var options = {
  key: fs1.readFileSync('/etc/httpd/conf/ssl.key/server.key'),

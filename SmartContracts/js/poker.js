@@ -23,8 +23,8 @@
  *  After the reveal process ends, the Sponsor decides the majority vote which then becomes the final status of the Kuwa client.
  *  The winning Registrars are then responsible for claiming their reward.
  * 
- *  This file requires the 'wallet.json' configuration file and the './keystore' directory to run the simulation.
- *  './wallets.json' contains the public Ethereum wallet addresses of all the participants in the simulation
+ *  This file requires the 'wallets_private.json' configuration file and the './keystore' directory to run the simulation.
+ *  './wallets_private.json' contains the public Ethereum wallet addresses of all the participants in the simulation
  *  './keystore' directory contains information to import the private keys of these participants (using keythereum)
  */
 var Web3 = require('web3');
@@ -35,8 +35,8 @@ var util = require('util');
 var md5 = require('md5');
 
 var web3 = new Web3();
-// Set the web3 HTTP provider to access the Ethereum test network given by the url in 'wallets.json'
-web3.setProvider(new web3.providers.HttpProvider(JSON.parse(fs.readFileSync('wallets.json')).eth_network_url));
+// Set the web3 HTTP provider to access the Ethereum test network given by the url in 'wallets_private.json'
+web3.setProvider(new web3.providers.HttpProvider(JSON.parse(fs.readFileSync('wallets_private.json')).eth_network_url));
 
 // This function compiles the solidity file. Similar to truffle compile, but it is done here.
 var compileSolFile = async function(solFilePath, contractName) {
@@ -134,7 +134,7 @@ var run = async function() {
     
 
     // Load the wallets (Externally Owned Accounts) of all participants in the poker protocol simulation.
-    let wallets = JSON.parse(fs.readFileSync('wallets.json')); 
+    let wallets = JSON.parse(fs.readFileSync('wallets_private.json')); 
     let kuwaWallet = await loadWallet(wallets.keystore_dir, wallets.kuwa_foundation, wallets.password);
     let sponsorWallet = await loadWallet(wallets.keystore_dir, wallets.sponsor, wallets.password);
     let aliceWallet = await loadWallet(wallets.keystore_dir, wallets.alice, wallets.password);

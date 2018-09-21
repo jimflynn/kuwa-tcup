@@ -6,7 +6,7 @@ const crypto = require('crypto');
 
 const fs = require("fs");
 
-let properties = fs.readFileSync(".config.json");
+let properties = fs.readFileSync("./config_private.json");
 
 properties = JSON.parse(properties);
 

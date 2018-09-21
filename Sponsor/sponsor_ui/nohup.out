@@ -1301,3 +1301,23 @@ Compiled with warnings.
 Search for the keywords to learn more about each warning.
 To ignore, add // eslint-disable-next-line to the line before.
 
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+Proxy error: Could not proxy request /sponsorship_requests/Test from alpha.kuwa.org:3001 to https://alpha.kuwa.org:3000.
+See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+
+The build failed because the process exited too early. This probably means the system ran out of memory or someone called `kill -9` on the process.
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! sponsor_ui@0.1.0 start: `PORT=3001 react-scripts start`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the sponsor_ui@0.1.0 start script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/jflynn/.npm/_logs/2018-09-07T15_57_04_746Z-debug.log

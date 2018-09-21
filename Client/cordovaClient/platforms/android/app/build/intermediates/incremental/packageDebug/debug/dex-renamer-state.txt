@@ -1,4 +1,4 @@
-#Mon Sep 03 13:38:19 UTC 2018
+#Fri Sep 07 15:10:08 UTC 2018
 base.0=/var/deploy/tcup/Client/cordovaClient/platforms/android/app/build/intermediates/transforms/dexMerger/debug/0
 renamed.0=classes.dex
 file.0=/var/deploy/tcup/Client/cordovaClient/platforms/android/app/build/intermediates/transforms/dexMerger/debug/0/classes.dex

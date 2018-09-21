@@ -4,7 +4,7 @@ const router = express.Router();
 
 const fs = require("fs");
 
-let config = fs.readFileSync("/var/www/html/.config.json");
+let config = fs.readFileSync("./config_private.json");
 
 router.get('/',(req, res, next) => {
 

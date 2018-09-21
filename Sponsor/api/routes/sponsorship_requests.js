@@ -6,7 +6,7 @@ var util = require('util');
 const express = require("express");
 const router = express.Router();
 const fs = require("fs");
-var properties = fs.readFileSync(".config.json"); 
+var properties = fs.readFileSync("./config_private.json"); 
 var db = require("../../mysql_query");
 const qs = require('qs');
 var walletNonce = 0;
@@ -29,7 +29,7 @@ var compileSolFile = async function() {
     var output;
     try {
         let kuwaRegistrationInput = {
-            'ERC20Interface.sol': fs.readFileSync(properties['ERC20Interface'], 'utf8'),
+            'ERC20Interface.sol': fs.readFileSync(properties['ERC20interface'], 'utf8'),
             'SafeMath.sol': fs.readFileSync(properties['SafeMath'], 'utf8'),
             'Owned.sol': fs.readFileSync(properties['Owned'], 'utf8'),
             'KuwaToken.sol': fs.readFileSync(properties['KuwaToken'], 'utf8'),

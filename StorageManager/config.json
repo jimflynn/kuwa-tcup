@@ -1,0 +1,5 @@
+{	"_comment": "Enter apporpriate values. Then rename this file config_private.json.",
+	"shareSecret" : "[CREATE A SECRET STRING REQUIRED TO UPLOAD]",
+	"sslKeyFile" : "[FULL PATH TO SERVER SSL KEY]",
+	"sslCertFile" : "[FULL PATH TO SSL CERT FILE]"
+}

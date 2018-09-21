@@ -1,14 +1,15 @@
 {
     "requestUrl": {
-        "requestSponsorshipUrl": "https://alpha.kuwa.org:3000/sponsorship_requests/deployContract",
-        "setRegistrationStatusToUrl": "https://alpha.kuwa.org:3000/sponsorship_requests/setRegistrationStatusTo",
-        "addScannedKuwaIdUrl": "https://alpha.kuwa.org:3000/sponsorship_requests/addScannedKuwaId",
-        "uploadInformationUrl": "https://alpha.kuwa.org:3003/KuwaRegistration/"
+        "requestSponsorshipUrl": "[YOUR BASE SPONSOR URL]/sponsorship_requests/deployContract",
+        "setRegistrationStatusToUrl": "[YOUR BASE SPONSOR URL]/sponsorship_requests/setRegistrationStatusTo",
+        "addScannedKuwaIdUrl": "[YOUR BASE SPONSOR URL]/sponsorship_requests/addScannedKuwaId",
+        "uploadInformationUrl": "[YOUR BASE SPONSOR URL]/KuwaRegistration/"
     },
-    "requestPasscodeUrl": "http://alpha.kuwa.org:3007/",
+    "requestPasscodeUrl": "[YOUR BASE SPONSOR PASSCODE URL]",
     "baseUrl": "/client/",
-    "web3Provider": "https://rinkeby.infura.io/8Dx9RdhjqIl1y3EQzQpl",
+    "web3Provider": "https://rinkeby.infura.io/[YOUR INFURA API KEY]",
     "walletName": "kuwaWallet.json",
-    "enablePasscodeUrl": "https://alpha.kuwa.org:3000/getConfig/",
-    "kuwaCoinMetamaskLink": "http://alpha.kuwa.org/instructions/adding-kuwacoin-to-metamask.html"
+    "enablePasscodeUrl": "[YOUR BASE SPONSOR URL]/getConfig/",
+    "kuwaCoinMetamaskLink": "[URL OF A PAGE THAT INSTRUCTS USERS HOW TO ADD A CUSTOM TOKEN TO METAMASK]",
+    "sharedSecret" : "[A SECRET STRING USED TO HELP SECURE INTERPROCESS COMMUNICATION]"
 }

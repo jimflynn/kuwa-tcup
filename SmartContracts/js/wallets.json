@@ -1,11 +1,12 @@
 {   
-    "keystore_dir": "/home/jun/Documents/tcup/SmartContracts/js",
-    "password": "tcup",
-    "kuwa_foundation": "0x9b6464800f5a8c56f5c0cb9ba2dcb88d021537c4",
-    "sponsor": "0x5a9e7bc667433ef82626de8e0d8576dbccb10683",
-    "alice": "0xf09143dc2bf3994280651b826cee93e9ba82d7ce",
-    "bob": "0x80b2788f07e39c3c0d0cc32ef93daa7219e12675",
-    "carlos": "0x15dfa9080e9cf303b34cee297627ddcb14073c4e",
-    "client": "0x2140eFD7Ba31169c69dfff6CDC66C542f0211825",
-    "eth_network_url": "https://rinkeby.infura.io/8Dx9RdhjqIl1y3EQzQpl"
+    "_comment": "Enter apporpriate values. Then rename this file wallets_private.json.",
+    "keystore_dir": "[LOCAL DEPLOYMENT DIRECTORY]/SmartContracts/js",
+    "password": "[PASSWORD]",
+    "kuwa_foundation": "[ADDRESS]",
+    "sponsor": "[ADDRESS]",
+    "alice": "[ADDRESS]",
+    "bob": "[ADDRESS]",
+    "carlos": "[ADDRESS]",
+    "client": "[ADDRESS]",
+    "eth_network_url": "https://rinkeby.infura.io/[API KEY PROVIDED BY INFURA]"
 }

@@ -1,0 +1,27 @@
+{	"_comment": "Enter apporpriate values for all of the following properties. Then rename this file config_private.json.",
+	"SS" : "Test",
+	"walletPath" : "[PATH TO ETHEREUM WALLET DIRECTORY]",
+	"accountAddress" : "[ETHEREUM ADDRESS]", 
+	"password" : "[PASSWORD]",
+	"solFilePath" : "./KuwaRegistration.sol",
+	"provider" : "https://rinkeby.infura.io/[INFURA API KEY]",
+	"ERC20interface" : "/tcup/SmartContracts/contracts/ERC20Interface.sol",
+	"SafeMath" : "/tcup/SmartContracts/contracts/SafeMath.sol",
+	"Owned" : "/tcup/SmartContracts/contracts/Owned.sol",
+	"KuwaToken": "/tcup/SmartContracts/contracts/KuwaToken.sol",
+	"KuwaRegistration": "/tcup/SmartContracts/contracts/KuwaRegistration.sol",
+	"dummyAddress": "[ADDDRESS]",
+	"secret": "[SECRET]",
+	"mailHost": "[MAIL SERVER]",
+	"mailPort": 587,
+	"mailUser": "[EMAIL USER NAME]",
+	"mailPassword": "[EMAIL PASSWORD]",
+	"sqlhost": "localhost",
+	"sqluser": "[DB USER NAME]",
+	"sqlPass": "[DB PASSWORD]",
+	"db": "alpha_kuwa_sponsor_[INSTANCE NAME]",
+	"Client": {
+        	"enablePasscode": false,
+        	"enableRegistrationCongrats": true
+    	}
+}
