@@ -49,8 +49,17 @@ app.post('/KuwaRegistration', function (req, res){
   // parsing the form POST request
   form.parse(req, function(err, fields, files) {
 
-    console.log(files.ChallengeVideo.name);
-    console.log(fields);
+    //console.log(files.ChallengeVideo.name);
+    //console.log(fields);
+
+    //console.log('ss properties = '+properties['sharedSecret']);
+    //console.log('ss fields = '+fields.SharedSecret);
+    if ( properties['sharedSecret'] == fields.SharedSecret ) {
+	console.log('Secrets are the same.');
+    } else {
+	console.log('Secrets are not the same.');
+	return console.error('thanks');
+    }
 
     var oldpath = files.ChallengeVideo.path;
     var newpath = '/registrations/' + fields.ClientAddress + '/ChallengeVideo.mp4';

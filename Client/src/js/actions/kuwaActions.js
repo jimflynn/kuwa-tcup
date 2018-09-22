@@ -239,6 +239,7 @@ export function webUploadToStorage(videoBlob, kuwaId, abi, contractAddress) {
         formData.append('ChallengeVideo',videoBlob);
         formData.append('ContractABI',JSON.stringify(abi));
         formData.append('ContractAddress',contractAddress);
+	formData.append('SharedSecret',config.sharedSecret);
         fetch(config.requestUrl.uploadInformationUrl, {
             method: 'POST',
             body: formData
