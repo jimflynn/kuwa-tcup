@@ -127,6 +127,7 @@ class App extends Component {
       <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Directory of Kuwa IDs</h1>
+	  <p>Updated every five minutes</p>
       </header>
         <br/>
           { this.renderSelectBox() }

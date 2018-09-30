@@ -137,6 +137,19 @@ const renderYourKuwaId = (props, state, setState) => (
                             { props.qrStatus === "Scanning" ? "Stop scan" : "Scan an ID"}
                         </Button>
                     </Grid>
+
+		    <Grid item xs={6} align="center">
+                        <Button variant="contained" style={{backgroundColor: buttonColor}} onClick={() => {
+                                if (window.usingCordova) {
+                                    
+                                } else {
+                                    window.open('/basic_income_client/index.php?kuwaid='+props.kuwaId, '_blank');
+                                }
+                            }}>
+                            Get Income
+                        </Button>
+                    </Grid>
+
                     <Grid item xs={6} align="center">
                         <Button variant="contained" style={{backgroundColor: buttonColor}} onClick={() => {
                                 if (window.usingCordova) {
@@ -145,7 +158,7 @@ const renderYourKuwaId = (props, state, setState) => (
                                     props.persistState()
                                 }
                             }}>
-                            Export your ID
+                            Export ID
                         </Button>
                     </Grid>
                 </Grid>

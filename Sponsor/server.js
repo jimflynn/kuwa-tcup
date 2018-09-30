@@ -17,7 +17,7 @@ const server = http.createServer(app);
 
 server.listen(port, '0.0.0.0');
 
-console.log("Server listening on PORT " + port);
+console.log("Sponsor Server listening on PORT " + port);
 
 
 https.createServer(options, app).listen(3000);

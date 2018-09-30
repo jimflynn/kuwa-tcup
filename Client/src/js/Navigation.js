@@ -48,7 +48,7 @@ const mobileAppToolbar = (props) => (
         <Toolbar>
 
             <Typography variant="title" color="inherit" style={{flexGrow: 1}}>
-                {props.toolbarTitle ? props.toolbarTitle : "Demo Site"}
+                {props.toolbarTitle ? props.toolbarTitle : ""}
             </Typography>
 
         </Toolbar>
@@ -57,7 +57,7 @@ const mobileAppToolbar = (props) => (
 
 const mapStateToProps = state => {
     return {
-        toolbarTitle: "Demo Site",
+        toolbarTitle: "",
         dropdowns: state.screenReducer.dropdowns,
         drawerOpen: state.screenReducer.drawerOpen
     }

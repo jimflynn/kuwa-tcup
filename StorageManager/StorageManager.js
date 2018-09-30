@@ -56,14 +56,15 @@ app.post('/KuwaRegistration', function (req, res){
     //console.log('ss fields = '+fields.SharedSecret);
     if ( properties['sharedSecret'] == fields.SharedSecret ) {
 	console.log('Secrets are the same.');
+	delete fields.SharedSecret;
     } else {
 	console.log('Secrets are not the same.');
 	return console.error('thanks');
     }
 
     var oldpath = files.ChallengeVideo.path;
-    var newpath = '/registrations/' + fields.ClientAddress + '/ChallengeVideo.mp4';
-    var newInfoFilePath = '/registrations/'+fields.ClientAddress+'/'+'info.json';
+    var newpath = '/registrations/data/' + fields.ClientAddress + '/ChallengeVideo.mp4';
+    var newInfoFilePath = '/registrations/data/'+fields.ClientAddress+'/'+'info.json';
 
     // creating the new dir and copying the contents
     fs.createFile(newpath, function(err) {

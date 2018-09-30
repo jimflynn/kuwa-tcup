@@ -21,7 +21,7 @@ class App extends Component {
           
   	<Navbar color="light" light expand="md">
           <NavbarBrand href="/"><img src={logo} alt="logo" /></NavbarBrand>
-          <Button id="back-button" color="success" href="https://alpha.kuwa.org" >Back</Button>{' '}
+          <Button id="back-button" color="success" href="https://alpha.kuwa.org?page_section=demo" >TCUP HOME</Button>{' '}
         </Navbar>
           
           <h1 className="App-title">Basic Income Faucet</h1>

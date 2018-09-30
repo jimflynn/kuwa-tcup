@@ -24,8 +24,8 @@ import withWidth from '@material-ui/core/withWidth';
 
 const originalNavigationLinks = [
     {
-        linkName: "HOME",
-        link: "https://alpha.kuwa.org/index.html"
+        linkName: "TCUP HOME",
+        link: "https://alpha.kuwa.org/index.html?page_section=demo"
     },
     {
         linkName: "SPONSOR",
@@ -66,7 +66,7 @@ class GeneralNavigation extends Component {
                             null
                         }
                         <Typography variant="title" color="inherit" style={{flexGrow: 1}}>
-                            {props.toolbarTitle ? props.toolbarTitle : "Demo Site"}
+                            {props.toolbarTitle ? props.toolbarTitle : ""}
                         </Typography>
 
                         {this.props.width === 'xs' || this.props.width === 'sm' || this.props.width === 'md' ? 

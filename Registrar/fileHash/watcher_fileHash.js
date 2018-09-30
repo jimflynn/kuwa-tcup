@@ -19,7 +19,7 @@ const web3       = new Web3('https://rinkeby.infura.io/' + properties.infuraKey)
 
 const walletPath     = properties.walletPath;
 const walletAddress  = "0x" + properties.walletAccountAddress.toString("hex");
-const walletPassword = properties.password;
+const walletPassword = properties.walletPassword;
 var   walletNonce    = 0;
 
 var dictionary = {};
@@ -33,10 +33,10 @@ var dictionary = {};
  * @param   {String} password       - Password to the registrar's wallet.
  * @returns {void}
  */
-var loadWallet = async function (walletPath, walletAccountAddress, password) {
+var loadWallet = async function (walletPath, walletAccountAddress, walletPassword) {
 	web3.eth.accounts.wallet.clear();
 	var keyObject = keythereum.importFromFile(walletAccountAddress, walletPath);
-	var privateKey = keythereum.recover(properties.password, keyObject);
+	var privateKey = keythereum.recover(walletPassword, keyObject);
 	privateKey = "0x" + privateKey.toString("hex");
 	web3.eth.accounts.wallet.add(privateKey);
 }
@@ -226,7 +226,7 @@ web3.eth.getTransactionCount(walletAddress)
 });
 
 // Start watching desired directory
-dir = '/home/darshi/Kuwa/videos';
+const dir = properties.registrationsDir;
 chokidar.watch(dir, {persistent: true}).on('all', registerFile);
 
 /**
@@ -264,7 +264,7 @@ async function registerFile(event, filePath) {
 				let regStatus = await getStatus(smartContract, ContractAddress);
 				regStatus = web3.utils.hexToUtf8(regStatus);
 				console.log("Registration Status of " + ClientAddress + " = " + regStatus);
-				// insertRow(ClientAddress, ContractAddress, regStatus);
+				insertRow(ClientAddress, ContractAddress, regStatus);
 			}
 			else {
 				let challengePhrase = await getChallengePhrase(smartContract);
@@ -274,7 +274,7 @@ async function registerFile(event, filePath) {
 				let regStatus = await getStatus(smartContract, ContractAddress);
 				regStatus = web3.utils.hexToUtf8(regStatus);
 				console.log("Registration Status of " + ClientAddress + " = " + regStatus);
-				// insertRow(ClientAddress, ContractAddress, regStatus);
+				insertRow(ClientAddress, ContractAddress, regStatus);
 				
 			}
 

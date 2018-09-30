@@ -136,28 +136,34 @@ var loadWallet = async function(walletPath, accountAddress, password) {
 var run = async function(req, res, ip) {
     
     //loadWallet
+    console.log('load Wallet');
     await loadWallet(properties['walletPath'], properties['accountAddress'], properties['password']);
 
     //compile solidity file
+    console.log('compile solidity file');
     let compilation = await compileSolFile(properties['solFilePath'], 'KuwaRegistration');
     
     //deploy the smart contract
+    console.log('load Wallet');
     let contractInstance =  await deployContract(compilation.kuwaRegistration.abi, compilation.kuwaRegistration.bc, 4300000, '22000000000', "0x"+properties['accountAddress'], [req.fields.address, properties['dummyAddress']]);
 
     //open a connection to mysql database
+    console.log('open a connection to mysql database');
     db.getConnection(function(err, connection) {
       // Use the connection
       var sql_query = "INSERT INTO sponsorship_request (sponsorship_request_id, ip, contract_address, client_address) VALUES ("+ null+ ", '"+ ip + "', '"+ contractInstance.options.address+"','" + req.fields.address + "')";
-         
+      
+      console.log('run query');     
       connection.query( sql_query, function (error, row, fields) {
       
+      console.log('response'); 
       res.status(200).json({
          message: 'Valid Passcode',
          contractAddress: contractInstance.options.address,
          abi: compilation.kuwaRegistration.abi
       });
 
-
+      console.log('close connection'); 
       // And done with the connection.
       connection.release();
 

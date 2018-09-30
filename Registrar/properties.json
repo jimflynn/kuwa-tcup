@@ -1,9 +1,11 @@
 {
-	"walletPath"     : "Your_walletPath_here",
-	"accountAddress" : "Your_accountAddress_here", 
-	"password"       : "Your_password_here",
-	"sqlhost"        : "Your_sqlhost_here",
-	"sqluser"        : "Your_sqluser_here",
-	"sqlpassword"    : "Your_sqlpassword_here",
-	"sqldatabase"    : "Your_sqldatabase_here"
+	"walletPath"           : "[File path to wallet]",
+	"walletAccountAddress" : "[Ethereum address]", 
+	"walletPassword"       : "[Wallet password]",
+	"registrationsDir"     : "[File path to registrations data diretory]]",
+	"sqlhost"        : "localhost",
+	"sqluser"        : "[SQL user name]",
+	"sqlpassword"    : "[SQL user's DB password]",
+	"sqldatabase"    : "alpha_kuwa_registrar_moe",
+	"infuraKey"      : "[API key provided by infura]"
 }

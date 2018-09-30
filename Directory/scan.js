@@ -203,7 +203,7 @@ class DBClient {
 
         let command = sprintf(
                         `INSERT INTO %s \
-                         (registrationB_id, kuwa_address, contract_address, \
+                         (registration_id, kuwa_address, contract_address, \
                          application_binary_interface_id, status, created, \
                          updated, last_checked) \
                          VALUES (%d, '%s', '%s', %d, '%s', '%s', '%s', '%s') \

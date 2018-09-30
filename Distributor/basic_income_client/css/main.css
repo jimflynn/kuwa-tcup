@@ -1,0 +1,166 @@
+body {
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.1em;
+}
+
+h1 {
+	width: 100%;
+	text-align: center;
+}
+
+a {
+	font-weight: bold;
+	margin-top: 20px;
+	color: #006400;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+.link {
+  color: #006400;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.brightLink {
+  color: #00FF00;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.main_container {
+  display: block;
+  margin: auto;
+  width: 75%;
+}
+
+.main_content {
+  width: 100%;
+  float: left;
+  background-color: #FFF;
+  border-radius: 10px;
+}
+
+.left_panel {
+  float: left;
+  margin: 40px auto;
+  width: 50%;
+}
+
+.right_panel {
+  float: left;
+  clear: right;
+  margin: 0px;
+  padding: 0px;
+  width: 50%;
+}
+
+.right_panel div {
+  margin: 10px;
+  height: 100%;
+  width: 95%;
+  background-color: #D3D3D3;
+  border-radius: 10px;
+}
+
+.right_panel h2 {
+  padding: 10px 0px 0px 10px;
+}
+
+.subtext {
+  font-size: .75em;
+  text-align: center;
+  width: 100%;
+}
+
+.leftJust {
+  margin: 10px;
+}
+
+#qrcode {
+  width:150px;
+  height:150px;
+  margin:15px auto;
+	background-image: url("../image/place_holder.png");
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.brightLink:hover {
+  text-decoration: underline;
+}
+
+
+.footer_container {
+	 width: 100%;
+	 float: left;
+	 display: table;
+	 text-align: center;
+}
+
+.footer_container div {
+  color: #FFF;
+	width: 60%;
+  display: table;
+  margin: 30px auto 20px auto;
+  text-align: center;
+  font-size: 0.75em;
+}
+
+#loading {
+	background-image: url("../image/loading.gif");
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.dark_bg {
+	display: none;
+	background-color: #000;
+	opacity: .75;
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	height: 100%;
+	width: 100%;
+}
+
+.popup {
+   position:fixed;
+	 opacity: 1;
+ left:50%;
+ top: 150px;
+}
+
+.popup .wrapper {
+	display: none;
+	z-index: 99;
+  position:relative;
+  background-color: #006400;
+	width: 500px;
+	min-height: 200px;
+  left:-50%;
+	border-radius: 10px;
+	border-color: lightgray;
+	border-width: 5px;
+	border-style: solid;
+}
+
+#close_button {
+	 float: right;
+	 margin-top: -20px;
+	 margin-right: -20px;
+}
+
+#close_button:hover {
+	 float: right;
+	 margin-top: -20px;
+	 margin-right: -20px;
+	 cursor: pointer;
+	 filter: brightness(200%);
+}

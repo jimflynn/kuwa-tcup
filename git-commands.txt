@@ -1,0 +1,7 @@
+The following are the basic GIT command lines
+
+git addall
+git commit -m "[Discription of Commit]"
+git pull
+git puch
+
