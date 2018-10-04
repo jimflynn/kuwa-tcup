@@ -132,7 +132,7 @@ function requestSponsorship(keyObject, passcode, dispatch) {
     .catch(e => {
         dispatch({
             type: 'REQUEST_SPONSORSHIP_REJECTED',
-            payload: { error: "Sorry, we are experiencing internal problems." }
+            payload: { error: "Sorry, we lost our connection. Please try again." }
         })
         dispatch(push('/Error'))
     })

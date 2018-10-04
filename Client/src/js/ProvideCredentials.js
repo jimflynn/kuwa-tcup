@@ -86,7 +86,7 @@ class ProvideCredentials extends Component {
                 <Grid item xs={12} sm={10} md={8} lg={6} xl={6}>
                     <Paper className={classes.root} elevation={1} style={{margin: 20}}>
 
-                        { paperHeader("Step 1 – Provide credentials.") }
+                        { paperHeader("Step 1 – Create a registration request.") }
 
                         { this.props.loading ? <Loading loadingMessage="We are creating your Kuwa ID and requesting your sponsorship. This may take about a minute..." /> : renderContent(this.props, this.state, this.setState.bind(this)) }
                     

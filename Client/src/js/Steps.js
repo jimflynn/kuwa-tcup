@@ -47,13 +47,13 @@ class Steps extends Component {
                         { paperHeader("Create your Kuwa ID") }
 
                         <Typography variant="title" align="left" style={{margin: "1em"}}>
-                            <strong>Step 1 –</strong> Provide credentials.
+                            <strong>Step 1 –</strong> Create a registration request.
                         </Typography>
                         <Typography variant="title" align="left" style={{margin: "1em"}}>
                             <strong>Step 2 –</strong> Record a registration video.
                         </Typography>
                         <Typography variant="title" align="left" style={{margin: "1em"}}>
-                            <strong>Step 3 –</strong> Connect your ID to other IDs.
+                            <strong>Step 3 –</strong> Download your credentials.
                         </Typography>
                         <Typography variant="subheading" align="left" style={{margin: "1em"}}>
                             After the Kuwa network validates your ID, you can use your Kuwa ID to access Kuwa-compatible services, such as basic income distributions, financial services, voting, etc.

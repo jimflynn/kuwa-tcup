@@ -100,8 +100,8 @@ function getCredentials( kuwaID, workObj ) {
   const path = properties['registrations_path'] + kuwaID;
   var message = '';
   if ( !fs.existsSync( path ) ) {
-    message = 'Error: The following path does not exist: ' + path;
-    console.log(message);
+    message = 'Error: No registrations data exists for the provided Kuwa ID address.';
+    console.log(message + " Path: " + path);
     workObj.status = 'error';
     workObj.message = message;
     return workObj;
@@ -133,9 +133,9 @@ function getKuwaIDStatus(workObj) {
 function processKuwaIDStatus(contract, config) {
   var workObj = config.workObj;
   console.log('Kuwa Registration Status: '+ contract.status);
+  workObj.credentials.kuwaIDStatus = contract.status;
   if ( contract.status == 'Valid' ) {
     workObj.message = "The status of this ID is valid.";
-    workObj.credentials.kuwaIDStatus = 'Valid';
     getKuwaIDBalance(workObj);
   }
   else {
@@ -257,9 +257,12 @@ var isAddress = function (address) {
 
 function sendAPIErrorResponse(workObj) {
   dbg('In sendAPIErrorResponse');
-  const apiResult = {
+  var apiResult = {
     status: 'error',
     message: workObj.message
+  }
+  if (workObj.credentials != undefined && workObj.credentials != null) {
+	apiResult.kuwaIDStatus = workObj.credentials.kuwaIDStatus;
   }
   workObj.res.send(JSON.stringify(apiResult));
 }

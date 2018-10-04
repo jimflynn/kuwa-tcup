@@ -5,11 +5,12 @@ var Fetch = require("node-fetch");
 class KuwaCoin {
 
   constructor(ethNetworkUrl, abi, contract_address, callBack) {
-    this.debug = false;
+    this.debug = true;
     this.web3 = new Web3();
     this.web3.setProvider(new this.web3.providers.HttpProvider(ethNetworkUrl));
     this.abi = abi;
     this.contract_address = contract_address;
+    this.lastCount = 0;
     this.loadContract(callBack);
   }
 
@@ -41,7 +42,10 @@ class KuwaCoin {
     balance = balance/(Math.pow(10,18));
     this.dbg(`Balance before send: ${balance}`);
     var count = await this.web3.eth.getTransactionCount(from);
+    //count = count + 1;
     this.dbg(`Number of transactions so far: ${count}`);
+    if ( this.lastCount == count ) count++;
+    this.lastCount = count;
 
     // I chose gas price and gas limit based on what ethereum wallet was recommending for a similar transaction. You may need to change the gas price!
     var rawTransaction = {
@@ -65,9 +69,11 @@ class KuwaCoin {
     balance = balance/(Math.pow(10,18));
     var balance_dest = await contract.methods.balanceOf(to).call();
     balance_dest = balance_dest/(Math.pow(10,18));
-    this.dbg(`Sender Balance after send: ${balance/18}`);
-    this.dbg(`Dest Balance after send: ${balance_dest/18}`);
-    config.callBack(balance_dest, config);
+    this.dbg(`Sender Balance after send: ${balance}`);
+    this.dbg(`Dest Balance after send: ${balance_dest}`);
+    if (config.callBack != null ) {
+      config.callBack(balance_dest, config);
+    }
   }
 
   dbg(text) {

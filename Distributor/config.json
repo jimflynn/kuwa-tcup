@@ -1,0 +1,20 @@
+{
+  "db_host": "localhost",
+  "db_user": "[DB USER]",
+  "db_password": "[DB PASSWORD]",
+  "db": "alpha_kuwa_basic_income",
+  "registrations_path": "[PATH TO REGISTRATION DATA]",
+  "eth_client" :
+  {
+    "my_address": "[PAYER ETHEREUM ADDRESS]",
+    "key_store_dir": "[PATH TO KEYSTORE DIRECTORY]",
+    "password": "[KEYSTORE PASSWORD]",
+    "eth_network_url": "https://rinkeby.infura.io/[INFURA KEY]"
+  },
+  "kuwa_coin" :
+  {
+    "wallet_address": "[KUWACOIN WALLET ADDRESS]",
+    "contract_address": "[KUWACOIN CONTRACT ADDRESS]",
+    "wallet_private_key": "[KUWACOIN PRIVATE KEY]"
+  }
+}

@@ -27,7 +27,7 @@ class Error extends Component {
     render() {
         const { classes } = this.props;
         return (
-            generalOutcome("Error!", this.props.errorMessage, error, classes)
+            generalOutcome("Oops!", this.props.errorMessage, error, classes)
         );
     }
 }

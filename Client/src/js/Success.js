@@ -39,7 +39,7 @@ class Success extends Component {
 
 const successMessage = () => (
     <div>
-        Congratulations! You are now registered to receive a basic income of one KuwaCoin per day. Click <a href={ config.kuwaCoinMetamaskLink } target="_blank">here</a> to see how to add a KuwaCoin wallet to the MetaMask browser plug-in. 
+        Congratulations! You now have a Kuwa ID, which you can use to register for decentralized services, such as a crypto basic income distribution. 
     </div>
 )
 

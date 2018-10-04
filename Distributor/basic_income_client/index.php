@@ -22,24 +22,35 @@
   $(document).ready(function() {
     initializePage();
     var kuwaID = "<?php echo $_GET['kuwaid'] ?>";
-    if (kuwaID == '' ) {
-      kuwaID = getStoredKuwaID();
-    }
-
-    if ( isAddress(kuwaID) ) {
-      processKuwaId( kuwaID );
+    if ( kuwaID != '' ) {
+      if ( isAddress(kuwaID) ) {
+        processKuwaId( kuwaID );
+      }
+      else {
+        showPopUp('invalid_format_message');
+      }
     }
     else {
-      processMissingKuwaID();
+      kuwaID = getStoredKuwaID();
+      if ( kuwaID == null ) {
+        showPopUp('no_id_message');
+      }
+      else if ( isAddress(kuwaID) ) {
+        processKuwaId( kuwaID );
+      }
+      else {
+        showPopUp('invalid_format_message');
+      }
     }
-    //showPopUp();
+    //showPopUp('invalid_format_message');
+    //showPopUp('congrats_message');
+    //showPopUp('api_error_message', "Kuwa ID Status: Invalid");
   });
   </script>
 </head>
 <body style="background-color: #000;">
-
 	<div style="display: block; width: 100%;">
-		<a href="/" class="brightLink">TCUP Home Page</a>
+		<a href="/index.html?page_section=demo" class="brightLink">TCUP Home Page</a>
 		<div class="main_container">
 			<div class="main_content">
 				<div class="left_panel">
@@ -80,23 +91,76 @@
   <div class="popup">
     <div class="wrapper" style="float: left;">
       <img src="image/close.png" id="close_button" onclick="JavaScript: hidePopUp();" />
-      <div style="width: 40%; float: left;">
-        <img src="image/party.png" class="mode_image" />
-      </div>
-      <div style="display: content; color: #FFF; margin-right: 15px;">
-        <h2>Congratulations!</h2>
-        <p>
-          You will get a basic income payment of one KuwaCoin every day.
-        </p>
-        <p class="extra_message" style="display: block;">
-          We noticed that your account balance is zero.
-          So we already sent you a KuwaCoin. Enjoy!
-        </p>
-        <div style="width: 100%; display: block; float: left;">
-          <button class="popup_button" onclick="JavaScript: hidePopUp();" style="width: auto; display: block; margin: 5px auto 10px auto; padding: 2px 5px 2px 5px;">OK</button>
+
+      <div class="popup_content" id="congrats_message">
+        <div class="mood_container">
+          <img src="image/mood-party.png" class="mode_image" />
+        </div>
+        <div class="popup_text">
+          <h2>Congratulations!</h2>
+          <p>
+            You will get a basic income payment of one KuwaCoin every day.
+          </p>
+          <p class="extra_message">
+            We also noticed that your account balance is zero.
+            So we already sent you your first KuwaCoin. Enjoy!
+          </p>
+          <div class="popup_button_container">
+            <button class="popup_button" onclick="JavaScript: hidePopUp();">OK</button>
+          </div>
         </div>
       </div>
-     </div>
+
+      <div class="popup_content" id="invalid_format_message">
+        <div class="mood_container">
+          <img src="image/mood-error.png" class="mode_image" />
+        </div>
+        <div class="popup_text">
+          <h2>Oops!</h2>
+          <p>
+            We detected a Kuwa ID but it's not in the correct format.
+          </p>
+          <div class="popup_button_container">
+            <button class="popup_button" onclick="JavaScript: hidePopUp();">OK</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="popup_content" id="api_error_message">
+        <div class="mood_container">
+          <img src="image/mood-error.png" class="mode_image" />
+        </div>
+        <div class="popup_text">
+          <h2>Yikes!</h2>
+          <p>
+            An error occurred while processing your ID.
+          </p>
+          <p class="extra_message">
+          </p>
+          <div class="popup_button_container">
+            <button class="popup_button" onclick="JavaScript: hidePopUp();">OK</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="popup_content" id="no_id_message">
+        <div class="mood_container">
+          <img src="image/mood-confused.png" class="mode_image" />
+        </div>
+        <div class="popup_text">
+          <h2>Huh?</h2>
+          <p>
+            We did not detect a Kuwa ID. Please <a href="/client/">request an ID</a> or enter one.
+          </p>
+          <p class="extra_message">
+          </p>
+          <div class="popup_button_container">
+            <button class="popup_button" onclick="JavaScript: hidePopUp();">OK</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 
 	<div class="footer_container">

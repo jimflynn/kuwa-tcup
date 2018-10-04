@@ -34,8 +34,11 @@ function processAPIResponse(data, status) {
 	//alert(data);
 	data = JSON.parse(data);
 	if ( data.status != 'success' ) {
-		alert(data.message);
+		var message = null;
+		if (data.message) message = data.message;
+		if (data.kuwaIDStatus) message = message + ' Kuwa ID status: ' + data.kuwaIDStatus;
 		$('#loading').hide();
+		showPopUp('api_error_message', message);
 		return;
 	}
 	let kuwaID = data.kuwaID;
@@ -55,10 +58,10 @@ function processAPIResponse(data, status) {
 	storeKuwaID(kuwaID);
 	if (data.actions.registered == 'yes') {
 		$('.extra_message').hide();
+		showPopUp('congrats_message');
 		if (data.actions.paid > 0) {
 			$('.extra_message').show();
 		}
-		showPopUp();
 	}
 }
 
@@ -80,9 +83,15 @@ function hidePopUp() {
 	$('.wrapper').hide();
 }
 
-function showPopUp() {
+function showPopUp(message_type, extra=null) {
+	// message_type: invalid_format_message, congrats_message, api_error_message
+	//$('#'+message_type+ ' .extra_message').text('').hide();
+	if (extra != null ) {
+		$('#'+message_type+ ' .extra_message').text(extra).show();
+	}
+	$('.popup_content').hide();
+	$('#'+message_type).show();
 	$('.wrapper').show();
-	//$('.popup').show();
 	$('#dark_page').show();
 }
 
@@ -101,6 +110,14 @@ function initializePage() {
 function forgetKuwaID() {
 	localStorage.removeItem("kuwaID");
 	initializePage();
+}
+
+function showKuwaIDNotFoundDialog() {
+	alert('in showKuwaIDNotFoundDialog');
+}
+
+function showInvalidAddressDialog() {
+	alert('in showInvalidAddressDialog');
 }
 
 //++++++++ Utility Functions ***************

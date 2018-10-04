@@ -8,13 +8,16 @@ class KuwaRegistrationContract {
     const abi = config['abi'];
     this.web3 = new Web3();
     this.web3.setProvider(new this.web3.providers.HttpProvider(ethNetworkUrl));
-    this.loadContract(abi, address, config);
+    if (address != null) {
+      this.loadContract(abi, address, config);
+    }
   }
 
   async loadContract(abi, address, config) {
     this.contract = await new this.web3.eth.Contract(JSON.parse(abi), address);
     this.status = Web3.utils.hexToUtf8(await this.contract.methods.getRegistrationStatus().call());
-    config['callBack'](this, config);
+    if (config['callBack'] != null)
+      config['callBack'](this, config);
   }
 
 }

@@ -83,6 +83,23 @@ var loadContract = async function(abi, contractAddress, gas, gasPrice, from) {
  */
 var deployContract = async function(abi, bc, gas, gasPrice, walletAddress, constructorArgs) {
     let contract = new web3.eth.Contract(abi);
+
+    await web3.eth.getTransactionCount("0x"+properties['accountAddress']).then((nonce) => {
+      walletNonce = nonce;
+      console.log("In deployContract Nonce = ", walletNonce);
+    });
+
+    console.log("******* bc *******");
+    console.log(bc);
+    console.log("******* gas *******");
+    console.log(gas);
+    console.log("******* gasPrice *******");
+    console.log(gasPrice);
+    console.log("******* walletAddress *******");
+    console.log(walletAddress);
+    console.log("******* constructorArgs *******");
+    console.log(constructorArgs);
+    console.log("*******************************");
     
     try{
 
@@ -97,14 +114,16 @@ var deployContract = async function(abi, bc, gas, gasPrice, walletAddress, const
         })
 
         //walletNonce = walletNonce + 1;
+	console.log('Setting walletAddress to '+walletAddress);
         contractInstance.options.from = walletAddress;
+	console.log('Setting gasPrice to '+gasPrice);
         contractInstance.options.gasPrice = gasPrice;
+	console.log('Setting gas to '+gas);
         contractInstance.options.gas = gas;
+
         console.log("Contract Address: " + contractInstance.options.address);
         
-
         return contractInstance;
-
     }
     catch(err){
       console.log("and the error is: " + err);
@@ -145,7 +164,15 @@ var run = async function(req, res, ip) {
     
     //deploy the smart contract
     console.log('load Wallet');
-    let contractInstance =  await deployContract(compilation.kuwaRegistration.abi, compilation.kuwaRegistration.bc, 4300000, '22000000000', "0x"+properties['accountAddress'], [req.fields.address, properties['dummyAddress']]);
+    let contractInstance =  await deployContract
+	(
+		compilation.kuwaRegistration.abi, 
+		compilation.kuwaRegistration.bc, 
+		5300000, 
+		'22000000000', 
+		"0x"+properties['accountAddress'], 
+		[req.fields.address, properties['dummyAddress']]
+	);
 
     //open a connection to mysql database
     console.log('open a connection to mysql database');

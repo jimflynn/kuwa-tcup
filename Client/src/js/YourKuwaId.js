@@ -124,7 +124,7 @@ const renderYourKuwaId = (props, state, setState) => (
             {
                 props.registrationStatus === "Video Uploaded" ?
                 <Typography variant="subheading" align="left" style={{margin: "1em"}}>
-                    <strong>Step 3 –</strong> Please ask other people that you know to scan your QR code.
+                    <strong>Step 3 –</strong> Download your Kuwa credentils.
                 </Typography>
                 : null
             }
@@ -132,13 +132,13 @@ const renderYourKuwaId = (props, state, setState) => (
             { 
                 props.qrStatus === "Found" ? null : 
                 <Grid container spacing={24} justify="center">
-                    <Grid item xs={6} align="center">
+                    <Grid style={{display: "none"}} item xs={6} align="center">
                         <Button variant="contained" style={{backgroundColor: buttonColor}} onClick={() => handleScanAction(props, state, setState)}>
                             { props.qrStatus === "Scanning" ? "Stop scan" : "Scan an ID"}
                         </Button>
                     </Grid>
 
-		    <Grid item xs={6} align="center">
+		    <Grid style={{display: "none"}} item xs={6} align="center">
                         <Button variant="contained" style={{backgroundColor: buttonColor}} onClick={() => {
                                 if (window.usingCordova) {
                                     
@@ -161,7 +161,11 @@ const renderYourKuwaId = (props, state, setState) => (
                             Export ID
                         </Button>
                     </Grid>
+		    <h3 style={{width: "100%", textAlign: "center"}}><a href={'https://alpha.kuwa.org/basic_income_client/index.php?kuwaid='+props.kuwaId} target="_blank">
+		    Signup for a Basic Income
+		    </a></h3>
                 </Grid>
+
             }
 
             <Grid container justify="center" style={{margin: "1em"}}>

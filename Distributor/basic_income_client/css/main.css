@@ -164,3 +164,35 @@ a:hover {
 	 cursor: pointer;
 	 filter: brightness(200%);
 }
+
+.mood_container {
+	 width: 40%;
+	 float: left;
+}
+
+.popup_text {
+	display: content;
+	color: #FFF;
+	margin-right: 15px;
+}
+
+.popup_text a {
+	color: #BEBEBE;
+}
+
+.extra_message {
+	display: block;
+}
+
+.popup_button_container {
+	width: 100%;
+	display: block;
+	float: left;
+}
+
+.popup_button {
+	 width: auto;
+	 display: block;
+	 margin: 5px auto 10px auto;
+	 padding: 2px 5px 2px 5px;
+}
