@@ -28,3 +28,6 @@ To start server.js, run:
 Typically, you would want to run the payer.js program once per day as a batch job (e.g., via crontab).  To execute payer.js from the command line, run:
 
     node payer.js   
+
+The user-facing interface for this module is stored in the basic_income_client subfolder.
+ 
