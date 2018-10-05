@@ -15,7 +15,7 @@ IMPORTANT:
 
 To get started, please follow these instructions:
 
-From the api subdirectory, run:
+From the root folder, run:
 
     npm install
 
@@ -31,5 +31,5 @@ Typically, you would want to run the scan.js program once per day as a batch job
 
     node scan.js   
 
-The user-facing interface for this module is stored in the basic_income_client subfolder.
+The user-facing interface for this module is stored in the client subfolder.
  
