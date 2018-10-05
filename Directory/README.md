@@ -1,10 +1,8 @@
-# Distributor Module
+# Directory Module
 
-This module distributes a basic income in ERC-20-compliant KuwaCoins. It includes two main programs:
+This module scans the repository path for Kuwa registration info. It stores Kuwa registrations in an SQL database. 
 
-* server.js - Runs as an Applications Programming Interface (API). Listens for HTTP/HTTPS post requests that provide a Kuwa ID. Checks that the Kuwa registration info exists and that the ID has a "Valid" status. Registers the Kuwa ID for a basic income of one KuwaCoin per day. If the Kuwa ID has a zero KuwaCoin balance, this process will send one KuwaCoin to that address.  
-
-* payer.js - Sends one KuwaCoin to each KuwaID that has registered for a basic income payment.
+You should run scan.js as a cron job to get the most recent registration statuses. The API server server.js must be running before the client/ React UI is started.
 
 
 ## Getting Started
@@ -29,9 +27,9 @@ To start server.js, run:
 
     forever start server.js
 
-Typically, you would want to run the payer.js program once per day as a batch job (e.g., via crontab).  To execute payer.js from the command line, run:
+Typically, you would want to run the scan.js program once per day as a batch job (e.g., via crontab).  To execute payer.js from the command line, run:
 
-    node payer.js   
+    node scan.js   
 
 The user-facing interface for this module is stored in the basic_income_client subfolder.
  
