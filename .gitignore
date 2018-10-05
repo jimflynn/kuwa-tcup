@@ -11,8 +11,7 @@
 hs_err_pid*
 .idea
 *.iml
-.ethereum/*
-.ethereum/keystore*
+.ethereum
 
 # Put private data (e.g. passwords) in "config_private.json" so Git will ignore them.
 # But also include a config.json with dummy info that developers can use as a template.
