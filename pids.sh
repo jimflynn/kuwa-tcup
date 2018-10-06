@@ -10,7 +10,7 @@ function show {
    then
 	case $2 in
 		3000)
-			name="(?)"
+			name="(Sponsor)"
 			;;
 		3001)
 			name="(Sponsor UI)"
@@ -25,7 +25,16 @@ function show {
 			name="(Registrar)"
 			;;
 		3006)
-			name="(?)"
+			name="(Registrar Back-end)"
+			;;
+		3010)
+			name="(Directory)"
+			;;
+		3011)
+			name="(Directory Client)"
+			;;
+		3015)
+			name="(Faucet)"
 			;;
 		3020)
 			name="(BasicIncome)"
