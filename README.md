@@ -22,7 +22,7 @@ A high-level description of the project can be found [here](http://www.kuwa.org/
 
 ## Live Demo & Project Web Site
 
-The project Web site is at [https://alpha.kuwa.org](https://alpha.kuwa.org). On that site, you can sign-up for a Kuwa ID and to get basic income payment of one "KuwaCoin" (an ERC-20 token) per day, Currently, the demo is on the "Rinkeby" Ethereum test net. 
+The project Web site is at [https://alpha.kuwa.org](https://alpha.kuwa.org). On that site, you can sign-up for a Kuwa ID and to get basic income payment of one "KuwaCoin" (an ERC-20 token) per day. Currently, the demo is on the "Rinkeby" Ethereum test net. 
 
 ## Getting Started
 
@@ -69,7 +69,7 @@ We plan to use [SemVer](http://semver.org/) for versioning. For the versions ava
 * **[Carlos Daniel Mondragon Chapa](https://www.linkedin.com/in/carlosmondragonchapa/)** - Software Engineer
 * **[Deh-Jun Tzou](https://www.linkedin.com/in/deh-jun-tzou/)** - Software Engineer
 * **[Hrishikesh Kashyap](https://www.linkedin.com/in/hrishikeshkashyap/)** - Software Engineer
-* **[Jim Flynn](https://jamespflynn.com)** - Project leader, [Kuwa white paper](https://jamespflynn.com/2018/03/01/kuwa-a-decentralized-pseudo-anonymous-and-sybil-resistant-individual-identification-system/) author and President of The Kuwa Foundation 
+* **[Jim Flynn](https://jamespflynn.com)** - Project leader, [Kuwa white paper](https://jamespflynn.com/2018/03/01/kuwa-a-decentralized-pseudo-anonymous-and-sybil-resistant-individual-identification-system/) author and president of The Kuwa Foundation 
 * **[Manush Gupta](https://www.linkedin.com/in/manush-gupta-28657656/)** - Software Engineer
 * **[Priyadarshi Rath](https://www.linkedin.com/in/priyadarshirath/)** - Software Engineer
 
@@ -82,9 +82,6 @@ We plan to use [SemVer](http://semver.org/) for versioning. For the versions ava
 
 <!--See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.-->
 
-## License
-
-We distribute all of the original software we developed for this project under the standard MIT License. Please note, however, that some of the packages that we used to build this project may be licensed under different open source licenses. For example, the Cordova software is covered by the Apache License.
 ## Installing Project Modules
 
 Please see the readme files in each module directory for instructions on running specific modules. 
