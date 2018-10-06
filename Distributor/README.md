@@ -21,6 +21,8 @@ From the api subdirectory, run:
 
     npm install
 
+You should have the latest verion of MySQL installed. This module's root folder contains the required database schema in alpha_kuwa_basic_income.sql.
+
 To start server.js, run:
 
     npm start server.js 

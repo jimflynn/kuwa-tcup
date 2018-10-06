@@ -19,6 +19,10 @@ From the api subdirectory, run:
 
     npm install
 
+You should have the latest verion of MySQL installed. This module's root folder contains the required database schema in alpha_kuwa_registrar_moe.sql.
+
+You should have the latest verion of MySQL installed. This module's root folder contains the required database schema in alpha_kuwa_registrar_moe.sql.
+
 The registrar consists of three parts:
 
 1. The Watcher module, which watches a specified folder and performs sybil detection on new additions. It may use either of two methods, depending on which one is used for execution:
