@@ -1,4 +1,4 @@
-![The Crypto UBI Project](tcup-wide.png)
+![The Crypto UBI Project](tcup-wide.png?raw=true "Title")
 
 # The Kuwa ID Platform and The Crypto UBI Project (TCUP)
 
