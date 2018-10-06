@@ -1,3 +1,5 @@
+![The Crypto UBI Project](tcup-wide.png)
+
 # The Kuwa ID Platform and The Crypto UBI Project (TCUP)
 
 This repository contains the Kuwa Identity Platform and The Crypto Universal Basic Income Project (TCUP, which we pronounce "teacup"). [The Kuwa Foundation](http://kuwa.org) the University of Massachusetts Amherst Center for Data Science (CDS) initially developed this software as part of the CDS's Data Science for the Common Good program.
