@@ -58,7 +58,7 @@ We have made all of the orginal code that we developed for this project availabl
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/hrishikash/d3d1be3d33025638f891a072753526b7) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](https://gist.github.com/hrishikash/d3d1be3d33025638f891a072753526b7) for details on our code of conduct and the process for submitting pull requests to us.
 
 ## Versioning
 
