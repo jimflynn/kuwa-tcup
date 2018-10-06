@@ -1,8 +1,10 @@
-![The Crypto UBI Project](tcup-wide.png?raw=true "Title")
+<p align="center">
+  <img src="kuwa-tcup.png" title="The Crypto UBI Project">
+</p>
 
-# The Kuwa ID Platform and The Crypto UBI Project (TCUP)
+# The Crypto UBI Project (TCUP)
 
-This repository contains the Kuwa Identity Platform and The Crypto Universal Basic Income Project (TCUP, which we pronounce "teacup"). [The Kuwa Foundation](http://kuwa.org) the University of Massachusetts Amherst Center for Data Science (CDS) initially developed this software as part of the CDS's Data Science for the Common Good program.
+This repository contains the Kuwa Identity Platform and The Crypto Universal Basic Income Project (TCUP, which we pronounce "teacup"). [The Kuwa Foundation](http://kuwa.org) the [University of Massachusetts Amherst Center for Data Science (CDS)](https://ds.cs.umass.edu/) initially developed this software as part of the CDS's Data Science for the Common Good program.
 
 **IMPORTANT: This software comes with no warranties and is highly experimental. You should not use it in any non-experimental application, and especially not use it in an application that could risk something of value. USE THIS SOFTWARE AT YOUR OWN RISK.**
 
@@ -33,6 +35,7 @@ The following software packages are prerequisites for running the software in th
   * Apache Web Server 
   * [Apache Cordova](https://cordova.apache.org/) (For deploying JavaScript applications as Android and iOS apps)
   *  OpenCV - Face recognition toolkit
+  *  Php and PhpMyAdmin
 
 ## Also Built With
 
