@@ -20,6 +20,10 @@ A high-level description of the project can be found [here](http://www.kuwa.org/
 * 0.5.0
     * PRE-ALPHA: Working prototype
 
+## Live Demo & Project Web Site
+
+The project Web site is at [https://alpha.kuwa.org](https://alpha.kuwa.org). On that site, you can sign-up for a Kuwa ID and to get basic income payment of one "KuwaCoin" (an ERC-20 token) per day, Currently, the demo is on the "Rinkeby" Ethereum test net. 
+
 ## Getting Started
 
 The purpose of these instructions is to help you get the modules in this project running.
@@ -34,8 +38,8 @@ The following software packages are prerequisites for running the software in th
   * MySQL (for some modules)
   * Apache Web Server 
   * [Apache Cordova](https://cordova.apache.org/) (For deploying JavaScript applications as Android and iOS apps)
-  *  OpenCV - Face recognition toolkit
-  *  Php and PhpMyAdmin
+  * OpenCV - Face recognition toolkit
+  * Php and PhpMyAdmin
 
 ## Also Built With
 
@@ -43,6 +47,44 @@ The following software packages are prerequisites for running the software in th
 * [Web3.js](https://github.com/ethereum/web3.js/) - Ethereum JavaScript API
 * [Solidity](solidity.readthedocs.io/) - Development language for Ethereum smart contracts
 
+## Installing Project Modules
+
+Please see the readme files in each module directory for instructions on running specific modules. 
+
+## Licensing
+All of the original code developed and published by The Kuwa Foundation is open source under the standard MIT License. Please note, however, that other types of open source licenses may govern some of the utilities, libraries and/or plugins that we use to build Kuwa and TCUP. In particular, the Apache license applies to the Cordova software that we use to deploy client software as mobile apps. 
+
+We have made all of the orginal code that we developed for this project available under an [MIT open source license](LICENSE.txt).
+
+## Contributing
+
+Please read [CONTRIBUTING.md](https://gist.github.com/hrishikash/d3d1be3d33025638f891a072753526b7) for details on our code of conduct, and the process for submitting pull requests to us.
+
+## Versioning
+
+We plan to use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+
+## Development team
+
+* **[Carlos Daniel Mondragon Chapa](https://www.linkedin.com/in/carlosmondragonchapa/)** - Software Engineer
+* **[Deh-Jun Tzou](https://www.linkedin.com/in/deh-jun-tzou/)** - Software Engineer
+* **[Hrishikesh Kashyap](https://www.linkedin.com/in/hrishikeshkashyap/)** - Software Engineer
+* **[Jim Flynn](https://jamespflynn.com)** - Project leader, [Kuwa white paper](https://jamespflynn.com/2018/03/01/kuwa-a-decentralized-pseudo-anonymous-and-sybil-resistant-individual-identification-system/) author and President of The Kuwa Foundation 
+* **[Manush Gupta](https://www.linkedin.com/in/manush-gupta-28657656/)** - Software Engineer
+* **[Priyadarshi Rath](https://www.linkedin.com/in/priyadarshirath/)** - Software Engineer
+
+## Contributors and supporters
+
+* **[Bill Clarke](https://www.linkedin.com/in/bill-clarke-0850b850/)** - Technical advisor
+* **[Brant Cheikes](https://www.cics.umass.edu/people/cheikes-brant)** - Executive Director, UMass Center for Data Science
+* **[Philip Silva](https://www.linkedin.com/in/philip-silva-0124a4b/)** - Kuwa Foundation director and co-founder. Contributed project funding.
+* **[Stuart Tempkin](https://www.linkedin.com/in/stuart-tempkin-789a7259/)** - Kuwa Foundation director and co-founder. Contributed project funding.
+
+<!--See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.-->
+
+## License
+
+We distribute all of the original software we developed for this project under the standard MIT License. Please note, however, that some of the packages that we used to build this project may be licensed under different open source licenses. For example, the Cordova software is covered by the Apache License.
 ## Installing Project Modules
 
 Please see the readme files in each module directory for instructions on running specific modules. 
