@@ -71,10 +71,9 @@ We plan to use [SemVer](http://semver.org/) for versioning. For the versions ava
 
 * **[Bill Clarke](https://www.linkedin.com/in/bill-clarke-0850b850/)** - Technical advisor
 * **[Brant Cheikes](https://www.cics.umass.edu/people/cheikes-brant)** - Executive Director, UMass Center for Data Science
-* **[Gavin Andresen](https://www.linkedin.com/in/gavin-andresen-6987971/)** - Assisted by giving many hours of feedback, technical review and advice. Helped formulate the "UBI faucet" concept.
 * **[Philip Silva](https://www.linkedin.com/in/philip-silva-0124a4b/)** - Kuwa Foundation director and co-founder. Contributed project funding.
 * **[Stuart Tempkin](https://www.linkedin.com/in/stuart-tempkin-789a7259/)** - Kuwa Foundation director and co-founder. Contributed project funding.
-* 
+
 <!--See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.-->
 
 ## License
